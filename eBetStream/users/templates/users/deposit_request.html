@@ -1,0 +1,88 @@
+{% extends 'users/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Deposit Request - eBetStream{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Deposit Request</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="alert alert-info">
+                            <p>Your deposit request will be reviewed by our team. Once approved, the amount will be added to your balance.</p>
+                        </div>
+                        
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.amount.id_for_label }}" class="form-label">{{ form.amount.label }}</label>
+                            {{ form.amount|add_class:"form-control" }}
+                            {% if form.amount.errors %}
+                            <div class="text-danger">
+                                {{ form.amount.errors }}
+                            </div>
+                            {% endif %}
+                            <small class="text-muted">Minimum amount: {{ min_amount }} K / Maximum: {{ max_amount }} K</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">{{ form.payment_method.label }}</label>
+                            <div class="row">
+                                {% for method in payment_methods %}
+                                <div class="col-md-4 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body text-center">
+                                            {% if method.logo %}
+                                            <img src="{{ method.logo.url }}" alt="{{ method.name }}" class="img-fluid mb-2" style="max-height: 50px;">
+                                            {% endif %}
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="{{ form.payment_method.name }}" id="payment_method_{{ method.id }}" value="{{ method.id }}" {% if forloop.first %}checked{% endif %}>
+                                                <label class="form-check-label" for="payment_method_{{ method.id }}">
+                                                    {{ method.name }}
+                                                </label>
+                                            </div>
+                                            <small class="text-muted d-block">{{ method.processing_time }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% if form.payment_method.errors %}
+                            <div class="text-danger">
+                                {{ form.payment_method.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.proof_of_payment.id_for_label }}" class="form-label">{{ form.proof_of_payment.label }}</label>
+                            {{ form.proof_of_payment|add_class:"form-control" }}
+                            {% if form.proof_of_payment.errors %}
+                            <div class="text-danger">
+                                {{ form.proof_of_payment.errors }}
+                            </div>
+                            {% endif %}
+                            <small class="text-muted">Accepted formats: JPG, PNG, PDF (max 5MB)</small>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Submit Request</button>
+                            <a href="{% url 'users:profile' %}" class="btn btn-outline-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,325 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}eBetStream{% endblock %}</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+
+      /* Auth Form Styles */
+      .auth-container {
+        max-width: 480px;
+        margin: 3rem auto;
+        padding: 2.5rem;
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .auth-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      .auth-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .auth-header h2 {
+        color: #2d3748;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+
+      .auth-header p {
+        color: #718096;
+        font-size: 1rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #4a5568;
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #2d3748;
+        background-color: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .form-control:focus {
+        border-color: #4299e1;
+        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+        outline: none;
+      }
+
+      .form-control::placeholder {
+        color: #a0aec0;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+        border: none;
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 6px rgba(66, 153, 225, 0.2);
+      }
+
+      .auth-links {
+        margin-top: 2rem;
+        text-align: center;
+      }
+
+      .auth-links a {
+        color: #4299e1;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .auth-links a:hover {
+        color: #3182ce;
+        text-decoration: underline;
+      }
+
+      .auth-divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 1.5rem 0;
+      }
+
+      .auth-divider::before,
+      .auth-divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .auth-divider span {
+        padding: 0 1rem;
+        color: #718096;
+        font-size: 0.875rem;
+      }
+
+      .error-message {
+        color: #e53e3e;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+      }
+
+      .form-text {
+        color: #718096;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+      }
+
+      /* Success and Error Alerts */
+      .success-message,
+      .success-alert {
+        background-color: #f0fff4;
+        border: 1px solid #c6f6d5;
+        border-radius: 10px;
+        padding: 1.25rem;
+        margin-bottom: 1.5rem;
+        color: #2f855a;
+      }
+
+      .error-alert {
+        background-color: #fff5f5;
+        border: 1px solid #fed7d7;
+        border-radius: 10px;
+        padding: 1.25rem;
+        margin-bottom: 1.5rem;
+        color: #c53030;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 576px) {
+        .auth-container {
+          margin: 1.5rem auto;
+          padding: 1.5rem;
+          border-radius: 12px;
+        }
+
+        .form-control {
+          padding: 0.7rem 1rem 0.7rem 2.25rem;
+        }
+
+        .btn-primary {
+          padding: 0.75rem 1.25rem;
+        }
+      }
+
+      /* Logo styles */
+      .navbar-brand img {
+        height: 40px;
+        margin-right: 10px;
+      }
+    </style>
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'core:home' %}">
+          <img src="{% static 'images/Logo.jpg' %}" alt="eBetStream Logo" class="logo">
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#bonusModal">
+                <i class="fas fa-gift"></i> Conditions Bonus
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users:profile' %}">Profil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users:logout' %}">Déconnexion</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users:login' %}">Connexion</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users:register' %}">Inscription</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Modal des conditions de bonus -->
+    <div class="modal fade" id="bonusModal" tabindex="-1" aria-labelledby="bonusModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="bonusModalLabel">Conditions d'utilisation du bonus</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-info">
+              <h6 class="alert-heading">Comment utiliser votre bonus ?</h6>
+              <p>Pour transférer votre bonus dans votre compte principal, vous devez respecter les conditions suivantes :</p>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h6 class="card-title"><i class="fas fa-check-circle text-success"></i> Conditions de mise</h6>
+                    <ul class="list-unstyled">
+                      <li><i class="fas fa-arrow-right text-primary"></i> Miser 3 fois le montant du bonus</li>
+                      <li><i class="fas fa-arrow-right text-primary"></i> Cotes minimum de 1.5</li>
+                      <li><i class="fas fa-arrow-right text-primary"></i> Paris simples uniquement</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h6 class="card-title"><i class="fas fa-clock text-warning"></i> Délais</h6>
+                    <ul class="list-unstyled">
+                      <li><i class="fas fa-arrow-right text-primary"></i> 30 jours pour utiliser le bonus</li>
+                      <li><i class="fas fa-arrow-right text-primary"></i> 7 jours pour compléter les mises</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-warning mt-3">
+              <h6 class="alert-heading">Important</h6>
+              <ul class="mb-0">
+                <li>Le bonus doit être utilisé en une seule fois</li>
+                <li>Les paris combinés ne sont pas acceptés</li>
+                <li>En cas de retrait avant validation des conditions, le bonus sera annulé</li>
+              </ul>
+            </div>
+
+            <div class="alert alert-success mt-3">
+              <h6 class="alert-heading"><i class="fas fa-sync-alt"></i> Transfert automatique</h6>
+              <p class="mb-0">Une fois que vous avez respecté toutes les conditions de mise, votre solde bonus sera automatiquement transféré dans votre solde principal. Vous n'avez aucune action à effectuer, le transfert se fait instantanément après la validation de vos paris.</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-4">
+      {% if messages %} {% for message in messages %}
+      <div
+        class="alert alert-{{ message.tags }} alert-dismissible fade show"
+        role="alert"
+      >
+        {{ message }}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% endfor %} {% endif %} {% block content %} {% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

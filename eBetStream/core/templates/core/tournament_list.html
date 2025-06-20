@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tournois - {{ game.name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Tournois - {{ game.name }}</h1>
+        <a href="{% url 'core:game_list' %}" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left me-2"></i>Retour aux Jeux
+        </a>
+    </div>
+    
+    <div class="row">
+        {% for tournament in tournaments %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                {% if tournament.logo %}
+                <img src="{{ tournament.logo.url }}" class="card-img-top" alt="{{ tournament.name }}" style="height: 200px; object-fit: cover;">
+                {% else %}
+                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                    <i class="fas fa-trophy fa-3x text-muted"></i>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ tournament.name }}</h5>
+                    <p class="card-text">{{ tournament.description|truncatewords:30 }}</p>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-primary">{{ tournament.start_date|date:"d/m/Y" }}</span>
+                        <span class="badge bg-success">{{ tournament.end_date|date:"d/m/Y" }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge bg-info">{{ tournament.matches.count }} Matches</span>
+                        <span class="badge {% if tournament.status == 'active' %}bg-success{% elif tournament.status == 'upcoming' %}bg-warning{% else %}bg-secondary{% endif %}">
+                            {{ tournament.get_status_display }}
+                        </span>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="{% url 'core:match_list' tournament.id %}" class="btn btn-primary w-100">
+                        <i class="fas fa-gamepad me-2"></i>Voir les Matches
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                Aucun tournoi disponible pour ce jeu.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Request Game Organization - eBetStream{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2>Request Game Organization</h2>
+    <p>Use this form to suggest games you would like to see on eBetStream.</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary mt-3">Submit Request</button>
+    </form>
+</div>
+{% endblock %} 

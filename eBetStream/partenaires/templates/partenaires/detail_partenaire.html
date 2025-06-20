@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex align-items-center mb-3">
+        <a href="{% url 'partenaires:liste_partenaires' %}" class="btn btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i> Retour aux partenaires</a>
+        <h1 class="mb-0">{{ partenaire.nom }}</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{{ partenaire.logo.url }}" class="card-img-top p-4" alt="{{ partenaire.nom }}" style="height: 300px; object-fit: contain;">
+                <div class="card-body text-center">
+                    <a href="{{ partenaire.site_web }}" class="btn btn-primary btn-lg" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">{{ partenaire.nom }}</h1>
+                    <p class="card-text">
+                        <span class="badge bg-primary">{{ partenaire.get_type_partenaire_display }}</span>
+                    </p>
+                    <hr>
+                    <div class="card-text">
+                        {{ partenaire.description|linebreaks }}
+                    </div>
+                    <hr>
+                    <div class="text-muted">
+                        <small>Partenaire depuis le {{ partenaire.date_ajout|date:"d/m/Y" }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

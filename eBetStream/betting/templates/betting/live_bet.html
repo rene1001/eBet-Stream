@@ -1,0 +1,400 @@
+<!-- betting/templates/betting/live_bet.html -->
+{% extends 'core/base.html' %} {% block extra_css %}
+<style>
+  .stream-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    background: #000;
+  }
+  .stream-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .bet-card {
+    transition: all 0.3s;
+  }
+  .bet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  .stats-container {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    padding: 15px;
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <!-- Main column (stream + bets) -->
+    <div class="col-lg-8">
+      <div class="card mb-4">
+        <div
+          class="card-header bg-dark text-white d-flex justify-content-between align-items-center"
+        >
+          <h3 class="mb-0">{{ match.team1 }} vs {{ match.team2 }}</h3>
+          <span class="badge bg-danger">LIVE</span>
+        </div>
+        <div class="card-body p-0">
+          <!-- Stream integration -->
+          <div class="stream-container">
+            {% if match.stream.stream_source == 'twitch' %}
+            <iframe
+              src="https://player.twitch.tv/?channel={{ match.stream.stream_url|slice:'-1' }}&parent={{ request.get_host }}"
+              frameborder="0"
+              allowfullscreen="true"
+              scrolling="no"
+            >
+            </iframe>
+            {% elif match.stream.stream_source == 'youtube' %}
+            <iframe
+              src="https://www.youtube.com/embed/{{ match.stream.stream_url }}?autoplay=1"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            >
+            </iframe>
+            {% else %}
+            <iframe
+              src="{{ match.stream.stream_url }}"
+              frameborder="0"
+              allowfullscreen
+            >
+            </iframe>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-time statistics -->
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Real-time Statistics</h4>
+        </div>
+        <div class="card-body stats-container">
+          <div class="row">
+            <!-- Statistics depend on the game -->
+            {% if match.tournament.game.name == 'League of Legends' %}
+            <div class="col-md-4 text-center">
+              <h5>{{ match.team1 }}</h5>
+              <div class="display-4 mb-2" id="team1-kills">0</div>
+              <p>Kills</p>
+            </div>
+            <div class="col-md-4 text-center">
+              <h5>Time</h5>
+              <div class="display-4 mb-2" id="game-time">00:00</div>
+              <p>Gold: <span id="gold-diff">0</span></p>
+            </div>
+            <div class="col-md-4 text-center">
+              <h5>{{ match.team2 }}</h5>
+              <div class="display-4 mb-2" id="team2-kills">0</div>
+              <p>Kills</p>
+            </div>
+            {% elif match.tournament.game.name == 'CS:GO' or
+            match.tournament.game.name == 'Counter-Strike 2' %}
+            <div class="col-md-4 text-center">
+              <h5>{{ match.team1 }}</h5>
+              <div class="display-4 mb-2" id="team1-score">0</div>
+              <p>Rounds</p>
+            </div>
+            <div class="col-md-4 text-center">
+              <h5>Round</h5>
+              <div class="display-4 mb-2" id="current-round">0/30</div>
+              <p>Economy: <span id="economy-diff">$0</span></p>
+            </div>
+            <div class="col-md-4 text-center">
+              <h5>{{ match.team2 }}</h5>
+              <div class="display-4 mb-2" id="team2-score">0</div>
+              <p>Rounds</p>
+            </div>
+            {% else %}
+            <div class="col-12 text-center">
+              <p>
+                Real-time statistics are not available for this game.
+              </p>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Live betting system -->
+      <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+          <h4 class="mb-0">Live Betting - {{ bet_type.name }}</h4>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> "Double" System: Bet on a result and double your bet if you win!
+          </div>
+
+          <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-4">
+              <h5>Choose your bet</h5>
+              <div class="row">
+                {% if bet_type.name == 'Victoire' or bet_type.name == 'Pari
+                simple' %} {# Options for Victory / Simple bet #}
+                <div class="col-md-6 mb-3">
+                  <div class="card bet-card">
+                    <div class="card-body text-center">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="choice"
+                          id="choice-team1"
+                          value="team1"
+                          required
+                        />
+                        <label class="form-check-label" for="choice-team1">
+                          {{ match.team1 }} (x2)
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="card bet-card">
+                    <div class="card-body text-center">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="choice"
+                          id="choice-team2"
+                          value="team2"
+                          required
+                        />
+                        <label class="form-check-label" for="choice-team2">
+                          {{ match.team2 }} (x2)
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% else %} {# Options for other bet types (game specific) #} {% for choice_value, choice_label in
+                bet_choices %}
+                <div class="col-md-6 mb-3">
+                  <div class="card bet-card">
+                    <div class="card-body text-center">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="choice"
+                          id="choice-{{ choice_value }}"
+                          value="{{ choice_value }}"
+                          required
+                        />
+                        <label
+                          class="form-check-label"
+                          for="choice-{{ choice_value }}"
+                        >
+                          {{ choice_label }} (x2)
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %} {% endif %}
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label for="amount" class="form-label">Bet Amount (K)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="amount"
+                name="amount"
+                min="1"
+                step="0.01"
+                required
+              />
+              <div class="form-text">
+                Your current balance: {{ user.ktap_balance|floatformat:"2" }} K
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="alert alert-success">
+                <strong>Potential Winnings:</strong>
+                <span id="potential-win">0.00</span> K
+              </div>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success btn-lg">
+                Place Live Bet
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar (match info + other bets) -->
+    <div class="col-lg-4">
+      <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+          <h4 class="mb-0">Match Information</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="text-center mb-3">
+                <img
+                  src="{{ match.team1.logo.url }}"
+                  alt="{{ match.team1 }}"
+                  class="img-fluid mb-2"
+                  style="max-height: 80px"
+                />
+                <h5>{{ match.team1 }}</h5>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="text-center mb-3">
+                <img
+                  src="{{ match.team2.logo.url }}"
+                  alt="{{ match.team2 }}"
+                  class="img-fluid mb-2"
+                  style="max-height: 80px"
+                />
+                <h5>{{ match.team2 }}</h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <h5>Match Details</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Tournament</span>
+                <span class="badge bg-primary">{{ match.tournament.name }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Game</span>
+                <span class="badge bg-info">{{ match.tournament.game.name }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Status</span>
+                <span class="badge bg-danger">LIVE</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other available bets -->
+      <div class="card">
+        <div class="card-header bg-success text-white">
+          <h4 class="mb-0">Other Available Bets</h4>
+        </div>
+        <div class="card-body">
+          <div class="list-group">
+            {% for bet_type in available_bet_types %}
+            <a
+              href="{% url 'betting:live_bet' match.id bet_type.id %}"
+              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {% if bet_type.id == current_bet_type.id %}active{% endif %}"
+            >
+              {{ bet_type.name }}
+              <span class="badge bg-primary rounded-pill">x2</span>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const amountInput = document.getElementById('amount');
+      const potentialWin = document.getElementById('potential-win');
+
+      // Calculer le gain potentiel (x2 pour le système Doubler)
+      function updatePotentialWin() {
+          const amount = parseFloat(amountInput.value) || 0;
+          const winnings = amount * 2;
+          potentialWin.textContent = winnings.toFixed(2);
+      }
+
+      amountInput.addEventListener('input', updatePotentialWin);
+      updatePotentialWin();
+
+      // Simuler des mises à jour de statistiques en temps réel (à remplacer par des WebSockets)
+      function updateStats() {
+          {% if match.tournament.game.name == 'League of Legends' %}
+              const team1Kills = document.getElementById('team1-kills');
+              const team2Kills = document.getElementById('team2-kills');
+              const gameTime = document.getElementById('game-time');
+              const goldDiff = document.getElementById('gold-diff');
+
+              // Simuler des changements aléatoires (à remplacer par des données réelles)
+              const t1k = parseInt(team1Kills.textContent);
+              const t2k = parseInt(team2Kills.textContent);
+
+              if (Math.random() > 0.8) team1Kills.textContent = t1k + 1;
+              if (Math.random() > 0.8) team2Kills.textContent = t2k + 1;
+
+              // Mettre à jour le temps
+              const timeParts = gameTime.textContent.split(':');
+              let minutes = parseInt(timeParts[0]);
+              let seconds = parseInt(timeParts[1]) + 5;
+
+              if (seconds >= 60) {
+                  seconds = 0;
+                  minutes += 1;
+              }
+
+              gameTime.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+              // Mettre à jour la différence d'or
+              const currentGold = parseInt(goldDiff.textContent.replace(/[^0-9-]/g, ''));
+              const goldChange = Math.floor(Math.random() * 300) - 150;
+              goldDiff.textContent = (currentGold + goldChange) + ' ⛃';
+          {% elif match.tournament.game.name == 'CS:GO' or match.tournament.game.name == 'Counter-Strike 2' %}
+              const team1Score = document.getElementById('team1-score');
+              const team2Score = document.getElementById('team2-score');
+              const currentRound = document.getElementById('current-round');
+              const economyDiff = document.getElementById('economy-diff');
+
+              // Simuler des changements de score (à remplacer par des données réelles)
+              if (Math.random() > 0.9) {
+                  const roundParts = currentRound.textContent.split('/');
+                  let round = parseInt(roundParts[0]) + 1;
+                  const maxRounds = parseInt(roundParts[1]);
+
+                  if (round <= maxRounds) {
+                      currentRound.textContent = `${round}/${maxRounds}`;
+
+                      if (Math.random() > 0.5) {
+                          team1Score.textContent = parseInt(team1Score.textContent) + 1;
+                      } else {
+                          team2Score.textContent = parseInt(team2Score.textContent) + 1;
+                      }
+                  }
+              }
+
+              // Mettre à jour l'économie
+              const currentEconomy = parseInt(economyDiff.textContent.replace(/[^0-9-]/g, ''));
+              const economyChange = Math.floor(Math.random() * 1000) - 500;
+              economyDiff.textContent = '$' + (currentEconomy + economyChange);
+          {% endif %}
+      }
+
+      // Mettre à jour les statistiques toutes les 5 secondes
+      setInterval(updateStats, 5000);
+      updateStats(); // Première mise à jour
+  });
+</script>
+{% endblock %} {% endblock %}

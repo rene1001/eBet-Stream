@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Withdrawal History{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Withdrawal Request History</h4>
+                </div>
+                <div class="card-body">
+                    {% if withdrawal_requests %}
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Request Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for request in withdrawal_requests %}
+                                <tr>
+                                    <td>{{ request.amount|floatformat:"2" }} K</td>
+                                    <td>
+                                        <span class="badge {% if request.status == 'approved' %}bg-success{% elif request.status == 'rejected' %}bg-danger{% else %}bg-warning{% endif %}">
+                                            {{ request.get_status_display }}
+                                        </span>
+                                    </td>
+                                    <td>{{ request.created_at|date:"d/m/Y H:i" }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        {% if is_paginated %}
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                                    {% endif %}
+                                    <li class="page-item active"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        {% endif %}
+
+                    {% else %}
+                        <div class="alert alert-info">
+                            No withdrawal requests found.
+                        </div>
+                    {% endif %}
+
+                    <div class="mt-4">
+                        <a href="{% url 'users:request_withdrawal' %}" class="btn btn-primary">New Withdrawal Request</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

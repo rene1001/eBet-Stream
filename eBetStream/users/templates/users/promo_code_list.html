@@ -1,0 +1,83 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Mes codes promo{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3>Mes codes promo</h3>
+                    <a href="{% url 'users:promo_code_create' %}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Créer un nouveau code
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% if promo_codes %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Date de création</th>
+                                        <th>Utilisations</th>
+                                        <th>Statut</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for code in promo_codes %}
+                                        <tr>
+                                            <td>
+                                                <strong>{{ code.code }}</strong>
+                                                <button class="btn btn-sm btn-outline-secondary ml-2" 
+                                                        onclick="copyToClipboard('{{ code.code }}')"
+                                                        title="Copier le code">
+                                                    <i class="fas fa-copy"></i>
+                                                </button>
+                                            </td>
+                                            <td>{{ code.created_at|date:"d/m/Y H:i" }}</td>
+                                            <td>{{ code.usage_count }} / {{ code.max_uses }}</td>
+                                            <td>
+                                                {% if code.is_active %}
+                                                    <span class="badge badge-success">Actif</span>
+                                                {% else %}
+                                                    <span class="badge badge-danger">Inactif</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'users:promo_code_detail' code.pk %}" 
+                                                   class="btn btn-sm btn-info">
+                                                    <i class="fas fa-eye"></i> Détails
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">
+                            Vous n'avez pas encore créé de code promo.
+                            <a href="{% url 'users:promo_code_create' %}" class="alert-link">Créer votre premier code</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        alert('Code copié dans le presse-papier !');
+    }).catch(function(err) {
+        console.error('Erreur lors de la copie : ', err);
+    });
+}
+</script>
+{% endblock %}
+{% endblock %} 

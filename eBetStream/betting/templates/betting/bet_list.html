@@ -1,0 +1,156 @@
+<!-- betting/templates/betting/bet_list.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">{{ title }}</h1>
+            
+            <!-- Statistics -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Bets</h5>
+                            <p class="card-text h3">{{ total_bets }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Won Bets</h5>
+                            <p class="card-text h3">{{ total_won }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-danger text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Lost Bets</h5>
+                            <p class="card-text h3">{{ total_lost }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-warning text-dark">
+                        <div class="card-body">
+                            <h5 class="card-title">Pending Bets</h5>
+                            <p class="card-text h3">{{ total_pending }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Summary -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Bet Amount</h5>
+                            <p class="card-text h3">{{ total_bet_amount|floatformat:"2" }} K</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Winnings</h5>
+                            <p class="card-text h3">{{ total_winnings|floatformat:"2" }} K</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Net Profit</h5>
+                            <p class="card-text h3 {% if net_profit >= 0 %}text-success{% else %}text-danger{% endif %}">
+                                {{ net_profit|floatformat:"2" }} K
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bet List -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Match</th>
+                                    <th>Bet Type</th>
+                                    <th>Choice</th>
+                                    <th>Amount</th>
+                                    <th>Potential Win</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for bet in bets %}
+                                <tr>
+                                    <td>{{ bet.created_at|date:"d/m/Y H:i" }}</td>
+                                    <td>{{ bet.match }}</td>
+                                    <td>{{ bet.bet_type.name }}</td>
+                                    <td>
+                                        {% if bet.choice == 'team1' %}
+                                            {{ bet.match.team1 }}
+                                        {% elif bet.choice == 'team2' %}
+                                            {{ bet.match.team2 }}
+                                        {% else %}
+                                            {{ bet.get_choice_display }}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ bet.amount|floatformat:"2" }} K</td>
+                                    <td>{{ bet.potential_win|floatformat:"2" }} K</td>
+                                    <td>
+                                        <span class="badge {% if bet.status == 'won' %}bg-success{% elif bet.status == 'lost' %}bg-danger{% elif bet.status == 'pending' %}bg-warning{% else %}bg-secondary{% endif %}">
+                                            {{ bet.get_status_display }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="7" class="text-center">You haven't placed any bets yet.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            {% if is_paginated %}
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    </li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                    <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

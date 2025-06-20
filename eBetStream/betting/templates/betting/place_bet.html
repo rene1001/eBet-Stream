@@ -1,0 +1,232 @@
+<!-- betting/templates/betting/place_bet.html -->
+{% extends 'base.html' %} {% load static %} {% block title %}Place Bet - {{
+match.team1.name }} vs {{ match.team2.name }}{% endblock %} {% block content %}
+<div class="container py-5">
+  <!-- Header with navigation -->
+  {# Breadcrumb supprimé #}
+
+  <div class="row">
+    <!-- Match information -->
+    <div class="col-md-8">
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Current Match</h4>
+            <span
+              class="badge {% if match.status == 'live' %}bg-danger{% elif match.status == 'upcoming' %}bg-warning{% else %}bg-secondary{% endif %}"
+            >
+              {{ match.get_status_display }}
+            </span>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- Teams display -->
+          <div class="text-center mb-4">
+            <div class="row align-items-center">
+              <div class="col-5 text-end">
+                <img
+                  src="{{ match.team1.logo.url }}"
+                  alt="{{ match.team1.name }}"
+                  class="img-fluid mb-2"
+                  style="max-height: 120px"
+                />
+                <h4 class="mb-0">{{ match.team1.name }}</h4>
+              </div>
+              <div class="col-2">
+                <h2 class="mb-0 text-muted">VS</h2>
+              </div>
+              <div class="col-5 text-start">
+                <img
+                  src="{{ match.team2.logo.url }}"
+                  alt="{{ match.team2.name }}"
+                  class="img-fluid mb-2"
+                  style="max-height: 120px"
+                />
+                <h4 class="mb-0">{{ match.team2.name }}</h4>
+              </div>
+            </div>
+          </div>
+
+          <!-- Match information -->
+          <div class="row text-center mb-4">
+            <div class="col-md-6">
+              <div class="p-3 bg-light rounded">
+                <i class="fas fa-calendar-alt text-primary mb-2"></i>
+                <h6 class="mb-0">Date and Time</h6>
+                <p class="mb-0">{{ match.start_time|date:"d/m/Y H:i" }}</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 bg-light rounded">
+                <i class="fas fa-trophy text-warning mb-2"></i>
+                <h6 class="mb-0">Tournament</h6>
+                <p class="mb-0">{{ match.tournament.name }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Betting form -->
+          <form method="post" class="mt-4">
+            {% csrf_token %}
+            <div class="card mb-4">
+              <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Place Your Bet</h5>
+              </div>
+              <div class="card-body">
+                <div class="mb-4">
+                  <label class="form-label fw-bold">Your Choice</label>
+                  {% for radio in form.choice %}
+                  <div class="form-check">
+                    {{ radio.tag }}
+                    <label
+                      class="form-check-label"
+                      for="{{ radio.id_for_label }}"
+                    >
+                      {{ radio.choice_label }}
+                    </label>
+                  </div>
+                  {% endfor %} {% if form.choice.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.choice.errors }}
+                  </div>
+                  {% endif %}
+                </div>
+                <div class="mb-4">
+                  <label
+                    for="{{ form.amount.id_for_label }}"
+                    class="form-label fw-bold"
+                    >Bet Amount (K)</label
+                  >
+                  {{ form.amount }} {% if form.amount.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.amount.errors }}
+                  </div>
+                  {% endif %}
+                </div>
+                <div class="alert alert-info">
+                  <i class="fas fa-wallet me-2"></i>Available Balance:
+                  <strong>{{ user.ktap_balance|floatformat:"2" }} K</strong>
+                </div>
+                <button type="submit" class="btn btn-success btn-lg w-100">
+                  <i class="fas fa-ticket-alt me-2"></i>Place Bet
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar with information -->
+    <div class="col-md-4">
+      <!-- Betting rules -->
+      <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+          <h5 class="mb-0">Betting Rules</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex align-items-center">
+              <i class="bi bi-wallet text-success me-3"></i>
+              <div>
+                <strong>Minimum Amount</strong>
+                <p class="mb-0 text-muted">1 K per bet</p>
+              </div>
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="fas fa-wallet text-primary me-3"></i>
+              <div>
+                <strong>Maximum Amount</strong>
+                <p class="mb-0 text-muted">
+                  {{ user.ktap_balance|floatformat:"2" }} K (available balance)
+                </p>
+              </div>
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="fas fa-clock text-warning me-3"></i>
+              <div>
+                <strong>Betting Deadline</strong>
+                <p class="mb-0 text-muted">Until match start</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Potential winnings -->
+      <div class="card">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0">Potential Winnings</h5>
+        </div>
+        <div class="card-body">
+          <div id="potential-winnings" class="alert alert-success">
+            <i class="fas fa-coins me-2"></i>Calculated based on amount
+          </div>
+          <div class="text-center mt-3">
+            <small class="text-muted">
+              <i class="fas fa-info-circle me-1"></i>
+              Winnings are calculated based on bet amount and current odds
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const amountInput = document.getElementById(
+      "{{ form.amount.id_for_label }}"
+    );
+    const choiceSelect = document.getElementById(
+      "{{ form.choice.id_for_label }}"
+    );
+    const potentialWinnings = document.getElementById("potential-winnings");
+
+    function updatePotentialWinnings() {
+      const amount = parseFloat(amountInput.value) || 0;
+      const choice = choiceSelect ? choiceSelect.value : null;
+      let odds = 0;
+
+      if (choiceSelect && choiceSelect.options[choiceSelect.selectedIndex]) {
+        odds =
+          parseFloat(
+            choiceSelect.options[choiceSelect.selectedIndex].dataset.odds
+          ) || 0;
+      } else if (document.querySelector('input[name="choice"]:checked')) {
+        const selectedRadio = document.querySelector(
+          'input[name="choice"]:checked'
+        );
+        odds = parseFloat(selectedRadio.dataset.odds) || 0;
+      }
+
+      if (amount > 0 && odds > 0) {
+        const winnings = (amount * odds).toFixed(2);
+        potentialWinnings.innerHTML = `
+                <div class="text-center">
+                    <h4 class="mb-2">${winnings} K</h4>
+                    <p class="mb-0 text-muted">Potential Winnings</p>
+                </div>`;
+      } else {
+        potentialWinnings.innerHTML = `
+                <div class="text-center">
+                    <i class="fas fa-coins me-2"></i>
+                    <span>Calculated based on amount</span>
+                </div>`;
+      }
+    }
+
+    amountInput.addEventListener("input", updatePotentialWinnings);
+
+    // Listen for changes on radio buttons
+    const radioButtons = document.querySelectorAll('input[name="choice"]');
+    radioButtons.forEach((radio) => {
+      radio.addEventListener("change", updatePotentialWinnings);
+    });
+
+    // Initial calculation
+    updatePotentialWinnings();
+  });
+</script>
+{% endblock %}

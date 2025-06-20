@@ -1,0 +1,147 @@
+<!-- betting/templates/betting/bet_detail.html -->
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0">Bet Details</h3>
+                    <span class="badge 
+                        {% if bet.status == 'won' %}bg-success
+                        {% elif bet.status == 'lost' %}bg-danger
+                        {% elif bet.status == 'pending' %}bg-warning
+                        {% else %}bg-secondary{% endif %}">
+                        {{ bet.get_status_display }}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <a href="{% url 'betting:bet_list' %}" class="btn btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i> Retour à la liste des paris</a>
+                        <h1 class="mb-0">{{ bet.nom|default:bet.match }}</h1>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <img src="{{ bet.match.team1.logo.url }}" alt="{{ bet.match.team1 }}" class="img-fluid" style="max-height: 100px;">
+                                <h4 class="mt-2">{{ bet.match.team1 }}</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <img src="{{ bet.match.team2.logo.url }}" alt="{{ bet.match.team2 }}" class="img-fluid" style="max-height: 100px;">
+                                <h4 class="mt-2">{{ bet.match.team2 }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i> "Double" Betting System: Bet on a result and double your bet if you win!
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Bet Information</h5>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Bet Type
+                                    <span class="badge bg-primary">{{ bet.bet_type.name }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Bet Amount
+                                    <span class="fw-bold">{{ bet.amount|floatformat:"2" }} K</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Odds
+                                    <span class="fw-bold">x{{ bet.bet_type.odds }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Potential Winnings
+                                    <span class="fw-bold text-success">{{ bet.potential_win|floatformat:"2" }} K</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Your Choice
+                                    <span class="badge bg-info">{{ bet.get_choice_display }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Match Information</h5>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Tournament
+                                    <span>{{ bet.match.tournament }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Game
+                                    <span>{{ bet.match.tournament.game }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Match Date
+                                    <span>{{ bet.match.start_time|date:"d/m/Y H:i" }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Match Status
+                                    <span class="badge 
+                                        {% if bet.match.status == 'upcoming' %}bg-warning
+                                        {% elif bet.match.status == 'live' %}bg-danger
+                                        {% elif bet.match.status == 'completed' %}bg-success
+                                        {% else %}bg-secondary{% endif %}">
+                                        {{ bet.match.get_status_display }}
+                                    </span>
+                                </li>
+                                {% if bet.match.status == 'completed' %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Final Score
+                                    <span class="fw-bold">{{ bet.match.score_team1 }} - {{ bet.match.score_team2 }}</span>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    {% if bet.status == 'won' %}
+                    <div class="alert alert-success">
+                        <i class="bi bi-trophy"></i> Congratulations! You won <strong>{{ bet.potential_win|floatformat:"2" }} K</strong> with this bet.
+                    </div>
+                    {% elif bet.status == 'lost' %}
+                    <div class="alert alert-danger">
+                        <i class="bi bi-exclamation-triangle"></i> Too bad! You lost your bet of <strong>{{ bet.amount|floatformat:"2" }} K</strong>.
+                    </div>
+                    {% elif bet.status == 'pending' %}
+                    <div class="alert alert-warning">
+                        <i class="bi bi-hourglass-split"></i> Your bet is pending the match result.
+                    </div>
+                    {% endif %}
+                    
+                    {% if hasattr(bet, 'liveBet') %}
+                    <div class="card mt-3">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">Live Bet Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Timestamp:</strong> {{ bet.liveBet.timestamp|date:"d/m/Y H:i:s" }}</p>
+                            <p><strong>Game Time:</strong> {{ bet.liveBet.match_time|default:"Not available" }}</p>
+                            <p><strong>Score at bet time:</strong> {{ bet.liveBet.current_score|default:"0-0" }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'betting:bet_list' %}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Back to my bets
+                        </a>
+                        {% if bet.match.status == 'live' %}
+                        <a href="{% url 'betting:live_bet' bet.match.id bet.bet_type.id %}" class="btn btn-success">
+                            <i class="bi bi-lightning"></i> Place another live bet
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

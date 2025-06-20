@@ -1,0 +1,332 @@
+{% extends 'core/base.html' %} {% block title %}{{ match.team1.name }} vs {{
+match.team2.name }} - eBetStream{% endblock %} {% block content %}
+<div class="container">
+  <!-- Breadcrumbs -->
+  <div class="container mt-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'core:home' %}">Accueil</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'core:game_list' %}">Jeux</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'core:tournament_list' match.tournament.game.id %}"
+            >{{ match.tournament.game.name }} Tournois</a
+          >
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'core:match_list' match.tournament.id %}"
+            >{{ match.tournament.name }} Matches</a
+          >
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">{{ match }}</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Informations du tournoi -->
+  <div class="mb-4">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'core:home' %}">Accueil</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'core:game_list' %}">Jeux</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'core:tournament_list' match.tournament.game.id %}"
+            >{{ match.tournament.game.name }} Tournois</a
+          >
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'core:match_list' match.tournament.id %}"
+            >{{ match.tournament.name }} Matches</a
+          >
+        </li>
+        <li class="breadcrumb-item active">{{ match }}</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Statut du match -->
+  <div
+    class="alert {% if match.status == 'live' %}alert-danger{% elif match.status == 'upcoming' %}alert-primary{% elif match.status == 'completed' %}alert-success{% else %}alert-secondary{% endif %} mb-4"
+  >
+    <strong>
+      {% if match.status == 'live' %}
+      <i class="bi bi-broadcast"></i> EN DIRECT {% elif match.status ==
+      'upcoming' %} <i class="bi bi-calendar-event"></i> À VENIR {% elif
+      match.status == 'completed' %} <i class="bi bi-check-circle"></i> TERMINÉ
+      {% elif match.status == 'canceled' %}
+      <i class="bi bi-x-circle"></i> ANNULÉ {% endif %}
+    </strong>
+    {% if match.status == 'upcoming' %} - Début le {{
+    match.start_time|date:"d/m/Y à H:i" }} {% endif %}
+  </div>
+
+  <!-- Détails du match -->
+  <div class="card mb-4">
+    <div class="card-header bg-dark text-white">
+      <h5 class="mb-0">
+        {{ match.tournament.game.name }} - {{ match.tournament.name }}
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="row align-items-center">
+        <!-- Équipe 1 -->
+        <div class="col-md-4 text-center">
+          {% if match.team1.logo %}
+          <img
+            src="{{ match.team1.logo.url }}"
+            alt="{{ match.team1.name }}"
+            class="img-fluid mb-3"
+            style="max-height: 120px"
+          />
+          {% endif %}
+          <h3>{{ match.team1.name }}</h3>
+          {% if match.status == 'live' or match.status == 'completed' %}
+          <h4 class="score">{{ match.score_team1|default:"0" }}</h4>
+          {% endif %}
+        </div>
+
+        <!-- VS -->
+        <div class="col-md-4 text-center">
+          <h2 class="display-4 my-4">VS</h2>
+          <p class="text-muted">{{ match.start_time|date:"d/m/Y H:i" }}</p>
+        </div>
+
+        <!-- Équipe 2 -->
+        <div class="col-md-4 text-center">
+          {% if match.team2.logo %}
+          <img
+            src="{{ match.team2.logo.url }}"
+            alt="{{ match.team2.name }}"
+            class="img-fluid mb-3"
+            style="max-height: 120px"
+          />
+          {% endif %}
+          <h3>{{ match.team2.name }}</h3>
+          {% if match.status == 'live' or match.status == 'completed' %}
+          <h4 class="score">{{ match.score_team2|default:"0" }}</h4>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if match.status == 'completed' and match.winner %}
+      <div class="alert alert-success text-center mt-4">
+        <h5 class="mb-0">Vainqueur: {{ match.winner.name }}</h5>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Section des paris -->
+  <div class="row">
+    <!-- Options de paris -->
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Placer un pari</h5>
+        </div>
+        <div class="card-body">
+          {% if match.status == 'upcoming' %} {% if user.is_authenticated %}
+          <form method="post" action="{% url 'betting:place_bet' match.id %}">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="bet_type" class="form-label">Type de pari</label>
+              <select
+                class="form-select"
+                id="bet_type"
+                name="bet_type"
+                required
+              >
+                <option value="" selected disabled>
+                  Sélectionnez un type de pari
+                </option>
+                {% for bet_type in match.tournament.game.bet_types.all %}
+                <option value="{{ bet_type.id }}">
+                  {{ bet_type.name }} - Cote: {{ bet_type.odds }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="choice" class="form-label">Votre pronostic</label>
+              <select class="form-select" id="choice" name="choice" required>
+                <option value="" selected disabled>
+                  Sélectionnez votre pronostic
+                </option>
+                <option value="team1">{{ match.team1.name }}</option>
+                <option value="team2">{{ match.team2.name }}</option>
+                <option value="draw">Match nul</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="amount" class="form-label">Montant du pari (K)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="amount"
+                name="amount"
+                min="1"
+                step="0.01"
+                required
+              />
+              <div class="form-text">
+                Votre solde actuel: {{ user.ktap_balance|floatformat:"2" }} K
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="potential_winnings" class="form-label"
+                >Gains potentiels</label
+              >
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="potential_winnings"
+                  readonly
+                />
+                <span class="input-group-text">K</span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-ticket-alt me-2"></i>Placer le pari
+            </button>
+          </form>
+
+          <!-- Script pour calculer les gains potentiels -->
+          <script>
+            document.addEventListener("DOMContentLoaded", function () {
+              const betTypeSelect = document.getElementById("bet_type");
+              const amountInput = document.getElementById("amount");
+              const potentialWinningsInput =
+                document.getElementById("potential_winnings");
+
+              function calculatePotentialWinnings() {
+                const selectedOption =
+                  betTypeSelect.options[betTypeSelect.selectedIndex];
+                if (selectedOption && selectedOption.value) {
+                  const oddsText = selectedOption.text.split("Cote: ")[1];
+                  const odds = parseFloat(oddsText);
+                  const amount = parseFloat(amountInput.value) || 0;
+
+                  if (!isNaN(odds) && !isNaN(amount)) {
+                    const winnings = (amount * odds).toFixed(2);
+                    potentialWinningsInput.value = winnings;
+                  }
+                }
+              }
+
+              betTypeSelect.addEventListener(
+                "change",
+                calculatePotentialWinnings
+              );
+              amountInput.addEventListener("input", calculatePotentialWinnings);
+            });
+          </script>
+          {% else %}
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>Vous devez être connecté pour placer un pari.
+            <a href="{% url 'users:login' %}" class="alert-link">Se connecter</a>
+          </div>
+          {% endif %} {% elif match.status == 'live' %}
+          <div class="alert alert-danger">
+            <i class="fas fa-bolt me-2"></i>Le match est en cours. Les paris en direct sont disponibles.
+            <a href="{% url 'betting:live_events' match.id %}" class="btn btn-danger mt-2">
+              <i class="fas fa-bolt me-2"></i>Parier en Direct
+            </a>
+          </div>
+          {% elif match.status == 'completed' %}
+          <div class="alert alert-info">
+            <p>Les paris sont fermés pour ce match car il est terminé.</p>
+          </div>
+          {% elif match.status == 'canceled' %}
+          <div class="alert alert-danger">
+            <p>Ce match a été annulé. Tous les paris ont été remboursés.</p>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Informations supplémentaires -->
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+          <h5 class="mb-0">Informations</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center"
+            >
+              Tournoi
+              <span>{{ match.tournament.name }}</span>
+            </li>
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center"
+            >
+              Jeu
+              <span>{{ match.tournament.game.name }}</span>
+            </li>
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center"
+            >
+              Date
+              <span>{{ match.start_time|date:"d/m/Y" }}</span>
+            </li>
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center"
+            >
+              Heure
+              <span>{{ match.start_time|date:"H:i" }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Actions du match -->
+      <div class="card">
+        <div class="card-header bg-dark text-white">
+          <h5 class="mb-0">Actions</h5>
+        </div>
+        <div class="card-body">
+          <div class="d-grid gap-2">
+            {% with active_streaming=None %}
+                {% for streaming in match.streamings.all %}
+                    {% if streaming.actif and not active_streaming %}
+                        {% with active_streaming=streaming %}
+                            <a href="{% url 'streaming:watch_stream' streaming.id %}" class="btn btn-danger">
+                                <i class="fas fa-video me-2"></i>Watch Live
+                            </a>
+                        {% endwith %}
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}
+            <a href="{% url 'core:tournament_detail' match.tournament.id %}" class="btn btn-outline-primary">
+                <i class="fas fa-trophy me-2"></i>Voir le Tournoi
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script>
+  // Rafraîchir la page toutes les 30 secondes si le match est en direct
+  {% if match.status == 'live' %}
+  setTimeout(function() {
+      location.reload();
+  }, 30000);
+  {% endif %}
+</script>
+{% endblock %}

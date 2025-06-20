@@ -1,0 +1,109 @@
+<!-- core/templates/core/home.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Accueil - eBetStream{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Prochains Matchs -->
+    <section class="mb-5">
+        <h2 class="mb-4">
+            <i class="fas fa-calendar text-warning me-2"></i>Prochains Matchs
+        </h2>
+        <div class="row">
+            {% for match in upcoming_matches %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">{{ match.team1.name }} vs {{ match.team2.name }}</h5>
+                            <span class="badge bg-warning">À venir</span>
+                        </div>
+                        <div class="text-center mb-3">
+                            <div class="row align-items-center">
+                                <div class="col-5 text-end">
+                                    <img src="{{ match.team1.logo.url }}" alt="{{ match.team1.name }}" class="img-fluid" style="max-height: 50px;">
+                                    <h6 class="mt-2">{{ match.team1.name }}</h6>
+                                </div>
+                                <div class="col-2">
+                                    <h4 class="mb-0">VS</h4>
+                                </div>
+                                <div class="col-5 text-start">
+                                    <img src="{{ match.team2.logo.url }}" alt="{{ match.team2.name }}" class="img-fluid" style="max-height: 50px;">
+                                    <h6 class="mt-2">{{ match.team2.name }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-clock me-2"></i>{{ match.start_time|date:"d/m/Y H:i" }}
+                            </div>
+                            <div class="d-flex gap-2 flex-wrap">
+                                <a href="{% url 'betting:place_bet' match.id %}" class="btn btn-success">
+                                    <i class="fas fa-ticket-alt me-2"></i>Parier
+                                </a>
+                                {% with active_streaming=None %}
+                                    {% for streaming in match.streamings.all %}
+                                        {% if streaming.actif and not active_streaming %}
+                                            {% with active_streaming=streaming %}
+                                                <a href="{% url 'streaming:watch_stream' streaming.id %}" class="btn btn-danger" style="min-width: 120px;">
+                                                    <i class="fas fa-play-circle me-2"></i>Watch Live
+                                                </a>
+                                            {% endwith %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endwith %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    Aucun match à venir pour le moment.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Jeux Populaires -->
+    <section>
+        <h2 class="mb-4">
+            <i class="fas fa-gamepad text-primary me-2"></i>Jeux Populaires
+        </h2>
+        <div class="row">
+            {% for game in popular_games %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    {% if game.logo %}
+                    <img src="{{ game.logo.url }}" class="card-img-top" alt="{{ game.name }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-gamepad fa-3x text-muted"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ game.name }}</h5>
+                        <p class="card-text">{{ game.description|truncatewords:30 }}</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="{% url 'core:tournament_list' game.id %}" class="btn btn-primary w-100">
+                            <i class="fas fa-trophy me-2"></i>Voir les Tournois
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    Aucun jeu disponible pour le moment.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}

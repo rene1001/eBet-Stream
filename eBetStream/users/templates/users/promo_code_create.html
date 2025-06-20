@@ -1,0 +1,37 @@
+{% extends 'users/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Créer un code promo{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Créer un code promo</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="alert alert-info">
+                            <h5>Comment ça marche ?</h5>
+                            <ul>
+                                <li>Créez votre code promo unique</li>
+                                <li>Partagez-le avec vos amis</li>
+                                <li>Ils reçoivent 200% de bonus sur leur premier dépôt</li>
+                                <li>Vous recevez 100% de bonus sur leur dépôt</li>
+                            </ul>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary">Créer le code promo</button>
+                            <a href="{% url 'users:promo_code_list' %}" class="btn btn-secondary">Retour à la liste</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

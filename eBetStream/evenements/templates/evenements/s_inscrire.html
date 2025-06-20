@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>S'inscrire à {{ evenement.nom }}</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.as_p }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Confirmer l'inscription</button>
+                        <a href="{% url 'evenements:detail_evenement' evenement.id %}" class="btn btn-secondary">Annuler</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

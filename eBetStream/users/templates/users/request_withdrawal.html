@@ -1,0 +1,160 @@
+{% extends 'users/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Withdrawal Request - eBetStream{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div
+          class="card-header bg-primary text-white d-flex justify-content-between align-items-center"
+        >
+          <h4 class="mb-0">Withdrawal Request</h4>
+          <span class="badge bg-light text-primary"
+            >Balance: {{ user.kapanga_balance|floatformat:"2" }} K</span
+          >
+        </div>
+        <div class="card-body">
+          {% if messages %} {% for message in messages %}
+          <div
+            class="alert alert-{{ message.tags }} alert-dismissible fade show"
+            role="alert"
+          >
+            {{ message }}
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            ></button>
+          </div>
+          {% endfor %} {% endif %}
+
+          <div class="alert alert-info mb-4">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            <strong>Information:</strong> Withdrawals are processed within 24 to 48 business hours.
+          </div>
+
+          <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            
+            <div class="mb-4">
+              <h5 class="mb-3">Payment References</h5>
+              <div class="card bg-light">
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label for="id_payment_method" class="form-label">Payment Method</label>
+                    {{ form.payment_method.errors }}
+                    <select class="form-select" id="id_payment_method" name="payment_method" required>
+                      <option value="">Select a payment method</option>
+                      {% for value, text in form.fields.payment_method.choices %}
+                        <option value="{{ value }}" {% if form.payment_method.value == value %}selected{% endif %}>{{ text }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+                  <div id="paypal_details" class="payment-details d-none">
+                    <div class="mb-3">
+                      <label for="id_paypal_email" class="form-label">PayPal Email</label>
+                      {{ form.paypal_email.errors }}
+                      <input type="email" class="form-control" id="id_paypal_email" name="paypal_email" value="{{ form.paypal_email.value|default:'' }}">
+                    </div>
+                  </div>
+                  
+                  <div id="crypto_details" class="payment-details d-none">
+                    <div class="mb-3">
+                      <label for="id_crypto_address" class="form-label">Crypto Wallet Address</label>
+                      {{ form.crypto_address.errors }}
+                      <input type="text" class="form-control" id="id_crypto_address" name="crypto_address" value="{{ form.crypto_address.value|default:'' }}">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h5 class="mb-3">Withdrawal Details</h5>
+            {{ form|crispy }}
+
+            <div class="d-grid gap-2 mt-4">
+              <button type="submit" class="btn btn-primary btn-lg">
+                <i class="bi bi-check-circle me-2"></i>Confirm Request
+              </button>
+              <a
+                href="{% url 'users:profile' %}"
+                class="btn btn-outline-secondary"
+              >
+                <i class="bi bi-arrow-left me-2"></i>Back to Profile
+              </a>
+            </div>
+          </form>
+
+          <div class="mt-4 text-center">
+            <a
+              href="{% url 'users:withdrawal_history' %}"
+              class="text-decoration-none"
+            >
+              <i class="bi bi-clock-history me-1"></i>View Withdrawal History
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const paymentMethod = document.getElementById('id_payment_method');
+  const paymentDetails = document.querySelectorAll('.payment-details');
+  const amountField = document.getElementById('id_amount');
+
+  // Function to display appropriate payment details
+  function showPaymentDetails() {
+    // Hide all payment details
+    paymentDetails.forEach(detail => detail.classList.add('d-none'));
+    
+    // Show details corresponding to selected method
+    const selectedMethod = paymentMethod.value;
+    if (selectedMethod) {
+      const detailsElement = document.getElementById(selectedMethod + '_details');
+      if (detailsElement) {
+        detailsElement.classList.remove('d-none');
+      }
+      
+      // Update help text based on selected method
+      updateHelpText(selectedMethod);
+    }
+  }
+  
+  // Function to update help text
+  function updateHelpText(method) {
+    let helpText = '';
+    
+    switch(method) {
+      case 'paypal':
+        helpText = 'PayPal withdrawals are typically processed within 24 hours.';
+        break;
+      case 'crypto':
+        helpText = 'Cryptocurrency withdrawals are processed within 24 hours. Please ensure you provide a correct address.';
+        break;
+      default:
+        helpText = 'Withdrawals are processed within 24 to 48 business hours.';
+    }
+    
+    // Update help text in alert
+    const alertInfo = document.querySelector('.alert-info');
+    if (alertInfo) {
+      alertInfo.innerHTML = '<i class="bi bi-info-circle-fill me-2"></i><strong>Information:</strong> ' + helpText;
+    }
+  }
+
+  // Show details on page load if a method is already selected
+  showPaymentDetails();
+
+  // Add event listener for method change
+  paymentMethod.addEventListener('change', showPaymentDetails);
+});
+</script>
+{% endblock %}

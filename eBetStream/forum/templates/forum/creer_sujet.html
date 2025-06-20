@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'forum:liste_categories' %}">Forum</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'forum:liste_sujets' categorie.slug %}">{{ categorie.nom }}</a></li>
+            <li class="breadcrumb-item active">Nouveau sujet</li>
+        </ol>
+    </nav>
+    <h1>Créer un nouveau sujet</h1>
+    <div class="mb-3">
+        <a href="{% url 'forum:liste_sujets' categorie.slug %}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Retour aux sujets</a>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Publier</button>
+    </form>
+</div>
+{% endblock %} 

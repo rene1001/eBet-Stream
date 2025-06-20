@@ -1,0 +1,77 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Historique des transactions{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h4>Historique des transactions</h4>
+        </div>
+        <div class="card-body">
+            {% if transactions %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Montant</th>
+                                <th>Statut</th>
+                                <th>Méthode de paiement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for transaction in transactions %}
+                                <tr>
+                                    <td>{{ transaction.timestamp|date:"d/m/Y H:i" }}</td>
+                                    <td>{{ transaction.get_transaction_type_display }}</td>
+                                    <td>{{ transaction.amount }} €</td>
+                                    <td>
+                                        <span class="badge badge-{{ transaction.status|yesno:'success,warning,danger' }}">
+                                            {{ transaction.get_status_display }}
+                                        </span>
+                                    </td>
+                                    <td>{{ transaction.payment_method.name|default:"-" }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                {% if is_paginated %}
+                    <nav aria-label="Page navigation" class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=1">&laquo; Première</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Précédente</a>
+                                </li>
+                            {% endif %}
+
+                            <li class="page-item active">
+                                <span class="page-link">
+                                    Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}
+                                </span>
+                            </li>
+
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Suivante</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Dernière &raquo;</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            {% else %}
+                <p class="text-muted">Aucune transaction trouvée.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %} 

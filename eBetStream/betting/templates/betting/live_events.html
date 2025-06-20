@@ -1,0 +1,252 @@
+<!-- betting/templates/betting/live_events.html -->
+{% extends 'core/base.html' %} {% block extra_css %}
+<style>
+  .event-card {
+    transition: all 0.3s;
+    border-left: 4px solid #28a745;
+  }
+  .event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  .event-timer {
+    font-size: 0.8rem;
+    color: #dc3545;
+  }
+  .event-icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 mx-auto">
+      <div class="card mb-4">
+        <div
+          class="card-header bg-success text-white d-flex justify-content-between align-items-center"
+        >
+          <h3 class="mb-0">
+            Live Events - {{ match.team1 }} vs {{ match.team2 }}
+          </h3>
+          <span class="badge bg-danger">LIVE</span>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> "Double" System: Bet on specific match events and double your bet if you win!
+          </div>
+
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="text-center">
+                <img
+                  src="{{ match.team1.logo.url }}"
+                  alt="{{ match.team1 }}"
+                  class="img-fluid"
+                  style="max-height: 80px"
+                />
+                <h4 class="mt-2">{{ match.team1 }}</h4>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="text-center">
+                <img
+                  src="{{ match.team2.logo.url }}"
+                  alt="{{ match.team2 }}"
+                  class="img-fluid"
+                  style="max-height: 80px"
+                />
+                <h4 class="mt-2">{{ match.team2 }}</h4>
+              </div>
+            </div>
+          </div>
+
+          {% if selected_bet_type %}
+          <!-- Live betting system -->
+          <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+              <h4 class="mb-0">
+                Live Bet - {{ selected_bet_type.name }}
+              </h4>
+            </div>
+            <div class="card-body">
+              <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i>
+                <strong>"Double" System:</strong> Bet on a result and double your bet if you win!
+                <br />
+                <small>Potential winnings are calculated by multiplying your bet by 2.</small>
+              </div>
+
+              <!-- Match information -->
+              <div class="row mb-4">
+                <div class="col-md-4">
+                  <div class="card bg-light">
+                    <div class="card-body text-center">
+                      <h6 class="card-title">Current Score</h6>
+                      <h3 class="mb-0">
+                        {{ match.score_team1|default:"0" }} - {{
+                        match.score_team2|default:"0" }}
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card bg-light">
+                    <div class="card-body text-center">
+                      <h6 class="card-title">Match Status</h6>
+                      <h3 class="mb-0 text-danger">LIVE</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card bg-light">
+                    <div class="card-body text-center">
+                      <h6 class="card-title">Your Balance</h6>
+                      <h3 class="mb-0">
+                        {{ user.ktap_balance|floatformat:"2" }} K
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <form method="post">
+                {% csrf_token %}
+                <input
+                  type="hidden"
+                  name="bet_type_id"
+                  value="{{ selected_bet_type.id }}"
+                />
+
+                <div class="mb-4">
+                  <h5>Choose your bet</h5>
+                  <div class="row">
+                    {% if selected_bet_type.name == 'Victoire' or
+                    selected_bet_type.name == 'Pari simple' or
+                    selected_bet_type.name == 'Victoire finale' %}
+                    <div class="col-md-6 mb-3">
+                      <div class="card bet-card">
+                        <div class="card-body text-center">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="choice"
+                              id="choice-team1"
+                              value="team1"
+                              required
+                            />
+                            <label class="form-check-label" for="choice-team1">
+                              <strong>V1 - {{ match.team1 }}</strong>
+                              <br />
+                              <span class="text-success">Odds: x2</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <div class="card bet-card">
+                        <div class="card-body text-center">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="choice"
+                              id="choice-team2"
+                              value="team2"
+                              required
+                            />
+                            <label class="form-check-label" for="choice-team2">
+                              <strong>V2 - {{ match.team2 }}</strong>
+                              <br />
+                              <span class="text-success">Odds: x2</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {% else %}
+                    <div class="col-12">
+                      <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        Bet type "{{ selected_bet_type.name }}" is not available for this live match.
+                        <br />
+                        <small>Please choose another bet type or return to the match page.</small>
+                      </div>
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label for="amount" class="form-label">Bet Amount (K)</label>
+                  <div class="input-group">
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="amount"
+                      name="amount"
+                      min="1"
+                      step="0.01"
+                      required
+                    />
+                    <span class="input-group-text">K</span>
+                  </div>
+                  <div class="form-text">
+                    <i class="bi bi-info-circle"></i>
+                    Minimum amount: 1 K
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <div class="alert alert-success">
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <div>
+                        <strong>Potential Winnings:</strong>
+                        <span id="potential-win">0.00</span> K
+                      </div>
+                      <div>
+                        <small>Odds: x2</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-success btn-lg">
+                    <i class="bi bi-check-circle"></i>
+                    Place Live Bet
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          {% else %}
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i>
+            Please select a bet type to start.
+            <br />
+            <small>Live betting is only available for "Victory", "Simple Bet" and "Final Victory" types.</small>
+          </div>
+          {% endif %}
+        </div>
+        <div class="card-footer">
+          <div class="d-flex justify-content-between">
+            <a
+              href="{% url 'core:match_detail' match.id %}"
+              class="btn btn-secondary"
+            >
+              <i class="bi bi-arrow-left"></i> Retour au match
+            </a>
+            {# Le lien Parier sur la victoire finale est maintenant intégré dans
+            le formulaire #}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

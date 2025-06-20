@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                {% if clan.logo %}
+                <img src="{{ clan.logo.url }}" class="card-img-top" alt="{{ clan.nom }}">
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title">{{ clan.nom }}</h2>
+                    <p class="card-text">
+                        <strong>Jeu :</strong> {{ clan.jeu }}<br>
+                        <strong>Victoires :</strong> {{ clan.nombre_victoires }}<br>
+                        <strong>Défaites :</strong> {{ clan.nombre_defaites }}<br>
+                        <strong>Ratio :</strong> {{ clan.ratio }}%
+                    </p>
+                    <p class="card-text">
+                        <strong>Description :</strong><br>
+                        {{ clan.description }}
+                    </p>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'clans_gaming:demander_match_clan' clan.id %}" class="btn btn-success">Défier le clan</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3>Membres du clan</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Pseudo</th>
+                                    <th>Rôle</th>
+                                    <th>Date d'entrée</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for membre in membres %}
+                                <tr>
+                                    <td>{{ membre.gameur.pseudo }}</td>
+                                    <td>{{ membre.get_role_display }}</td>
+                                    <td>{{ membre.date_rejointe|date:"d/m/Y" }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="3" class="text-center">Aucun membre</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Historique des matchs</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Adversaire</th>
+                                    <th>Score</th>
+                                    <th>Résultat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for match in matches %}
+                                <tr>
+                                    <td>{{ match.date_match|date:"d/m/Y H:i" }}</td>
+                                    <td>
+                                        {% if match.clan1 == clan %}
+                                            {{ match.clan2.nom }}
+                                        {% else %}
+                                            {{ match.clan1.nom }}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if match.clan1 == clan %}
+                                            {{ match.score_clan1 }} - {{ match.score_clan2 }}
+                                        {% else %}
+                                            {{ match.score_clan2 }} - {{ match.score_clan1 }}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if match.vainqueur == clan %}
+                                            <span class="text-success">Victoire</span>
+                                        {% elif match.vainqueur %}
+                                            <span class="text-danger">Défaite</span>
+                                        {% else %}
+                                            <span class="text-warning">En cours</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="4" class="text-center">Aucun match joué</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

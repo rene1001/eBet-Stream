@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Nos Partenaires</h1>
+    
+    <div class="row">
+        {% for partenaire in partenaires %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="{{ partenaire.logo.url }}" class="card-img-top p-3" alt="{{ partenaire.nom }}" style="height: 200px; object-fit: contain;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ partenaire.nom }}</h5>
+                    <p class="card-text">
+                        <span class="badge bg-primary">{{ partenaire.get_type_partenaire_display }}</span>
+                    </p>
+                    <p class="card-text">{{ partenaire.description|truncatewords:30 }}</p>
+                    <a href="{% url 'partenaires:detail_partenaire' partenaire.id %}" class="btn btn-primary">En savoir plus</a>
+                    <a href="{{ partenaire.site_web }}" class="btn btn-outline-primary" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                Aucun partenaire n'est actuellement disponible.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

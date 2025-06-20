@@ -1,0 +1,71 @@
+<!-- betting/templates/betting/bet_type_list.html -->
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Available Bet Types - {{ game.name }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info mb-4">
+                        <i class="bi bi-info-circle"></i> "Double" System: All bets have a fixed odds of x2. Bet on a result and double your bet if you win!
+                    </div>
+                    
+                    <div class="list-group">
+                        {% for bet_type in bet_types %}
+                            <div class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <h5 class="mb-1">{{ bet_type.name }}</h5>
+                                    <span class="badge bg-primary rounded-pill">x{{ bet_type.odds }}</span>
+                                </div>
+                                <p class="mb-1">{{ bet_type.description }}</p>
+                                {% if matches %}
+                                    <div class="mt-2">
+                                        <h6>Available Matches:</h6>
+                                        <div class="row">
+                                            {% for match in matches %}
+                                                {% if match.status == 'upcoming' or match.status == 'live' %}
+                                                    <div class="col-md-6 mb-2">
+                                                        <div class="card">
+                                                            <div class="card-body p-2">
+                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                    <small>{{ match.team1 }} vs {{ match.team2 }}</small>
+                                                                    {% if match.status == 'upcoming' %}
+                                                                        <a href="{% url 'betting:place_bet' match.id %}" class="btn btn-sm btn-primary">Bet</a>
+                                                                    {% else %}
+                                                                        <a href="{% url 'betting:live_bet' match.id bet_type.id %}" class="btn btn-sm btn-danger">Live</a>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-warning mt-2">
+                                        <small>No matches available for this bet type at the moment.</small>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% empty %}
+                            <div class="alert alert-warning">
+                                <p>No bet types available for this game at the moment.</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'core:game_detail' game.id %}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Back to Game
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

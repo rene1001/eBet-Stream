@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                {% if evenement.image %}
+                <img src="{{ evenement.image.url }}" class="card-img-top" alt="{{ evenement.nom }}">
+                {% endif %}
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <a href="{% url 'evenements:liste_evenements' %}" class="btn btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i> Retour aux événements</a>
+                        <h1 class="mb-0">{{ evenement.nom }}</h1>
+                    </div>
+                    <p class="card-text">
+                        <strong>Type :</strong> {{ evenement.get_type_evenement_display }}<br>
+                        <strong>Jeu :</strong> {{ evenement.jeu }}<br>
+                        <strong>Date de début :</strong> {{ evenement.date_debut|date:"d/m/Y H:i" }}<br>
+                        <strong>Date de fin :</strong> {{ evenement.date_fin|date:"d/m/Y H:i" }}<br>
+                        <strong>Lieu :</strong> {{ evenement.lieu }}<br>
+                        <strong>Places disponibles :</strong> {{ evenement.places_restantes }}
+                    </p>
+                    <div class="mt-4">
+                        <h3>Description</h3>
+                        <p>{{ evenement.description }}</p>
+                    </div>
+                    {% if evenement.lien_inscription %}
+                    <div class="mt-4">
+                        <a href="{{ evenement.lien_inscription }}" class="btn btn-info" target="_blank">
+                            Lien d'inscription externe
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Inscription</h3>
+                </div>
+                <div class="card-body">
+                    {% if user.is_authenticated %}
+                        {% if user in evenement.inscriptions.all %}
+                            <p class="text-success">Vous êtes inscrit à cet événement !</p>
+                            <a href="{% url 'evenements:annuler_inscription' evenement.id %}" 
+                               class="btn btn-danger"
+                               onclick="return confirm('Êtes-vous sûr de vouloir annuler votre inscription ?')">
+                                Annuler l'inscription
+                            </a>
+                        {% else %}
+                            {% if evenement.places_restantes != "Illimité" and evenement.places_restantes <= 0 %}
+                                <p class="text-danger">Désolé, il n'y a plus de places disponibles.</p>
+                            {% else %}
+                                <a href="{% url 'evenements:s_inscrire' evenement.id %}" class="btn btn-primary">
+                                    S'inscrire
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
+                        <p>Veuillez vous connecter pour vous inscrire à cet événement.</p>
+                        <a href="{% url 'users:login' %}" class="btn btn-primary">Se connecter</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3>Participants ({{ inscriptions.count }})</h3>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% for inscription in inscriptions %}
+                        <div class="list-group-item">
+                            {{ inscription.utilisateur.username }}
+                            {% if inscription.commentaire %}
+                            <small class="text-muted d-block">{{ inscription.commentaire }}</small>
+                            {% endif %}
+                        </div>
+                        {% empty %}
+                        <p class="text-center">Aucun participant pour le moment.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

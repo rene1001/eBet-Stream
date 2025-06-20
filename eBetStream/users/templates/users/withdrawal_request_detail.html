@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Withdrawal Request Details{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Withdrawal Request Details</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p><strong>User:</strong> {{ withdrawal_request.user.username }}</p>
+                            <p><strong>Amount:</strong> {{ withdrawal_request.amount|floatformat:"2" }} K</p>
+                            <p><strong>Status:</strong> 
+                                <span class="badge {% if withdrawal_request.status == 'pending' %}bg-warning{% elif withdrawal_request.status == 'approved' %}bg-success{% else %}bg-danger{% endif %}">
+                                    {{ withdrawal_request.get_status_display }}
+                                </span>
+                            </p>
+                            <p><strong>Request Date:</strong> {{ withdrawal_request.created_at|date:"d/m/Y H:i" }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            {# Payment method specific details are no longer displayed here #}
+                        </div>
+                    </div>
+
+                    {% if withdrawal_request.status == 'pending' %}
+                        <form method="post" class="mt-4">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="admin_notes" class="form-label">Administrative Notes</label>
+                                <textarea name="admin_notes" id="admin_notes" class="form-control" rows="3">{{ withdrawal_request.admin_notes }}</textarea>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="submit" name="action" value="approve" class="btn btn-success">
+                                    <i class="fas fa-check"></i> Approve
+                                </button>
+                                <button type="submit" name="action" value="reject" class="btn btn-danger">
+                                    <i class="fas fa-times"></i> Reject
+                                </button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <div class="alert {% if withdrawal_request.status == 'approved' %}alert-success{% else %}alert-danger{% endif %} mt-3">
+                            <h5>Administrative Notes:</h5>
+                            <p>{{ withdrawal_request.admin_notes|default:"No notes" }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

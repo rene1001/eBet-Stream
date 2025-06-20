@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Ajouter un membre au clan {{ clan.nom }}</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.as_p }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ajouter le membre</button>
+                        <a href="{% url 'clans_gaming:detail_clan' clan.id %}" class="btn btn-secondary">Annuler</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Liste des Jeux{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">Liste des Jeux</h1>
+    
+    <div class="row">
+        {% for game in games %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if game.logo %}
+                <img src="{{ game.logo.url }}" class="card-img-top" alt="{{ game.name }}" style="height: 200px; object-fit: cover;">
+                {% else %}
+                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                    <i class="fas fa-gamepad fa-3x text-muted"></i>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ game.name }}</h5>
+                    <p class="card-text">{{ game.description|truncatewords:30 }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge bg-primary">{{ game.tournaments.count }} Tournois</span>
+                        <span class="badge bg-success">{{ game.matches_count }} Matches</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="{% url 'core:tournament_list' game.id %}" class="btn btn-primary w-100">
+                        <i class="fas fa-trophy me-2"></i>Voir les Tournois
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                Aucun jeu disponible pour le moment.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Matches - {{ tournament.name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Matches - {{ tournament.name }}</h1>
+        <a href="{% url 'core:tournament_list' tournament.game.id %}" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left me-2"></i>Retour aux Tournois
+        </a>
+    </div>
+    
+    <div class="row">
+        {% for match in matches %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">{{ match.team1.name }} vs {{ match.team2.name }}</h5>
+                        <span class="badge {% if match.status == 'live' %}bg-danger{% elif match.status == 'upcoming' %}bg-warning{% elif match.status == 'completed' %}bg-success{% else %}bg-secondary{% endif %}">
+                            {{ match.get_status_display }}
+                        </span>
+                    </div>
+                    
+                    <div class="text-center mb-3">
+                        <div class="row align-items-center">
+                            <div class="col-5 text-end">
+                                <img src="{{ match.team1.logo.url }}" alt="{{ match.team1.name }}" class="img-fluid" style="max-height: 50px;">
+                                <h6 class="mt-2">{{ match.team1.name }}</h6>
+                            </div>
+                            <div class="col-2">
+                                <h4 class="mb-0">VS</h4>
+                            </div>
+                            <div class="col-5 text-start">
+                                <img src="{{ match.team2.logo.url }}" alt="{{ match.team2.name }}" class="img-fluid" style="max-height: 50px;">
+                                <h6 class="mt-2">{{ match.team2.name }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-calendar me-2"></i>{{ match.start_time|date:"d/m/Y H:i" }}
+                        </div>
+                        <div>
+                            <i class="fas fa-trophy me-2"></i>{{ match.tournament.name }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <div class="d-flex gap-2 justify-content-end align-items-center mt-3 flex-wrap">
+                        {% if match.status == 'upcoming' %}
+                        <a href="{% url 'betting:place_bet' match.id %}" class="btn btn-success">
+                            <i class="fas fa-ticket-alt me-2"></i>Parier
+                        </a>
+                        {% endif %}
+                        {% with active_streaming=None %}
+                            {% for streaming in match.streamings.all %}
+                                {% if streaming.actif and not active_streaming %}
+                                    {% with active_streaming=streaming %}
+                                        <a href="{% url 'streaming:watch_stream' streaming.id %}" class="btn btn-danger" style="min-width: 120px;">
+                                            <i class="fas fa-play-circle me-2"></i>Watch Live
+                                        </a>
+                                    {% endwith %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                        {% if match.status == 'live' %}
+                        <a href="{% url 'betting:live_events' match.id %}" class="btn btn-danger">
+                            <i class="fas fa-bolt me-2"></i>Parier en Direct
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                Aucun match disponible pour ce tournoi.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

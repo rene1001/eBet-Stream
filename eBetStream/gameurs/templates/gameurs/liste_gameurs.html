@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Meilleurs Gameurs</h1>
+    
+    <div class="row">
+        {% for gameur in gameurs %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if gameur.avatar %}
+                <img src="{{ gameur.avatar.url }}" class="card-img-top" alt="{{ gameur.pseudo }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ gameur.pseudo }}</h5>
+                    <p class="card-text">
+                        Jeu préféré : {{ gameur.jeu_prefere }}<br>
+                        Victoires : {{ gameur.nombre_victoires }}<br>
+                        Défaites : {{ gameur.nombre_defaites }}<br>
+                        Ratio : {{ gameur.ratio }}%
+                    </p>
+                    <a href="{% url 'gameurs:detail_gameur' gameur.id %}" class="btn btn-primary">Voir le profil</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center">Aucun gameur n'est encore inscrit.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

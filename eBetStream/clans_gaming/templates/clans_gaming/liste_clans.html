@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Meilleurs Clans</h1>
+        {% if user.is_authenticated %}
+        <a href="{% url 'clans_gaming:creer_clan' %}" class="btn btn-primary">Créer un clan</a>
+        {% endif %}
+    </div>
+    
+    <div class="row">
+        {% for clan in clans %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if clan.logo %}
+                <img src="{{ clan.logo.url }}" class="card-img-top" alt="{{ clan.nom }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ clan.nom }}</h5>
+                    <p class="card-text">
+                        Jeu : {{ clan.jeu }}<br>
+                        Victoires : {{ clan.nombre_victoires }}<br>
+                        Défaites : {{ clan.nombre_defaites }}<br>
+                        Ratio : {{ clan.ratio }}%
+                    </p>
+                    <a href="{% url 'clans_gaming:detail_clan' clan.id %}" class="btn btn-primary">Voir le clan</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center">Aucun clan n'est encore créé.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

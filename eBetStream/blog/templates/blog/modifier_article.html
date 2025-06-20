@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title h3 mb-0">Modifier l'article</h1>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                    <div class="invalid-feedback d-block">
+                        {{ field.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                <a href="{% url 'blog:detail_article' article.slug %}" class="btn btn-secondary">Annuler</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 

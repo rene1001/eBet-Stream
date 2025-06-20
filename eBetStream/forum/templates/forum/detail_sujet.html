@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'forum:liste_categories' %}">Forum</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'forum:liste_sujets' sujet.categorie.slug %}">{{ sujet.categorie.nom }}</a></li>
+            <li class="breadcrumb-item active">{{ sujet.titre }}</li>
+        </ol>
+    </nav>
+
+    <div class="mb-3">
+        <a href="{% url 'forum:liste_sujets' sujet.categorie.slug %}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Retour aux sujets</a>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="mb-0">{{ sujet.titre }}</h2>
+                <div>
+                    {% if sujet.est_epingle %}
+                    <span class="badge bg-warning me-2">Épinglé</span>
+                    {% endif %}
+                    {% if sujet.est_verrouille %}
+                    <span class="badge bg-danger me-2">Verrouillé</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="d-flex">
+                <div class="flex-shrink-0">
+                    <div class="text-center">
+                        <div class="fw-bold">{{ sujet.auteur.username }}</div>
+                        <small class="text-muted">Membre</small>
+                    </div>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    {{ sujet.contenu|linebreaks }}
+                    <div class="text-muted small mt-2">
+                        Posté le {{ sujet.date_creation|date:"d/m/Y H:i" }}
+                        {% if sujet.date_modification != sujet.date_creation %}
+                        <br>Modifié le {{ sujet.date_modification|date:"d/m/Y H:i" }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for message in messages_forum %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="d-flex">
+                <div class="flex-shrink-0">
+                    <div class="text-center">
+                        <div class="fw-bold">{{ message.auteur.username }}</div>
+                        <small class="text-muted">Membre</small>
+                    </div>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    {{ message.contenu|linebreaks }}
+                    <div class="text-muted small mt-2">
+                        Posté le {{ message.date_creation|date:"d/m/Y H:i" }}
+                        {% if message.est_modifie %}
+                        <br>Modifié le {{ message.date_modification|date:"d/m/Y H:i" }}
+                        {% endif %}
+                    </div>
+                    {% if message.auteur == user %}
+                    <div class="mt-2">
+                        <a href="{% url 'forum:modifier_message' message.id %}" class="btn btn-sm btn-outline-primary">Modifier</a>
+                        <a href="{% url 'forum:supprimer_message' message.id %}" class="btn btn-sm btn-outline-danger">Supprimer</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if not sujet.est_verrouille and user.is_authenticated %}
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title h5 mb-0">Répondre</h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.contenu }}
+                </div>
+                <button type="submit" class="btn btn-primary">Publier</button>
+            </form>
+        </div>
+    </div>
+    {% elif sujet.est_verrouille %}
+    <div class="alert alert-warning">
+        Ce sujet est verrouillé. Vous ne pouvez plus y répondre.
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        <a href="{% url 'users:login' %}">Connectez-vous</a> pour répondre à ce sujet.
+    </div>
+    {% endif %}
+</div>
+{% endblock %} 

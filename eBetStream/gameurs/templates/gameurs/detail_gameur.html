@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex align-items-center mb-3">
+        <a href="{% url 'gameurs:liste_gameurs' %}" class="btn btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i> Retour à la liste des gameurs</a>
+        <h1 class="mb-0">{{ gameur.pseudo }}</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                {% if gameur.avatar %}
+                <img src="{{ gameur.avatar.url }}" class="card-img-top" alt="{{ gameur.pseudo }}">
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title">{{ gameur.pseudo }}</h2>
+                    <p class="card-text">
+                        <strong>Jeu préféré :</strong> {{ gameur.jeu_prefere }}<br>
+                        <strong>Victoires :</strong> {{ gameur.nombre_victoires }}<br>
+                        <strong>Défaites :</strong> {{ gameur.nombre_defaites }}<br>
+                        <strong>Ratio :</strong> {{ gameur.ratio }}%
+                    </p>
+                    {% if user.is_authenticated and user.gameur.id != gameur.id %}
+                    <a href="{% url 'gameurs:demander_match' gameur.id %}" class="btn btn-success">Jouer contre</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <h3>Historique des matchs</h3>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Adversaire</th>
+                            <th>Score</th>
+                            <th>Résultat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for match in matches %}
+                        <tr>
+                            <td>{{ match.date_match|date:"d/m/Y H:i" }}</td>
+                            <td>
+                                {% if match.gameur1 == gameur %}
+                                    {{ match.gameur2.pseudo }}
+                                {% else %}
+                                    {{ match.gameur1.pseudo }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if match.gameur1 == gameur %}
+                                    {{ match.score_gameur1 }} - {{ match.score_gameur2 }}
+                                {% else %}
+                                    {{ match.score_gameur2 }} - {{ match.score_gameur1 }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if match.vainqueur == gameur %}
+                                    <span class="text-success">Victoire</span>
+                                {% elif match.vainqueur %}
+                                    <span class="text-danger">Défaite</span>
+                                {% else %}
+                                    <span class="text-warning">En cours</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">Aucun match joué</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

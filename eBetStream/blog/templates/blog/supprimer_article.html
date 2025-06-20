@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title h3 mb-0">Supprimer l'article</h1>
+        </div>
+        <div class="card-body">
+            <p class="alert alert-warning">
+                Êtes-vous sûr de vouloir supprimer l'article "{{ article.titre }}" ? Cette action est irréversible.
+            </p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+                <a href="{% url 'blog:detail_article' article.slug %}" class="btn btn-secondary">Annuler</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 

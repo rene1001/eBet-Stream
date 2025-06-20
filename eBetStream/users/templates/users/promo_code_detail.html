@@ -1,0 +1,106 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Détails du code promo{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Détails du code promo</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Code</h5>
+                            <div class="d-flex align-items-center">
+                                <strong class="h4">{{ promo_code.code }}</strong>
+                                <button class="btn btn-sm btn-outline-secondary ml-2" 
+                                        onclick="copyToClipboard('{{ promo_code.code }}')"
+                                        title="Copier le code">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Statut</h5>
+                            {% if promo_code.is_active %}
+                                <span class="badge badge-success">Actif</span>
+                            {% else %}
+                                <span class="badge badge-danger">Inactif</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Date de création</h5>
+                            <p>{{ promo_code.created_at|date:"d/m/Y H:i" }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Utilisations</h5>
+                            <p>{{ promo_code.usage_count }} / {{ promo_code.max_uses }}</p>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <h5>Comment ça marche ?</h5>
+                        <ul>
+                            <li>Partagez ce code avec vos amis</li>
+                            <li>Ils reçoivent 200% de bonus sur leur premier dépôt</li>
+                            <li>Vous recevez 100% de bonus sur leur dépôt</li>
+                        </ul>
+                    </div>
+
+                    {% if usages %}
+                        <h4 class="mt-4">Historique des utilisations</h4>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Utilisateur</th>
+                                        <th>Date</th>
+                                        <th>Montant du bonus</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for usage in usages %}
+                                        <tr>
+                                            <td>{{ usage.user.username }}</td>
+                                            <td>{{ usage.created_at|date:"d/m/Y H:i" }}</td>
+                                            <td>{{ usage.bonus_amount }} €</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-warning mt-4">
+                            Ce code n'a pas encore été utilisé.
+                        </div>
+                    {% endif %}
+
+                    <div class="text-center mt-4">
+                        <a href="{% url 'users:promo_code_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Retour à la liste
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        alert('Code copié dans le presse-papier !');
+    }).catch(function(err) {
+        console.error('Erreur lors de la copie : ', err);
+    });
+}
+</script>
+{% endblock %}
+{% endblock %} 
