@@ -26,7 +26,7 @@ class BetListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Mes Paris'
+        context['title'] = 'Mes Pari'
         
         # Ajouter des statistiques
         context['total_bets'] = self.get_queryset().count()
