@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-4">
+  <h1 class="mb-4 text-center text-primary"><i class="bi bi-trophy"></i> Mes points de fidélité</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card shadow border-0 bg-primary text-light">
+        <div class="card-body text-center">
+          <h5 class="card-title">Total des points</h5>
+          <span class="display-4 fw-bold">{{ total|default:0 }}</span>
+          <div class="mt-3">
+            <span class="badge bg-light text-primary fs-6">Points de fidélité</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card shadow border-0">
+        <div class="card-body">
+          <h5 class="card-title">Historique des points</h5>
+          <div class="table-responsive">
+            <table class="table table-striped align-middle">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Points</th>
+                  <th>Statut</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for p in points %}
+                  <tr>
+                    <td>{{ p.date|date:'d/m/Y H:i' }}</td>
+                    <td>
+                      {% if p.type == 'achat' %}
+                        <span class="badge bg-success"><i class="bi bi-cart"></i> Achat</span>
+                      {% elif p.type == 'pari' %}
+                        <span class="badge bg-primary"><i class="bi bi-dice-6"></i> Pari</span>
+                      {% elif p.type == 'vente' %}
+                        <span class="badge bg-warning text-dark"><i class="bi bi-currency-exchange"></i> Vente</span>
+                      {% elif p.type == 'promotion' %}
+                        <span class="badge bg-info"><i class="bi bi-gift"></i> Promotion</span>
+                      {% endif %}
+                    </td>
+                    <td><span class="fw-bold text-primary">+{{ p.points }}</span></td>
+                    <td><span class="badge bg-success">Crédité</span></td>
+                  </tr>
+                {% empty %}
+                  <tr>
+                    <td colspan="4" class="text-center text-muted">
+                      <i class="bi bi-inbox"></i> Aucun point de fidélité pour l'instant.
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col text-center">
+      <a href="{% url 'users:vip_dashboard' %}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Retour au dashboard VIP</a>
+    </div>
+  </div>
+</div>
+{% endblock %} 

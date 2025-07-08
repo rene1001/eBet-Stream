@@ -6,7 +6,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db import transaction
 from django.core.exceptions import ValidationError
-from users.models import Transaction, UserActivity
+from users.models import Transaction, UserActivity, User, KtapToken
 from decimal import Decimal
 
 User = get_user_model()
@@ -58,6 +58,7 @@ class Bet(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', verbose_name="Statut")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de création")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Date de mise à jour")
+    use_ktap = models.BooleanField(default=False, verbose_name="Parier avec mes KTAP (VIP)")
     
     class Meta:
         verbose_name = "Pari"

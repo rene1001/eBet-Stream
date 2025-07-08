@@ -27,4 +27,9 @@ urlpatterns = [
     path('promo-codes/create/', views.PromoCodeCreateView.as_view(), name='promo_code_create'),
     path('promo-codes/<int:pk>/', views.PromoCodeDetailView.as_view(), name='promo_code_detail'),
     path('promo-codes/use/', views.PromoCodeUsageView.as_view(), name='promo_code_use'),
+    path('vip/', views.vip_dashboard, name='vip_dashboard'),
+    path('vip/market/', views.vip_market, name='vip_market'),
+    path('vip/evenements/', views.mes_evenements_vip, name='mes_evenements_vip'),
+    path('vip/points/', views.mes_points_fidelite, name='mes_points_fidelite'),
+    path('devenir-vip/', views.devenir_vip, name='devenir_vip'),
 ]

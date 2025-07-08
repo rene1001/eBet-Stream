@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-4">
+  <h1 class="mb-4 text-center text-warning"><i class="bi bi-calendar-event"></i> Mes événements VIP</h1>
+  <div class="row g-4">
+    {% for event in evenements %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow border-0 h-100">
+          <div class="card-header bg-warning text-dark">
+            <h5 class="card-title mb-0">
+              {% if event.type == 'tournoi' %}
+                <i class="bi bi-trophy"></i>
+              {% elif event.type == 'promotion' %}
+                <i class="bi bi-gift"></i>
+              {% elif event.type == 'bonus' %}
+                <i class="bi bi-cash-coin"></i>
+              {% elif event.type == 'sport_event' %}
+                <i class="bi bi-calendar-check"></i>
+              {% endif %}
+              {{ event.nom }}
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              {% if event.access_type == 'vip_only' %}
+                <span class="badge bg-warning text-dark"><i class="bi bi-gem"></i> VIP uniquement</span>
+              {% elif event.access_type == 'public' %}
+                <span class="badge bg-success"><i class="bi bi-globe"></i> Public</span>
+              {% elif event.access_type == 'invite_only' %}
+                <span class="badge bg-info"><i class="bi bi-envelope"></i> Sur invitation</span>
+              {% endif %}
+            </div>
+            <p class="card-text">{{ event.description|default:"Aucune description disponible." }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <small class="text-muted">
+                <i class="bi bi-calendar"></i> {{ event.date|date:'d/m/Y H:i' }}
+              </small>
+              <button class="btn btn-outline-warning btn-sm" onclick="participerEvent({{ event.id }})">
+                <i class="bi bi-check-circle"></i> Je participe
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12">
+        <div class="card shadow border-0">
+          <div class="card-body text-center">
+            <i class="bi bi-calendar-x display-1 text-muted"></i>
+            <h5 class="mt-3">Aucun événement VIP pour l'instant</h5>
+            <p class="text-muted">Les événements VIP apparaîtront ici dès qu'ils seront disponibles.</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="row mt-4">
+    <div class="col text-center">
+      <a href="{% url 'users:vip_dashboard' %}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Retour au dashboard VIP</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function participerEvent(eventId) {
+  if (confirm('Confirmer votre participation à cet événement ?')) {
+    // TODO: Ajouter la logique de participation
+    alert('Participation confirmée ! Vous recevrez les détails par email.');
+  }
+}
+</script>
+{% endblock %} 

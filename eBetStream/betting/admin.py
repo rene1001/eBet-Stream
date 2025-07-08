@@ -9,8 +9,8 @@ class BetTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Bet)
 class BetAdmin(admin.ModelAdmin):
-    list_display = ('user', 'match', 'bet_type', 'amount', 'choice', 'status', 'created_at')
-    list_filter = ('status', 'bet_type', 'created_at')
+    list_display = ('user', 'match', 'bet_type', 'amount', 'choice', 'status', 'created_at', 'use_ktap')
+    list_filter = ('status', 'bet_type', 'created_at', 'use_ktap')
     search_fields = ('user__username', 'match__team1__name', 'match__team2__name')
     date_hierarchy = 'created_at'
     readonly_fields = ('created_at', 'updated_at')

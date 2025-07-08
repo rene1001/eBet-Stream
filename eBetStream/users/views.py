@@ -1,6 +1,6 @@
 # users/views.py
 
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.views import generic
@@ -17,8 +17,11 @@ from django.contrib.auth.views import (
 )
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from .forms import UserRegisterForm, UserLoginForm, UserUpdateForm, DepositForm, WithdrawalForm, DepositRequestForm, AdminRegisterForm, WithdrawalRequestForm, GameOrganizationRequestForm
-from .models import User, Transaction, UserActivity, PaymentMethod, DepositRequest, WithdrawalRequest, GameOrganizationRequest, PromoCode, PromoCodeUsage
+from .models import User, Transaction, UserActivity, PaymentMethod, DepositRequest, WithdrawalRequest, GameOrganizationRequest, PromoCode, PromoCodeUsage, KtapToken, VipSale, VipEvent, FidelityPoint, VipBonus, VIPRequest
 from django.db import transaction as db_transaction
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.db import models
 
 class RegisterView(generic.CreateView):
     """View for registration"""
@@ -553,3 +556,93 @@ class PromoCodeUsageView(LoginRequiredMixin, generic.CreateView):
         
         messages.success(self.request, 'Code promo utilisé avec succès! Les bonus ont été appliqués.')
         return super().form_valid(form)
+
+@login_required
+def vip_dashboard(request):
+    user = request.user
+    if not user.is_vip:
+        return redirect('users:devenir_vip')
+    solde_ktap = KtapToken.objects.filter(user=user, statut='disponible').aggregate(models.Sum('amount'))['amount__sum'] or 0
+    ventes = VipSale.objects.filter(seller=user, statut='en_attente')
+    bonus = VipBonus.objects.filter(user=user).order_by('-date')[:10]
+    points = FidelityPoint.objects.filter(user=user).aggregate(models.Sum('points'))['points__sum'] or 0
+    invitations = user.filleuls.all()
+    context = {
+        'solde_ktap': solde_ktap,
+        'ventes': ventes,
+        'bonus': bonus,
+        'points': points,
+        'invitations': invitations,
+    }
+    return render(request, 'users/vip/dashboard.html', context)
+
+@login_required
+def vip_market(request):
+    user = request.user
+    if not user.is_vip:
+        return redirect('users:devenir_vip')
+    ventes = VipSale.objects.filter(statut='en_attente').exclude(seller=user)
+    if request.method == 'POST':
+        if 'vente_id' in request.POST:
+            # Achat d'une vente
+            try:
+                vente = VipSale.objects.select_for_update().get(id=request.POST['vente_id'], statut='en_attente')
+                if vente.seller == user:
+                    messages.error(request, "Vous ne pouvez pas acheter votre propre vente.")
+                else:
+                    # Vérifier le solde de l'acheteur
+                    if user.kapanga_balance >= vente.amount * vente.price_per_token:
+                        # Décrémenter le solde de l'acheteur
+                        user.kapanga_balance -= vente.amount * vente.price_per_token
+                        user.save()
+                        # Créditer le vendeur
+                        vente.seller.kapanga_balance += vente.amount * vente.price_per_token
+                        vente.seller.save()
+                        # Transférer les KTAP (optionnel : créer un KtapToken pour l'acheteur)
+                        KtapToken.objects.create(user=user, amount=vente.amount, type='achat', statut='disponible')
+                        vente.statut = 'vendu'
+                        vente.save()
+                        messages.success(request, f"Achat de {vente.amount} KTAP réussi !")
+                    else:
+                        messages.error(request, "Solde insuffisant pour cet achat.")
+            except VipSale.DoesNotExist:
+                messages.error(request, "Vente non disponible.")
+            return redirect('users:vip_market')
+        else:
+            # Création d'une vente
+            amount = int(request.POST.get('amount', 0))
+            price = float(request.POST.get('price', 0))
+            if amount > 0 and price > 0:
+                VipSale.objects.create(seller=user, amount=amount, price_per_token=price)
+                messages.success(request, "Vente créée avec succès.")
+                return redirect('users:vip_market')
+    return render(request, 'users/vip/market.html', {'ventes': ventes})
+
+@login_required
+def mes_evenements_vip(request):
+    user = request.user
+    if not user.is_vip:
+        return redirect('users:devenir_vip')
+    evenements = VipEvent.objects.filter(access_type__in=['vip_only', 'public']).order_by('-date')
+    return render(request, 'users/vip/evenements.html', {'evenements': evenements})
+
+@login_required
+def mes_points_fidelite(request):
+    user = request.user
+    if not user.is_vip:
+        return redirect('users:devenir_vip')
+    points = FidelityPoint.objects.filter(user=user).order_by('-date')
+    total = points.aggregate(models.Sum('points'))['points__sum'] or 0
+    return render(request, 'users/vip/points.html', {'points': points, 'total': total})
+
+def devenir_vip(request):
+    user = request.user if request.user.is_authenticated else None
+    demande = None
+    if user:
+        demande = VIPRequest.objects.filter(user=user).order_by('-date').first()
+        if request.method == 'POST' and not user.is_vip:
+            if not demande or demande.statut != 'en_attente':
+                VIPRequest.objects.create(user=user)
+                messages.success(request, "Votre demande VIP a été envoyée et sera traitée par l'administrateur.")
+                return redirect('users:devenir_vip')
+    return render(request, 'users/vip/devenir_vip.html', {'user': user, 'demande': demande})

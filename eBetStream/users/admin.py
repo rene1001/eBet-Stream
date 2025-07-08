@@ -4,12 +4,12 @@ from django.shortcuts import redirect, get_object_or_404
 from django.contrib import messages
 from django.utils.html import format_html
 from django.urls import reverse
-from .models import User, Transaction, PaymentMethod, DepositRequest, UserActivity, WithdrawalRequest, GameOrganizationRequest, PromoCode, PromoCodeUsage
+from .models import User, Transaction, PaymentMethod, DepositRequest, UserActivity, WithdrawalRequest, GameOrganizationRequest, PromoCode, PromoCodeUsage, KtapToken, VipSale, VipEvent, FidelityPoint, VipBonus, VIPRequest
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'balance', 'kapanga_balance', 'email_verified', 'is_active')
-    list_filter = ('is_active', 'email_verified', 'is_staff', 'is_superuser')
+    list_display = ('username', 'email', 'balance', 'kapanga_balance', 'email_verified', 'is_active', 'is_vip', 'vip_since', 'vip_points', 'parrain', 'total_bonus')
+    list_filter = ('is_active', 'email_verified', 'is_staff', 'is_superuser', 'is_vip')
     search_fields = ('username', 'email', 'first_name', 'last_name')
     readonly_fields = ('date_joined', 'last_login', 'uuid')
     fieldsets = (
@@ -18,6 +18,7 @@ class UserAdmin(admin.ModelAdmin):
         ('Status', {'fields': ('is_active', 'email_verified', 'verification_token')}),
         ('Permissions', {'fields': ('is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important Dates', {'fields': ('last_login', 'date_joined')}),
+        ('VIP Information', {'fields': ('is_vip', 'vip_since', 'vip_points', 'parrain', 'total_bonus')}),
     )
 
 @admin.register(Transaction)
@@ -270,3 +271,59 @@ class PromoCodeUsageAdmin(admin.ModelAdmin):
             'fields': ('bonus_amount',)
         }),
     )
+
+@admin.register(KtapToken)
+class KtapTokenAdmin(admin.ModelAdmin):
+    list_display = ('user', 'amount', 'type', 'statut', 'created_at')
+    list_filter = ('type', 'statut')
+    search_fields = ('user__username',)
+
+@admin.register(VipSale)
+class VipSaleAdmin(admin.ModelAdmin):
+    list_display = ('seller', 'amount', 'price_per_token', 'statut', 'created_at')
+    list_filter = ('statut',)
+    search_fields = ('seller__username',)
+
+@admin.register(VipEvent)
+class VipEventAdmin(admin.ModelAdmin):
+    list_display = ('nom', 'type', 'date', 'access_type', 'created_at')
+    list_filter = ('type', 'access_type')
+    search_fields = ('nom',)
+
+@admin.register(FidelityPoint)
+class FidelityPointAdmin(admin.ModelAdmin):
+    list_display = ('user', 'points', 'type', 'date')
+    list_filter = ('type',)
+    search_fields = ('user__username',)
+
+@admin.register(VipBonus)
+class VipBonusAdmin(admin.ModelAdmin):
+    list_display = ('user', 'bonus_type', 'montant', 'date')
+    list_filter = ('bonus_type',)
+    search_fields = ('user__username',)
+
+@admin.register(VIPRequest)
+class VIPRequestAdmin(admin.ModelAdmin):
+    list_display = ('user', 'statut', 'date', 'commentaire_admin')
+    list_filter = ('statut',)
+    search_fields = ('user__username',)
+    actions = ['accepter_demande', 'rejeter_demande']
+
+    def accepter_demande(self, request, queryset):
+        for demande in queryset.filter(statut='en_attente'):
+            demande.statut = 'acceptee'
+            demande.save()
+            user = demande.user
+            user.is_vip = True
+            user.vip_since = demande.date
+            user.save()
+        self.message_user(request, "Demande(s) acceptée(s) et utilisateur(s) promu(s) VIP.")
+    accepter_demande.short_description = "Accepter la demande et promouvoir VIP"
+
+    def rejeter_demande(self, request, queryset):
+        for demande in queryset.filter(statut='en_attente'):
+            demande.statut = 'rejetee'
+            demande.commentaire_admin = "Rejeté par l'admin."
+            demande.save()
+        self.message_user(request, "Demande(s) rejetée(s).")
+    rejeter_demande.short_description = "Rejeter la demande VIP"

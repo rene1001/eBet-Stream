@@ -60,6 +60,12 @@ class User(AbstractUser):
         validators=[MinValueValidator(0)],
         verbose_name="Montant misé pour le bonus"
     )
+    # --- CHAMPS VIP ---
+    is_vip = models.BooleanField(default=False, verbose_name="Statut VIP")
+    vip_since = models.DateTimeField(null=True, blank=True, verbose_name="Date d'activation VIP")
+    vip_points = models.IntegerField(default=0, verbose_name="Points VIP")
+    parrain = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='filleuls', verbose_name="Parrain")
+    total_bonus = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, verbose_name="Total des bonus VIP")
 
     def save(self, *args, **kwargs):
         if not self.uuid:
@@ -530,3 +536,95 @@ class PromoCodeUsage(models.Model):
             # Incrémenter le compteur d'utilisation
             self.promo_code.usage_count += 1
             self.promo_code.save()
+
+# --- MODÈLES VIP ---
+class KtapToken(models.Model):
+    TYPE_CHOICES = [
+        ("gain", "Gain"),
+        ("achat", "Achat"),
+        ("vente", "Vente"),
+        ("bonus", "Bonus"),
+    ]
+    STATUT_CHOICES = [
+        ("disponible", "Disponible"),
+        ("en_vente", "En vente"),
+        ("vendu", "Vendu"),
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ktap_tokens")
+    amount = models.PositiveIntegerField()
+    type = models.CharField(max_length=10, choices=TYPE_CHOICES)
+    statut = models.CharField(max_length=15, choices=STATUT_CHOICES, default="disponible")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class VipSale(models.Model):
+    STATUT_CHOICES = [
+        ("en_attente", "En attente"),
+        ("vendu", "Vendu"),
+        ("annule", "Annulé"),
+    ]
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name="vip_sales")
+    amount = models.PositiveIntegerField()
+    price_per_token = models.DecimalField(max_digits=10, decimal_places=2)
+    statut = models.CharField(max_length=10, choices=STATUT_CHOICES, default="en_attente")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class VipEvent(models.Model):
+    TYPE_CHOICES = [
+        ("tournoi", "Tournoi"),
+        ("promotion", "Promotion"),
+        ("bonus", "Bonus"),
+        ("sport_event", "Événement sportif"),
+    ]
+    ACCESS_CHOICES = [
+        ("vip_only", "VIP uniquement"),
+        ("public", "Public"),
+        ("invite_only", "Sur invitation"),
+    ]
+    nom = models.CharField(max_length=200)
+    type = models.CharField(max_length=20, choices=TYPE_CHOICES)
+    date = models.DateTimeField()
+    description = models.TextField(blank=True)
+    access_type = models.CharField(max_length=15, choices=ACCESS_CHOICES, default="public")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class FidelityPoint(models.Model):
+    TYPE_CHOICES = [
+        ("achat", "Achat"),
+        ("pari", "Pari"),
+        ("vente", "Vente"),
+        ("promotion", "Promotion"),
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="fidelity_points")
+    points = models.PositiveIntegerField()
+    type = models.CharField(max_length=15, choices=TYPE_CHOICES)
+    date = models.DateTimeField(auto_now_add=True)
+
+class VipBonus(models.Model):
+    BONUS_TYPE_CHOICES = [
+        ("journalier", "Journalier"),
+        ("hebdomadaire", "Hebdomadaire"),
+        ("evenementiel", "Événementiel"),
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="vip_bonuses")
+    bonus_type = models.CharField(max_length=20, choices=BONUS_TYPE_CHOICES)
+    montant = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateTimeField(auto_now_add=True)
+
+class VIPRequest(models.Model):
+    STATUT_CHOICES = [
+        ("en_attente", "En attente"),
+        ("acceptee", "Acceptée"),
+        ("rejetee", "Rejetée"),
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="vip_requests")
+    statut = models.CharField(max_length=10, choices=STATUT_CHOICES, default="en_attente")
+    date = models.DateTimeField(auto_now_add=True)
+    commentaire_admin = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = "Demande VIP"
+        verbose_name_plural = "Demandes VIP"
+        ordering = ["-date"]
+
+    def __str__(self):
+        return f"{self.user.username} - {self.get_statut_display()}"
