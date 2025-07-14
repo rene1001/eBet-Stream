@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0"><i class="bi bi-search text-primary"></i> Rechercher des Défis P2P</h1>
+        <a href="{% url 'betting:p2p_challenge_list' %}" class="btn btn-outline-primary">
+          <i class="bi bi-arrow-left"></i> Mes défis
+        </a>
+      </div>
+
+      <!-- Filtres -->
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <form method="get" class="row g-3">
+            <div class="col-md-3">
+              <label class="form-label">Type de jeu</label>
+              <select name="game_type" class="form-select">
+                <option value="">Tous les jeux</option>
+                <option value="fifa">FIFA</option>
+                <option value="pes">PES</option>
+                <option value="fortnite">Fortnite</option>
+                <option value="call_of_duty">Call of Duty</option>
+                <option value="csgo">CS:GO</option>
+                <option value="lol">League of Legends</option>
+                <option value="valorant">Valorant</option>
+                <option value="rocket_league">Rocket League</option>
+                <option value="other">Autre</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Montant minimum</label>
+              <input type="number" name="min_amount" class="form-control" placeholder="0" min="0">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Montant maximum</label>
+              <input type="number" name="max_amount" class="form-control" placeholder="1000" min="0">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">&nbsp;</label>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-search"></i> Filtrer
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Liste des défis disponibles -->
+      {% if challenges %}
+        <div class="row">
+          {% for challenge in challenges %}
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="card h-100 shadow-sm border-warning">
+                <div class="card-header bg-warning text-dark">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge bg-warning text-dark">En attente</span>
+                    <small>{{ challenge.created_at|timesince }}</small>
+                  </div>
+                </div>
+                
+                <div class="card-body">
+                  <h6 class="card-title">{{ challenge.game_name }}</h6>
+                  <p class="card-text text-muted">
+                    <i class="bi bi-controller"></i> {{ challenge.game_type|title }}
+                  </p>
+                  
+                  <div class="text-center mb-3">
+                    <div class="d-flex justify-content-center align-items-center">
+                      <div class="text-center">
+                        <strong>{{ challenge.challenger.username }}</strong>
+                        <div class="small text-muted">Défieur</div>
+                      </div>
+                      <div class="mx-3">
+                        <i class="bi bi-arrow-right text-muted"></i>
+                      </div>
+                      <div class="text-center">
+                        <strong>Vous</strong>
+                        <div class="small text-muted">Adversaire</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="text-center mb-3">
+                    <span class="badge bg-success fs-6">{{ challenge.bet_amount }} Ktap</span>
+                    <small class="text-muted d-block">Pot total: {{ challenge.total_pot }} Ktap</small>
+                  </div>
+                  
+                  {% if challenge.description %}
+                    <p class="card-text small">{{ challenge.description|truncatewords:15 }}</p>
+                  {% endif %}
+                  
+                  <div class="text-muted small">
+                    <i class="bi bi-clock"></i> Expire dans {{ challenge.expires_at|timeuntil }}
+                  </div>
+                </div>
+                
+                <div class="card-footer">
+                  <div class="d-grid gap-2">
+                    <a href="{% url 'betting:p2p_challenge_detail' challenge.pk %}" class="btn btn-warning btn-sm">
+                      <i class="bi bi-eye"></i> Voir détails
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+          <nav aria-label="Navigation des défis">
+            <ul class="pagination justify-content-center">
+              {% if page_obj.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page=1{% if request.GET.game_type %}&game_type={{ request.GET.game_type }}{% endif %}{% if request.GET.min_amount %}&min_amount={{ request.GET.min_amount }}{% endif %}{% if request.GET.max_amount %}&max_amount={{ request.GET.max_amount }}{% endif %}">&laquo; Première</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.game_type %}&game_type={{ request.GET.game_type }}{% endif %}{% if request.GET.min_amount %}&min_amount={{ request.GET.min_amount }}{% endif %}{% if request.GET.max_amount %}&max_amount={{ request.GET.max_amount }}{% endif %}">Précédente</a>
+                </li>
+              {% endif %}
+
+              <li class="page-item active">
+                <span class="page-link">
+                  Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}
+                </span>
+              </li>
+
+              {% if page_obj.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.game_type %}&game_type={{ request.GET.game_type }}{% endif %}{% if request.GET.min_amount %}&min_amount={{ request.GET.min_amount }}{% endif %}{% if request.GET.max_amount %}&max_amount={{ request.GET.max_amount }}{% endif %}">Suivante</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.game_type %}&game_type={{ request.GET.game_type }}{% endif %}{% if request.GET.min_amount %}&min_amount={{ request.GET.min_amount }}{% endif %}{% if request.GET.max_amount %}&max_amount={{ request.GET.max_amount }}{% endif %}">Dernière &raquo;</a>
+                </li>
+              {% endif %}
+            </ul>
+          </nav>
+        {% endif %}
+      {% else %}
+        <div class="text-center py-5">
+          <i class="bi bi-search display-1 text-muted"></i>
+          <h3 class="mt-3">Aucun défi disponible</h3>
+          <p class="text-muted">Il n'y a actuellement aucun défi P2P ouvert.</p>
+          <a href="{% url 'betting:p2p_challenge_create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Créer un défi
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+// Appliquer les filtres actuels aux champs
+document.addEventListener('DOMContentLoaded', function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  if (urlParams.get('game_type')) {
+    document.querySelector('select[name="game_type"]').value = urlParams.get('game_type');
+  }
+  
+  if (urlParams.get('min_amount')) {
+    document.querySelector('input[name="min_amount"]').value = urlParams.get('min_amount');
+  }
+  
+  if (urlParams.get('max_amount')) {
+    document.querySelector('input[name="max_amount"]').value = urlParams.get('max_amount');
+  }
+});
+</script>
+{% endblock %} 

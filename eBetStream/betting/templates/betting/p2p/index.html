@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="text-center mb-5">
+        <h1 class="display-4 text-primary">
+          <i class="bi bi-people-fill"></i> Défis P2P
+        </h1>
+        <p class="lead">Affrontez d'autres joueurs en 1 contre 1 et pariez vos Ktap !</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Statistiques rapides -->
+  <div class="row mb-5">
+    <div class="col-md-3">
+      <div class="card text-center bg-primary text-white">
+        <div class="card-body">
+          <i class="bi bi-trophy display-4"></i>
+          <h4 class="mt-2">{{ total_challenges|default:0 }}</h4>
+          <p class="mb-0">Défis totaux</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center bg-success text-white">
+        <div class="card-body">
+          <i class="bi bi-check-circle display-4"></i>
+          <h4 class="mt-2">{{ completed_challenges|default:0 }}</h4>
+          <p class="mb-0">Terminés</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center bg-warning text-dark">
+        <div class="card-body">
+          <i class="bi bi-clock display-4"></i>
+          <h4 class="mt-2">{{ active_challenges|default:0 }}</h4>
+          <p class="mb-0">En cours</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center bg-info text-white">
+        <div class="card-body">
+          <i class="bi bi-currency-exchange display-4"></i>
+          <h4 class="mt-2">{{ total_winnings|default:0 }}</h4>
+          <p class="mb-0">Ktap gagnés</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions principales -->
+  <div class="row mb-5">
+    <div class="col-md-4">
+      <div class="card h-100 text-center">
+        <div class="card-body">
+          <i class="bi bi-plus-circle display-1 text-primary mb-3"></i>
+          <h5 class="card-title">Créer un défi</h5>
+          <p class="card-text">Défiez un autre joueur dans votre jeu préféré et pariez vos Ktap.</p>
+          <a href="{% url 'betting:p2p_challenge_create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Nouveau défi
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 text-center">
+        <div class="card-body">
+          <i class="bi bi-search display-1 text-success mb-3"></i>
+          <h5 class="card-title">Rechercher des défis</h5>
+          <p class="card-text">Trouvez des défis ouverts et rejoignez la compétition.</p>
+          <a href="{% url 'betting:p2p_challenge_search' %}" class="btn btn-success">
+            <i class="bi bi-search"></i> Voir les défis
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 text-center">
+        <div class="card-body">
+          <i class="bi bi-list display-1 text-info mb-3"></i>
+          <h5 class="card-title">Mes défis</h5>
+          <p class="card-text">Gérez vos défis en cours et suivez vos résultats.</p>
+          <a href="{% url 'betting:p2p_challenge_list' %}" class="btn btn-info">
+            <i class="bi bi-list"></i> Mes défis
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Défis récents -->
+  {% if recent_challenges %}
+    <div class="row">
+      <div class="col-12">
+        <h3 class="mb-4"><i class="bi bi-clock-history"></i> Défis récents</h3>
+        <div class="row">
+          {% for challenge in recent_challenges %}
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <span class="badge {% if challenge.status == 'open' %}bg-warning{% elif challenge.status == 'accepted' %}bg-info{% elif challenge.status == 'completed' %}bg-success{% else %}bg-secondary{% endif %}">
+                    {{ challenge.get_status_display }}
+                  </span>
+                  <small class="text-muted">{{ challenge.created_at|timesince }}</small>
+                </div>
+                <div class="card-body">
+                  <h6 class="card-title">{{ challenge.game_name }}</h6>
+                  <p class="card-text text-muted">
+                    <i class="bi bi-controller"></i> {{ challenge.game_type|title }}
+                  </p>
+                  <div class="text-center mb-3">
+                    <div class="d-flex justify-content-center align-items-center">
+                      <div class="text-center">
+                        <strong>{{ challenge.challenger.username }}</strong>
+                        <div class="small text-muted">Défieur</div>
+                      </div>
+                      <div class="mx-3">
+                        <i class="bi bi-arrow-right text-muted"></i>
+                      </div>
+                      <div class="text-center">
+                        <strong>{{ challenge.opponent.username }}</strong>
+                        <div class="small text-muted">Adversaire</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <span class="badge bg-success fs-6">{{ challenge.bet_amount }} Ktap</span>
+                    <small class="text-muted d-block">Pot: {{ challenge.total_pot }} Ktap</small>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <a href="{% url 'betting:p2p_challenge_detail' challenge.pk %}" class="btn btn-primary btn-sm w-100">
+                    <i class="bi bi-eye"></i> Voir détails
+                  </a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Comment ça marche -->
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4><i class="bi bi-question-circle"></i> Comment ça marche ?</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3 text-center">
+              <div class="mb-3">
+                <i class="bi bi-1-circle display-4 text-primary"></i>
+              </div>
+              <h5>1. Créez un défi</h5>
+              <p class="text-muted">Choisissez un adversaire, un jeu et un montant à parier.</p>
+            </div>
+            <div class="col-md-3 text-center">
+              <div class="mb-3">
+                <i class="bi bi-2-circle display-4 text-success"></i>
+              </div>
+              <h5>2. Attendez l'acceptation</h5>
+              <p class="text-muted">Votre adversaire doit accepter le défi pour commencer.</p>
+            </div>
+            <div class="col-md-3 text-center">
+              <div class="mb-3">
+                <i class="bi bi-3-circle display-4 text-warning"></i>
+              </div>
+              <h5>3. Jouez votre match</h5>
+              <p class="text-muted">Affrontez votre adversaire dans le jeu choisi.</p>
+            </div>
+            <div class="col-md-3 text-center">
+              <div class="mb-3">
+                <i class="bi bi-4-circle display-4 text-danger"></i>
+              </div>
+              <h5>4. Déclarez le résultat</h5>
+              <p class="text-muted">Le gagnant remporte le pot total (double du pari).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Jeux supportés -->
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4><i class="bi bi-controller"></i> Jeux supportés</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-2 col-4 text-center mb-3">
+              <i class="bi bi-controller display-4 text-primary"></i>
+              <p class="mt-2">FIFA</p>
+            </div>
+            <div class="col-md-2 col-4 text-center mb-3">
+              <i class="bi bi-controller display-4 text-success"></i>
+              <p class="mt-2">PES</p>
+            </div>
+            <div class="col-md-2 col-4 text-center mb-3">
+              <i class="bi bi-controller display-4 text-warning"></i>
+              <p class="mt-2">Fortnite</p>
+            </div>
+            <div class="col-md-2 col-4 text-center mb-3">
+              <i class="bi bi-controller display-4 text-danger"></i>
+              <p class="mt-2">Call of Duty</p>
+            </div>
+            <div class="col-md-2 col-4 text-center mb-3">
+              <i class="bi bi-controller display-4 text-info"></i>
+              <p class="mt-2">CS:GO</p>
+            </div>
+            <div class="col-md-2 col-4 text-center mb-3">
+              <i class="bi bi-controller display-4 text-secondary"></i>
+              <p class="mt-2">Et plus...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

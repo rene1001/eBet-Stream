@@ -4,11 +4,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.http import JsonResponse
-from django.db import transaction
-from .models import Bet, BetType, LiveBet
+from django.db import transaction, models
+from .models import Bet, BetType, LiveBet, P2PChallenge, P2PMessage
 from core.models import Match, Team, Game
-from .forms import BetForm, LiveBetForm
+from .forms import BetForm, LiveBetForm, P2PChallengeForm, P2PMessageForm, P2PResultForm
 from users.models import Transaction, UserActivity, User
+from django.utils import timezone
 import json
 
 # Create your views here.
@@ -363,3 +364,231 @@ class BetTypeListView(ListView):
             status__in=['upcoming', 'live']
         ).order_by('start_time')
         return context
+
+
+# Vues P2P (Peer-to-Peer)
+class P2PChallengeListView(LoginRequiredMixin, ListView):
+    """Vue pour lister les défis P2P"""
+    model = P2PChallenge
+    template_name = 'betting/p2p/challenge_list.html'
+    context_object_name = 'challenges'
+    paginate_by = 10
+    
+    def get_queryset(self):
+        # Afficher les défis où l'utilisateur est impliqué
+        return P2PChallenge.objects.filter(
+            models.Q(creator=self.request.user) | models.Q(opponent=self.request.user)
+        ).select_related('creator', 'opponent').order_by('-created_at')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Mes Défis P2P'
+        
+        # Statistiques
+        user_challenges = self.get_queryset()
+        context['total_challenges'] = user_challenges.count()
+        context['open_challenges'] = user_challenges.filter(status='open').count()
+        context['active_challenges'] = user_challenges.filter(status__in=['accepted', 'in_progress']).count()
+        context['completed_challenges'] = user_challenges.filter(status='completed').count()
+        
+        return context
+
+
+class P2PChallengeCreateView(LoginRequiredMixin, CreateView):
+    """Vue pour créer un nouveau défi P2P"""
+    model = P2PChallenge
+    form_class = P2PChallengeForm
+    template_name = 'betting/p2p/challenge_create.html'
+    success_url = reverse_lazy('betting:p2p_challenge_list')
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+    
+    def form_valid(self, form):
+        try:
+            challenge = form.save()
+            
+            # Créer un message système
+            P2PMessage.objects.create(
+                challenge=challenge,
+                sender=self.request.user,
+                content=f"Défi créé par {self.request.user.username}",
+                is_system_message=True
+            )
+            
+            # Enregistrer l'activité
+            UserActivity.objects.create(
+                user=self.request.user,
+                activity_type='p2p_challenge_created',
+                details=f"Défi P2P créé: {challenge.title} contre {challenge.opponent.username}"
+            )
+            
+            messages.success(self.request, f"Défi P2P créé avec succès ! {challenge.opponent.username} a été notifié.")
+            return super().form_valid(form)
+        except Exception as e:
+            messages.error(self.request, f"Erreur lors de la création du défi: {str(e)}")
+            return self.form_invalid(form)
+
+
+class P2PChallengeDetailView(LoginRequiredMixin, DetailView):
+    """Vue pour afficher les détails d'un défi P2P"""
+    model = P2PChallenge
+    template_name = 'betting/p2p/challenge_detail.html'
+    context_object_name = 'challenge'
+    
+    def get_queryset(self):
+        # L'utilisateur ne peut voir que ses propres défis
+        return P2PChallenge.objects.filter(
+            models.Q(creator=self.request.user) | models.Q(opponent=self.request.user)
+        ).select_related('creator', 'opponent', 'winner')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        challenge = self.object
+        
+        # Messages du défi
+        context['messages'] = P2PMessage.objects.filter(challenge=challenge).select_related('sender')
+        
+        # Formulaire de message
+        context['message_form'] = P2PMessageForm(user=self.request.user, challenge=challenge)
+        
+        # Formulaire de résultat (si le défi est accepté)
+        if challenge.status in ['accepted', 'in_progress']:
+            context['result_form'] = P2PResultForm(challenge=challenge)
+        
+        # Vérifier si l'utilisateur peut agir sur ce défi
+        context['can_accept'] = (
+            challenge.status == 'open' and 
+            challenge.opponent == self.request.user
+        )
+        context['can_cancel'] = (
+            challenge.status in ['open', 'accepted'] and 
+            challenge.creator == self.request.user
+        )
+        context['can_complete'] = (
+            challenge.status in ['accepted', 'in_progress'] and 
+            self.request.user in [challenge.creator, challenge.opponent]
+        )
+        
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        challenge = self.get_object()
+        action = request.POST.get('action')
+        
+        if action == 'accept' and challenge.opponent == request.user:
+            try:
+                challenge.accept_challenge()
+                
+                # Créer un message système
+                P2PMessage.objects.create(
+                    challenge=challenge,
+                    sender=request.user,
+                    content=f"{request.user.username} a accepté le défi !",
+                    is_system_message=True
+                )
+                
+                messages.success(request, "Défi accepté avec succès !")
+            except Exception as e:
+                messages.error(request, f"Erreur lors de l'acceptation: {str(e)}")
+        
+        elif action == 'cancel' and challenge.creator == request.user:
+            try:
+                challenge.cancel_challenge()
+                
+                # Créer un message système
+                P2PMessage.objects.create(
+                    challenge=challenge,
+                    sender=request.user,
+                    content=f"Le défi a été annulé par {request.user.username}",
+                    is_system_message=True
+                )
+                
+                messages.success(request, "Défi annulé avec succès.")
+            except Exception as e:
+                messages.error(request, f"Erreur lors de l'annulation: {str(e)}")
+        
+        elif action == 'complete' and request.user in [challenge.creator, challenge.opponent]:
+            form = P2PResultForm(request.POST, challenge=challenge)
+            if form.is_valid():
+                try:
+                    winner = form.cleaned_data['winner']
+                    challenger_score = form.cleaned_data.get('challenger_score')
+                    opponent_score = form.cleaned_data.get('opponent_score')
+                    
+                    challenge.complete_challenge(winner, challenger_score, opponent_score)
+                    
+                    # Créer un message système
+                    P2PMessage.objects.create(
+                        challenge=challenge,
+                        sender=request.user,
+                        content=f"Le défi est terminé ! {winner.username} a gagné !",
+                        is_system_message=True
+                    )
+                    
+                    messages.success(request, f"Résultat enregistré ! {winner.username} remporte {challenge.total_pot} Ktap !")
+                except Exception as e:
+                    messages.error(request, f"Erreur lors de l'enregistrement du résultat: {str(e)}")
+            else:
+                messages.error(request, "Données de résultat invalides.")
+        
+        elif action == 'send_message':
+            form = P2PMessageForm(request.POST, user=request.user, challenge=challenge)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Message envoyé !")
+            else:
+                messages.error(request, "Message invalide.")
+        
+        return redirect('betting:p2p_challenge_detail', pk=challenge.pk)
+
+
+class P2PChallengeSearchView(LoginRequiredMixin, ListView):
+    """Vue pour rechercher des défis P2P ouverts"""
+    model = P2PChallenge
+    template_name = 'betting/p2p/challenge_search.html'
+    context_object_name = 'challenges'
+    paginate_by = 10
+    
+    def get_queryset(self):
+        # Afficher les défis ouverts (pas créés par l'utilisateur actuel)
+        return P2PChallenge.objects.filter(
+            status='open',
+            creator__is_active=True,
+            opponent__is_active=True
+        ).exclude(
+            creator=self.request.user
+        ).select_related('creator', 'opponent').order_by('-created_at')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Rechercher des Défis P2P'
+        return context
+
+
+class P2PIndexView(LoginRequiredMixin, View):
+    """Vue pour la page d'accueil P2P"""
+    template_name = 'betting/p2p/index.html'
+    
+    def get(self, request):
+        # Statistiques pour l'utilisateur
+        user_challenges = P2PChallenge.objects.filter(
+            models.Q(creator=request.user) | models.Q(opponent=request.user)
+        )
+        
+        # Défis récents (tous les défis, pas seulement ceux de l'utilisateur)
+        recent_challenges = P2PChallenge.objects.filter(
+            status__in=['open', 'accepted', 'completed']
+        ).select_related('creator', 'opponent').order_by('-created_at')[:6]
+        
+        context = {
+            'total_challenges': user_challenges.count(),
+            'completed_challenges': user_challenges.filter(status='completed').count(),
+            'active_challenges': user_challenges.filter(status__in=['accepted', 'in_progress']).count(),
+            'total_winnings': 0,  # À calculer selon vos besoins
+            'recent_challenges': recent_challenges,
+        }
+        
+        return render(request, self.template_name, context)

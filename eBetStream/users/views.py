@@ -22,6 +22,8 @@ from django.db import transaction as db_transaction
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db import models
+from django.utils import timezone
+from datetime import timedelta
 
 class RegisterView(generic.CreateView):
     """View for registration"""
@@ -638,11 +640,92 @@ def mes_points_fidelite(request):
 def devenir_vip(request):
     user = request.user if request.user.is_authenticated else None
     demande = None
+    conditions_vip = {}
+    
     if user:
         demande = VIPRequest.objects.filter(user=user).order_by('-date').first()
+        
+        # Vérification des conditions VIP
+        
+        # 1. Nombre de pièces Ktap (minimum 200 000)
+        ktap_balance = user.kapanga_balance or 0
+        conditions_vip['ktap_sufficient'] = ktap_balance >= 200000
+        conditions_vip['ktap_balance'] = ktap_balance
+        conditions_vip['ktap_required'] = 200000
+        
+        # 2. Activité régulière (minimum 5 paris par mois pendant 3 mois)
+        from betting.models import Bet
+        three_months_ago = timezone.now() - timedelta(days=90)
+        bets_last_3_months = Bet.objects.filter(user=user, created_at__gte=three_months_ago)
+        
+        # Compter les paris par mois
+        monthly_bets = {}
+        for bet in bets_last_3_months:
+            month_key = bet.created_at.strftime('%Y-%m')
+            monthly_bets[month_key] = monthly_bets.get(month_key, 0) + 1
+        
+        # Vérifier si au moins 3 mois ont au moins 5 paris
+        months_with_sufficient_bets = sum(1 for count in monthly_bets.values() if count >= 5)
+        conditions_vip['activity_sufficient'] = months_with_sufficient_bets >= 3
+        conditions_vip['months_with_bets'] = months_with_sufficient_bets
+        conditions_vip['activity_required'] = 3
+        
+        # 3. Dépôts réguliers (minimum 3 dépôts par mois pendant 3 mois)
+        deposits_last_3_months = Transaction.objects.filter(
+            user=user, 
+            transaction_type='deposit',
+            timestamp__gte=three_months_ago
+        )
+        
+        # Compter les dépôts par mois
+        monthly_deposits = {}
+        for deposit in deposits_last_3_months:
+            month_key = deposit.timestamp.strftime('%Y-%m')
+            monthly_deposits[month_key] = monthly_deposits.get(month_key, 0) + 1
+        
+        # Vérifier si au moins 3 mois ont au moins 3 dépôts
+        months_with_sufficient_deposits = sum(1 for count in monthly_deposits.values() if count >= 3)
+        conditions_vip['deposits_sufficient'] = months_with_sufficient_deposits >= 3
+        conditions_vip['months_with_deposits'] = months_with_sufficient_deposits
+        conditions_vip['deposits_required'] = 3
+        
+        # 4. Participation aux événements (au moins 2 événements dans les 6 derniers mois)
+        from evenements.models import Evenement, InscriptionEvenement
+        six_months_ago = timezone.now() - timedelta(days=180)
+        events_participated = InscriptionEvenement.objects.filter(
+            utilisateur=user,
+            evenement__date_debut__gte=six_months_ago
+        ).count()
+        
+        conditions_vip['events_sufficient'] = events_participated >= 2
+        conditions_vip['events_participated'] = events_participated
+        conditions_vip['events_required'] = 2
+        
+        # 5. Bonne conduite (pas de fraude détectée)
+        # Pour l'instant, on considère que l'utilisateur a une bonne conduite
+        # Cette condition pourrait être vérifiée via un champ dans le modèle User
+        conditions_vip['good_conduct'] = True  # À implémenter selon vos besoins
+        
+        # Vérifier si toutes les conditions sont remplies
+        conditions_vip['all_conditions_met'] = all([
+            conditions_vip['ktap_sufficient'],
+            conditions_vip['activity_sufficient'],
+            conditions_vip['deposits_sufficient'],
+            conditions_vip['events_sufficient'],
+            conditions_vip['good_conduct']
+        ])
+        
         if request.method == 'POST' and not user.is_vip:
-            if not demande or demande.statut != 'en_attente':
-                VIPRequest.objects.create(user=user)
-                messages.success(request, "Votre demande VIP a été envoyée et sera traitée par l'administrateur.")
-                return redirect('users:devenir_vip')
-    return render(request, 'users/vip/devenir_vip.html', {'user': user, 'demande': demande})
+            if conditions_vip['all_conditions_met']:
+                if not demande or demande.statut != 'en_attente':
+                    VIPRequest.objects.create(user=user)
+                    messages.success(request, "Votre demande VIP a été envoyée et sera traitée par l'administrateur.")
+                    return redirect('users:devenir_vip')
+            else:
+                messages.error(request, "Vous ne remplissez pas encore toutes les conditions pour devenir VIP.")
+    
+    return render(request, 'users/vip/devenir_vip.html', {
+        'user': user, 
+        'demande': demande,
+        'conditions_vip': conditions_vip
+    })

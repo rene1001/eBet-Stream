@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BetType, Bet, LiveBet, Match
+from .models import BetType, Bet, LiveBet, Match, P2PChallenge, P2PMessage
 
 @admin.register(BetType)
 class BetTypeAdmin(admin.ModelAdmin):
@@ -73,3 +73,38 @@ class MatchAdmin(admin.ModelAdmin):
     date_hierarchy = 'start_time'
     readonly_fields = ('end_time',)
     list_editable = ('status', 'score_team1', 'score_team2', 'winner')
+
+
+@admin.register(P2PChallenge)
+class P2PChallengeAdmin(admin.ModelAdmin):
+    list_display = ('creator', 'opponent', 'title', 'creator_bet_amount', 'status', 'created_at', 'expires_at')
+    list_filter = ('status', 'game_type', 'created_at')
+    search_fields = ('creator__username', 'opponent__username', 'title')
+    date_hierarchy = 'created_at'
+    readonly_fields = ('created_at', 'accepted_at', 'completed_at')
+    
+    actions = ['mark_as_completed', 'mark_as_cancelled', 'mark_as_expired']
+    
+    def mark_as_completed(self, request, queryset):
+        queryset.filter(status__in=['open', 'accepted']).update(status='completed')
+        self.message_user(request, f"{queryset.filter(status='completed').count()} défis ont été marqués comme terminés.")
+    mark_as_completed.short_description = "Marquer les défis sélectionnés comme terminés"
+    
+    def mark_as_cancelled(self, request, queryset):
+        queryset.filter(status__in=['open', 'accepted']).update(status='cancelled')
+        self.message_user(request, f"{queryset.filter(status='cancelled').count()} défis ont été annulés.")
+    mark_as_cancelled.short_description = "Annuler les défis sélectionnés"
+    
+    def mark_as_expired(self, request, queryset):
+        queryset.filter(status='open').update(status='expired')
+        self.message_user(request, f"{queryset.filter(status='expired').count()} défis ont été marqués comme expirés.")
+    mark_as_expired.short_description = "Marquer les défis sélectionnés comme expirés"
+
+
+@admin.register(P2PMessage)
+class P2PMessageAdmin(admin.ModelAdmin):
+    list_display = ('sender', 'challenge', 'content', 'created_at', 'is_system_message')
+    list_filter = ('is_system_message', 'created_at')
+    search_fields = ('sender__username', 'challenge__game_name', 'content')
+    date_hierarchy = 'created_at'
+    readonly_fields = ('created_at',)

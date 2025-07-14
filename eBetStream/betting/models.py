@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db import transaction
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 from users.models import Transaction, UserActivity, User, KtapToken
 from decimal import Decimal
 
@@ -153,3 +154,250 @@ def update_user_balance(sender, instance, **kwargs):
     # Cette logique est maintenant gérée dans la méthode process_result du modèle Bet
     # et dans la méthode save pour le débit initial. Nous pouvons la désactiver.
     pass
+
+
+class P2PChallenge(models.Model):
+    """Modèle représentant un défi P2P entre deux utilisateurs"""
+    STATUS_CHOICES = [
+        ('open', 'Ouvert'),
+        ('accepted', 'Accepté'),
+        ('in_progress', 'En cours'),
+        ('completed', 'Terminé'),
+        ('cancelled', 'Annulé'),
+        ('expired', 'Expiré'),
+    ]
+    
+    GAME_TYPES = [
+        ('fifa', 'FIFA'),
+        ('pes', 'PES'),
+        ('csgo', 'CS:GO'),
+        ('lol', 'League of Legends'),
+        ('valorant', 'Valorant'),
+        ('rocket_league', 'Rocket League'),
+        ('other', 'Autre'),
+    ]
+    
+    # Champs correspondant à la structure de la base de données
+    title = models.CharField(max_length=200, verbose_name="Titre du défi")
+    description = models.TextField(verbose_name="Description")
+    game_type = models.CharField(max_length=20, choices=GAME_TYPES, verbose_name="Type de jeu")
+    custom_game = models.CharField(blank=True, max_length=100, verbose_name="Jeu personnalisé")
+    creator_bet_amount = models.DecimalField(
+        max_digits=10, 
+        decimal_places=2, 
+        validators=[MinValueValidator(Decimal('1.00'))],
+        verbose_name="Mise du créateur"
+    )
+    opponent_bet_amount = models.DecimalField(
+        max_digits=10, 
+        decimal_places=2, 
+        validators=[MinValueValidator(Decimal('1.00'))],
+        verbose_name="Mise de l'adversaire"
+    )
+    rules = models.TextField(blank=True, verbose_name="Règles du défi")
+    match_format = models.CharField(default="1v1", max_length=100, verbose_name="Format du match")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='open', verbose_name="Statut")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de création")
+    expires_at = models.DateTimeField(verbose_name="Date d'expiration")
+    accepted_at = models.DateTimeField(blank=True, null=True, verbose_name="Date d'acceptation")
+    completed_at = models.DateTimeField(blank=True, null=True, verbose_name="Date de fin")
+    creator_result = models.CharField(
+        blank=True,
+        choices=[
+            ('win', 'Victoire'),
+            ('loss', 'Défaite'),
+            ('draw', 'Match nul'),
+        ],
+        max_length=20,
+        null=True,
+        verbose_name="Résultat du créateur"
+    )
+    opponent_result = models.CharField(
+        blank=True,
+        choices=[
+            ('win', 'Victoire'),
+            ('loss', 'Défaite'),
+            ('draw', 'Match nul'),
+        ],
+        max_length=20,
+        null=True,
+        verbose_name="Résultat de l'adversaire"
+    )
+    creator_proof = models.TextField(blank=True, verbose_name="Preuve du créateur")
+    opponent_proof = models.TextField(blank=True, verbose_name="Preuve de l'adversaire")
+    admin_decision = models.CharField(
+        blank=True,
+        choices=[
+            ('creator_win', 'Victoire créateur'),
+            ('opponent_win', 'Victoire adversaire'),
+            ('draw', 'Match nul'),
+            ('cancelled', 'Annulé'),
+        ],
+        max_length=20,
+        null=True,
+        verbose_name="Décision admin"
+    )
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_challenges', verbose_name="Créateur")
+    opponent = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, related_name='received_challenges', verbose_name="Adversaire")
+    winner = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, related_name='won_challenges', verbose_name="Gagnant")
+    
+    class Meta:
+        verbose_name = "Défi P2P"
+        verbose_name_plural = "Défis P2P"
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return f"{self.creator.username} vs {self.opponent.username if self.opponent else 'TBD'} - {self.title} ({self.creator_bet_amount} Ktap)"
+    
+    def clean(self):
+        if self.creator == self.opponent:
+            raise ValidationError("Vous ne pouvez pas vous défier vous-même.")
+        
+        if self.creator_bet_amount and self.creator:
+            try:
+                user = User.objects.get(pk=self.creator.pk)
+                if user.kapanga_balance is not None and self.creator_bet_amount > user.kapanga_balance:
+                    raise ValidationError("Solde Ktap insuffisant pour créer ce défi.")
+            except User.DoesNotExist:
+                raise ValidationError("Utilisateur introuvable.")
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Nouveau défi
+            # Bloquer le montant du créateur
+            with transaction.atomic():
+                user = User.objects.select_for_update().get(pk=self.creator.pk)
+                user.kapanga_balance -= self.creator_bet_amount
+                user.save()
+                
+                # Créer une transaction pour bloquer le montant
+                Transaction.objects.create(
+                    user=user,
+                    amount=self.creator_bet_amount,
+                    transaction_type='p2p_blocked',
+                    status='pending',
+                    description=f"Défi P2P bloqué: {self.title}"
+                )
+        super().save(*args, **kwargs)
+    
+    def accept_challenge(self):
+        """Accepter le défi"""
+        if self.status != 'open':
+            raise ValidationError("Ce défi ne peut plus être accepté.")
+        
+        if self.opponent.kapanga_balance < self.creator_bet_amount:
+            raise ValidationError("Solde Ktap insuffisant pour accepter ce défi.")
+        
+        with transaction.atomic():
+            # Bloquer le montant de l'adversaire
+            self.opponent.kapanga_balance -= self.creator_bet_amount
+            self.opponent.save()
+            
+            # Créer une transaction pour bloquer le montant
+            Transaction.objects.create(
+                user=self.opponent,
+                amount=self.creator_bet_amount,
+                transaction_type='p2p_blocked',
+                status='pending',
+                description=f"Défi P2P accepté: {self.title}"
+            )
+            
+            self.status = 'accepted'
+            self.accepted_at = timezone.now()
+            self.save()
+    
+    def complete_challenge(self, winner, creator_score=None, opponent_score=None):
+        """Terminer le défi et distribuer les gains"""
+        if self.status not in ['accepted', 'in_progress']:
+            raise ValidationError("Ce défi ne peut pas être terminé.")
+        
+        if winner not in [self.creator, self.opponent]:
+            raise ValidationError("Le gagnant doit être l'un des participants.")
+        
+        with transaction.atomic():
+            # Libérer les montants bloqués
+            creator_user = User.objects.select_for_update().get(pk=self.creator.pk)
+            opponent_user = User.objects.select_for_update().get(pk=self.opponent.pk)
+            
+            # Créditer le gagnant avec le double du montant
+            winner_user = creator_user if winner == self.creator else opponent_user
+            winner_user.kapanga_balance += (self.creator_bet_amount * 2)
+            winner_user.save()
+            
+            # Créer les transactions
+            Transaction.objects.create(
+                user=winner_user,
+                amount=self.creator_bet_amount * 2,
+                transaction_type='p2p_win',
+                status='completed',
+                description=f"Gain P2P: {self.title}"
+            )
+            
+            # Annuler les transactions bloquées
+            Transaction.objects.filter(
+                user__in=[self.creator, self.opponent],
+                transaction_type='p2p_blocked',
+                status='pending',
+                description__contains=self.title
+            ).update(status='cancelled')
+            
+            self.status = 'completed'
+            self.completed_at = timezone.now()
+            self.winner = winner
+            self.creator_result = 'win' if winner == self.creator else 'loss'
+            self.opponent_result = 'win' if winner == self.opponent else 'loss'
+            self.save()
+    
+    def cancel_challenge(self):
+        """Annuler le défi et rembourser le créateur"""
+        if self.status not in ['open', 'accepted']:
+            raise ValidationError("Ce défi ne peut pas être annulé.")
+        
+        with transaction.atomic():
+            # Rembourser le créateur
+            creator_user = User.objects.select_for_update().get(pk=self.creator.pk)
+            creator_user.kapanga_balance += self.creator_bet_amount
+            creator_user.save()
+            
+            # Rembourser l'adversaire s'il avait accepté
+            if self.status == 'accepted':
+                opponent_user = User.objects.select_for_update().get(pk=self.opponent.pk)
+                opponent_user.kapanga_balance += self.creator_bet_amount
+                opponent_user.save()
+            
+            # Annuler les transactions bloquées
+            Transaction.objects.filter(
+                user__in=[self.creator, self.opponent],
+                transaction_type='p2p_blocked',
+                status='pending',
+                description__contains=self.title
+            ).update(status='cancelled')
+            
+            self.status = 'cancelled'
+            self.save()
+    
+    @property
+    def is_expired(self):
+        """Vérifie si le défi a expiré"""
+        return timezone.now() > self.expires_at
+    
+    @property
+    def total_pot(self):
+        """Montant total du pot (double du montant du pari)"""
+        return self.creator_bet_amount * 2
+
+
+class P2PMessage(models.Model):
+    """Modèle pour les messages entre participants d'un défi P2P"""
+    challenge = models.ForeignKey(P2PChallenge, on_delete=models.CASCADE, related_name='messages', verbose_name="Défi")
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='p2p_messages_sent', verbose_name="Expéditeur")
+    content = models.TextField(verbose_name="Contenu")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date d'envoi")
+    is_system_message = models.BooleanField(default=False, verbose_name="Message système")
+    
+    class Meta:
+        verbose_name = "Message P2P"
+        verbose_name_plural = "Messages P2P"
+        ordering = ['created_at']
+    
+    def __str__(self):
+        return f"{self.sender.username} - {self.challenge.game_name} - {self.created_at.strftime('%H:%M')}"

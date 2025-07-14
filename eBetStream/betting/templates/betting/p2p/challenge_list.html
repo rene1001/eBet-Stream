@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0"><i class="bi bi-people-fill text-primary"></i> Mes Défis P2P</h1>
+        <div>
+          <a href="{% url 'betting:p2p_challenge_create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Créer un défi
+          </a>
+          <a href="{% url 'betting:p2p_challenge_search' %}" class="btn btn-outline-primary">
+            <i class="bi bi-search"></i> Rechercher des défis
+          </a>
+        </div>
+      </div>
+
+      <!-- Statistiques -->
+      <div class="row mb-4">
+        <div class="col-md-3">
+          <div class="card bg-primary text-white">
+            <div class="card-body text-center">
+              <h4>{{ total_challenges }}</h4>
+              <p class="mb-0">Total défis</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card bg-warning text-dark">
+            <div class="card-body text-center">
+              <h4>{{ open_challenges }}</h4>
+              <p class="mb-0">En attente</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card bg-info text-white">
+            <div class="card-body text-center">
+              <h4>{{ active_challenges }}</h4>
+              <p class="mb-0">En cours</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card bg-success text-white">
+            <div class="card-body text-center">
+              <h4>{{ completed_challenges }}</h4>
+              <p class="mb-0">Terminés</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Liste des défis -->
+      {% if challenges %}
+        <div class="row">
+          {% for challenge in challenges %}
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="card h-100 shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <span class="badge {% if challenge.status == 'open' %}bg-warning{% elif challenge.status == 'accepted' %}bg-info{% elif challenge.status == 'completed' %}bg-success{% elif challenge.status == 'cancelled' %}bg-danger{% else %}bg-secondary{% endif %}">
+                    {{ challenge.get_status_display }}
+                  </span>
+                  <small class="text-muted">{{ challenge.created_at|date:'d/m/Y H:i' }}</small>
+                </div>
+                
+                <div class="card-body">
+                  <h6 class="card-title">{{ challenge.game_name }}</h6>
+                  <p class="card-text text-muted">{{ challenge.game_type|title }}</p>
+                  
+                  <div class="row text-center mb-3">
+                    <div class="col-6">
+                      <strong>{{ challenge.challenger.username }}</strong>
+                      {% if challenge.challenger == user %}
+                        <span class="badge bg-primary">Vous</span>
+                      {% endif %}
+                    </div>
+                    <div class="col-6">
+                      <strong>{{ challenge.opponent.username }}</strong>
+                      {% if challenge.opponent == user %}
+                        <span class="badge bg-primary">Vous</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  
+                  <div class="text-center mb-3">
+                    <span class="badge bg-success fs-6">{{ challenge.bet_amount }} Ktap</span>
+                    <small class="text-muted d-block">Pot total: {{ challenge.total_pot }} Ktap</small>
+                  </div>
+                  
+                  {% if challenge.status == 'completed' and challenge.winner %}
+                    <div class="text-center mb-3">
+                      <div class="alert alert-success py-2">
+                        <i class="bi bi-trophy"></i> <strong>{{ challenge.winner.username }}</strong> a gagné !
+                        {% if challenge.challenger_score and challenge.opponent_score %}
+                          <br><small>{{ challenge.challenger_score }} - {{ challenge.opponent_score }}</small>
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% endif %}
+                  
+                  {% if challenge.description %}
+                    <p class="card-text small">{{ challenge.description|truncatewords:10 }}</p>
+                  {% endif %}
+                </div>
+                
+                <div class="card-footer">
+                  <a href="{% url 'betting:p2p_challenge_detail' challenge.pk %}" class="btn btn-primary btn-sm w-100">
+                    <i class="bi bi-eye"></i> Voir détails
+                  </a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+          <nav aria-label="Navigation des défis">
+            <ul class="pagination justify-content-center">
+              {% if page_obj.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page=1">&laquo; Première</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Précédente</a>
+                </li>
+              {% endif %}
+
+              <li class="page-item active">
+                <span class="page-link">
+                  Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}
+                </span>
+              </li>
+
+              {% if page_obj.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.next_page_number }}">Suivante</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Dernière &raquo;</a>
+                </li>
+              {% endif %}
+            </ul>
+          </nav>
+        {% endif %}
+      {% else %}
+        <div class="text-center py-5">
+          <i class="bi bi-people display-1 text-muted"></i>
+          <h3 class="mt-3">Aucun défi P2P</h3>
+          <p class="text-muted">Vous n'avez pas encore participé à des défis P2P.</p>
+          <a href="{% url 'betting:p2p_challenge_create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Créer votre premier défi
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %} 

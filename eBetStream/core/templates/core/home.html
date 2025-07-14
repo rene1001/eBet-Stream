@@ -6,6 +6,30 @@
 
 {% block content %}
 <div class="container py-5">
+    <!-- Section P2P -->
+    <section class="mb-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="card bg-gradient-primary text-white">
+                    <div class="card-body text-center py-4">
+                        <h2 class="mb-3">
+                            <i class="fas fa-users me-2"></i>Défis P2P
+                        </h2>
+                        <p class="lead mb-4">Défiez d'autres joueurs en 1 contre 1 et gagnez des Ktap !</p>
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            <a href="{% url 'betting:p2p_index' %}" class="btn btn-light btn-lg">
+                                <i class="fas fa-gamepad me-2"></i>Accéder aux Défis P2P
+                            </a>
+                            <a href="{% url 'betting:p2p_challenge_create' %}" class="btn btn-outline-light btn-lg">
+                                <i class="fas fa-plus me-2"></i>Créer un Défi
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Prochains Matchs -->
     <section class="mb-5">
         <h2 class="mb-4">

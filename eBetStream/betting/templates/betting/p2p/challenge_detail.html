@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-4">
+  <div class="row">
+    <div class="col-lg-8">
+      <!-- Détails du défi -->
+      <div class="card shadow mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h4 class="mb-0">
+            <i class="bi bi-controller"></i> {{ challenge.game_name }}
+          </h4>
+          <span class="badge {% if challenge.status == 'open' %}bg-warning{% elif challenge.status == 'accepted' %}bg-info{% elif challenge.status == 'completed' %}bg-success{% elif challenge.status == 'cancelled' %}bg-danger{% else %}bg-secondary{% endif %} fs-6">
+            {{ challenge.get_status_display }}
+          </span>
+        </div>
+        
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h6><i class="bi bi-person"></i> Défieur</h6>
+              <p class="mb-2">
+                <strong>{{ challenge.challenger.username }}</strong>
+                {% if challenge.challenger == user %}
+                  <span class="badge bg-primary">Vous</span>
+                {% endif %}
+              </p>
+            </div>
+            <div class="col-md-6">
+              <h6><i class="bi bi-person"></i> Adversaire</h6>
+              <p class="mb-2">
+                <strong>{{ challenge.opponent.username }}</strong>
+                {% if challenge.opponent == user %}
+                  <span class="badge bg-primary">Vous</span>
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          
+          <hr>
+          
+          <div class="row">
+            <div class="col-md-4">
+              <h6><i class="bi bi-controller"></i> Jeu</h6>
+              <p class="mb-2">{{ challenge.game_type|title }}</p>
+            </div>
+            <div class="col-md-4">
+              <h6><i class="bi bi-currency-exchange"></i> Pari</h6>
+              <p class="mb-2">{{ challenge.bet_amount }} Ktap</p>
+            </div>
+            <div class="col-md-4">
+              <h6><i class="bi bi-trophy"></i> Pot total</h6>
+              <p class="mb-2 text-success fw-bold">{{ challenge.total_pot }} Ktap</p>
+            </div>
+          </div>
+          
+          {% if challenge.description %}
+            <hr>
+            <h6><i class="bi bi-chat-text"></i> Description</h6>
+            <p class="mb-0">{{ challenge.description }}</p>
+          {% endif %}
+          
+          {% if challenge.status == 'completed' and challenge.winner %}
+            <hr>
+            <div class="alert alert-success">
+              <h6><i class="bi bi-trophy"></i> Résultat</h6>
+              <p class="mb-1"><strong>{{ challenge.winner.username }}</strong> a gagné !</p>
+              {% if challenge.challenger_score and challenge.opponent_score %}
+                <p class="mb-0">Score: {{ challenge.challenger_score }} - {{ challenge.opponent_score }}</p>
+              {% endif %}
+            </div>
+          {% endif %}
+          
+          <div class="row text-muted small">
+            <div class="col-md-6">
+              <i class="bi bi-calendar"></i> Créé le {{ challenge.created_at|date:'d/m/Y à H:i' }}
+            </div>
+            {% if challenge.accepted_at %}
+              <div class="col-md-6">
+                <i class="bi bi-check-circle"></i> Accepté le {{ challenge.accepted_at|date:'d/m/Y à H:i' }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        
+        <!-- Actions -->
+        <div class="card-footer">
+          {% if can_accept %}
+            <form method="post" class="d-inline">
+              {% csrf_token %}
+              <input type="hidden" name="action" value="accept">
+              <button type="submit" class="btn btn-success">
+                <i class="bi bi-check-circle"></i> Accepter le défi
+              </button>
+            </form>
+          {% endif %}
+          
+          {% if can_cancel %}
+            <form method="post" class="d-inline">
+              {% csrf_token %}
+              <input type="hidden" name="action" value="cancel">
+              <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir annuler ce défi ?')">
+                <i class="bi bi-x-circle"></i> Annuler le défi
+              </button>
+            </form>
+          {% endif %}
+          
+          {% if can_complete %}
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#resultModal">
+              <i class="bi bi-flag-checkered"></i> Déclarer le résultat
+            </button>
+          {% endif %}
+        </div>
+      </div>
+      
+      <!-- Chat -->
+      <div class="card shadow">
+        <div class="card-header">
+          <h5 class="mb-0"><i class="bi bi-chat-dots"></i> Messages</h5>
+        </div>
+        <div class="card-body" style="height: 400px; overflow-y: auto;" id="chat-messages">
+          {% for message in messages %}
+            <div class="mb-3">
+              {% if message.is_system_message %}
+                <div class="text-center">
+                  <span class="badge bg-secondary">{{ message.content }}</span>
+                  <small class="text-muted d-block">{{ message.created_at|date:'H:i' }}</small>
+                </div>
+              {% else %}
+                <div class="d-flex {% if message.sender == user %}justify-content-end{% endif %}">
+                  <div class="{% if message.sender == user %}text-end{% endif %}">
+                    <div class="{% if message.sender == user %}bg-primary text-white{% else %}bg-light{% endif %} rounded p-2 d-inline-block" style="max-width: 70%;">
+                      {{ message.content }}
+                    </div>
+                    <div class="small text-muted mt-1">
+                      {{ message.sender.username }} - {{ message.created_at|date:'H:i' }}
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+        
+        <div class="card-footer">
+          <form method="post" id="message-form">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="send_message">
+            <div class="input-group">
+              {{ message_form.content }}
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-send"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-lg-4">
+      <!-- Actions rapides -->
+      <div class="card shadow mb-4">
+        <div class="card-header">
+          <h5 class="mb-0"><i class="bi bi-lightning"></i> Actions rapides</h5>
+        </div>
+        <div class="card-body">
+          <div class="d-grid gap-2">
+            <a href="{% url 'betting:p2p_challenge_list' %}" class="btn btn-outline-primary">
+              <i class="bi bi-list"></i> Mes défis
+            </a>
+            <a href="{% url 'betting:p2p_challenge_create' %}" class="btn btn-outline-success">
+              <i class="bi bi-plus-circle"></i> Nouveau défi
+            </a>
+            <a href="{% url 'betting:p2p_challenge_search' %}" class="btn btn-outline-info">
+              <i class="bi bi-search"></i> Rechercher
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Informations -->
+      <div class="card shadow">
+        <div class="card-header">
+          <h5 class="mb-0"><i class="bi bi-info-circle"></i> Informations</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <i class="bi bi-clock text-warning"></i>
+              <strong>Expire le :</strong><br>
+              {{ challenge.expires_at|date:'d/m/Y à H:i' }}
+            </li>
+            {% if challenge.is_expired %}
+              <li class="mb-2">
+                <i class="bi bi-exclamation-triangle text-danger"></i>
+                <strong>Ce défi a expiré</strong>
+              </li>
+            {% endif %}
+            <li class="mb-2">
+              <i class="bi bi-shield-check text-success"></i>
+              <strong>Montant bloqué :</strong><br>
+              {{ challenge.bet_amount }} Ktap par joueur
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour déclarer le résultat -->
+{% if can_complete %}
+<div class="modal fade" id="resultModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-flag-checkered"></i> Déclarer le résultat</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="complete">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Gagnant *</label>
+            {% for choice in result_form.winner %}
+              <div class="form-check">
+                {{ choice.tag }}
+                <label class="form-check-label" for="{{ choice.id_for_label }}">
+                  {{ choice.choice_label }}
+                </label>
+              </div>
+            {% endfor %}
+          </div>
+          
+          <div class="row">
+            <div class="col-6">
+              <label for="{{ result_form.challenger_score.id_for_label }}" class="form-label">
+                Score de {{ challenge.challenger.username }}
+              </label>
+              {{ result_form.challenger_score }}
+            </div>
+            <div class="col-6">
+              <label for="{{ result_form.opponent_score.id_for_label }}" class="form-label">
+                Score de {{ challenge.opponent.username }}
+              </label>
+              {{ result_form.opponent_score }}
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-primary">Confirmer le résultat</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<script>
+// Auto-scroll vers le bas du chat
+document.addEventListener('DOMContentLoaded', function() {
+  const chatMessages = document.getElementById('chat-messages');
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+});
+
+// Auto-scroll après envoi de message
+document.getElementById('message-form').addEventListener('submit', function() {
+  setTimeout(function() {
+    const chatMessages = document.getElementById('chat-messages');
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }, 100);
+});
+</script>
+{% endblock %} 
