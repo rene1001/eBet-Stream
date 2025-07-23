@@ -5,37 +5,19 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, User
 from django.core.validators import MinLengthValidator
 from .models import User, Transaction, PaymentMethod, DepositRequest, WithdrawalRequest, GameOrganizationRequest
 from django.utils import timezone
-from datetime import date
-from django.core.exceptions import ValidationError
 
 class UserRegisterForm(UserCreationForm):
     """Custom registration form"""
     email = forms.EmailField(required=True)
-    birth_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'}),
-        help_text="You must be at least 18 years old to register."
-    )
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'birth_date', 'password1', 'password2']
-
-    def clean_birth_date(self):
-        birth_date = self.cleaned_data.get('birth_date')
-        if birth_date:
-            age = (date.today() - birth_date).days // 365
-            if age < 18:
-                raise ValidationError("You must be at least 18 years old to register.")
-        return birth_date
+        fields = ['username', 'email', 'password1', 'password2']
 
 
 class AdminRegisterForm(UserCreationForm):
     """Administrator registration form"""
     email = forms.EmailField(required=True)
-    birth_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'}),
-        help_text="You must be at least 18 years old to register."
-    )
     invitation_code = forms.CharField(
         max_length=20, 
         required=True,
@@ -44,21 +26,13 @@ class AdminRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'birth_date', 'invitation_code', 'password1', 'password2']
-
-    def clean_birth_date(self):
-        birth_date = self.cleaned_data.get('birth_date')
-        if birth_date:
-            age = (date.today() - birth_date).days // 365
-            if age < 18:
-                raise ValidationError("You must be at least 18 years old to register.")
-        return birth_date
+        fields = ['username', 'email', 'invitation_code', 'password1', 'password2']
 
     def clean_invitation_code(self):
         invitation_code = self.cleaned_data.get('invitation_code')
         # Check if the invitation code is valid
         if invitation_code != 'ADMIN2024':  # Fixed invitation code for example
-            raise ValidationError("Invalid invitation code.")
+            raise forms.ValidationError("Invalid invitation code.")
         return invitation_code
 
 
@@ -152,16 +126,16 @@ class DepositRequestForm(forms.ModelForm):
         
         if payment_method and amount:
             if amount < payment_method.min_amount:
-                raise ValidationError(f"Minimum amount for {payment_method.name} is {payment_method.min_amount}")
+                raise forms.ValidationError(f"Minimum amount for {payment_method.name} is {payment_method.min_amount}")
             if amount > payment_method.max_amount:
-                raise ValidationError(f"Maximum amount for {payment_method.name} is {payment_method.max_amount}")
+                raise forms.ValidationError(f"Maximum amount for {payment_method.name} is {payment_method.max_amount}")
         
         return amount
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = UserCreationForm.Meta.fields + ('birth_date', 'profile_picture', 'language')
+        fields = UserCreationForm.Meta.fields + ('profile_picture', 'language')
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
@@ -214,7 +188,7 @@ class WithdrawalRequestForm(forms.ModelForm):
         if user and amount is not None:
             user_balance = user.kapanga_balance if user.kapanga_balance is not None else 0
             if amount > user_balance:
-                raise ValidationError('Insufficient Ktap balance to make this withdrawal.')
+                raise forms.ValidationError('Insufficient Ktap balance to make this withdrawal.')
         
         # Payment reference validation based on chosen method
         if payment_method == 'crypto':
@@ -247,7 +221,7 @@ class WithdrawalRequestForm(forms.ModelForm):
     def clean_amount(self):
         amount = self.cleaned_data['amount']
         if amount <= 0:
-            raise ValidationError("Amount must be greater than 0.")
+            raise forms.ValidationError("Amount must be greater than 0.")
 
 class GameOrganizationRequestForm(forms.ModelForm):
     """Game organization request form"""

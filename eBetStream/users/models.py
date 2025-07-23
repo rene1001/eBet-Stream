@@ -29,7 +29,6 @@ class User(AbstractUser):
         related_name='users_permissions',
         related_query_name='user'
     )
-    birth_date = models.DateField(verbose_name="Date de naissance", null=True, blank=True)
     balance = models.DecimalField(
         max_digits=10, 
         decimal_places=2, 
@@ -74,11 +73,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
-
-    def age(self):
-        if self.birth_date:
-            return timezone.now().year - self.birth_date.year
-        return None
 
     def check_and_transfer_bonus(self):
         """Vérifie si les conditions de bonus sont remplies et transfère le bonus si c'est le cas"""

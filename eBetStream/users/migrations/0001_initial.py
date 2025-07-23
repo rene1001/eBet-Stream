@@ -100,12 +100,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "birth_date",
-                    models.DateField(
-                        blank=True, null=True, verbose_name="Date de naissance"
-                    ),
-                ),
-                (
                     "balance",
                     models.DecimalField(
                         decimal_places=2,

@@ -13,7 +13,7 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ('username', 'email', 'first_name', 'last_name')
     readonly_fields = ('date_joined', 'last_login', 'uuid')
     fieldsets = (
-        ('Personal Information', {'fields': ('username', 'email', 'first_name', 'last_name', 'birth_date', 'profile_picture')}),
+        ('Personal Information', {'fields': ('username', 'email', 'first_name', 'last_name', 'profile_picture')}),
         ('Ktap Balance', {'fields': ('kapanga_balance',)}),
         ('Status', {'fields': ('is_active', 'email_verified', 'verification_token')}),
         ('Permissions', {'fields': ('is_staff', 'is_superuser', 'groups', 'user_permissions')}),
