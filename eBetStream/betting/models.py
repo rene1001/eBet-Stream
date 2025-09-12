@@ -79,7 +79,7 @@ class Bet(models.Model):
             # Récupérer l'utilisateur depuis la base de données pour le solde le plus récent
             try:
                 user = User.objects.get(pk=self.user.pk)
-                if user.ktap_balance is not None and self.amount > user.ktap_balance:
+                if user.kapanga_balance is not None and self.amount > user.kapanga_balance:
                     raise ValidationError("Solde Ktap insuffisant pour placer ce pari.")
             except User.DoesNotExist:
                 raise ValidationError("Utilisateur associé à ce pari introuvable.")
@@ -99,7 +99,7 @@ class Bet(models.Model):
                     description=f"Pari sur {self.match}"
                 )
                 # Mettre à jour le solde de l'utilisateur
-                user.ktap_balance -= self.amount  # Utilisation directe du Decimal
+                user.kapanga_balance -= self.amount  # Utilisation directe du Decimal
                 user.save()
         super().save(*args, **kwargs)
     
@@ -117,7 +117,7 @@ class Bet(models.Model):
                 user = User.objects.select_for_update().get(pk=self.user.pk)
 
                 # Ajouter les gains au solde de l'utilisateur
-                user.ktap_balance += winnings  # Utilisation directe du Decimal
+                user.kapanga_balance += winnings  # Utilisation directe du Decimal
                 user.save()
             
             # Créer une transaction pour les gains
@@ -181,17 +181,16 @@ class P2PChallenge(models.Model):
     title = models.CharField(max_length=200, verbose_name="Titre du défi")
     description = models.TextField(verbose_name="Description")
     game_type = models.CharField(max_length=20, choices=GAME_TYPES, verbose_name="Type de jeu")
+    game_name = models.CharField(max_length=100, verbose_name="Nom du jeu", default="")
     custom_game = models.CharField(blank=True, max_length=100, verbose_name="Jeu personnalisé")
     creator_bet_amount = models.DecimalField(
         max_digits=10, 
         decimal_places=2, 
-        validators=[MinValueValidator(Decimal('1.00'))],
         verbose_name="Mise du créateur"
     )
     opponent_bet_amount = models.DecimalField(
         max_digits=10, 
         decimal_places=2, 
-        validators=[MinValueValidator(Decimal('1.00'))],
         verbose_name="Mise de l'adversaire"
     )
     rules = models.TextField(blank=True, verbose_name="Règles du défi")
@@ -250,130 +249,70 @@ class P2PChallenge(models.Model):
         return f"{self.creator.username} vs {self.opponent.username if self.opponent else 'TBD'} - {self.title} ({self.creator_bet_amount} Ktap)"
     
     def clean(self):
-        if self.creator == self.opponent:
+        # Valider que le créateur ne se défie pas lui-même
+        if hasattr(self, 'creator') and self.creator is not None and self.creator == self.opponent:
             raise ValidationError("Vous ne pouvez pas vous défier vous-même.")
         
-        if self.creator_bet_amount and self.creator:
-            try:
-                user = User.objects.get(pk=self.creator.pk)
-                if user.kapanga_balance is not None and self.creator_bet_amount > user.kapanga_balance:
-                    raise ValidationError("Solde Ktap insuffisant pour créer ce défi.")
-            except User.DoesNotExist:
-                raise ValidationError("Utilisateur introuvable.")
+        # S'assurer que la mise de l'adversaire correspond à celle du créateur
+        if hasattr(self, 'creator_bet_amount') and hasattr(self, 'opponent_bet_amount'):
+            self.opponent_bet_amount = self.creator_bet_amount
     
     def save(self, *args, **kwargs):
-        if not self.pk:  # Nouveau défi
-            # Bloquer le montant du créateur
-            with transaction.atomic():
-                user = User.objects.select_for_update().get(pk=self.creator.pk)
-                user.kapanga_balance -= self.creator_bet_amount
-                user.save()
+        is_new = not self.pk
+        
+        if is_new:
+            # Pour un nouveau défi, s'assurer que le créateur est défini
+            if not hasattr(self, 'creator') or not self.creator:
+                raise ValueError("Le créateur du défi doit être défini avant la sauvegarde.")
                 
-                # Créer une transaction pour bloquer le montant
-                Transaction.objects.create(
-                    user=user,
-                    amount=self.creator_bet_amount,
-                    transaction_type='p2p_blocked',
-                    status='pending',
-                    description=f"Défi P2P bloqué: {self.title}"
-                )
-        super().save(*args, **kwargs)
+            # S'assurer que la mise de l'adversaire est égale à celle du créateur
+            self.opponent_bet_amount = self.creator_bet_amount
+            
+            # Si game_name n'est pas défini, utiliser le titre comme fallback
+            if not hasattr(self, 'game_name') or not self.game_name:
+                self.game_name = self.title
+            
+            # Sauvegarder le défi
+            super().save(*args, **kwargs)
+        else:
+            # Pour une mise à jour, appeler simplement le save() du parent
+            super().save(*args, **kwargs)
     
     def accept_challenge(self):
         """Accepter le défi"""
         if self.status != 'open':
             raise ValidationError("Ce défi ne peut plus être accepté.")
         
-        if self.opponent.kapanga_balance < self.creator_bet_amount:
-            raise ValidationError("Solde Ktap insuffisant pour accepter ce défi.")
-        
         with transaction.atomic():
-            # Bloquer le montant de l'adversaire
-            self.opponent.kapanga_balance -= self.creator_bet_amount
-            self.opponent.save()
-            
-            # Créer une transaction pour bloquer le montant
-            Transaction.objects.create(
-                user=self.opponent,
-                amount=self.creator_bet_amount,
-                transaction_type='p2p_blocked',
-                status='pending',
-                description=f"Défi P2P accepté: {self.title}"
-            )
-            
+            # Mettre à jour le statut du défi
             self.status = 'accepted'
             self.accepted_at = timezone.now()
             self.save()
     
     def complete_challenge(self, winner, creator_score=None, opponent_score=None):
-        """Terminer le défi et distribuer les gains"""
+        """Terminer le défi"""
         if self.status not in ['accepted', 'in_progress']:
             raise ValidationError("Ce défi ne peut pas être terminé.")
         
         if winner not in [self.creator, self.opponent]:
             raise ValidationError("Le gagnant doit être l'un des participants.")
         
-        with transaction.atomic():
-            # Libérer les montants bloqués
-            creator_user = User.objects.select_for_update().get(pk=self.creator.pk)
-            opponent_user = User.objects.select_for_update().get(pk=self.opponent.pk)
-            
-            # Créditer le gagnant avec le double du montant
-            winner_user = creator_user if winner == self.creator else opponent_user
-            winner_user.kapanga_balance += (self.creator_bet_amount * 2)
-            winner_user.save()
-            
-            # Créer les transactions
-            Transaction.objects.create(
-                user=winner_user,
-                amount=self.creator_bet_amount * 2,
-                transaction_type='p2p_win',
-                status='completed',
-                description=f"Gain P2P: {self.title}"
-            )
-            
-            # Annuler les transactions bloquées
-            Transaction.objects.filter(
-                user__in=[self.creator, self.opponent],
-                transaction_type='p2p_blocked',
-                status='pending',
-                description__contains=self.title
-            ).update(status='cancelled')
-            
-            self.status = 'completed'
-            self.completed_at = timezone.now()
-            self.winner = winner
-            self.creator_result = 'win' if winner == self.creator else 'loss'
-            self.opponent_result = 'win' if winner == self.opponent else 'loss'
-            self.save()
+        # Mettre à jour le statut du défi
+        self.winner = winner
+        self.creator_result = 'win' if winner == self.creator else 'loss'
+        self.opponent_result = 'win' if winner == self.opponent else 'loss'
+        self.status = 'completed'
+        self.completed_at = timezone.now()
+        self.save()
     
     def cancel_challenge(self):
-        """Annuler le défi et rembourser le créateur"""
+        """Annuler le défi"""
         if self.status not in ['open', 'accepted']:
             raise ValidationError("Ce défi ne peut pas être annulé.")
         
-        with transaction.atomic():
-            # Rembourser le créateur
-            creator_user = User.objects.select_for_update().get(pk=self.creator.pk)
-            creator_user.kapanga_balance += self.creator_bet_amount
-            creator_user.save()
-            
-            # Rembourser l'adversaire s'il avait accepté
-            if self.status == 'accepted':
-                opponent_user = User.objects.select_for_update().get(pk=self.opponent.pk)
-                opponent_user.kapanga_balance += self.creator_bet_amount
-                opponent_user.save()
-            
-            # Annuler les transactions bloquées
-            Transaction.objects.filter(
-                user__in=[self.creator, self.opponent],
-                transaction_type='p2p_blocked',
-                status='pending',
-                description__contains=self.title
-            ).update(status='cancelled')
-            
-            self.status = 'cancelled'
-            self.save()
+        # Mettre à jour le statut du défi
+        self.status = 'cancelled'
+        self.save()
     
     @property
     def is_expired(self):

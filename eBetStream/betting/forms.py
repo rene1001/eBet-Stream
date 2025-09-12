@@ -9,6 +9,7 @@ from django.core.exceptions import ValidationError
 from users.models import User
 from django.utils import timezone
 from datetime import timedelta
+from decimal import Decimal, InvalidOperation
 
 class BetForm(forms.ModelForm):
     """Formulaire pour placer un pari"""
@@ -47,7 +48,7 @@ class BetForm(forms.ModelForm):
             # Récupérer l'utilisateur depuis la base de données pour le solde le plus récent
             try:
                 user = User.objects.get(pk=self.user.pk)
-                if amount > user.ktap_balance:
+                if amount > user.kapanga_balance:
                      raise ValidationError("Solde Ktap insuffisant pour placer ce pari.")
             except User.DoesNotExist:
                  raise ValidationError("Utilisateur non trouvé.")
@@ -56,60 +57,150 @@ class BetForm(forms.ModelForm):
 
 
 class P2PChallengeForm(forms.ModelForm):
-    """Formulaire pour créer un défi P2P"""
+    """Formulaire pour créer un défi P2P basé sur le formulaire d'administration"""
     
     class Meta:
         model = P2PChallenge
-        fields = ['opponent', 'game_type', 'title', 'creator_bet_amount', 'description']
+        fields = [
+            'title', 'description', 'game_type', 'game_name', 'opponent',
+            'creator_bet_amount', 'opponent_bet_amount',
+            'rules', 'match_format', 'expires_at'
+        ]
         widgets = {
-            'opponent': forms.Select(attrs={'class': 'form-control'}),
-            'game_type': forms.Select(attrs={'class': 'form-control'}),
-            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Titre du défi'}),
-            'creator_bet_amount': forms.NumberInput(attrs={'class': 'form-control', 'min': '1', 'step': '0.01', 'placeholder': 'Montant en Ktap'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Description du défi, règles, etc.'}),
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Titre du défi (ex: Match FIFA 24)'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'placeholder': 'Décrivez votre défi en détail...'
+            }),
+            'game_type': forms.Select(attrs={
+                'class': 'form-select',
+                'id': 'game_type_select'
+            }),
+            'game_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Nom du jeu (ex: FIFA 24, CS:GO, etc.)',
+                'id': 'game_name_input'
+            }),
+            'opponent': forms.Select(attrs={
+                'class': 'form-select',
+                'id': 'opponent_select'
+            }),
+            'creator_bet_amount': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'step': '0.01',
+                'id': 'creator_bet_amount'
+            }),
+            'opponent_bet_amount': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'readonly': True,
+                'id': 'opponent_bet_amount'
+            }),
+            'rules': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 2,
+                'placeholder': 'Règles spécifiques (optionnel)'
+            }),
+            'match_format': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Format (ex: 1v1, Best of 3, etc.)',
+                'value': '1v1'
+            })
+        }
+        help_texts = {
+            'title': 'Titre descriptif du défi',
+            'description': 'Description détaillée du défi',
+            'game_type': 'Catégorie de jeu',
+            'game_name': 'Nom exact du jeu (important pour que les autres joueurs puissent vous trouver)',
+            'opponent': 'Joueur que vous souhaitez défier',
+            'creator_bet_amount': 'Le montant que vous misez sur ce défi (en Ktap)',
+            'opponent_bet_amount': 'Le montant que votre adversaire devra miser (égal à votre mise)',
+            'rules': 'Règles spécifiques du défi (optionnel)',
+            'match_format': 'Format du match (ex: 1v1, Best of 3)',
         }
     
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         
-        # Filtrer les utilisateurs disponibles (exclure l'utilisateur actuel)
-        if self.user:
-            self.fields['opponent'].queryset = User.objects.exclude(pk=self.user.pk).filter(is_active=True)
+        # Définir les valeurs initiales
+        self.fields['game_type'].initial = 'fifa'  # Type de jeu par défaut
         
-        # Définir l'expiration par défaut (24h)
+        # Filtrer les utilisateurs actifs et exclure l'utilisateur courant
+        if self.user:
+            self.fields['opponent'].queryset = User.objects.filter(
+                is_active=True
+            ).exclude(pk=self.user.pk)
+        
+        # Ajouter le champ expires_at avec une valeur par défaut de 24h
+        default_expiry = timezone.now() + timedelta(hours=24)
         self.fields['expires_at'] = forms.DateTimeField(
-            initial=timezone.now() + timedelta(hours=24),
-            widget=forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
-            required=False
+            initial=default_expiry.strftime('%Y-%m-%dT%H:%M'),
+            widget=forms.DateTimeInput(attrs={
+                'class': 'form-control',
+                'type': 'datetime-local',
+                'min': timezone.now().strftime('%Y-%m-%dT%H:%M')
+            }),
+            required=True,
+            help_text="Date limite pour que l'adversaire accepte le défi"
         )
+        
+        # Réorganiser l'ordre des champs pour correspondre à l'admin
+        field_order = [
+            'title', 'description', 'game_type', 'game_name', 
+            'opponent', 'creator_bet_amount', 'opponent_bet_amount',
+            'rules', 'match_format', 'expires_at'
+        ]
+        self.order_fields(field_order)
     
     def clean(self):
         cleaned_data = super().clean()
-        opponent = cleaned_data.get('opponent')
-        creator_bet_amount = cleaned_data.get('creator_bet_amount')
         
-        if opponent and self.user and opponent == self.user:
-            raise ValidationError("Vous ne pouvez pas vous défier vous-même.")
+        # Valider le créateur et l'adversaire
+        if self.user and 'opponent' in cleaned_data and self.user == cleaned_data['opponent']:
+            raise ValidationError({
+                'opponent': "Vous ne pouvez pas vous défier vous-même."
+            })
         
-        if creator_bet_amount and self.user:
+        # Traiter le montant de la mise
+        creator_bet = cleaned_data.get('creator_bet_amount')
+        
+        if creator_bet is not None:
             try:
-                user = User.objects.get(pk=self.user.pk)
-                if creator_bet_amount > user.kapanga_balance:
-                    raise ValidationError("Solde Ktap insuffisant pour créer ce défi.")
-            except User.DoesNotExist:
-                raise ValidationError("Utilisateur non trouvé.")
+                # Convertir en Decimal si nécessaire
+                if not isinstance(creator_bet, Decimal):
+                    if isinstance(creator_bet, str):
+                        creator_bet = creator_bet.replace(',', '.').strip()
+                    creator_bet = Decimal(str(creator_bet)).quantize(Decimal('0.01'))
+                
+                cleaned_data['creator_bet_amount'] = creator_bet
+                cleaned_data['opponent_bet_amount'] = creator_bet
+                
+            except (TypeError, ValueError, InvalidOperation) as e:
+                raise ValidationError({
+                    'creator_bet_amount': "Veuillez entrer un montant valide (ex: 100.00)."
+                })
+        
+        # Définir des valeurs par défaut si nécessaire
+        if not cleaned_data.get('game_name'):
+            cleaned_data['game_name'] = cleaned_data.get('title', '')
+        
+        if not cleaned_data.get('match_format'):
+            cleaned_data['match_format'] = '1v1'
         
         return cleaned_data
     
     def save(self, commit=True):
         challenge = super().save(commit=False)
-        challenge.creator = self.user
         
         # Définir l'expiration par défaut si non spécifiée
         if not challenge.expires_at:
             challenge.expires_at = timezone.now() + timedelta(hours=24)
         
+        # La validation et la sauvegarde seront gérées par la vue
         if commit:
             challenge.save()
         return challenge
@@ -230,7 +321,7 @@ class LiveBetForm(forms.ModelForm):
             # Récupérer l'utilisateur depuis la base de données pour le solde le plus récent
             try:
                 user = User.objects.get(pk=self.user.pk)
-                if amount > user.ktap_balance:
+                if amount > user.kapanga_balance:
                      raise forms.ValidationError("Solde Ktap insuffisant pour placer ce pari.")
             except User.DoesNotExist:
                  raise forms.ValidationError("Utilisateur non trouvé.")

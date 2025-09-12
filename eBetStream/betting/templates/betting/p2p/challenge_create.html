@@ -1,148 +1,368 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Créer un Défi P2P{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-section {
+        background-color: #f8f9fa;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .form-section h5 {
+        color: #0d6efd;
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .bet-amount-input {
+        position: relative;
+    }
+    .ktap-symbol {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: bold;
+        color: #6c757d;
+    }
+    #total-pot {
+        font-weight: bold;
+        color: #198754;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container py-4">
-  <div class="row">
-    <div class="col-md-8 mx-auto">
-      <div class="card shadow">
-        <div class="card-header bg-primary text-white">
-          <h3 class="mb-0"><i class="bi bi-plus-circle"></i> Créer un Défi P2P</h3>
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-trophy me-2"></i>
+                        <h4 class="mb-0">Créer un Nouveau Défi P2P</h4>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <form method="post" id="challenge-form" novalidate>
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <!-- Section 1: Détails du défi -->
+                        <div class="form-section mb-4">
+                            <h5><i class="bi bi-info-circle me-2"></i>Détails du défi</h5>
+                            
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.title.id_for_label }}" class="form-label">
+                                            Titre du défi *
+                                        </label>
+                                        {{ form.title }}
+                                        {% if form.title.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                {{ form.title.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                        <small class="form-text text-muted">
+                                            {{ form.title.help_text }}
+                                        </small>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="{{ form.description.id_for_label }}" class="form-label">
+                                            Description du défi
+                                        </label>
+                                        {{ form.description }}
+                                        {% if form.description.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                {{ form.description.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                        <small class="form-text text-muted">
+                                            {{ form.description.help_text }}
+                                        </small>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.game_type.id_for_label }}" class="form-label">
+                                            Type de jeu *
+                                        </label>
+                                        {{ form.game_type }}
+                                        {% if form.game_type.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                {{ form.game_type.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                        <small class="form-text text-muted">
+                                            {{ form.game_type.help_text }}
+                                        </small>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.game_name.id_for_label }}" class="form-label">
+                                            Nom du jeu *
+                                        </label>
+                                        {{ form.game_name }}
+                                        {% if form.game_name.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                {{ form.game_name.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                        <small class="form-text text-muted">
+                                            {{ form.game_name.help_text }}
+                                        </small>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.opponent.id_for_label }}" class="form-label">
+                                            Adversaire *
+                                        </label>
+                                        {{ form.opponent }}
+                                        {% if form.opponent.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                {{ form.opponent.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                        <small class="form-text text-muted">
+                                            {{ form.opponent.help_text }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Section 2: Mises et règles -->
+                        <div class="form-section mb-4">
+                            <h5><i class="bi bi-coin me-2"></i>Mises et règles</h5>
+                            
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-group bet-amount-input">
+                                        <label for="{{ form.creator_bet_amount.id_for_label }}" class="form-label">
+                                            Votre mise (Ktap) *
+                                        </label>
+                                        {{ form.creator_bet_amount }}
+                                        <span class="ktap-symbol">KTAP</span>
+                                        {% if form.creator_bet_amount.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                {{ form.creator_bet_amount.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                        <small class="form-text text-muted">
+                                            {{ form.creator_bet_amount.help_text }} | Solde disponible: <strong>{{ request.user.kapanga_balance|default:0 }} KTAP</strong>
+                                        </small>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group bet-amount-input">
+                                        <label for="{{ form.opponent_bet_amount.id_for_label }}" class="form-label">
+                                            Mise de l'adversaire (Ktap) *
+                                        </label>
+                                        {{ form.opponent_bet_amount }}
+                                        <span class="ktap-symbol">KTAP</span>
+                                        {% if form.opponent_bet_amount.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                {{ form.opponent_bet_amount.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                        <small class="form-text text-muted">
+                                            {{ form.opponent_bet_amount.help_text }}
+                                        </small>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <div class="alert alert-info mb-0">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-info-circle-fill me-2"></i>
+                                            <div>
+                                                <strong>Pot total du défi :</strong> 
+                                                <span id="total-pot">0.00</span> KTAP
+                                                <small class="d-block mt-1">
+                                                    Ce montant sera bloqué sur votre compte jusqu'à la fin du défi.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="{{ form.rules.id_for_label }}" class="form-label">
+                                            Règles spécifiques (optionnel)
+                                        </label>
+                                        {{ form.rules }}
+                                        {% if form.rules.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                {{ form.rules.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                        <small class="form-text text-muted">
+                                            {{ form.rules.help_text }}
+                                        </small>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.match_format.id_for_label }}" class="form-label">
+                                            Format du match *
+                                        </label>
+                                        {{ form.match_format }}
+                                        {% if form.match_format.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                {{ form.match_format.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                        <small class="form-text text-muted">
+                                            {{ form.match_format.help_text }}
+                                        </small>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.expires_at.id_for_label }}" class="form-label">
+                                            Date limite d'acceptation *
+                                        </label>
+                                        {{ form.expires_at }}
+                                        {% if form.expires_at.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                {{ form.expires_at.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                        <small class="form-text text-muted">
+                                            {{ form.expires_at.help_text }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Avertissement important -->
+                        <div class="alert alert-warning">
+                            <div class="d-flex">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                <div>
+                                    <strong>Important :</strong> En créant ce défi, vous acceptez que le montant de votre mise soit bloqué sur votre compte jusqu'à la fin du défi. En cas de non-respect des règles, l'équipe de modération se réserve le droit d'annuler le défi.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Boutons d'action -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'betting:p2p_challenge_list' %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left me-1"></i> Annuler
+                            </a>
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="bi bi-send-check me-1"></i> Créer le défi
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-          <form method="post">
-            {% csrf_token %}
-            
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="{{ form.opponent.id_for_label }}" class="form-label">
-                    <i class="bi bi-person"></i> Adversaire *
-                  </label>
-                  {{ form.opponent }}
-                  {% if form.opponent.errors %}
-                    <div class="text-danger small">
-                      {% for error in form.opponent.errors %}
-                        {{ error }}
-                      {% endfor %}
-                    </div>
-                  {% endif %}
-                </div>
-              </div>
-              
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="{{ form.game_type.id_for_label }}" class="form-label">
-                    <i class="bi bi-controller"></i> Type de jeu *
-                  </label>
-                  {{ form.game_type }}
-                  {% if form.game_type.errors %}
-                    <div class="text-danger small">
-                      {% for error in form.game_type.errors %}
-                        {{ error }}
-                      {% endfor %}
-                    </div>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-            
-            <div class="mb-3">
-              <label for="{{ form.game_name.id_for_label }}" class="form-label">
-                <i class="bi bi-tag"></i> Nom du jeu *
-              </label>
-              {{ form.game_name }}
-              {% if form.game_name.errors %}
-                <div class="text-danger small">
-                  {% for error in form.game_name.errors %}
-                    {{ error }}
-                  {% endfor %}
-                </div>
-              {% endif %}
-              <div class="form-text">Ex: FIFA 24, 1v1, Mode Battle Royale, etc.</div>
-            </div>
-            
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="{{ form.bet_amount.id_for_label }}" class="form-label">
-                    <i class="bi bi-currency-exchange"></i> Montant du pari (Ktap) *
-                  </label>
-                  {{ form.bet_amount }}
-                  {% if form.bet_amount.errors %}
-                    <div class="text-danger small">
-                      {% for error in form.bet_amount.errors %}
-                        {{ error }}
-                      {% endfor %}
-                    </div>
-                  {% endif %}
-                  <div class="form-text">Pot total: <span id="total-pot">0</span> Ktap</div>
-                </div>
-              </div>
-              
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="{{ form.expires_at.id_for_label }}" class="form-label">
-                    <i class="bi bi-clock"></i> Date d'expiration
-                  </label>
-                  {{ form.expires_at }}
-                  {% if form.expires_at.errors %}
-                    <div class="text-danger small">
-                      {% for error in form.expires_at.errors %}
-                        {{ error }}
-                      {% endfor %}
-                    </div>
-                  {% endif %}
-                  <div class="form-text">Par défaut: 24h</div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="mb-3">
-              <label for="{{ form.description.id_for_label }}" class="form-label">
-                <i class="bi bi-chat-text"></i> Description du défi
-              </label>
-              {{ form.description }}
-              {% if form.description.errors %}
-                <div class="text-danger small">
-                  {% for error in form.description.errors %}
-                    {{ error }}
-                  {% endfor %}
-                </div>
-              {% endif %}
-              <div class="form-text">Règles, conditions, mode de jeu, etc.</div>
-            </div>
-            
-            <div class="alert alert-info">
-              <i class="bi bi-info-circle"></i>
-              <strong>Important :</strong> Le montant sera automatiquement bloqué de votre compte lors de la création du défi. 
-              Il sera libéré si l'adversaire n'accepte pas dans le délai imparti.
-            </div>
-            
-            <div class="d-flex justify-content-between">
-              <a href="{% url 'betting:p2p_challenge_list' %}" class="btn btn-secondary">
-                <i class="bi bi-arrow-left"></i> Annuler
-              </a>
-              <button type="submit" class="btn btn-primary">
-                <i class="bi bi-send"></i> Créer le défi
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
+{% endblock %}
 
+{% block extra_js %}
 <script>
-// Calculer le pot total en temps réel
-document.getElementById('{{ form.bet_amount.id_for_label }}').addEventListener('input', function() {
-  const amount = parseFloat(this.value) || 0;
-  document.getElementById('total-pot').textContent = (amount * 2).toFixed(2);
-});
-
-// Initialiser le pot total
 document.addEventListener('DOMContentLoaded', function() {
-  const amount = parseFloat(document.getElementById('{{ form.bet_amount.id_for_label }}').value) || 0;
-  document.getElementById('total-pot').textContent = (amount * 2).toFixed(2);
+    // Récupérer les éléments du DOM
+    const form = document.getElementById('challenge-form');
+    const creatorBetInput = document.getElementById('{{ form.creator_bet_amount.id_for_label }}');
+    const opponentBetInput = document.getElementById('{{ form.opponent_bet_amount.id_for_label }}');
+    const totalPotElement = document.getElementById('total-pot');
+    const gameTypeSelect = document.getElementById('{{ form.game_type.id_for_label }}');
+    const gameNameInput = document.getElementById('{{ form.game_name.id_for_label }}');
+    
+    // Mettre à jour le pot total
+    function updateTotalPot() {
+        const creatorBet = parseFloat(creatorBetInput.value) || 0;
+        const opponentBet = parseFloat(opponentBetInput.value) || 0;
+        const totalPot = creatorBet + opponentBet;
+        totalPotElement.textContent = totalPot.toFixed(2);
+    }
+    
+    // Synchroniser la mise de l'adversaire avec celle du créateur
+    if (creatorBetInput && opponentBetInput) {
+        creatorBetInput.addEventListener('input', function() {
+            opponentBetInput.value = this.value;
+            updateTotalPot();
+        });
+        
+        // Initialiser le pot total au chargement
+        updateTotalPot();
+    }
+    
+    // Mettre à jour le nom du jeu en fonction du type de jeu sélectionné
+    if (gameTypeSelect && gameNameInput) {
+        gameTypeSelect.addEventListener('change', function() {
+            if (!gameNameInput.value) {
+                const gameNames = {
+                    'fifa': 'FIFA 24',
+                    'pes': 'eFootball',
+                    'csgo': 'Counter-Strike 2',
+                    'lol': 'League of Legends',
+                    'valorant': 'Valorant',
+                    'rocket_league': 'Rocket League',
+                    'other': ''
+                };
+                gameNameInput.value = gameNames[this.value] || '';
+            }
+        });
+    }
+    
+    // Validation du formulaire
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            // Vérifier que la date d'expiration est dans le futur
+            const expiresAtInput = document.getElementById('{{ form.expires_at.id_for_label }}');
+            if (expiresAtInput && expiresAtInput.value) {
+                const selectedDate = new Date(expiresAtInput.value);
+                const now = new Date();
+                
+                if (selectedDate <= now) {
+                    e.preventDefault();
+                    alert('La date d\'expiration doit être dans le futur.');
+                    expiresAtInput.focus();
+                    return false;
+                }
+            }
+            
+            // Vérifier que le montant est valide
+            if (creatorBetInput && parseFloat(creatorBetInput.value) <= 0) {
+                e.preventDefault();
+                alert('Le montant du pari doit être supérieur à 0.');
+                creatorBetInput.focus();
+                return false;
+            }
+            
+            return true;
+        });
+    }
 });
 </script>
-{% endblock %} 
+{% endblock %}

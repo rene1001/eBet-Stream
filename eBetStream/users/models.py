@@ -1,6 +1,7 @@
 # users/models.py
 
 import uuid
+import decimal
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.utils import timezone
@@ -40,7 +41,6 @@ class User(AbstractUser):
         max_digits=10, 
         decimal_places=2, 
         default=0.00,
-        validators=[MinValueValidator(0)],
         verbose_name="Solde Ktap"
     )
     profile_picture = models.ImageField(
@@ -147,13 +147,14 @@ class Transaction(models.Model):
 
     def clean(self):
         from django.core.exceptions import ValidationError
-        if self.amount <= 0:
-            raise ValidationError("Le montant doit être supérieur à 0")
+        # Suppression de la vérification du montant > 0 pour permettre les montants négatifs
         
         if self.transaction_type in ['withdrawal', 'kapanga_usage']:
             user_balance = self.user.kapanga_balance if self.user.kapanga_balance is not None else 0
-            if self.amount > user_balance:
-                raise ValidationError("Solde Ktap insuffisant pour effectuer cette transaction")
+            # Conversion explicite en Decimal pour assurer la compatibilité des types
+            if self.amount > decimal.Decimal(user_balance):
+                # On ne lève plus d'erreur pour permettre les soldes négatifs
+                pass
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -259,23 +260,37 @@ class DepositRequest(models.Model):
         if self.status != 'pending':
             return False
         
-        self.status = 'approved'
-        self.save()
-        
-        # Créer une transaction pour le dépôt
-        transaction = Transaction.objects.create(
-            user=self.user,
-            amount=self.amount,
-            transaction_type='deposit',
-            description=f"Dépôt via {self.payment_method.name}",
-            status='pending',
-            payment_method=self.payment_method
-        )
-        
-        # Mettre à jour le solde de l'utilisateur en appelant process_transaction
-        transaction.process_transaction()
-
-        return True
+        with transaction.atomic():
+            # Créer une transaction pour le dépôt
+            deposit_transaction = Transaction.objects.create(
+                user=self.user,
+                amount=self.amount,
+                transaction_type='deposit',
+                description=f"Dépôt via {self.payment_method.name}",
+                status='pending',
+                payment_method=self.payment_method
+            )
+            
+            # Mettre à jour le statut de la demande
+            self.status = 'approved'
+            self.save(update_fields=['status', 'updated_at'])
+            
+            # Mettre à jour le solde de l'utilisateur
+            self.user.kapanga_balance += self.amount
+            self.user.save(update_fields=['kapanga_balance'])
+            
+            # Mettre à jour le statut de la transaction
+            deposit_transaction.status = 'completed'
+            deposit_transaction.save(update_fields=['status'])
+            
+            # Enregistrer l'activité
+            UserActivity.objects.create(
+                user=self.user,
+                activity_type='deposit_approved',
+                details=f"Dépôt de {self.amount} Ktap approuvé"
+            )
+            
+            return True
     
     def reject(self):
         """Rejette la demande de dépôt"""

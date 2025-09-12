@@ -105,7 +105,7 @@ match.team1.name }} vs {{ match.team2.name }}{% endblock %} {% block content %}
                 </div>
                 <div class="alert alert-info">
                   <i class="fas fa-wallet me-2"></i>Available Balance:
-                  <strong>{{ user.ktap_balance|floatformat:"2" }} K</strong>
+                  <strong>{{ user.kapanga_balance|floatformat:"2" }} K</strong>
                 </div>
                 <button type="submit" class="btn btn-success btn-lg w-100">
                   <i class="fas fa-ticket-alt me-2"></i>Place Bet
@@ -138,7 +138,7 @@ match.team1.name }} vs {{ match.team2.name }}{% endblock %} {% block content %}
               <div>
                 <strong>Maximum Amount</strong>
                 <p class="mb-0 text-muted">
-                  {{ user.ktap_balance|floatformat:"2" }} K (available balance)
+                  {{ user.kapanga_balance|floatformat:"2" }} K (available balance)
                 </p>
               </div>
             </li>

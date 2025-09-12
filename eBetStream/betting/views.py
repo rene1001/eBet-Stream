@@ -5,12 +5,19 @@ from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.http import JsonResponse
 from django.db import transaction, models
+from django.db.models import F
+from django.core.exceptions import ValidationError
 from .models import Bet, BetType, LiveBet, P2PChallenge, P2PMessage
 from core.models import Match, Team, Game
 from .forms import BetForm, LiveBetForm, P2PChallengeForm, P2PMessageForm, P2PResultForm
 from users.models import Transaction, UserActivity, User
 from django.utils import timezone
 import json
+import logging
+from decimal import Decimal, InvalidOperation
+
+# Configuration du logger
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 
@@ -402,34 +409,172 @@ class P2PChallengeCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('betting:p2p_challenge_list')
     
     def get_form_kwargs(self):
+        """Pass the request user to the form."""
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
-    
+        
+    def get_context_data(self, **kwargs):
+        """Add additional context data for the template."""
+        context = super().get_context_data(**kwargs)
+        context['time_now'] = timezone.now()
+        return context
+        
     def form_valid(self, form):
+        """
+        Handle a valid form submission.
+        """
         try:
-            challenge = form.save()
+            logger.info("Début de la création d'un défi P2P")
             
-            # Créer un message système
-            P2PMessage.objects.create(
-                challenge=challenge,
-                sender=self.request.user,
-                content=f"Défi créé par {self.request.user.username}",
-                is_system_message=True
-            )
-            
-            # Enregistrer l'activité
-            UserActivity.objects.create(
-                user=self.request.user,
-                activity_type='p2p_challenge_created',
-                details=f"Défi P2P créé: {challenge.title} contre {challenge.opponent.username}"
-            )
-            
-            messages.success(self.request, f"Défi P2P créé avec succès ! {challenge.opponent.username} a été notifié.")
-            return super().form_valid(form)
-        except Exception as e:
-            messages.error(self.request, f"Erreur lors de la création du défi: {str(e)}")
+            with transaction.atomic():
+                # Valider le formulaire d'abord
+                if not form.is_valid():
+                    logger.warning("Le formulaire n'est pas valide: %s", form.errors)
+                    return self.form_invalid(form)
+                
+                # Create challenge instance but don't save yet
+                challenge = form.save(commit=False)
+                logger.info("Formulaire validé, instance de défi créée")
+                
+                # Vérifier que l'utilisateur est authentifié
+                if not self.request.user.is_authenticated:
+                    error_msg = "Vous devez être connecté pour créer un défi."
+                    logger.warning(error_msg)
+                    messages.error(self.request, error_msg)
+                    return redirect('login')
+                
+                # Définir le créateur
+                challenge.creator = self.request.user
+                logger.info(f"Créateur défini: {self.request.user.username}")
+                
+                # Définir les valeurs par défaut si non fournies
+                if not challenge.expires_at:
+                    challenge.expires_at = timezone.now() + timedelta(hours=24)
+                    logger.info(f"Date d'expiration par défaut définie: {challenge.expires_at}")
+                
+                if not challenge.match_format:
+                    challenge.match_format = '1v1'
+                    logger.info(f"Format de match par défaut défini: {challenge.match_format}")
+                
+                if not challenge.game_name and hasattr(challenge, 'title') and challenge.title:
+                    challenge.game_name = challenge.title
+                    logger.info(f"Nom du jeu défini à partir du titre: {challenge.game_name}")
+                
+                # S'assurer que la mise de l'adversaire correspond à celle du créateur
+                if hasattr(challenge, 'creator_bet_amount'):
+                    try:
+                        challenge.creator_bet_amount = Decimal(str(challenge.creator_bet_amount)).quantize(Decimal('0.01'))
+                        challenge.opponent_bet_amount = challenge.creator_bet_amount
+                        logger.info(f"Mise définie: {challenge.creator_bet_amount} Ktap")
+                    except (TypeError, ValueError, InvalidOperation) as e:
+                        error_msg = "Le montant de la mise est invalide."
+                        logger.error(f"{error_msg} Erreur: {str(e)}")
+                        messages.error(self.request, error_msg)
+                        return self.form_invalid(form)
+                
+                # Valider le modèle avant sauvegarde
+                try:
+                    challenge.full_clean()
+                except ValidationError as e:
+                    error_msg = f"Erreur de validation du défi: {', '.join(e.messages)}"
+                    logger.error(error_msg)
+                    messages.error(self.request, error_msg)
+                    return self.form_invalid(form)
+                
+                # Sauvegarder le défi
+                try:
+                    challenge.save()
+                    logger.info("Défi sauvegardé avec succès dans la base de données")
+                except Exception as e:
+                    error_msg = "Une erreur est survenue lors de la sauvegarde du défi."
+                    logger.error(f"{error_msg} Erreur: {str(e)}", exc_info=True)
+                    messages.error(self.request, error_msg)
+                    return self.form_invalid(form)
+                
+                # Mettre à jour le solde de l'utilisateur de manière atomique
+                try:
+                    # Récupérer l'utilisateur avec verrou de ligne
+                    user = User.objects.select_for_update().get(pk=self.request.user.pk)
+                    
+                    # Enregistrer la transaction
+                    try:
+                        transaction_record = Transaction.objects.create(
+                            user=user,
+                            amount=-challenge.creator_bet_amount,
+                            transaction_type='kapanga_usage',
+                            description=f"Mise pour le défi P2P: {challenge.title}",
+                            status='completed'
+                        )
+                        logger.info(f"Transaction enregistrée: {transaction_record.id}")
+                    except Exception as e:
+                        error_msg = "Erreur lors de l'enregistrement de la transaction."
+                        logger.error(f"{error_msg} Erreur: {str(e)}", exc_info=True)
+                        raise Exception(error_msg) from e
+                    
+                    # Mettre à jour le solde
+                    user.kapanga_balance = F('kapanga_balance') - challenge.creator_bet_amount
+                    user.save(update_fields=['kapanga_balance'])
+                    logger.info("Solde utilisateur mis à jour avec succès")
+                    
+                except User.DoesNotExist:
+                    error_msg = "Utilisateur non trouvé."
+                    logger.error(error_msg)
+                    messages.error(self.request, error_msg)
+                    return self.form_invalid(form)
+                except Exception as e:
+                    error_msg = "Erreur lors de la mise à jour du solde utilisateur."
+                    logger.error(f"{error_msg} Erreur: {str(e)}", exc_info=True)
+                    messages.error(self.request, error_msg)
+                    return self.form_invalid(form)
+                
+                # Créer un message système
+                try:
+                    message = P2PMessage.objects.create(
+                        challenge=challenge,
+                        sender=self.request.user,
+                        content=f"Défi créé par {self.request.user.username}",
+                        is_system_message=True
+                    )
+                    logger.info(f"Message système créé: {message.id}")
+                except Exception as e:
+                    # Ne pas échouer si le message ne peut pas être créé, juste logger l'erreur
+                    logger.error(f"Erreur lors de la création du message système: {str(e)}", exc_info=True)
+                
+                # Enregistrer l'activité
+                try:
+                    activity = UserActivity.objects.create(
+                        user=self.request.user,
+                        activity_type='p2p_challenge_created',
+                        details=f"Défi P2P créé: {challenge.title}"
+                    )
+                    logger.info(f"Activité utilisateur enregistrée: {activity.id}")
+                except Exception as e:
+                    # Ne pas échouer si l'activité ne peut pas être enregistrée, juste logger l'erreur
+                    logger.error(f"Erreur lors de l'enregistrement de l'activité: {str(e)}", exc_info=True)
+                
+                messages.success(self.request, "Défi P2P créé avec succès !")
+                logger.info("Défi P2P créé avec succès, redirection...")
+                
+                # Définir l'objet pour que get_success_url fonctionne
+                self.object = challenge
+                return super().form_valid(form)
+                
+        except ValidationError as e:
+            error_msg = f"Erreur de validation: {', '.join(e.messages) if hasattr(e, 'messages') else str(e)}"
+            logger.error(error_msg)
+            messages.error(self.request, error_msg)
             return self.form_invalid(form)
+            
+        except Exception as e:
+            error_msg = "Une erreur inattendue est survenue lors de la création du défi. Veuillez réessayer ou contacter le support si le problème persiste."
+            logger.error(f"{error_msg} Erreur: {str(e)}", exc_info=True)
+            messages.error(self.request, error_msg)
+            return self.form_invalid(form)
+    
+    def get_success_url(self):
+        """Return the URL to redirect to after successful form submission."""
+        return reverse('betting:p2p_challenge_detail', kwargs={'pk': self.object.pk})
 
 
 class P2PChallengeDetailView(LoginRequiredMixin, DetailView):
