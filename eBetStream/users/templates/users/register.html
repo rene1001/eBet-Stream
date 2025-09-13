@@ -1,49 +1,66 @@
-{% extends 'users/auth_base.html' %} {% load static %} {% block title %}Register
-- eBetStream{% endblock %} {% block extra_css %}
-<style>
-  body {
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-</style>
-{% endblock %} {% block content %}
-<div class="auth-container">
-  <div class="auth-header">
-    <h2>Create Account</h2>
-    <p>Join eBetStream and start betting today</p>
-  </div>
-
-  <form method="post" novalidate>
-    {% csrf_token %} {% for field in form %}
-    <div class="form-group">
-      <label for="{{ field.id_for_label }}" class="form-label"
-        >{{ field.label }}</label
-      >
-      {{ field }} {% if field.errors %}
-      <div class="error-message">{{ field.errors|join:", " }}</div>
-      {% endif %} {% if field.help_text %}
-      <div class="form-text">{{ field.help_text }}</div>
-      {% endif %}
+{% extends 'users/base.html' %} 
+{% load static %} 
+{% load widget_tweaks %}
+{% block title %}Inscription - eBetStream{% endblock %} 
+{% block extra_css %}
+<!-- Register styles are now handled by sport-style.css -->
+{% endblock %} 
+{% block content %}
+<div class="sport-login-container">
+  <div class="sport-login-form">
+    <div class="mb-4">
+      <h1 class="sport-welcome-text">Rejoignez-nous</h1>
+      <p class="sport-subtitle">Créez votre compte et commencez à parier dès aujourd'hui</p>
     </div>
-    {% endfor %}
 
-    <div class="d-grid gap-2">
-      <button type="submit" class="btn btn-primary">
-        <i class="bi bi-person-plus me-2"></i>Create Account
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="sport-input-group">
+          {% if field.name == 'username' %}
+            <i class="bi bi-person-fill sport-input-icon" aria-hidden="true"></i>
+          {% elif field.name == 'email' %}
+            <i class="bi bi-envelope-fill sport-input-icon" aria-hidden="true"></i>
+          {% elif field.name == 'password1' %}
+            <i class="bi bi-lock-fill sport-input-icon" aria-hidden="true"></i>
+          {% elif field.name == 'password2' %}
+            <i class="bi bi-shield-check sport-input-icon" aria-hidden="true"></i>
+          {% else %}
+            <i class="bi bi-pencil sport-input-icon"></i>
+          {% endif %}
+          
+          {{ field|add_class:"sport-form-control" }}
+          
+          {% if field.errors %}
+            <div class="error-message mt-2">
+              <i class="bi bi-exclamation-circle me-1"></i>
+              {{ field.errors|join:", " }}
+            </div>
+          {% endif %}
+          
+          {% if field.help_text %}
+            <div class="form-text mt-1">{{ field.help_text }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <button type="submit" class="sport-login-btn">
+        <i class="bi bi-person-plus me-2"></i>Créer Mon Compte
       </button>
-    </div>
-  </form>
+    </form>
 
-  <div class="auth-links">
-    <p>
-      Already have an account?
-      <a href="{% url 'users:login' %}">
-        <i class="bi bi-box-arrow-in-right me-1"></i>Sign In
-      </a>
-    </p>
+    <div class="auth-links">
+      <div class="text-center my-3">
+        <span class="text-muted">ou</span>
+      </div>
+      
+      <p>
+        Déjà un compte ?
+        <a href="{% url 'users:login' %}">
+          <i class="bi bi-box-arrow-in-right me-1"></i>Se Connecter
+        </a>
+      </p>
+    </div>
   </div>
 </div>
 {% endblock %}

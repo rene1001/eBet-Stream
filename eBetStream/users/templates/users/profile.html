@@ -1,64 +1,70 @@
-{% extends 'users/base.html' %} {% block title %}Profile - eBetStream{% endblock
-%} {% block content %}
+{% extends 'users/base.html' %} 
+{% block title %}Profile - eBetStream{% endblock %} 
+{% block extra_css %}
+<!-- Profile styles are now handled by sport-style.css -->
+{% endblock %}
+
+{% block content %}
 <div class="container py-4">
-  <div class="row">
+  <div class="row g-4">
+    <!-- Profile Section -->
     <div class="col-md-4">
-      <div class="card shadow-sm mb-4">
-        <div
-          class="card-header bg-primary text-white d-flex align-items-center"
-        >
-          <i class="bi bi-person-circle me-2"></i>
-          <h5 class="card-title mb-0">Profile Information</h5>
-        </div>
-        <div class="card-body text-center">
-          <div class="mb-4">
+      <div class="card border-0 shadow-lg">
+        <div class="sport-profile-header text-center">
+          <div class="sport-avatar mb-3">
             <img
               src="{{ user.profile.image.url }}"
-              alt="Profile picture"
-              class="rounded-circle img-thumbnail mb-3"
-              style="width: 150px; height: 150px; object-fit: cover"
+              alt="Avatar de {{ user.username }}"
+              class="rounded-circle profile-image"
+              style="width: 120px; height: 120px; object-fit: cover; position: relative; z-index: 1;"
+              loading="lazy"
             />
-            <h4 class="mb-1">{{ user.username }}</h4>
-            <p class="text-muted">{{ user.email }}</p>
           </div>
-          <div class="col-12 text-center mb-4">
-            <div class="card bg-primary text-white">
-              <div class="card-body">
-                <h5 class="card-title">Current Balance</h5>
-                <h2 class="text-success mb-0 fw-bold">
-                  {{ user.kapanga_balance|floatformat:"2" }} K
-                </h2>
-                <p class="text-white-50 mt-2 mb-0">
-                  <small
-                    >Use your Ktap to bet on your favorite events</small
-                  >
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="d-grid gap-2">
+          <h3 class="username-display mb-2">{{ user.username }}</h3>
+          <p class="text-white-50 mb-0">
+            <i class="bi bi-envelope-at me-2"></i>{{ user.email }}
+          </p>
+        </div>
+        
+        <!-- Balance Card -->
+        <div class="sport-balance p-4 text-center">
+          <h5 class="text-white-50 text-uppercase mb-2">
+            <i class="bi bi-wallet2 me-2"></i>Solde Actuel
+          </h5>
+          <div class="balance-amount">{{ user.kapanga_balance|floatformat:"2" }}</div>
+          <p class="text-white-50 mt-2 mb-0">
+            <small><i class="bi bi-currency-exchange me-1"></i>Utilisez vos Ktap pour parier</small>
+          </p>
+        </div>
+        
+        <!-- Actions -->
+        <div class="card-body p-4">
+          <div class="d-grid gap-3">
             <a
               href="{% url 'users:request_withdrawal' %}"
-              class="btn btn-success btn-lg d-flex align-items-center justify-content-center"
+              class="sport-action-btn withdrawal-btn text-center text-decoration-none"
+              aria-label="Demander un retrait de fonds"
             >
-              <i class="bi bi-cash-stack me-2"></i> Request Withdrawal
+              <i class="bi bi-cash-stack me-2"></i>Demander un Retrait
             </a>
-            <div class="row g-2 mt-2">
+            
+            <div class="row g-2">
               <div class="col-6">
                 <a
                   href="{% url 'users:profile_edit' %}"
-                  class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center"
+                  class="sport-action-btn edit-btn w-100 text-center text-decoration-none d-block"
+                  aria-label="Modifier le profil"
                 >
-                  <i class="bi bi-pencil-square me-2"></i> Edit
+                  <i class="bi bi-pencil-square me-1"></i>Modifier
                 </a>
               </div>
               <div class="col-6">
                 <a
                   href="{% url 'users:withdrawal_history' %}"
-                  class="btn btn-outline-info w-100 d-flex align-items-center justify-content-center"
+                  class="sport-action-btn history-btn w-100 text-center text-decoration-none d-block"
+                  aria-label="Voir l'historique des retraits"
                 >
-                  <i class="bi bi-clock-history me-2"></i> History
+                  <i class="bi bi-clock-history me-1"></i>Historique
                 </a>
               </div>
             </div>
@@ -67,52 +73,82 @@
       </div>
     </div>
 
+    <!-- Statistics Cards -->
     <div class="col-md-8">
-      <div class="card shadow-sm">
-        <div
-          class="card-header bg-primary text-white d-flex align-items-center justify-content-between"
-        >
-          <div class="d-flex align-items-center">
-            <i class="bi bi-journal-text me-2"></i>
-            <h5 class="card-title mb-0">Transaction History</h5>
-          </div>
-          <div class="btn-group btn-group-sm">
-            <button type="button" class="btn btn-light active">All</button>
-            <button type="button" class="btn btn-light">Deposits</button>
-            <button type="button" class="btn btn-light">Withdrawals</button>
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <div class="sport-stat-card">
+            <i class="bi bi-trophy-fill" style="font-size: 2rem; color: var(--sport-yellow);"></i>
+            <h4 class="mt-2 mb-1" style="color: var(--sport-text);">15</h4>
+            <p class="text-muted text-uppercase mb-0" style="font-size: 0.8rem; font-weight: 600;">Paris Gagnés</p>
           </div>
         </div>
-        <div class="card-body">
+        <div class="col-md-4">
+          <div class="sport-stat-card">
+            <i class="bi bi-graph-up-arrow" style="font-size: 2rem; color: var(--sport-green);"></i>
+            <h4 class="mt-2 mb-1" style="color: var(--sport-text);">87%</h4>
+            <p class="text-muted text-uppercase mb-0" style="font-size: 0.8rem; font-weight: 600;">Taux de Réussite</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="sport-stat-card">
+            <i class="bi bi-calendar-event" style="font-size: 2rem; color: var(--sport-blue);"></i>
+            <h4 class="mt-2 mb-1" style="color: var(--sport-text);">23</h4>
+            <p class="text-muted text-uppercase mb-0" style="font-size: 0.8rem; font-weight: 600;">Jours Actifs</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Transaction History -->
+      <div class="sport-transaction-table">
+        <div class="sport-table-header p-3 d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-journal-text me-2"></i>
+            <h5 class="mb-0">Historique des Transactions</h5>
+          </div>
+          <div class="btn-group btn-group-sm" role="group" aria-label="Filtres de transactions">
+            <button type="button" class="btn btn-outline-light active" aria-pressed="true">Tout</button>
+            <button type="button" class="btn btn-outline-light" aria-pressed="false">Dépôts</button>
+            <button type="button" class="btn btn-outline-light" aria-pressed="false">Retraits</button>
+          </div>
+        </div>
+        
+        <div class="p-3">
           <div class="table-responsive">
-            <table class="table table-hover align-middle">
+            <table class="table sport-table align-middle mb-0" role="table" aria-label="Historique des transactions">
               <thead class="table-light">
-                <tr>
-                  <th>Date</th>
-                  <th>Type</th>
-                  <th>Amount</th>
-                  <th>Status</th>
+                <tr style="font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">
+                  <th scope="col"><i class="bi bi-calendar3 me-1" aria-hidden="true"></i>Date</th>
+                  <th scope="col"><i class="bi bi-tag me-1" aria-hidden="true"></i>Type</th>
+                  <th scope="col"><i class="bi bi-currency-exchange me-1" aria-hidden="true"></i>Montant</th>
+                  <th scope="col"><i class="bi bi-check-circle me-1" aria-hidden="true"></i>Statut</th>
                 </tr>
               </thead>
               <tbody>
                 {% for transaction in transactions %}
                 <tr>
-                  <td>{{ transaction.date }}</td>
-                  <td>{{ transaction.type }}</td>
-                  <td
-                    class="{% if transaction.amount > 0 %}text-success{% else %}text-danger{% endif %}"
-                  >
-                    {{ transaction.amount|floatformat:"2" }} K
+                  <td style="font-weight: 500;">{{ transaction.date|date:"d/m/Y" }}</td>
+                  <td>
+                    <span class="badge" style="background: linear-gradient(135deg, var(--sport-blue) 0%, #1976d2 100%);">
+                      {{ transaction.type }}
+                    </span>
                   </td>
                   <td>
-                    <span class="badge bg-{{ transaction.status_color }}"
-                      >{{ transaction.status }}</span
-                    >
+                    <span class="fw-bold {% if transaction.amount > 0 %}text-success{% else %}text-danger{% endif %}">
+                      {% if transaction.amount > 0 %}+{% endif %}{{ transaction.amount|floatformat:"2" }} K
+                    </span>
+                  </td>
+                  <td>
+                    <span class="sport-badge" style="background: {% if transaction.status == 'completed' %}var(--sport-green){% elif transaction.status == 'pending' %}var(--sport-yellow){% else %}var(--sport-red){% endif %}; color: white;">
+                      {{ transaction.status }}
+                    </span>
                   </td>
                 </tr>
                 {% empty %}
                 <tr>
-                  <td colspan="4" class="text-center text-muted">
-                    No transactions to display
+                  <td colspan="4" class="text-center py-5">
+                    <i class="bi bi-inbox" style="font-size: 3rem; color: #ccc;"></i>
+                    <p class="text-muted mt-2 mb-0">Aucune transaction à afficher</p>
                   </td>
                 </tr>
                 {% endfor %}

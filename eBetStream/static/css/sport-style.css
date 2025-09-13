@@ -1,0 +1,888 @@
+/* ================================================================
+   eBetStream Sport Style - Optimized for Accessibility & Performance
+   ================================================================ */
+
+/* CSS Custom Properties (Variables) */
+:root {
+  --sport-orange: #ff6b35;
+  --sport-red: #ff3838;
+  --sport-dark: #1a1a1a;
+  --sport-green: #00e676;
+  --sport-blue: #2196f3;
+  --sport-yellow: #ffc107;
+  --sport-white: #ffffff;
+  --sport-gray: #f5f5f5;
+  --sport-text: #2c2c2c;
+  
+  /* Accessibility improvements - enhanced contrasts */
+  --sport-text-dark: #1a1a1a;
+  --sport-link-hover: #e55a2e;
+  --sport-focus-color: #0056b3;
+  --sport-error: #dc3545;
+  --sport-success: #28a745;
+  
+  /* Animation variables for reduced motion */
+  --animation-duration: 0.3s;
+  --animation-timing: ease;
+  --border-animation-duration: 3s;
+  --gradient-animation-duration: 15s;
+}
+
+/* Respect user's motion preferences - CRITICAL for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --animation-duration: 0.01s;
+    --border-animation-duration: 0.01s;
+    --gradient-animation-duration: 0.01s;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Base Styles */
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 50%, #1a1a1a 100%);
+  min-height: 100vh;
+  position: relative;
+  color: var(--sport-text-dark);
+}
+
+/* Optimized background animation - reduced from infinite complex animation */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(255, 107, 53, 0.05) 0%,
+    rgba(255, 56, 56, 0.05) 25%,
+    rgba(0, 230, 118, 0.05) 50%,
+    rgba(33, 150, 243, 0.05) 75%,
+    rgba(255, 193, 7, 0.05) 100%);
+  z-index: -1;
+  opacity: 0.7;
+}
+
+/* Only animate background when motion is not reduced */
+@media (prefers-reduced-motion: no-preference) {
+  body::before {
+    animation: sportGradient var(--gradient-animation-duration) ease infinite;
+  }
+}
+
+@keyframes sportGradient {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.9; }
+}
+
+/* ================================================================
+   NAVIGATION STYLES - Improved Accessibility
+   ================================================================ */
+
+.navbar-dark {
+  background: linear-gradient(135deg, var(--sport-dark) 0%, #2c2c2c 100%) !important;
+  border-bottom: 3px solid var(--sport-orange);
+  /* Reduced shadow for better performance */
+  box-shadow: 0 2px 10px rgba(255, 107, 53, 0.2);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--sport-white) !important;
+  transition: transform var(--animation-duration) var(--animation-timing);
+}
+
+/* Focus styles for accessibility */
+.navbar-brand:focus-visible {
+  outline: 2px solid var(--sport-focus-color);
+  outline-offset: 2px;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.05);
+  color: var(--sport-orange) !important;
+}
+
+.nav-link {
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all var(--animation-duration) var(--animation-timing);
+  position: relative;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Enhanced focus for better accessibility */
+.nav-link:focus-visible {
+  outline: 2px solid var(--sport-focus-color);
+  outline-offset: 2px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--sport-orange), var(--sport-red));
+  transition: width var(--animation-duration) var(--animation-timing);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link:hover {
+  color: var(--sport-orange) !important;
+  transform: translateY(-1px); /* Reduced animation for performance */
+}
+
+/* Logo optimized styles */
+.navbar-brand img {
+  height: 45px;
+  margin-right: 10px;
+  transition: transform var(--animation-duration) var(--animation-timing);
+}
+
+.navbar-brand:hover img {
+  transform: scale(1.05);
+}
+
+/* ================================================================
+   FORM STYLES - Enhanced Accessibility
+   ================================================================ */
+
+.auth-container {
+  max-width: 480px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 20px;
+  /* Simplified shadow for better performance */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--sport-orange);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--animation-duration) var(--animation-timing);
+}
+
+/* Reduced border animation for performance */
+.auth-container::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--sport-orange), var(--sport-red));
+  border-radius: 22px;
+  z-index: -1;
+  opacity: 0.1;
+}
+
+/* Only animate when motion is preferred */
+@media (prefers-reduced-motion: no-preference) {
+  .auth-container::before {
+    background: linear-gradient(45deg, var(--sport-orange), var(--sport-red), var(--sport-green), var(--sport-blue));
+    animation: sportBorder var(--border-animation-duration) linear infinite;
+  }
+}
+
+@keyframes sportBorder {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+}
+
+.auth-container:hover {
+  transform: translateY(-5px) scale(1.01);
+}
+
+.auth-header h2 {
+  background: linear-gradient(135deg, var(--sport-orange) 0%, var(--sport-red) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  font-size: 2.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.auth-header p {
+  color: #666;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Enhanced form controls for accessibility */
+.form-group {
+  margin-bottom: 1.8rem;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--sport-text-dark);
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Required field indicator for accessibility */
+.form-label.required::after {
+  content: ' *';
+  color: var(--sport-error);
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--sport-text-dark);
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  transition: all var(--animation-duration) var(--animation-timing);
+}
+
+/* Enhanced focus styles for accessibility */
+.form-control:focus {
+  border-color: var(--sport-focus-color);
+  box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.2);
+  outline: none;
+  background: #ffffff;
+}
+
+/* Error state with better contrast */
+.form-control.is-invalid {
+  border-color: var(--sport-error);
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
+}
+
+.form-control::placeholder {
+  color: #a0aec0;
+  font-style: italic;
+}
+
+/* ================================================================
+   BUTTON STYLES - Enhanced Accessibility
+   ================================================================ */
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--sport-orange) 0%, var(--sport-red) 100%);
+  border: 2px solid var(--sport-orange);
+  padding: 1rem 2rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all var(--animation-duration) var(--animation-timing);
+  position: relative;
+  overflow: hidden;
+  /* Improved shadow for better performance */
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+  color: white;
+}
+
+/* Enhanced focus for accessibility */
+.btn-primary:focus-visible {
+  outline: 3px solid var(--sport-focus-color);
+  outline-offset: 2px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+  background: linear-gradient(135deg, var(--sport-red) 0%, var(--sport-orange) 100%);
+  border-color: var(--sport-red);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(255, 107, 53, 0.3);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, var(--sport-green) 0%, #00c853 100%);
+  border: 2px solid var(--sport-green);
+  box-shadow: 0 4px 15px rgba(0, 230, 118, 0.3);
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 230, 118, 0.4);
+}
+
+.btn-outline-primary {
+  border: 2px solid var(--sport-orange);
+  color: var(--sport-orange);
+  font-weight: 600;
+  transition: all var(--animation-duration) var(--animation-timing);
+  background: transparent;
+}
+
+.btn-outline-primary:hover {
+  background: var(--sport-orange);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.btn-outline-primary:focus-visible {
+  outline: 3px solid var(--sport-focus-color);
+  outline-offset: 2px;
+}
+
+/* ================================================================
+   PROFILE PAGE STYLES
+   ================================================================ */
+
+.sport-profile-header {
+  background: linear-gradient(135deg, var(--sport-dark) 0%, #2c2c2c 100%);
+  color: var(--sport-white);
+  border-radius: 20px 20px 0 0;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Simplified rotating effect for performance */
+.sport-profile-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, var(--sport-orange), transparent);
+  opacity: 0.1;
+  z-index: 0;
+}
+
+/* Only animate when motion is preferred */
+@media (prefers-reduced-motion: no-preference) {
+  .sport-profile-header::before {
+    animation: profileRotate 8s linear infinite;
+    opacity: 0.2;
+  }
+}
+
+@keyframes profileRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.sport-avatar {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+
+.sport-avatar::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, var(--sport-orange), var(--sport-red));
+  z-index: -1;
+  opacity: 0.3;
+}
+
+/* Only animate border when motion is preferred */
+@media (prefers-reduced-motion: no-preference) {
+  .sport-avatar::before {
+    background: linear-gradient(45deg, var(--sport-orange), var(--sport-red), var(--sport-green), var(--sport-blue));
+    animation: avatarBorder var(--border-animation-duration) linear infinite;
+  }
+}
+
+@keyframes avatarBorder {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+}
+
+.username-display {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--sport-orange) 0%, var(--sport-red) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 1;
+  position: relative;
+}
+
+.balance-amount {
+  font-size: 3rem;
+  font-weight: 900;
+  color: white;
+  z-index: 1;
+  position: relative;
+}
+
+/* Only animate balance when motion is preferred */
+@media (prefers-reduced-motion: no-preference) {
+  .balance-amount {
+    animation: balancePulse 2s ease-in-out infinite;
+  }
+}
+
+@keyframes balancePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* ================================================================
+   CARD STYLES - Performance Optimized
+   ================================================================ */
+
+.sport-stat-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 2px solid transparent;
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--animation-duration) var(--animation-timing);
+  /* Simplified shadow for performance */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.sport-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--sport-orange), var(--sport-red), var(--sport-green));
+}
+
+.sport-stat-card:hover {
+  transform: translateY(-3px) scale(1.01);
+}
+
+.sport-balance {
+  background: linear-gradient(135deg, var(--sport-dark) 0%, #2c2c2c 100%);
+  color: var(--sport-white);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.sport-balance::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, var(--sport-orange), transparent);
+  opacity: 0.1;
+  z-index: 0;
+}
+
+/* Only animate when motion is preferred */
+@media (prefers-reduced-motion: no-preference) {
+  .sport-balance::before {
+    animation: balanceRotate 4s linear infinite;
+    opacity: 0.3;
+  }
+}
+
+@keyframes balanceRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ================================================================
+   ACTION BUTTONS - Enhanced Accessibility
+   ================================================================ */
+
+.sport-action-btn {
+  border-radius: 12px;
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all var(--animation-duration) var(--animation-timing);
+  border: 2px solid;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.sport-action-btn:focus-visible {
+  outline: 3px solid var(--sport-focus-color);
+  outline-offset: 2px;
+}
+
+.withdrawal-btn {
+  background: linear-gradient(135deg, var(--sport-green) 0%, #00c853 100%);
+  border-color: var(--sport-green);
+  color: white;
+}
+
+.withdrawal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 230, 118, 0.4);
+  color: white;
+}
+
+.edit-btn {
+  background: linear-gradient(135deg, var(--sport-blue) 0%, #1976d2 100%);
+  border-color: var(--sport-blue);
+  color: white;
+}
+
+.history-btn {
+  background: linear-gradient(135deg, var(--sport-orange) 0%, var(--sport-red) 100%);
+  border-color: var(--sport-orange);
+  color: white;
+}
+
+/* ================================================================
+   TABLE STYLES
+   ================================================================ */
+
+.sport-transaction-table {
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  /* Simplified shadow for performance */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.sport-table-header {
+  background: linear-gradient(135deg, var(--sport-dark) 0%, #2c2c2c 100%);
+  color: var(--sport-white);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sport-table tbody tr {
+  transition: background-color var(--animation-duration) var(--animation-timing);
+}
+
+.sport-table tbody tr:hover {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.sport-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+/* ================================================================
+   ALERTS AND MESSAGES - Enhanced Accessibility
+   ================================================================ */
+
+.success-message,
+.success-alert {
+  background: linear-gradient(135deg, #e8f5e8 0%, #f0fff4 100%);
+  border: 2px solid var(--sport-success);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: #2f855a;
+  /* Improved contrast for accessibility */
+  box-shadow: 0 2px 10px rgba(40, 167, 69, 0.2);
+}
+
+.error-alert {
+  background: linear-gradient(135deg, #ffe8e8 0%, #fff5f5 100%);
+  border: 2px solid var(--sport-error);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: #c53030;
+  box-shadow: 0 2px 10px rgba(220, 53, 69, 0.2);
+}
+
+.error-message {
+  color: var(--sport-error);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+/* ================================================================
+   LINKS - Enhanced Accessibility
+   ================================================================ */
+
+.auth-links {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.auth-links a {
+  color: var(--sport-orange);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all var(--animation-duration) var(--animation-timing);
+  position: relative;
+}
+
+.auth-links a:focus-visible {
+  outline: 2px solid var(--sport-focus-color);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.auth-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--sport-orange), var(--sport-red));
+  transition: width var(--animation-duration) var(--animation-timing);
+}
+
+.auth-links a:hover::after {
+  width: 100%;
+}
+
+.auth-links a:hover {
+  color: var(--sport-link-hover);
+}
+
+/* ================================================================
+   LOGIN SPECIFIC STYLES
+   ================================================================ */
+
+.sport-login-container {
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.sport-login-form {
+  background: rgba(255, 255, 255, 0.98); /* Replaced backdrop-filter for better performance */
+  border-radius: 20px;
+  padding: 3rem;
+  /* Simplified shadows for better performance */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border: 2px solid var(--sport-orange);
+  position: relative;
+  overflow: hidden;
+  max-width: 500px;
+  width: 100%;
+}
+
+.sport-welcome-text {
+  background: linear-gradient(135deg, var(--sport-orange) 0%, var(--sport-red) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Only animate welcome text when motion is preferred */
+@media (prefers-reduced-motion: no-preference) {
+  .sport-welcome-text {
+    animation: sportWelcome 3s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes sportWelcome {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.02); }
+}
+
+.sport-subtitle {
+  text-align: center;
+  color: #666;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 2.5rem;
+}
+
+.sport-input-group {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.sport-input-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--sport-orange);
+  font-size: 1.2rem;
+  z-index: 2;
+}
+
+.sport-form-control {
+  padding-left: 50px;
+  height: 55px;
+  border: 2px solid #e2e8f0;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  font-size: 1.1rem;
+  transition: all var(--animation-duration) var(--animation-timing);
+  color: var(--sport-text-dark);
+}
+
+.sport-form-control:focus {
+  border-color: var(--sport-focus-color);
+  box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.2);
+  transform: scale(1.01);
+}
+
+.sport-login-btn {
+  width: 100%;
+  height: 55px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, var(--sport-orange) 0%, var(--sport-red) 100%);
+  border: 2px solid var(--sport-orange);
+  color: white;
+  transition: all var(--animation-duration) var(--animation-timing);
+  position: relative;
+  overflow: hidden;
+}
+
+.sport-login-btn:focus-visible {
+  outline: 3px solid var(--sport-focus-color);
+  outline-offset: 2px;
+}
+
+.sport-login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+  background: linear-gradient(135deg, var(--sport-red) 0%, var(--sport-orange) 100%);
+}
+
+/* ================================================================
+   RESPONSIVE DESIGN
+   ================================================================ */
+
+@media (max-width: 768px) {
+  .auth-container,
+  .sport-login-form {
+    margin: 1.5rem;
+    padding: 2rem;
+  }
+
+  .auth-header h2,
+  .sport-welcome-text {
+    font-size: 1.8rem;
+  }
+
+  .username-display {
+    font-size: 1.5rem;
+  }
+
+  .balance-amount {
+    font-size: 2.5rem;
+  }
+
+  .sport-stat-card {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .sport-action-btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .sport-table {
+    font-size: 0.9rem;
+  }
+}
+
+/* ================================================================
+   HIGH CONTRAST MODE SUPPORT
+   ================================================================ */
+
+@media (prefers-contrast: high) {
+  :root {
+    --sport-orange: #ff4500;
+    --sport-red: #dc143c;
+    --sport-text: #000000;
+    --sport-text-dark: #000000;
+  }
+
+  .form-control,
+  .sport-form-control {
+    border-width: 3px;
+    background: #ffffff;
+  }
+
+  .btn-primary,
+  .sport-login-btn {
+    border-width: 3px;
+  }
+}
+
+/* ================================================================
+   PRINT STYLES
+   ================================================================ */
+
+@media print {
+  .navbar,
+  .sport-action-btn,
+  .btn {
+    display: none !important;
+  }
+
+  .auth-container,
+  .sport-login-form {
+    box-shadow: none !important;
+    border: 2px solid #000 !important;
+    background: white !important;
+  }
+
+  body::before {
+    display: none !important;
+  }
+}

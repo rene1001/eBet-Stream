@@ -1,61 +1,73 @@
 <!-- users/templates/users/login.html -->
-{% extends 'users/auth_base.html' %} {% load static %} {% block title %}Login -
-eBetStream{% endblock %} {% block extra_css %}
-<style>
-  body {
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-</style>
-{% endblock %} {% block content %}
-<div class="auth-container">
-  <div class="auth-header">
-    <h2>Welcome Back</h2>
-    <p>Sign in to your account to continue</p>
-  </div>
-
-  <form method="post" novalidate>
-    {% csrf_token %} {% for field in form %}
-    <div class="form-group">
-      <label for="{{ field.id_for_label }}" class="form-label"
-        >{{ field.label }}</label
-      >
-      {{ field }} {% if field.errors %}
-      <div class="error-message">{{ field.errors|join:", " }}</div>
-      {% endif %} {% if field.help_text %}
-      <div class="form-text">{{ field.help_text }}</div>
-      {% endif %}
+{% extends 'users/base.html' %} 
+{% load static %} 
+{% load widget_tweaks %} 
+{% block title %}Connexion - eBetStream{% endblock %} 
+{% block extra_css %}
+<!-- Login styles are now handled by sport-style.css -->
+{% endblock %} 
+{% block content %}
+<div class="sport-login-container">
+  <div class="sport-login-form">
+    <div class="mb-4">
+      <h1 class="sport-welcome-text">Connexion</h1>
+      <p class="sport-subtitle">Accédez à votre compte eBetStream</p>
     </div>
-    {% endfor %}
 
-    <div class="d-grid gap-2">
-      <button type="submit" class="btn btn-primary">
-        <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="sport-input-group">
+          {% if field.name == 'username' %}
+            <i class="bi bi-person-fill sport-input-icon"></i>
+          {% elif field.name == 'password' %}
+            <i class="bi bi-lock-fill sport-input-icon"></i>
+          {% endif %}
+          
+          {{ field|add_class:"sport-form-control" }}
+          {% if field.name == 'username' %}<label for="{{ field.id_for_label }}" class="visually-hidden">Nom d'utilisateur</label>{% endif %}
+          {% if field.name == 'password' %}<label for="{{ field.id_for_label }}" class="visually-hidden">Mot de passe</label>{% endif %}
+          
+          {% if field.errors %}
+            <div class="error-message mt-2">
+              <i class="bi bi-exclamation-circle me-1"></i>
+              {{ field.errors|join:", " }}
+            </div>
+          {% endif %}
+          
+          {% if field.help_text %}
+            <div class="form-text mt-1">{{ field.help_text }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <button type="submit" class="sport-login-btn">
+        <i class="bi bi-box-arrow-in-right me-2"></i>Se Connecter
       </button>
-    </div>
-  </form>
+    </form>
 
-  <div class="auth-links">
-    <p>
-      <a href="{% url 'users:password_reset' %}">
-        <i class="bi bi-key me-1"></i>Forgot your password?
-      </a>
-    </p>
-    <div class="auth-divider">
-      <span>or</span>
+    <div class="auth-links">
+      <p>
+        <a href="{% url 'users:password_reset' %}">
+          <i class="bi bi-key me-1"></i>Mot de passe oublié ?
+        </a>
+      </p>
+      
+      <div class="text-center my-3">
+        <span class="text-muted">ou</span>
+      </div>
+      
+      <p>
+        Pas encore de compte ?
+        <a href="{% url 'users:register' %}">Créer un compte</a>
+      </p>
+      
+      <div class="text-center mt-3">
+        <a href="{% url 'users:admin_register' %}" class="text-muted">
+          <i class="bi bi-shield-lock me-1"></i>Inscription Administrateur
+        </a>
+      </div>
     </div>
-    <p>
-      Don't have an account?
-      <a href="{% url 'users:register' %}">Create one now</a>
-    </p>
-    <p class="mt-3">
-      <a href="{% url 'users:admin_register' %}" class="text-muted">
-        <i class="bi bi-shield-lock me-1"></i>Administrator Registration
-      </a>
-    </p>
   </div>
 </div>
 {% endblock %}
