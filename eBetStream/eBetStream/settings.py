@@ -14,11 +14,17 @@ SECRET_KEY = 'jango-insecure-8^b_4!q3r4$5t6y7u8i9o0p1a2s3d4f5g6h7j8k9l0z1x2c3v4b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Configuration CSRF pour le développement
 CSRF_COOKIE_SECURE = False
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000']
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000', 
+    'http://127.0.0.1:8000',
+    'http://localhost:5000',
+    'https://09129d1f-81ed-47d8-91bd-9fd91e951cca-00-y5l4lvcvo1px.kirk.replit.dev',
+    'http://09129d1f-81ed-47d8-91bd-9fd91e951cca-00-y5l4lvcvo1px.kirk.replit.dev',
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -45,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
