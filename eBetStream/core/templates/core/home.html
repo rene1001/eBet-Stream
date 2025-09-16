@@ -54,7 +54,7 @@
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="text-cyber mb-3">
-                    <i class="fas fa-users-battle me-3"></i>DÉFIS P2P CYBER
+                    <i class="fas fa-users me-3"></i>DÉFIS P2P CYBER
                 </h2>
                 <p class="text-dim lead">Affrontez les meilleurs joueurs dans des duels épiques</p>
             </div>
@@ -70,7 +70,7 @@
                 </p>
                 <div class="d-flex justify-content-center gap-4 flex-wrap">
                     <a href="{% url 'betting:p2p_index' %}" class="btn-cyber">
-                        <i class="fas fa-sword me-2"></i>Entrer dans l'Arène
+                        <i class="fas fa-gamepad me-2"></i>Entrer dans l'Arène
                     </a>
                     <a href="{% url 'betting:p2p_challenge_create' %}" class="btn-cyber btn-secondary">
                         <i class="fas fa-plus-circle me-2"></i>Créer un Défi
@@ -85,7 +85,7 @@
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="text-cyber mb-3">
-                    <i class="fas fa-calendar-lightning me-3"></i>MATCHS LIVE
+                    <i class="fas fa-calendar me-3"></i>MATCHS LIVE
                 </h2>
                 <p class="text-dim lead">Les affrontements les plus intenses du moment</p>
             </div>
@@ -130,7 +130,7 @@
                     </div>
                     
                     <div class="match-info mb-4 p-3 rounded" style="background: rgba(0,255,255,0.05);">
-                        <i class="fas fa-clock-four text-cyber me-2"></i>
+                        <i class="fas fa-clock text-cyber me-2"></i>
                         <span class="text-dim">{{ match.start_time|date:"d/m/Y H:i" }}</span>
                     </div>
                     
@@ -154,7 +154,7 @@
                 {% empty %}
                 <div class="cyber-card text-center">
                     <div class="mb-4">
-                        <i class="fas fa-satellite-dish text-dim" style="font-size: 3rem;"></i>
+                        <i class="fas fa-satellite text-dim" style="font-size: 3rem;"></i>
                     </div>
                     <h5 class="text-dim">Aucun match en cours</h5>
                     <p class="text-faded">Les prochains affrontements arriveront bientôt...</p>
@@ -169,7 +169,7 @@
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="text-cyber mb-3">
-                    <i class="fas fa-gamepad-modern me-3"></i>UNIVERS GAMING
+                    <i class="fas fa-gamepad me-3"></i>UNIVERS GAMING
                 </h2>
                 <p class="text-dim lead">Explorez les jeux les plus populaires de l'esport</p>
             </div>
@@ -234,11 +234,11 @@
                             <i class="fas fa-user-plus me-2"></i>S'inscrire Maintenant
                         </a>
                         <a href="{% url 'users:login' %}" class="btn-cyber btn-secondary">
-                            <i class="fas fa-sign-in-alt me-2"></i>Se Connecter
+                            <i class="fas fa-sign-in me-2"></i>Se Connecter
                         </a>
                     {% else %}
                         <a href="{% url 'users:profile' %}" class="btn-cyber">
-                            <i class="fas fa-user-astronaut me-2"></i>Mon Profil
+                            <i class="fas fa-user me-2"></i>Mon Profil
                         </a>
                         <a href="{% url 'betting:bet_list' %}" class="btn-cyber btn-secondary">
                             <i class="fas fa-rocket me-2"></i>Commencer à Parier

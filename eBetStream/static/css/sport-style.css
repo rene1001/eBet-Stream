@@ -362,11 +362,10 @@ body::after {
   background: var(--gradient-secondary);
 }
 
-/* Revolutionary Card System - Floating Grid */
+/* Revolutionary Card System - True Masonry Grid */
 .cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: var(--space-xl);
+  columns: 380px;
+  column-gap: var(--space-xl);
   padding: var(--space-2xl) 0;
 }
 
@@ -379,6 +378,10 @@ body::after {
   transition: all var(--speed-slow) cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   overflow: hidden;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: var(--space-xl);
+  break-inside: avoid;
 }
 
 .cyber-card::before {
@@ -472,6 +475,20 @@ body::after {
   font-family: 'Orbitron', monospace !important;
   text-transform: uppercase !important;
   letter-spacing: 1px !important;
+}
+
+/* Badge Styles - Cyber Theme */
+.bg-cyber {
+  background: var(--gradient-primary) !important;
+  color: var(--text-dark) !important;
+  font-weight: 600;
+}
+
+.badge {
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius-pill);
+  padding: 0.5rem 1rem;
 }
 
 /* Gaming Stats Dashboard */
@@ -737,6 +754,36 @@ body::after {
 .stat-card,
 .btn-cyber {
   will-change: transform;
+}
+
+/* Cyber Footer Styles */
+.cyber-footer {
+  background: var(--gradient-dark);
+  border-top: 1px solid rgba(0, 255, 255, 0.2);
+  backdrop-filter: var(--blur-glass);
+  position: relative;
+}
+
+.cyber-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+}
+
+.footer-link {
+  transition: all var(--speed-normal) ease;
+  text-decoration: none;
+  color: var(--text-dim);
+}
+
+.footer-link:hover {
+  color: var(--cyber-cyan) !important;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  text-decoration: none;
 }
 
 /* Legacy Compatibility Mapping */
