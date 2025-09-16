@@ -8,15 +8,15 @@ Design System v3.0 - Beyond FanDuel & DraftKings
 /* Import Modern Sports Typography */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
-/* Revolutionary Color System - Cyber Sports Theme */
+/* Brand-Aligned Color System - eBetStream Logo Colors */
 :root {
-  /* Primary Neon Palette */
-  --cyber-cyan: #00ffff;
-  --cyber-magenta: #ff00aa;
-  --cyber-green: #39ff14;
-  --cyber-orange: #ff6b00;
-  --cyber-blue: #0080ff;
-  --cyber-purple: #8a2be2;
+  /* Primary Brand Palette - From Logo */
+  --brand-orange: #FF9500;
+  --brand-orange-light: #FFB347;
+  --brand-orange-dark: #E67E00;
+  --brand-white: #FFFFFF;
+  --brand-accent: #FFC107;
+  --brand-warm: #FF6B35;
   
   /* Dark Cyber Background */
   --dark-void: #000008;
@@ -25,21 +25,21 @@ Design System v3.0 - Beyond FanDuel & DraftKings
   --dark-steel: #16213e;
   --dark-matrix: #0f3460;
   
-  /* Glass & Transparency */
+  /* Glass & Transparency - Brand Orange Tints */
   --glass-light: rgba(255, 255, 255, 0.03);
   --glass-medium: rgba(255, 255, 255, 0.08);
   --glass-heavy: rgba(255, 255, 255, 0.15);
-  --glass-neon: rgba(0, 255, 255, 0.1);
+  --glass-neon: rgba(255, 149, 0, 0.1);
   
   /* Text Hierarchy */
   --text-cyber: #ffffff;
-  --text-neon: var(--cyber-cyan);
+  --text-neon: var(--brand-orange);
   --text-dim: #a0a6b8;
   --text-faded: #6b7280;
   
-  /* Dynamic Gradients */
-  --gradient-primary: linear-gradient(135deg, var(--cyber-cyan) 0%, var(--cyber-magenta) 50%, var(--cyber-blue) 100%);
-  --gradient-secondary: linear-gradient(135deg, var(--cyber-green) 0%, var(--cyber-orange) 100%);
+  /* Dynamic Gradients - Brand Orange Focus */
+  --gradient-primary: linear-gradient(135deg, var(--brand-orange) 0%, var(--brand-orange-light) 50%, var(--brand-accent) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--brand-orange-dark) 0%, var(--brand-warm) 100%);
   --gradient-dark: linear-gradient(135deg, var(--dark-void) 0%, var(--dark-midnight) 50%, var(--dark-matrix) 100%);
   --gradient-surface: linear-gradient(135deg, var(--dark-space) 0%, var(--dark-steel) 100%);
   
@@ -63,9 +63,9 @@ Design System v3.0 - Beyond FanDuel & DraftKings
   --radius-xl: 28px;
   --radius-pill: 50px;
   
-  /* Shadows & Effects */
-  --shadow-cyber: 0 0 30px rgba(0, 255, 255, 0.4);
-  --shadow-neon: 0 0 20px rgba(255, 0, 170, 0.3);
+  /* Shadows & Effects - Brand Orange Glow */
+  --shadow-cyber: 0 0 30px rgba(255, 149, 0, 0.4);
+  --shadow-neon: 0 0 20px rgba(255, 179, 71, 0.3);
   --shadow-depth: 0 20px 60px rgba(0, 0, 0, 0.7);
   --shadow-glass: 0 8px 32px rgba(31, 38, 135, 0.37);
   --blur-glass: blur(12px);
@@ -298,8 +298,8 @@ body::after {
 /* Next-Gen Button System */
 .btn-cyber {
   background: transparent;
-  border: 2px solid var(--cyber-cyan);
-  color: var(--cyber-cyan);
+  border: 2px solid var(--brand-orange);
+  color: var(--brand-orange);
   padding: var(--space-m) var(--space-xl);
   border-radius: var(--radius-pill);
   font-weight: 700;
@@ -354,8 +354,8 @@ body::after {
 }
 
 .btn-secondary {
-  border-color: var(--cyber-magenta);
-  color: var(--cyber-magenta);
+  border-color: var(--brand-orange-light);
+  color: var(--brand-orange-light);
 }
 
 .btn-secondary::before {
@@ -455,7 +455,7 @@ body::after {
 
 .form-control:focus {
   background: rgba(255, 255, 255, 0.08) !important;
-  border-color: var(--cyber-cyan) !important;
+  border-color: var(--brand-orange) !important;
   box-shadow: 
     0 0 0 0.2rem rgba(0, 255, 255, 0.15),
     var(--shadow-cyber) !important;
@@ -518,7 +518,7 @@ body::after {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: conic-gradient(from 0deg, var(--cyber-cyan), var(--cyber-magenta), var(--cyber-green), var(--cyber-cyan));
+  background: conic-gradient(from 0deg, var(--brand-orange), var(--brand-orange-light), var(--brand-accent), var(--brand-orange));
   animation: statRotate 10s linear infinite;
   z-index: -1;
 }
@@ -642,7 +642,7 @@ body::after {
   border-radius: var(--radius-m) !important;
   color: var(--text-cyber) !important;
   backdrop-filter: var(--blur-glass) !important;
-  border-left: 4px solid var(--cyber-cyan) !important;
+  border-left: 4px solid var(--brand-orange) !important;
 }
 
 /* Tables - Cyber Sports Design */
@@ -781,14 +781,14 @@ body::after {
 }
 
 .footer-link:hover {
-  color: var(--cyber-cyan) !important;
+  color: var(--brand-orange) !important;
   text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
   text-decoration: none;
 }
 
 /* Legacy Compatibility Mapping */
-.sport-primary { background: var(--cyber-cyan) !important; }
-.sport-secondary { background: var(--cyber-magenta) !important; }
+.sport-primary { background: var(--brand-orange) !important; }
+.sport-secondary { background: var(--brand-orange-light) !important; }
 .sport-success { background: var(--cyber-green) !important; }
 .sport-warning { background: var(--cyber-orange) !important; }
 .sport-danger { background: var(--loss-red) !important; }
