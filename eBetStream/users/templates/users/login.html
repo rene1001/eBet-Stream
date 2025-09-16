@@ -100,7 +100,7 @@
 .auth-cyber-form {
     background: rgba(26, 26, 46, 0.85);
     backdrop-filter: var(--blur-glass);
-    border: 1px solid rgba(0, 255, 255, 0.2);
+    border: 1px solid rgba(255, 149, 0, 0.2);
     border-radius: var(--radius-xl);
     padding: var(--space-2xl);
     width: 100%;
@@ -165,7 +165,7 @@
 
 .cyber-input {
     background: rgba(255, 255, 255, 0.05) !important;
-    border: 2px solid rgba(0, 255, 255, 0.1) !important;
+    border: 2px solid rgba(255, 149, 0, 0.1) !important;
     border-radius: var(--radius-m) !important;
     padding: var(--space-m) var(--space-m) var(--space-m) 3.5rem !important;
     color: var(--text-cyber) !important;
@@ -175,20 +175,20 @@
 }
 
 .cyber-input:focus {
-    background: rgba(0, 255, 255, 0.05) !important;
-    border-color: var(--cyber-cyan) !important;
+    background: rgba(255, 149, 0, 0.05) !important;
+    border-color: var(--brand-orange) !important;
     box-shadow: 
-        0 0 0 0.2rem rgba(0, 255, 255, 0.2),
+        0 0 0 0.2rem rgba(255, 149, 0, 0.2),
         var(--shadow-cyber) !important;
     transform: scale(1.02) !important;
 }
 
 .cyber-input:focus + .cyber-label {
-    color: var(--cyber-cyan) !important;
+    color: var(--brand-orange) !important;
 }
 
 .cyber-input:focus ~ .input-icon {
-    color: var(--cyber-cyan) !important;
+    color: var(--brand-orange) !important;
 }
 
 .cyber-label {
@@ -228,7 +228,7 @@
 }
 
 .cyber-link {
-    color: var(--cyber-cyan);
+    color: var(--brand-orange);
     text-decoration: none;
     font-weight: 500;
     transition: all var(--speed-fast) ease;
@@ -237,19 +237,19 @@
 }
 
 .cyber-link:hover {
-    color: var(--cyber-magenta);
+    color: var(--brand-orange-light);
     transform: translateY(-2px);
 }
 
 .cyber-link-primary {
-    color: var(--cyber-magenta);
+    color: var(--brand-orange-light);
     text-decoration: none;
     font-weight: 600;
     transition: all var(--speed-fast) ease;
 }
 
 .cyber-link-primary:hover {
-    color: var(--cyber-cyan);
+    color: var(--brand-orange);
     transform: translateY(-2px);
 }
 
@@ -306,7 +306,7 @@
 .floating-orb {
     position: absolute;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(0, 255, 255, 0.3), transparent 70%);
+    background: radial-gradient(circle, rgba(255, 149, 0, 0.3), transparent 70%);
     animation: floatOrb 8s ease-in-out infinite;
 }
 
