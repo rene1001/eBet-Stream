@@ -15,6 +15,13 @@
             <span class="ticker-item"><i class="fas fa-star text-brand-orange me-2"></i>⭐ NOUVEAUX DÉFIS P2P DISPONIBLES</span>
             <span class="ticker-item"><i class="fas fa-bolt text-brand-orange me-2"></i>⚡ LIVE: 15K SPECTATEURS SUR NOS STREAMS</span>
             <span class="ticker-item"><i class="fas fa-users text-brand-orange me-2"></i>👥 COMMUNAUTÉ: +50K NOUVEAUX MEMBRES</span>
+            <!-- Duplicate for seamless loop -->
+            <span class="ticker-item"><i class="fas fa-fire text-brand-orange me-2"></i>🔥 NOUVEAU TOURNOI VALORANT - 50K€ DE PRIZES</span>
+            <span class="ticker-item"><i class="fas fa-trophy text-brand-orange me-2"></i>🏆 CHAMPIONNAT CS2 COMMENCE DEMAIN</span>
+            <span class="ticker-item"><i class="fas fa-rocket text-brand-orange me-2"></i>🚀 RECORD BATTU: +2M€ DE PARIS CETTE SEMAINE</span>
+            <span class="ticker-item"><i class="fas fa-star text-brand-orange me-2"></i>⭐ NOUVEAUX DÉFIS P2P DISPONIBLES</span>
+            <span class="ticker-item"><i class="fas fa-bolt text-brand-orange me-2"></i>⚡ LIVE: 15K SPECTATEURS SUR NOS STREAMS</span>
+            <span class="ticker-item"><i class="fas fa-users text-brand-orange me-2"></i>👥 COMMUNAUTÉ: +50K NOUVEAUX MEMBRES</span>
         </div>
     </div>
 </div>
@@ -119,7 +126,7 @@
                             <span>BLAST</span>
                         </div>
                     </div>
-                    <!-- Duplicate for seamless loop -->
+                    <!-- Complete duplicate for seamless loop -->
                     <div class="sponsor-item">
                         <div class="sponsor-logo">
                             <i class="fab fa-steam text-brand-orange"></i>
@@ -142,6 +149,30 @@
                         <div class="sponsor-logo">
                             <i class="fab fa-youtube text-brand-orange"></i>
                             <span>YOUTUBE</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <div class="sponsor-logo">
+                            <i class="fas fa-gamepad text-brand-orange"></i>
+                            <span>RIOT GAMES</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <div class="sponsor-logo">
+                            <i class="fas fa-trophy text-brand-orange"></i>
+                            <span>ESL GAMING</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <div class="sponsor-logo">
+                            <i class="fas fa-bolt text-brand-orange"></i>
+                            <span>FACEIT</span>
+                        </div>
+                    </div>
+                    <div class="sponsor-item">
+                        <div class="sponsor-logo">
+                            <i class="fas fa-crown text-brand-orange"></i>
+                            <span>BLAST</span>
                         </div>
                     </div>
                 </div>
@@ -370,7 +401,7 @@
                         </div>
                         <div class="news-time">15min</div>
                     </div>
-                    <!-- Duplicate pour loop seamless -->
+                    <!-- Complete duplicate for seamless loop -->
                     <div class="news-card">
                         <div class="news-icon"><i class="fas fa-fire"></i></div>
                         <div class="news-content">
@@ -386,6 +417,30 @@
                             <p>Nouvelles maps et système de ranking amélioré</p>
                         </div>
                         <div class="news-time">5min</div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-icon"><i class="fas fa-star"></i></div>
+                        <div class="news-content">
+                            <h5>Record de Spectateurs</h5>
+                            <p>+2M de viewers sur le stream de la LEC</p>
+                        </div>
+                        <div class="news-time">8min</div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-icon"><i class="fas fa-gamepad"></i></div>
+                        <div class="news-content">
+                            <h5>Nouveau Jeu Esport</h5>
+                            <p>Annonce surprise lors des Game Awards</p>
+                        </div>
+                        <div class="news-time">12min</div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="news-content">
+                            <h5>Tournoi Flash</h5>
+                            <p>Compétition surprise avec 100K€ de cashprize</p>
+                        </div>
+                        <div class="news-time">15min</div>
                     </div>
                 </div>
             </div>
@@ -445,6 +500,7 @@
     display: flex;
     animation: tickerScroll 60s linear infinite;
     gap: 4rem;
+    will-change: transform;
 }
 
 .ticker-item {
@@ -457,8 +513,8 @@
 }
 
 @keyframes tickerScroll {
-    0% { transform: translateX(100vw); }
-    100% { transform: translateX(-100%); }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 /* Sponsors Scrolling Section */
@@ -480,6 +536,7 @@
     display: flex;
     gap: 3rem;
     animation: sponsorsScroll 30s linear infinite;
+    will-change: transform;
 }
 
 .sponsor-item {
@@ -547,6 +604,7 @@
     gap: 2rem;
     animation: newsFeedScroll 45s linear infinite;
     padding: 0 2rem;
+    will-change: transform;
 }
 
 .news-card {
@@ -627,23 +685,53 @@
 }
 
 /* Hover pause effects */
+.news-ticker:hover .ticker-content,
 .sponsors-track:hover,
 .news-feed-track:hover {
     animation-play-state: paused;
 }
 
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+    .sponsor-logo,
+    .news-card {
+        backdrop-filter: none;
+    }
+}
+
+/* Accessibility - Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .ticker-content,
+    .sponsors-track,
+    .news-feed-track {
+        animation-duration: 120s !important;
+        animation-timing-function: ease-in-out !important;
+    }
+    
+    .sponsor-logo,
+    .news-card {
+        backdrop-filter: none;
+    }
+    
+    .ticker-content:hover,
+    .sponsors-track:hover,
+    .news-feed-track:hover {
+        animation-play-state: paused;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .ticker-content {
-        animation-duration: 45s;
+        animation-duration: 50s;
     }
     
     .sponsors-track {
-        animation-duration: 25s;
+        animation-duration: 35s;
     }
     
     .news-feed-track {
-        animation-duration: 35s;
+        animation-duration: 40s;
     }
     
     .news-card {
