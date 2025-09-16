@@ -1,66 +1,359 @@
-{% extends 'users/base.html' %} 
-{% load static %} 
+<!-- eBetStream CYBER REGISTER - Ultra-Modern Design -->
+{% extends 'users/base.html' %}
+{% load static %}
 {% load widget_tweaks %}
-{% block title %}Inscription - eBetStream{% endblock %} 
-{% block extra_css %}
-<!-- Register styles are now handled by sport-style.css -->
-{% endblock %} 
+
+{% block title %}Inscription Cyber - eBetStream NEXUS{% endblock %}
+
 {% block content %}
-<div class="sport-login-container">
-  <div class="sport-login-form">
-    <div class="mb-4">
-      <h1 class="sport-welcome-text">Rejoignez-nous</h1>
-      <p class="sport-subtitle">Créez votre compte et commencez à parier dès aujourd'hui</p>
-    </div>
-
-    <form method="post" novalidate>
-      {% csrf_token %}
-      {% for field in form %}
-        <div class="sport-input-group">
-          {% if field.name == 'username' %}
-            <i class="bi bi-person-fill sport-input-icon" aria-hidden="true"></i>
-          {% elif field.name == 'email' %}
-            <i class="bi bi-envelope-fill sport-input-icon" aria-hidden="true"></i>
-          {% elif field.name == 'password1' %}
-            <i class="bi bi-lock-fill sport-input-icon" aria-hidden="true"></i>
-          {% elif field.name == 'password2' %}
-            <i class="bi bi-shield-check sport-input-icon" aria-hidden="true"></i>
-          {% else %}
-            <i class="bi bi-pencil sport-input-icon"></i>
-          {% endif %}
-          
-          {{ field|add_class:"sport-form-control" }}
-          
-          {% if field.errors %}
-            <div class="error-message mt-2">
-              <i class="bi bi-exclamation-circle me-1"></i>
-              {{ field.errors|join:", " }}
+<div class="auth-container">
+    <div class="auth-cyber-form">
+        <div class="auth-header">
+            <div class="auth-logo mb-4">
+                <i class="fas fa-user-plus text-cyber" style="font-size: 3rem;"></i>
             </div>
-          {% endif %}
-          
-          {% if field.help_text %}
-            <div class="form-text mt-1">{{ field.help_text }}</div>
-          {% endif %}
+            <h1 class="auth-title">REJOINDRE NEXUS</h1>
+            <p class="auth-subtitle">Créez votre profil cyber-sportif dès maintenant</p>
         </div>
-      {% endfor %}
 
-      <button type="submit" class="sport-login-btn">
-        <i class="bi bi-person-plus me-2"></i>Créer Mon Compte
-      </button>
-    </form>
+        <form method="post" novalidate class="auth-form">
+            {% csrf_token %}
+            
+            {% for field in form %}
+            <div class="cyber-input-group">
+                <div class="input-icon-container">
+                    {% if field.name == 'username' %}
+                        <i class="fas fa-user input-icon"></i>
+                    {% elif field.name == 'email' %}
+                        <i class="fas fa-envelope input-icon"></i>
+                    {% elif field.name == 'password1' %}
+                        <i class="fas fa-lock input-icon"></i>
+                    {% elif field.name == 'password2' %}
+                        <i class="fas fa-shield-alt input-icon"></i>
+                    {% else %}
+                        <i class="fas fa-edit input-icon"></i>
+                    {% endif %}
+                    
+                    {{ field|add_class:"form-control cyber-input" }}
+                    
+                    {% if field.name == 'username' %}
+                        <label for="{{ field.id_for_label }}" class="cyber-label">Nom d'utilisateur</label>
+                    {% elif field.name == 'email' %}
+                        <label for="{{ field.id_for_label }}" class="cyber-label">Email</label>
+                    {% elif field.name == 'password1' %}
+                        <label for="{{ field.id_for_label }}" class="cyber-label">Mot de passe</label>
+                    {% elif field.name == 'password2' %}
+                        <label for="{{ field.id_for_label }}" class="cyber-label">Confirmer mot de passe</label>
+                    {% else %}
+                        <label for="{{ field.id_for_label }}" class="cyber-label">{{ field.label }}</label>
+                    {% endif %}
+                </div>
+                
+                {% if field.errors %}
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        {{ field.errors|join:", " }}
+                    </div>
+                {% endif %}
+                
+                {% if field.help_text %}
+                    <div class="help-text">{{ field.help_text }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
 
-    <div class="auth-links">
-      <div class="text-center my-3">
-        <span class="text-muted">ou</span>
-      </div>
-      
-      <p>
-        Déjà un compte ?
-        <a href="{% url 'users:login' %}">
-          <i class="bi bi-box-arrow-in-right me-1"></i>Se Connecter
-        </a>
-      </p>
+            <button type="submit" class="btn-cyber w-100 mb-4">
+                <i class="fas fa-rocket me-2"></i>CRÉER MON COMPTE NEXUS
+            </button>
+        </form>
+
+        <div class="auth-links">
+            <div class="cyber-divider">
+                <span class="divider-text">OU</span>
+            </div>
+            
+            <p class="signup-prompt">
+                Déjà membre de la communauté ?
+                <a href="{% url 'users:login' %}" class="cyber-link-primary">
+                    <i class="fas fa-sign-in-alt me-2"></i>Connexion rapide
+                </a>
+            </p>
+        </div>
     </div>
-  </div>
+
+    <!-- Cyber Background Elements -->
+    <div class="cyber-bg-elements">
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
+    </div>
 </div>
+
+<style>
+/* Ultra-Modern Auth Styles - Shared with Login */
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-l);
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-cyber-form {
+    background: rgba(26, 26, 46, 0.85);
+    backdrop-filter: var(--blur-glass);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    z-index: 10;
+    box-shadow: var(--shadow-cyber);
+}
+
+.auth-cyber-form::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-xl);
+    z-index: -1;
+    opacity: 0.3;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+}
+
+.auth-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-cyber);
+    margin-bottom: var(--space-m);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.auth-subtitle {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    margin-bottom: 0;
+}
+
+.cyber-input-group {
+    margin-bottom: var(--space-xl);
+    position: relative;
+}
+
+.input-icon-container {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: var(--space-m);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    z-index: 5;
+    transition: color var(--speed-normal) ease;
+}
+
+.cyber-input {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 2px solid rgba(0, 255, 255, 0.1) !important;
+    border-radius: var(--radius-m) !important;
+    padding: var(--space-m) var(--space-m) var(--space-m) 3.5rem !important;
+    color: var(--text-cyber) !important;
+    font-size: 1.1rem !important;
+    height: 60px !important;
+    transition: all var(--speed-normal) ease !important;
+}
+
+.cyber-input:focus {
+    background: rgba(0, 255, 255, 0.05) !important;
+    border-color: var(--cyber-cyan) !important;
+    box-shadow: 
+        0 0 0 0.2rem rgba(0, 255, 255, 0.2),
+        var(--shadow-cyber) !important;
+    transform: scale(1.02) !important;
+}
+
+.cyber-input:focus + .cyber-label {
+    color: var(--cyber-cyan) !important;
+}
+
+.cyber-input:focus ~ .input-icon {
+    color: var(--cyber-cyan) !important;
+}
+
+.cyber-label {
+    position: absolute;
+    top: -10px;
+    left: var(--space-m);
+    background: rgba(26, 26, 46, 0.9);
+    padding: 0 var(--space-s);
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    z-index: 10;
+}
+
+.error-message {
+    color: #ff4757;
+    font-size: 0.9rem;
+    margin-top: var(--space-s);
+    padding: var(--space-s) var(--space-m);
+    background: rgba(255, 71, 87, 0.1);
+    border-radius: var(--radius-s);
+    border-left: 4px solid #ff4757;
+}
+
+.help-text {
+    color: var(--text-faded);
+    font-size: 0.85rem;
+    margin-top: var(--space-s);
+    font-style: italic;
+    padding: var(--space-s) var(--space-m);
+    background: rgba(0, 255, 255, 0.05);
+    border-radius: var(--radius-s);
+    border-left: 3px solid var(--cyber-cyan);
+}
+
+.auth-links {
+    text-align: center;
+    margin-top: var(--space-xl);
+}
+
+.cyber-link {
+    color: var(--cyber-cyan);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all var(--speed-fast) ease;
+    display: inline-block;
+    margin: var(--space-s) 0;
+}
+
+.cyber-link:hover {
+    color: var(--cyber-magenta);
+    transform: translateY(-2px);
+}
+
+.cyber-link-primary {
+    color: var(--cyber-magenta);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all var(--speed-fast) ease;
+}
+
+.cyber-link-primary:hover {
+    color: var(--cyber-cyan);
+    transform: translateY(-2px);
+}
+
+.cyber-divider {
+    margin: var(--space-xl) 0;
+    position: relative;
+}
+
+.cyber-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--gradient-primary);
+    transform: translateY(-50%);
+}
+
+.divider-text {
+    background: rgba(26, 26, 46, 0.9);
+    padding: 0 var(--space-l);
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    font-weight: 600;
+    position: relative;
+    z-index: 5;
+}
+
+.signup-prompt {
+    color: var(--text-dim);
+    margin: var(--space-l) 0;
+}
+
+/* Floating Background Elements */
+.cyber-bg-elements {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 255, 255, 0.3), transparent 70%);
+    animation: floatOrb 8s ease-in-out infinite;
+}
+
+.orb-1 {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    right: 10%;
+    animation-delay: -2s;
+}
+
+.orb-2 {
+    width: 150px;
+    height: 150px;
+    bottom: 20%;
+    left: 15%;
+    background: radial-gradient(circle, rgba(255, 0, 170, 0.2), transparent 70%);
+    animation-delay: -4s;
+}
+
+.orb-3 {
+    width: 100px;
+    height: 100px;
+    top: 60%;
+    right: 25%;
+    background: radial-gradient(circle, rgba(57, 255, 20, 0.2), transparent 70%);
+    animation-delay: -6s;
+}
+
+@keyframes floatOrb {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+    50% { transform: translateY(-20px) scale(1.1); opacity: 0.6; }
+}
+
+/* Responsive Design */
+@media (max-width: 576px) {
+    .auth-cyber-form {
+        padding: var(--space-xl);
+        margin: var(--space-m);
+    }
+    
+    .auth-title {
+        font-size: 1.5rem;
+    }
+    
+    .cyber-input {
+        padding: var(--space-m) var(--space-s) var(--space-m) 3rem !important;
+        font-size: 1rem !important;
+        height: 55px !important;
+    }
+}
+</style>
 {% endblock %}
