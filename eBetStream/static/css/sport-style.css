@@ -39,6 +39,24 @@
   --animation-duration: 0.2s;
   --animation-timing: ease-out;
   --transition-duration: 0.15s;
+  
+  /* Legacy Variables Mapping for Compatibility */
+  --sport-orange: var(--fd-blue-primary);
+  --sport-red: var(--fd-blue-dark);
+  --sport-green: var(--fd-green);
+  --sport-blue: var(--fd-blue-primary);
+  --sport-dark: var(--fd-gray-900);
+  --sport-white: var(--fd-white);
+  --sport-text-dark: var(--fd-text-primary);
+  --sport-text: var(--fd-text-primary);
+  --sport-error: var(--fd-error);
+  --sport-success: var(--fd-success);
+  --sport-focus-color: var(--fd-blue-primary);
+  --sport-link-hover: var(--fd-blue-dark);
+  
+  /* Performance optimization values */
+  --border-animation-duration: 8s;
+  --gradient-animation-duration: 4s;
 }
 
 /* Respect user's motion preferences - CRITICAL for accessibility */
@@ -203,21 +221,124 @@ body {
 }
 
 /* ================================================================
+   FANDUEL HERO SECTIONS & CARDS
+   ================================================================ */
+
+/* Hero Section Styles */
+.fd-hero {
+  padding: 4rem 0;
+  color: var(--fd-text-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.fd-hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.fd-hero h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.fd-hero p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  opacity: 0.9;
+}
+
+/* Card Styles - FanDuel Clean Design */
+.fd-card {
+  background: var(--fd-white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--fd-gray-200);
+  transition: all var(--transition-duration) var(--animation-timing);
+  height: 100%;
+}
+
+.fd-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.fd-card-header {
+  margin-bottom: 1rem;
+}
+
+.fd-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--fd-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.fd-card-subtitle {
+  color: var(--fd-text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Product Section Cards */
+.fd-product-card {
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  min-height: 300px;
+  color: var(--fd-text-white);
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.fd-product-card-content {
+  position: relative;
+  z-index: 2;
+}
+
+.fd-product-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.fd-product-card p {
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.fd-product-card .fd-btn-primary {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--fd-text-white);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.fd-product-card .fd-btn-primary:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ================================================================
    FORM STYLES - Enhanced Accessibility
    ================================================================ */
 
-.auth-container {
-  max-width: 480px;
+/* FanDuel Authentication Container */
+.auth-container,
+.sport-login-container {
+  max-width: 420px;
   margin: 3rem auto;
-  padding: 2.5rem;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-  border-radius: 20px;
-  /* Simplified shadow for better performance */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  border: 2px solid var(--sport-orange);
+  padding: 2rem;
+  background: var(--fd-white);
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--fd-gray-200);
   position: relative;
   overflow: hidden;
-  transition: transform var(--animation-duration) var(--animation-timing);
 }
 
 /* Reduced border animation for performance */
