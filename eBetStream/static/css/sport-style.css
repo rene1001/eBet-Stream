@@ -137,24 +137,23 @@ body::after {
   100% { transform: translateY(-60px); }
 }
 
-/* Futuristic Navigation - Floating Command Center */
+/* Modern Navigation - Clean and Accessible */
 .navbar {
-  position: fixed !important;
-  top: var(--space-m);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 96%;
-  max-width: 1400px;
-  background: rgba(13, 13, 26, 0.85);
-  backdrop-filter: var(--blur-glass);
-  border: 1px solid rgba(255, 149, 0, 0.2);
-  border-radius: var(--radius-xl);
-  padding: var(--space-s) var(--space-l);
+  position: sticky !important;
+  top: 0;
+  left: 0;
+  transform: none;
+  width: 100%;
+  max-width: none;
+  background: rgba(13, 13, 26, 0.95);
+  backdrop-filter: blur(15px);
+  border: none;
+  border-bottom: 2px solid rgba(255, 149, 0, 0.3);
+  border-radius: 0;
+  padding: var(--space-s) 0;
   z-index: 1000;
-  box-shadow: 
-    var(--shadow-glass),
-    0 0 40px rgba(255, 149, 0, 0.1);
-  animation: navMaterialize 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  animation: none;
 }
 
 @keyframes navMaterialize {
@@ -556,16 +555,51 @@ body::after {
   font-weight: 500;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
+/* Mobile Navigation Optimizations */
+@media (max-width: 768px) {
   .navbar {
-    width: 98%;
-    padding: var(--space-s);
+    width: 100%;
+    padding: var(--space-xs) 0;
+  }
+  
+  .navbar-nav .dropdown-menu {
+    background: rgba(13, 13, 26, 0.95);
+    border: 1px solid rgba(255, 149, 0, 0.3);
+    backdrop-filter: blur(10px);
+  }
+  
+  .navbar-nav .dropdown-item {
+    color: var(--text-dim);
+    padding: var(--space-s) var(--space-m);
+  }
+  
+  .navbar-nav .dropdown-item:hover {
+    background: rgba(255, 149, 0, 0.1);
+    color: var(--brand-orange);
+  }
+  
+  .navbar-toggler {
+    border: 1px solid rgba(255, 149, 0, 0.3);
+    padding: 4px 8px;
+  }
+  
+  .navbar-toggler:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 149, 0, 0.25);
   }
   
   .main-content {
-    margin-top: 120px;
-    padding: 0 var(--space-s);
+    padding: var(--space-s);
+  }
+}
+
+@media (max-width: 1024px) {
+  .navbar {
+    width: 100%;
+    padding: var(--space-s) 0;
+  }
+  
+  .main-content {
+    padding: 0 var(--space-m);
   }
   
   .hero-title {

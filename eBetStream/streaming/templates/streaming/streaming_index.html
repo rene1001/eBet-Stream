@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Streaming - eBetStream{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="text-cyber">
+                    <i class="bi bi-play-circle me-3"></i>Streaming Live
+                </h1>
+                <div class="badge bg-success fs-6">
+                    <i class="bi bi-broadcast me-1"></i>{{ streams.count }} stream{{ streams.count|pluralize }} en direct
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if streams %}
+        <div class="row">
+            {% for stream in streams %}
+                <div class="col-lg-6 col-xl-4 mb-4">
+                    <div class="cyber-card h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">{{ stream.title }}</h5>
+                            <span class="badge bg-danger">
+                                <i class="bi bi-record-circle me-1"></i>LIVE
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            {% if stream.match %}
+                                <div class="mb-3">
+                                    <h6 class="text-muted">Match en cours:</h6>
+                                    <p class="fw-bold">{{ stream.match.team1 }} vs {{ stream.match.team2 }}</p>
+                                    {% if stream.match.tournament %}
+                                        <small class="text-muted">{{ stream.match.tournament.name }}</small>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            
+                            {% if stream.description %}
+                                <p class="card-text">{{ stream.description|truncatewords:20 }}</p>
+                            {% endif %}
+                            
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="bi bi-eye me-1"></i>Viewers: -
+                                </small>
+                                <small class="text-muted">
+                                    <i class="bi bi-clock me-1"></i>En direct
+                                </small>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'streaming:watch_stream' stream.id %}" class="btn btn-cyber w-100">
+                                <i class="bi bi-play-fill me-2"></i>Regarder le stream
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-12">
+                <div class="cyber-card text-center p-5">
+                    <i class="bi bi-camera-video-off text-muted" style="font-size: 4rem;"></i>
+                    <h3 class="mt-3 text-muted">Aucun stream en direct</h3>
+                    <p class="text-dim">
+                        Il n'y a actuellement aucun stream en direct. 
+                        Revenez plus tard pour découvrir les derniers matchs esport !
+                    </p>
+                    <a href="{% url 'core:home' %}" class="btn btn-cyber">
+                        <i class="bi bi-house me-2"></i>Retour à l'accueil
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

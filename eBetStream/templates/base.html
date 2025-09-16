@@ -41,25 +41,32 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'core:home' %}">Accueil</a>
+              <a class="nav-link" href="{% url 'core:home' %}"><i class="bi bi-house me-1"></i>Accueil</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'betting:bet_list' %}">Paris</a>
+              <a class="nav-link" href="{% url 'betting:bet_list' %}"><i class="bi bi-dice-6 me-1"></i>Paris</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'gameurs:liste_gameurs' %}">Top Gameurs</a>
+              <a class="nav-link" href="{% url 'streaming:streaming_index' %}"><i class="bi bi-play-circle me-1"></i>Streaming</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'clans_gaming:liste_clans' %}">Clans</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="communityDropdown" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-people me-1"></i>Communauté
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'clans_gaming:liste_clans' %}"><i class="bi bi-shield me-2"></i>Clans Gaming</a></li>
+                <li><a class="dropdown-item" href="{% url 'gameurs:liste_gameurs' %}"><i class="bi bi-trophy me-2"></i>Top Gameurs</a></li>
+                <li><a class="dropdown-item" href="{% url 'forum:liste_categories' %}"><i class="bi bi-chat-square-text me-2"></i>Forum</a></li>
+              </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'evenements:liste_evenements' %}">Événements</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'forum:liste_categories' %}">Forum</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'blog:liste_articles' %}">Blog</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="moreDropdown" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-three-dots me-1"></i>Plus
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'evenements:liste_evenements' %}"><i class="bi bi-calendar-event me-2"></i>Événements</a></li>
+                <li><a class="dropdown-item" href="{% url 'blog:liste_articles' %}"><i class="bi bi-journal-text me-2"></i>Blog</a></li>
+              </ul>
             </li>
           </ul>
           <form action="/i18n/setlang/" method="post" class="d-flex align-items-center ms-auto">
