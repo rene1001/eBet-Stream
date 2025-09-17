@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-17 17:17+0000\n"
+"POT-Creation-Date: 2025-09-17 19:58+0000\n"
 "Language: es\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
@@ -15,8 +15,7 @@ msgid "Retour à la liste des paris"
 msgstr "Volver a la Lista de Apuestas"
 
 #: betting/templates/betting/bet_detail.html:41
-msgid ""
-"\"Double\" Betting System: Bet on a result and double your bet if you win!"
+msgid "\"Double\" Betting System: Bet on a result and double your bet if you win!"
 msgstr ""
 
 #: betting/templates/betting/bet_detail.html:46
@@ -48,7 +47,6 @@ msgid "Your Choice"
 msgstr "Tu Elección"
 
 #: betting/templates/betting/bet_detail.html:71
-#| msgid "Bet Information"
 msgid "Match Information"
 msgstr "Información de la apuesta"
 
@@ -62,12 +60,10 @@ msgid "Game"
 msgstr "Juego"
 
 #: betting/templates/betting/bet_detail.html:82
-#| msgid "Matches"
 msgid "Match Date"
 msgstr "Partidos"
 
 #: betting/templates/betting/bet_detail.html:86
-#| msgid "Matches"
 msgid "Match Status"
 msgstr "Partidos"
 
@@ -92,7 +88,6 @@ msgid "Your bet is pending the match result."
 msgstr "Tu apuesta está pendiente del resultado del partido."
 
 #: betting/templates/betting/bet_detail.html:122
-#| msgid "Bet Information"
 msgid "Live Bet Information"
 msgstr "Información de la apuesta"
 
@@ -133,7 +128,6 @@ msgid "Pending Bets"
 msgstr "Apuestas Pendientes"
 
 #: betting/templates/betting/bet_list.html:55
-#| msgid "Bet Amount"
 msgid "Total Bet Amount"
 msgstr "Monto de la apuesta"
 
@@ -154,7 +148,6 @@ msgid "Date"
 msgstr "Fecha"
 
 #: betting/templates/betting/bet_list.html:88
-#| msgid "Matches"
 msgid "Match"
 msgstr "Partidos"
 
@@ -163,7 +156,6 @@ msgid "Choice"
 msgstr "Elección"
 
 #: betting/templates/betting/bet_list.html:91
-#| msgid "Bet Amount"
 msgid "Amount"
 msgstr "Monto de la apuesta"
 
@@ -212,12 +204,10 @@ msgid "Aucun match disponible pour le moment."
 msgstr "No hay partidos disponibles en este momento."
 
 #: betting/templates/betting/p2p/challenge_create.html:5
-#| msgid "Lancer un Défi"
 msgid "Créer un Défi P2P"
 msgstr "Lanzar un Desafío"
 
 #: betting/templates/betting/p2p/challenge_create.html:47
-#| msgid "Lancer un Défi"
 msgid "Créer un Nouveau Défi P2P"
 msgstr "Lanzar un Desafío"
 
@@ -288,10 +278,7 @@ msgid "Important :"
 msgstr "Importante:"
 
 #: betting/templates/betting/p2p/challenge_create.html:269
-msgid ""
-"En créant ce défi, vous acceptez que le montant de votre mise soit bloqué "
-"sur votre compte jusqu'à la fin du défi. En cas de non-respect des règles, "
-"l'équipe de modération se réserve le droit d'annuler le défi."
+msgid "En créant ce défi, vous acceptez que le montant de votre mise soit bloqué sur votre compte jusqu'à la fin du défi. En cas de non-respect des règles, l'équipe de modération se réserve le droit d'annuler le défi."
 msgstr ""
 
 #: betting/templates/betting/p2p/challenge_create.html:277
@@ -303,7 +290,6 @@ msgid "Annuler"
 msgstr "Cancelar"
 
 #: betting/templates/betting/p2p/challenge_create.html:280
-#| msgid "Lancer un Défi"
 msgid "Créer le défi"
 msgstr "Lanzar un Desafío"
 
@@ -333,7 +319,6 @@ msgid "Place Your Bet"
 msgstr "Haz tu Apuesta"
 
 #: betting/templates/betting/place_bet.html:98
-#| msgid "Bet Amount"
 msgid "Bet Amount (K)"
 msgstr "Monto de la apuesta"
 
@@ -392,7 +377,6 @@ msgstr "Volver al Blog"
 
 #: blog/templates/blog/detail_article.html:12
 #: forum/templates/forum/liste_sujets.html:48
-#| msgid "Paris"
 msgid "Par"
 msgstr "Apuestas"
 
@@ -422,7 +406,6 @@ msgstr "Editar"
 #: blog/templates/blog/detail_article.html:78
 #: blog/templates/blog/detail_article.html:103
 #: forum/templates/forum/detail_sujet.html:74
-#| msgid "Support Live"
 msgid "Supprimer"
 msgstr "Soporte en Vivo"
 
@@ -485,7 +468,6 @@ msgstr "Crear Clan"
 #: clans_gaming/templates/clans_gaming/detail_clan.html:15
 #: clans_gaming/templates/clans_gaming/liste_clans.html:23
 #: core/templates/core/match_detail.html:280
-#| msgid "Jeux"
 msgid "Jeu"
 msgstr "Juegos"
 
@@ -512,7 +494,6 @@ msgstr "Ratio"
 
 #: clans_gaming/templates/clans_gaming/detail_clan.html:21
 #: evenements/templates/evenements/detail_evenement.html:26
-#| msgid "Inscription"
 msgid "Description"
 msgstr "Registrarse"
 
@@ -580,7 +561,6 @@ msgid "Meilleurs Clans"
 msgstr "Mejores Clanes"
 
 #: clans_gaming/templates/clans_gaming/liste_clans.html:9
-#| msgid "Lancer un Défi"
 msgid "Créer un clan"
 msgstr "Lanzar un Desafío"
 
@@ -592,55 +572,88 @@ msgstr "Ver Clan"
 msgid "Aucun clan n'est encore créé."
 msgstr "Aún no se ha creado ningún clan."
 
-#: core/templates/core/base.html:21 core/templates/core/base.html:82
-#| msgid "Support Live"
+#: core/templates/core/base.html:9
+msgid "Paris sur esports"
+msgstr ""
+
+#: core/templates/core/base.html:31 core/templates/core/base.html:110
 msgid "eBetStream Logo"
 msgstr "Soporte en Vivo"
 
-#: core/templates/core/base.html:29 core/templates/core/base.html:88
+#: core/templates/core/base.html:39 core/templates/core/base.html:116
 #: core/templates/core/match_detail.html:14
 #: core/templates/core/match_detail.html:39
 msgid "Jeux"
 msgstr "Juegos"
 
-#: core/templates/core/base.html:32
+#: core/templates/core/base.html:42
 msgid "Paris"
 msgstr "Apuestas"
 
-#: core/templates/core/base.html:47
+#: core/templates/core/base.html:49
+msgid "Clair"
+msgstr "Claro"
+
+#: core/templates/core/base.html:50
+#, fuzzy
+#| msgid "Membre"
+msgid "Sombre"
+msgstr "Miembro"
+
+#: core/templates/core/base.html:51 core/templates/core/base.html:57
+msgid "Système"
+msgstr "Sistema"
+
+#: core/templates/core/base.html:52
+msgid "Thème Clair Activé"
+msgstr "Tema Claro Activado"
+
+#: core/templates/core/base.html:53
+msgid "Thème Sombre Activé"
+msgstr "Tema Oscuro Activado"
+
+#: core/templates/core/base.html:54
+msgid "Thème Système Activé"
+msgstr "Tema Sistema Activado"
+
+#: core/templates/core/base.html:55
+msgid "Changer le thème"
+msgstr "Cambiar tema"
+
+#: core/templates/core/base.html:75
 msgid "Mon Compte"
 msgstr "Mi Cuenta"
 
-#: core/templates/core/base.html:50
+#: core/templates/core/base.html:78
 msgid "Déconnexion"
 msgstr "Cerrar Sesión"
 
-#: core/templates/core/base.html:54
+#: core/templates/core/base.html:82
 msgid "Connexion"
 msgstr "Iniciar Sesión"
 
-#: core/templates/core/base.html:57
+#: core/templates/core/base.html:85
 #: evenements/templates/evenements/detail_evenement.html:43
 msgid "Inscription"
 msgstr "Registrarse"
 
-#: core/templates/core/base.html:70
+#: core/templates/core/base.html:98
 msgid "Close"
 msgstr "Cerrar"
 
-#: core/templates/core/base.html:83
+#: core/templates/core/base.html:111
 msgid "Votre plateforme de paris sportifs en ligne"
 msgstr "Tu plataforma de apuestas deportivas en línea"
 
-#: core/templates/core/base.html:86
+#: core/templates/core/base.html:114
 msgid "Tous droits réservés."
 msgstr "Todos los derechos reservados."
 
-#: core/templates/core/base.html:89
+#: core/templates/core/base.html:117
 msgid "Confidentialité"
 msgstr "Privacidad"
 
-#: core/templates/core/base.html:90
+#: core/templates/core/base.html:118
 msgid "Conditions"
 msgstr "Términos"
 
@@ -655,7 +668,6 @@ msgid "Tournois"
 msgstr "Torneos"
 
 #: core/templates/core/game_list.html:32
-#| msgid "Rejoindre l'Élite"
 msgid "Voir les Tournois"
 msgstr "Unirse a la Elite"
 
@@ -700,22 +712,14 @@ msgid "Gagnez de l'Argent en Jouant sur eBetStream"
 msgstr "Gana Dinero Jugando en eBetStream"
 
 #: core/templates/core/home.html:50
-msgid ""
-"Transformez votre passion pour le gaming en gains réels avec eBetStream ! "
-"Chaque victoire dans vos jeux préférés vous rapporte des tokens Ktap ou du "
-"cash. Inscrivez-vous sur ebetstream.com et commencez à gagner dès "
-"aujourd'hui."
-msgstr ""
-"¡Transforma tu pasión por los juegos en ganancias reales con eBetStream! "
-"Cada victoria en tus juegos favoritos te otorga tokens Ktap o dinero en "
-"efectivo. Regístrate en ebetstream.com y comienza a ganar hoy mismo."
+msgid "Transformez votre passion pour le gaming en gains réels avec eBetStream ! Chaque victoire dans vos jeux préférés vous rapporte des tokens Ktap ou du cash. Inscrivez-vous sur ebetstream.com et commencez à gagner dès aujourd'hui."
+msgstr "¡Transforma tu pasión por los juegos en ganancias reales con eBetStream! Cada victoria en tus juegos favoritos te otorga tokens Ktap o dinero en efectivo. Regístrate en ebetstream.com y comienza a ganar hoy mismo."
 
 #: core/templates/core/home.html:51
 msgid "Commencer à Gagner"
 msgstr "Empezar a Ganar"
 
 #: core/templates/core/home.html:60
-#| msgid "Devenez la Star d'eBetStream"
 msgid "Devenez la Star d\\"
 msgstr "Convértete en la Estrella de eBetStream"
 
@@ -724,21 +728,14 @@ msgid "Devenez la Star d'eBetStream"
 msgstr "Convértete en la Estrella de eBetStream"
 
 #: core/templates/core/home.html:64
-msgid ""
-"Grimpez les classements et devenez le joueur légendaire d'eBetStream ! "
-"Enchaînez les victoires, gagnez des primes en Ktap, et brillez devant une "
-"audience mondiale."
-msgstr ""
-"¡Sube en las clasificaciones y conviértete en el jugador legendario de "
-"eBetStream! Encadena victorias, gana bonos en Ktap y brilla ante una "
-"audiencia mundial."
+msgid "Grimpez les classements et devenez le joueur légendaire d'eBetStream ! Enchaînez les victoires, gagnez des primes en Ktap, et brillez devant une audience mondiale."
+msgstr "¡Sube en las clasificaciones y conviértete en el jugador legendario de eBetStream! Encadena victorias, gana bonos en Ktap y brilla ante una audiencia mundial."
 
 #: core/templates/core/home.html:65
 msgid "Devenir Légende"
 msgstr "Convertirse en Leyenda"
 
 #: core/templates/core/home.html:74
-#| msgid "Relevez des Défis Épiques sur eBetStream"
 msgid "Relevez des Défis Épiques"
 msgstr "Acepta Desafíos Épicos en eBetStream"
 
@@ -747,21 +744,14 @@ msgid "Relevez des Défis Épiques sur eBetStream"
 msgstr "Acepta Desafíos Épicos en eBetStream"
 
 #: core/templates/core/home.html:78
-msgid ""
-"Défiez vos amis ou des joueurs du monde entier sur eBetStream ! Créez des "
-"matchs personnalisés (1v1, clans, tournois), fixez vos enjeux, et prouvez "
-"votre talent. Lancez votre défi sur ebetstream.com dès maintenant."
-msgstr ""
-"¡Desafía a tus amigos o jugadores de todo el mundo en eBetStream! Crea "
-"partidos personalizados (1v1, clanes, torneos), fija tus apuestas y "
-"demuestra tu talento. Lanza tu desafío en ebetstream.com ahora mismo."
+msgid "Défiez vos amis ou des joueurs du monde entier sur eBetStream ! Créez des matchs personnalisés (1v1, clans, tournois), fixez vos enjeux, et prouvez votre talent. Lancez votre défi sur ebetstream.com dès maintenant."
+msgstr "¡Desafía a tus amigos o jugadores de todo el mundo en eBetStream! Crea partidos personalizados (1v1, clanes, torneos), fija tus apuestas y demuestra tu talento. Lanza tu desafío en ebetstream.com ahora mismo."
 
 #: core/templates/core/home.html:79
 msgid "Lancer un Défi"
 msgstr "Lanzar un Desafío"
 
 #: core/templates/core/home.html:88
-#| msgid "Placez des Paris Gagnants sur eBetStream"
 msgid "Placez des Paris Gagnants"
 msgstr "Haz Apuestas Ganadoras en eBetStream"
 
@@ -770,20 +760,14 @@ msgid "Placez des Paris Gagnants sur eBetStream"
 msgstr "Haz Apuestas Ganadoras en eBetStream"
 
 #: core/templates/core/home.html:92
-msgid ""
-"Pariez sur vos tournois préférés avec eBetStream ! Que ce soient des matchs "
-"pros ou amateurs, placez vos mises en Ktap ou cash et gagnez gros."
-msgstr ""
-"¡Apuesta en tus torneos favoritos con eBetStream! Ya sean partidos "
-"profesionales o amateur, coloca tus apuestas en Ktap o efectivo y gana en "
-"grande."
+msgid "Pariez sur vos tournois préférés avec eBetStream ! Que ce soient des matchs pros ou amateurs, placez vos mises en Ktap ou cash et gagnez gros."
+msgstr "¡Apuesta en tus torneos favoritos con eBetStream! Ya sean partidos profesionales o amateur, coloca tus apuestas en Ktap o efectivo y gana en grande."
 
 #: core/templates/core/home.html:93 core/templates/core/home.html:223
 msgid "Parier Maintenant"
 msgstr "Apostar Ahora"
 
 #: core/templates/core/home.html:102
-#| msgid "Regardez des Matchs en Direct sur eBetStream"
 msgid "Regardez des Matchs en Direct"
 msgstr "Mira Partidos en Vivo en eBetStream"
 
@@ -792,14 +776,8 @@ msgid "Regardez des Matchs en Direct sur eBetStream"
 msgstr "Mira Partidos en Vivo en eBetStream"
 
 #: core/templates/core/home.html:106
-msgid ""
-"Vibrez avec des matchs e-gaming en direct sur le site ! Suivez des duels "
-"palpitants, soutenez vos joueurs préférés, et plongez dans l'action en temps "
-"réel."
-msgstr ""
-"¡Vive la emoción con partidos de e-gaming en directo en el sitio! Sigue "
-"duelos emocionantes, apoya a tus jugadores favoritos y sumérgete en la "
-"acción en tiempo real."
+msgid "Vibrez avec des matchs e-gaming en direct sur le site ! Suivez des duels palpitants, soutenez vos joueurs préférés, et plongez dans l'action en temps réel."
+msgstr "¡Vive la emoción con partidos de e-gaming en directo en el sitio! Sigue duelos emocionantes, apoya a tus jugadores favoritos y sumérgete en la acción en tiempo real."
 
 #: core/templates/core/home.html:107
 msgid "Live Stream"
@@ -854,7 +832,6 @@ msgid "VS"
 msgstr ""
 
 #: core/templates/core/home.html:230
-#| msgid "Support Live"
 msgid "Stream Live"
 msgstr "Soporte en Vivo"
 
@@ -883,9 +860,7 @@ msgid "Arène de Combat P2P"
 msgstr ""
 
 #: core/templates/core/home.html:270
-msgid ""
-"Défiez d'autres joueurs en 1v1 dans notre arène cyber-futuriste. Gagnez des "
-"Ktap et gravissez les classements mondiaux."
+msgid "Défiez d'autres joueurs en 1v1 dans notre arène cyber-futuriste. Gagnez des Ktap et gravissez les classements mondiaux."
 msgstr ""
 
 #: core/templates/core/home.html:274
@@ -893,7 +868,6 @@ msgid "Entrer dans l'Arène"
 msgstr ""
 
 #: core/templates/core/home.html:277
-#| msgid "Lancer un Défi"
 msgid "Créer un Défi"
 msgstr "Lanzar un Desafío"
 
@@ -914,7 +888,6 @@ msgid "Populaire"
 msgstr ""
 
 #: core/templates/core/home.html:325
-#| msgid "Rejoindre l'Élite"
 msgid "Rejoindre les Tournois"
 msgstr "Unirse a la Elite"
 
@@ -947,9 +920,7 @@ msgid "Rejoignez les Meilleurs Clans"
 msgstr ""
 
 #: core/templates/core/home.html:471
-msgid ""
-"Formez des alliances stratégiques, participez à des tournois de clan et "
-"gravissez les classements avec vos coéquipiers."
+msgid "Formez des alliances stratégiques, participez à des tournois de clan et gravissez les classements avec vos coéquipiers."
 msgstr ""
 
 #: core/templates/core/home.html:475
@@ -973,9 +944,7 @@ msgid "Classement Elite"
 msgstr ""
 
 #: core/templates/core/home.html:501
-msgid ""
-"Découvrez les joueurs les plus talentueux, suivez leurs performances et "
-"inspirez-vous de leurs stratégies gagnantes."
+msgid "Découvrez les joueurs les plus talentueux, suivez leurs performances et inspirez-vous de leurs stratégies gagnantes."
 msgstr ""
 
 #: core/templates/core/home.html:505
@@ -999,9 +968,7 @@ msgid "Calendrier Gaming"
 msgstr ""
 
 #: core/templates/core/home.html:531
-msgid ""
-"Participez aux plus grands événements esport : tournois officiels, "
-"compétitions communautaires et rencontres exclusives."
+msgid "Participez aux plus grands événements esport : tournois officiels, compétitions communautaires et rencontres exclusives."
 msgstr ""
 
 #: core/templates/core/home.html:535
@@ -1025,9 +992,7 @@ msgid "Communauté Active"
 msgstr ""
 
 #: core/templates/core/home.html:561
-msgid ""
-"Rejoignez les discussions, partagez vos stratégies, obtenez des conseils "
-"d'experts et créez des liens avec d'autres passionnés."
+msgid "Rejoignez les discussions, partagez vos stratégies, obtenez des conseils d'experts et créez des liens avec d'autres passionnés."
 msgstr ""
 
 #: core/templates/core/home.html:565
@@ -1051,9 +1016,7 @@ msgid "Contenu Exclusif"
 msgstr ""
 
 #: core/templates/core/home.html:591
-msgid ""
-"Découvrez nos analyses approfondies, guides stratégiques, interviews de pros "
-"et les dernières actualités de l'esport mondial."
+msgid "Découvrez nos analyses approfondies, guides stratégiques, interviews de pros et les dernières actualités de l'esport mondial."
 msgstr ""
 
 #: core/templates/core/home.html:595
@@ -1077,12 +1040,10 @@ msgid "Prêt pour l'Aventure Cyber ?"
 msgstr ""
 
 #: core/templates/core/home.html:710
-#| msgid "Gagnez de l'Argent en Jouant sur eBetStream"
 msgid "Rejoignez des millions de joueurs dans l'univers eBetStream"
 msgstr "Gana Dinero Jugando en eBetStream"
 
 #: core/templates/core/home.html:714
-#| msgid "Parier Maintenant"
 msgid "S'inscrire Maintenant"
 msgstr "Apostar Ahora"
 
@@ -1095,7 +1056,6 @@ msgid "Mon Profil"
 msgstr ""
 
 #: core/templates/core/home.html:724
-#| msgid "Commencer à Gagner"
 msgid "Commencer à Parier"
 msgstr "Empezar a Ganar"
 
@@ -1134,7 +1094,6 @@ msgid "Vainqueur:"
 msgstr ""
 
 #: core/templates/core/match_detail.html:134
-#| msgid "Lancer un Défi"
 msgid "Placer un pari"
 msgstr "Lanzar un Desafío"
 
@@ -1159,7 +1118,6 @@ msgid "Sélectionnez votre pronostic"
 msgstr ""
 
 #: core/templates/core/match_detail.html:167
-#| msgid "Matches"
 msgid "Match nul"
 msgstr "Partidos"
 
@@ -1193,7 +1151,6 @@ msgid "Le match est en cours. Les paris en direct sont disponibles."
 msgstr ""
 
 #: core/templates/core/match_detail.html:247
-#| msgid "Parier Maintenant"
 msgid "Parier en Direct"
 msgstr "Apostar Ahora"
 
@@ -1206,7 +1163,6 @@ msgid "Ce match a été annulé. Tous les paris ont été remboursés."
 msgstr ""
 
 #: core/templates/core/match_detail.html:267
-#| msgid "Bet Information"
 msgid "Informations"
 msgstr "Información de la apuesta"
 
@@ -1223,12 +1179,10 @@ msgid "Actions"
 msgstr ""
 
 #: core/templates/core/match_detail.html:311
-#| msgid "Regardez des Matchs en Direct sur eBetStream"
 msgid "Regarder en Direct"
 msgstr "Mira Partidos en Vivo en eBetStream"
 
 #: core/templates/core/match_detail.html:318
-#| msgid "Rejoindre l'Élite"
 msgid "Voir le Tournoi"
 msgstr "Unirse a la Elite"
 
@@ -1281,7 +1235,6 @@ msgid "Êtes-vous sûr de vouloir annuler votre inscription ?"
 msgstr ""
 
 #: evenements/templates/evenements/detail_evenement.html:52
-#| msgid "Inscription"
 msgid "Annuler l'inscription"
 msgstr "Registrarse"
 
@@ -1290,7 +1243,6 @@ msgid "Désolé, il n'y a plus de places disponibles."
 msgstr ""
 
 #: evenements/templates/evenements/detail_evenement.html:59
-#| msgid "Parier Maintenant"
 msgid "S'inscrire"
 msgstr "Apostar Ahora"
 
@@ -1406,7 +1358,6 @@ msgid "Jeu préféré"
 msgstr ""
 
 #: gameurs/templates/gameurs/detail_gameur.html:25
-#| msgid "Joueurs Actifs"
 msgid "Jouer contre"
 msgstr "Jugadores Activos"
 
@@ -1423,7 +1374,6 @@ msgid "Aucun gameur n'est encore inscrit."
 msgstr ""
 
 #: partenaires/templates/partenaires/detail_partenaire.html:7
-#| msgid "Nos Partenaires"
 msgid "Retour aux partenaires"
 msgstr "Nuestros Socios"
 
@@ -1433,7 +1383,6 @@ msgid "Visiter le site"
 msgstr ""
 
 #: partenaires/templates/partenaires/detail_partenaire.html:32
-#| msgid "Nos Partenaires"
 msgid "Partenaire depuis le"
 msgstr "Nuestros Socios"
 
@@ -1451,12 +1400,10 @@ msgid "Aucun partenaire n'est actuellement disponible."
 msgstr ""
 
 #: streaming/templates/streaming/stream_index.html:13
-#| msgid "Live Stream"
 msgid "Streaming Live eBetStream"
 msgstr "Transmisión en Vivo"
 
 #: streaming/templates/streaming/stream_index.html:16
-#| msgid "Regardez des Matchs en Direct sur eBetStream"
 msgid "Regardez les matchs en direct et ne manquez aucune action !"
 msgstr "Mira Partidos en Vivo en eBetStream"
 
@@ -1465,7 +1412,6 @@ msgid "Regarder en Live"
 msgstr ""
 
 #: streaming/templates/streaming/stream_index.html:46
-#| msgid "Support Live"
 msgid "Stream actif"
 msgstr "Soporte en Vivo"
 
@@ -1510,7 +1456,6 @@ msgid "Regardez sur tous vos appareils, partout où vous êtes"
 msgstr ""
 
 #: streaming/templates/streaming/watch_stream.html:4
-#| msgid "Live Stream"
 msgid "Live Streaming"
 msgstr "Transmisión en Vivo"
 
@@ -1535,9 +1480,7 @@ msgid "Deposit Request"
 msgstr ""
 
 #: users/templates/users/deposit_request.html:19
-msgid ""
-"Your deposit request will be reviewed by our team. Once approved, the amount "
-"will be added to your balance."
+msgid "Your deposit request will be reviewed by our team. Once approved, the amount will be added to your balance."
 msgstr ""
 
 #: users/templates/users/deposit_request.html:36
@@ -1593,7 +1536,6 @@ msgid "Nouveau dans l'univers cyber ?"
 msgstr ""
 
 #: users/templates/users/login.html:71
-#| msgid "Rejoindre l'Élite"
 msgid "Rejoindre la communauté"
 msgstr "Unirse a la Elite"
 
@@ -1634,7 +1576,6 @@ msgid "Historique"
 msgstr ""
 
 #: users/templates/users/profile.html:84
-#| msgid "Paris Placés"
 msgid "Paris Gagnés"
 msgstr "Apuestas Realizadas"
 
@@ -1643,7 +1584,6 @@ msgid "Taux de Réussite"
 msgstr ""
 
 #: users/templates/users/profile.html:98
-#| msgid "Joueurs Actifs"
 msgid "Jours Actifs"
 msgstr "Jugadores Activos"
 
@@ -1704,6 +1644,5 @@ msgid "Déjà membre de la communauté ?"
 msgstr ""
 
 #: users/templates/users/register.html:79
-#| msgid "Connexion"
 msgid "Connexion rapide"
 msgstr "Iniciar Sesión"

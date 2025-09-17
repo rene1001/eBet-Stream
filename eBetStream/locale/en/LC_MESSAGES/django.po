@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-17 17:39+0000\n"
+"POT-Creation-Date: 2025-09-17 19:58+0000\n"
 "Language: en\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
@@ -15,10 +15,8 @@ msgid "Retour à la liste des paris"
 msgstr "Back to Bet List"
 
 #: betting/templates/betting/bet_detail.html:41
-msgid ""
-"\"Double\" Betting System: Bet on a result and double your bet if you win!"
-msgstr ""
-"\"Double\" Betting System: Bet on a result and double your bet if you win!"
+msgid "\"Double\" Betting System: Bet on a result and double your bet if you win!"
+msgstr "\"Double\" Betting System: Bet on a result and double your bet if you win!"
 
 #: betting/templates/betting/bet_detail.html:46
 msgid "Bet Information"
@@ -261,8 +259,7 @@ msgstr "Total Challenge Pot:"
 
 #: betting/templates/betting/p2p/challenge_create.html:204
 msgid "Ce montant sera bloqué sur votre compte jusqu'à la fin du défi."
-msgstr ""
-"This amount will be locked on your account until the end of the challenge."
+msgstr "This amount will be locked on your account until the end of the challenge."
 
 #: betting/templates/betting/p2p/challenge_create.html:214
 msgid "Règles spécifiques (optionnel)"
@@ -281,17 +278,8 @@ msgid "Important :"
 msgstr "Important:"
 
 #: betting/templates/betting/p2p/challenge_create.html:269
-msgid ""
-"En créant ce défi, vous acceptez que le montant de votre mise soit bloqué "
-"sur votre compte jusqu'à la fin du défi. En cas de non-respect des règles, "
-"l'équipe de modération se réserve le droit d'annuler le défi."
-msgstr ""
-"By creating this challenge, you accept that your stake amount will be locked "
-"on your account until the end of the challenge. In case of rule violations, "
-"the moderation team reserves the right to cancel the challenge.By creating "
-"this challenge, you accept that your stake amount will be locked on your "
-"account until the end of the challenge. In case of rule violations, the "
-"moderation team reserves the right to cancel the challenge."
+msgid "En créant ce défi, vous acceptez que le montant de votre mise soit bloqué sur votre compte jusqu'à la fin du défi. En cas de non-respect des règles, l'équipe de modération se réserve le droit d'annuler le défi."
+msgstr "By creating this challenge, you accept that your stake amount will be locked on your account until the end of the challenge. In case of rule violations, the moderation team reserves the right to cancel the challenge.By creating this challenge, you accept that your stake amount will be locked on your account until the end of the challenge. In case of rule violations, the moderation team reserves the right to cancel the challenge."
 
 #: betting/templates/betting/p2p/challenge_create.html:277
 #: blog/templates/blog/creer_article.html:25
@@ -588,54 +576,84 @@ msgstr "No clan has been created yet."
 msgid "Paris sur esports"
 msgstr ""
 
-#: core/templates/core/base.html:21 core/templates/core/base.html:82
+#: core/templates/core/base.html:31 core/templates/core/base.html:110
 msgid "eBetStream Logo"
 msgstr "eBetStream Logo"
 
-#: core/templates/core/base.html:29 core/templates/core/base.html:88
+#: core/templates/core/base.html:39 core/templates/core/base.html:116
 #: core/templates/core/match_detail.html:14
 #: core/templates/core/match_detail.html:39
 msgid "Jeux"
 msgstr "Games"
 
-#: core/templates/core/base.html:32
+#: core/templates/core/base.html:42
 msgid "Paris"
 msgstr "Betting"
 
-#: core/templates/core/base.html:47
+#: core/templates/core/base.html:49
+msgid "Clair"
+msgstr "Light"
+
+#: core/templates/core/base.html:50
+#, fuzzy
+#| msgid "Membre"
+msgid "Sombre"
+msgstr "Member"
+
+#: core/templates/core/base.html:51 core/templates/core/base.html:57
+msgid "Système"
+msgstr "System"
+
+#: core/templates/core/base.html:52
+msgid "Thème Clair Activé"
+msgstr "Light Theme Activated"
+
+#: core/templates/core/base.html:53
+msgid "Thème Sombre Activé"
+msgstr "Dark Theme Activated"
+
+#: core/templates/core/base.html:54
+msgid "Thème Système Activé"
+msgstr "System Theme Activated"
+
+#: core/templates/core/base.html:55
+msgid "Changer le thème"
+msgstr "Change theme"
+
+#: core/templates/core/base.html:75
 msgid "Mon Compte"
 msgstr "My Account"
 
-#: core/templates/core/base.html:50
+#: core/templates/core/base.html:78
 msgid "Déconnexion"
 msgstr "Logout"
 
-#: core/templates/core/base.html:54
+#: core/templates/core/base.html:82
 msgid "Connexion"
 msgstr "Login"
 
-#: core/templates/core/base.html:57
+#: core/templates/core/base.html:85
 #: evenements/templates/evenements/detail_evenement.html:43
 msgid "Inscription"
 msgstr "Sign Up"
 
-#: core/templates/core/base.html:70
+#: core/templates/core/base.html:98
 msgid "Close"
 msgstr "Close"
 
-#: core/templates/core/base.html:83
+#: core/templates/core/base.html:111
 msgid "Votre plateforme de paris sportifs en ligne"
 msgstr "Your online esports betting platform"
 
-#: core/templates/core/base.html:86
+#: core/templates/core/base.html:114
 msgid "Tous droits réservés."
 msgstr "All rights reserved."
 
-#: core/templates/core/base.html:89
+#: core/templates/core/base.html:117
 msgid "Confidentialité"
 msgstr "Privacy"
 
-#: core/templates/core/base.html:90
+#: core/templates/core/base.html:118
 msgid "Conditions"
 msgstr "Terms"
 
@@ -694,15 +712,8 @@ msgid "Gagnez de l'Argent en Jouant sur eBetStream"
 msgstr "Earn Money Playing on eBetStream"
 
 #: core/templates/core/home.html:50
-msgid ""
-"Transformez votre passion pour le gaming en gains réels avec eBetStream ! "
-"Chaque victoire dans vos jeux préférés vous rapporte des tokens Ktap ou du "
-"cash. Inscrivez-vous sur ebetstream.com et commencez à gagner dès "
-"aujourd'hui."
-msgstr ""
-"Transform your passion for gaming into real earnings with eBetStream! "
-"Every victory in your favorite games earns you Ktap tokens or cash. "
-"Sign up on ebetstream.com and start earning today."
+msgid "Transformez votre passion pour le gaming en gains réels avec eBetStream ! Chaque victoire dans vos jeux préférés vous rapporte des tokens Ktap ou du cash. Inscrivez-vous sur ebetstream.com et commencez à gagner dès aujourd'hui."
+msgstr "Transform your passion for gaming into real earnings with eBetStream! Every victory in your favorite games earns you Ktap tokens or cash. Sign up on ebetstream.com and start earning today."
 
 #: core/templates/core/home.html:51
 msgid "Commencer à Gagner"
@@ -717,13 +728,8 @@ msgid "Devenez la Star d'eBetStream"
 msgstr "Become the Star of eBetStream"
 
 #: core/templates/core/home.html:64
-msgid ""
-"Grimpez les classements et devenez le joueur légendaire d'eBetStream ! "
-"Enchaînez les victoires, gagnez des primes en Ktap, et brillez devant une "
-"audience mondiale."
-msgstr ""
-"Climb the rankings and become the legendary player of eBetStream! "
-"Chain victories, earn Ktap bonuses, and shine in front of a global audience."
+msgid "Grimpez les classements et devenez le joueur légendaire d'eBetStream ! Enchaînez les victoires, gagnez des primes en Ktap, et brillez devant une audience mondiale."
+msgstr "Climb the rankings and become the legendary player of eBetStream! Chain victories, earn Ktap bonuses, and shine in front of a global audience."
 
 #: core/templates/core/home.html:65
 msgid "Devenir Légende"
@@ -738,14 +744,8 @@ msgid "Relevez des Défis Épiques sur eBetStream"
 msgstr "Take on Epic Challenges on eBetStream"
 
 #: core/templates/core/home.html:78
-msgid ""
-"Défiez vos amis ou des joueurs du monde entier sur eBetStream ! Créez des "
-"matchs personnalisés (1v1, clans, tournois), fixez vos enjeux, et prouvez "
-"votre talent. Lancez votre défi sur ebetstream.com dès maintenant."
-msgstr ""
-"Challenge your friends or players worldwide on eBetStream! Create custom "
-"matches (1v1, clans, tournaments), set your stakes, and prove your talent. "
-"Launch your challenge on ebetstream.com right now."
+msgid "Défiez vos amis ou des joueurs du monde entier sur eBetStream ! Créez des matchs personnalisés (1v1, clans, tournois), fixez vos enjeux, et prouvez votre talent. Lancez votre défi sur ebetstream.com dès maintenant."
+msgstr "Challenge your friends or players worldwide on eBetStream! Create custom matches (1v1, clans, tournaments), set your stakes, and prove your talent. Launch your challenge on ebetstream.com right now."
 
 #: core/templates/core/home.html:79
 msgid "Lancer un Défi"
@@ -760,12 +760,8 @@ msgid "Placez des Paris Gagnants sur eBetStream"
 msgstr "Place Winning Bets on eBetStream"
 
 #: core/templates/core/home.html:92
-msgid ""
-"Pariez sur vos tournois préférés avec eBetStream ! Que ce soient des matchs "
-"pros ou amateurs, placez vos mises en Ktap ou cash et gagnez gros."
-msgstr ""
-"Bet on your favorite tournaments with eBetStream! Whether pro or amateur "
-"matches, place your stakes in Ktap or cash and win big."
+msgid "Pariez sur vos tournois préférés avec eBetStream ! Que ce soient des matchs pros ou amateurs, placez vos mises en Ktap ou cash et gagnez gros."
+msgstr "Bet on your favorite tournaments with eBetStream! Whether pro or amateur matches, place your stakes in Ktap or cash and win big."
 
 #: core/templates/core/home.html:93 core/templates/core/home.html:223
 msgid "Parier Maintenant"
@@ -780,15 +776,8 @@ msgid "Regardez des Matchs en Direct sur eBetStream"
 msgstr "Watch Live Matches on eBetStream"
 
 #: core/templates/core/home.html:106
-msgid ""
-"Vibrez avec des matchs e-gaming en direct sur le site ! Suivez des duels "
-"palpitants, soutenez vos joueurs préférés, et plongez dans l'action en temps "
-"réel."
-msgstr ""
-"Feel the thrill with live e-gaming matches on the site! Follow exciting "
-"duels, support your favorite players, and dive into real-time action.Feel "
-"the thrill with live e-gaming matches on the site! Follow exciting duels, "
-"support your favorite players, and dive into real-time action."
+msgid "Vibrez avec des matchs e-gaming en direct sur le site ! Suivez des duels palpitants, soutenez vos joueurs préférés, et plongez dans l'action en temps réel."
+msgstr "Feel the thrill with live e-gaming matches on the site! Follow exciting duels, support your favorite players, and dive into real-time action.Feel the thrill with live e-gaming matches on the site! Follow exciting duels, support your favorite players, and dive into real-time action."
 
 #: core/templates/core/home.html:107
 msgid "Live Stream"
@@ -871,12 +860,8 @@ msgid "Arène de Combat P2P"
 msgstr "P2P Combat Arena"
 
 #: core/templates/core/home.html:270
-msgid ""
-"Défiez d'autres joueurs en 1v1 dans notre arène cyber-futuriste. Gagnez des "
-"Ktap et gravissez les classements mondiaux."
-msgstr ""
-"Challenge other players in 1v1 battles in our cyber-futuristic arena. Earn "
-"Ktap and climb the global rankings."
+msgid "Défiez d'autres joueurs en 1v1 dans notre arène cyber-futuriste. Gagnez des Ktap et gravissez les classements mondiaux."
+msgstr "Challenge other players in 1v1 battles in our cyber-futuristic arena. Earn Ktap and climb the global rankings."
 
 #: core/templates/core/home.html:274
 msgid "Entrer dans l'Arène"
@@ -935,9 +920,7 @@ msgid "Rejoignez les Meilleurs Clans"
 msgstr "Join the Best Clans"
 
 #: core/templates/core/home.html:471
-msgid ""
-"Formez des alliances stratégiques, participez à des tournois de clan et "
-"gravissez les classements avec vos coéquipiers."
+msgid "Formez des alliances stratégiques, participez à des tournois de clan et gravissez les classements avec vos coéquipiers."
 msgstr ""
 
 #: core/templates/core/home.html:475
@@ -961,12 +944,8 @@ msgid "Classement Elite"
 msgstr "Elite Rankings"
 
 #: core/templates/core/home.html:501
-msgid ""
-"Découvrez les joueurs les plus talentueux, suivez leurs performances et "
-"inspirez-vous de leurs stratégies gagnantes."
-msgstr ""
-"Discover the most talented players, follow their performances and be "
-"inspired by their winning strategies."
+msgid "Découvrez les joueurs les plus talentueux, suivez leurs performances et inspirez-vous de leurs stratégies gagnantes."
+msgstr "Discover the most talented players, follow their performances and be inspired by their winning strategies."
 
 #: core/templates/core/home.html:505
 msgid "Voir le Classement"
@@ -989,9 +968,7 @@ msgid "Calendrier Gaming"
 msgstr "Gaming Calendar"
 
 #: core/templates/core/home.html:531
-msgid ""
-"Participez aux plus grands événements esport : tournois officiels, "
-"compétitions communautaires et rencontres exclusives."
+msgid "Participez aux plus grands événements esport : tournois officiels, compétitions communautaires et rencontres exclusives."
 msgstr ""
 
 #: core/templates/core/home.html:535
@@ -1015,9 +992,7 @@ msgid "Communauté Active"
 msgstr "Active Community"
 
 #: core/templates/core/home.html:561
-msgid ""
-"Rejoignez les discussions, partagez vos stratégies, obtenez des conseils "
-"d'experts et créez des liens avec d'autres passionnés."
+msgid "Rejoignez les discussions, partagez vos stratégies, obtenez des conseils d'experts et créez des liens avec d'autres passionnés."
 msgstr ""
 
 #: core/templates/core/home.html:565
@@ -1041,9 +1016,7 @@ msgid "Contenu Exclusif"
 msgstr "Exclusive Content"
 
 #: core/templates/core/home.html:591
-msgid ""
-"Découvrez nos analyses approfondies, guides stratégiques, interviews de pros "
-"et les dernières actualités de l'esport mondial."
+msgid "Découvrez nos analyses approfondies, guides stratégiques, interviews de pros et les dernières actualités de l'esport mondial."
 msgstr ""
 
 #: core/templates/core/home.html:595
@@ -1507,9 +1480,7 @@ msgid "Deposit Request"
 msgstr ""
 
 #: users/templates/users/deposit_request.html:19
-msgid ""
-"Your deposit request will be reviewed by our team. Once approved, the amount "
-"will be added to your balance."
+msgid "Your deposit request will be reviewed by our team. Once approved, the amount will be added to your balance."
 msgstr ""
 
 #: users/templates/users/deposit_request.html:36

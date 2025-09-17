@@ -17,13 +17,16 @@ Design System v3.0 - Beyond FanDuel & DraftKings
   --brand-white: #FFFFFF;
   --brand-accent: #FFC107;
   --brand-warm: #FF6B35;
-  
+}
+
+/* THEME SYSTEM - DARK THEME (DEFAULT) */
+[data-theme="dark"] {
   /* Dark Cyber Background */
-  --dark-void: #000008;
-  --dark-space: #0d0d1a;
-  --dark-midnight: #1a1a2e;
-  --dark-steel: #16213e;
-  --dark-matrix: #0f3460;
+  --bg-primary: #000008;
+  --bg-secondary: #0d0d1a;
+  --bg-tertiary: #1a1a2e;
+  --bg-surface: #16213e;
+  --bg-accent: #0f3460;
   
   /* Glass & Transparency - Brand Orange Tints */
   --glass-light: rgba(255, 255, 255, 0.03);
@@ -32,16 +35,89 @@ Design System v3.0 - Beyond FanDuel & DraftKings
   --glass-neon: rgba(255, 149, 0, 0.1);
   
   /* Text Hierarchy */
-  --text-cyber: #ffffff;
-  --text-neon: var(--brand-orange);
-  --text-dim: #c1c7d0;
-  --text-faded: #9ca3af;
+  --text-primary: #ffffff;
+  --text-secondary: #c1c7d0;
+  --text-tertiary: #9ca3af;
+  --text-accent: var(--brand-orange);
+  
+  /* Shadows & Effects */
+  --shadow-cyber: 0 0 30px rgba(255, 149, 0, 0.4);
+  --shadow-neon: 0 0 20px rgba(255, 179, 71, 0.3);
+  --shadow-depth: 0 20px 60px rgba(0, 0, 0, 0.7);
+  --shadow-glass: 0 8px 32px rgba(31, 38, 135, 0.37);
+}
+
+/* THEME SYSTEM - LIGHT THEME */
+[data-theme="light"] {
+  /* Light Cyber Background */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --bg-surface: #e2e8f0;
+  --bg-accent: #cbd5e1;
+  
+  /* Glass & Transparency - Brand Orange Tints */
+  --glass-light: rgba(0, 0, 0, 0.03);
+  --glass-medium: rgba(0, 0, 0, 0.08);
+  --glass-heavy: rgba(0, 0, 0, 0.15);
+  --glass-neon: rgba(255, 149, 0, 0.1);
+  
+  /* Text Hierarchy */
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-tertiary: #64748b;
+  --text-accent: var(--brand-orange);
+  
+  /* Shadows & Effects */
+  --shadow-cyber: 0 0 30px rgba(255, 149, 0, 0.2);
+  --shadow-neon: 0 0 20px rgba(255, 179, 71, 0.15);
+  --shadow-depth: 0 20px 60px rgba(0, 0, 0, 0.1);
+  --shadow-glass: 0 8px 32px rgba(148, 163, 184, 0.2);
+}
+
+/* FALLBACK FOR NO DATA-THEME (DEFAULT TO DARK) */
+:root:not([data-theme]) {
+  /* Dark Cyber Background - Legacy Support */
+  --bg-primary: #000008;
+  --bg-secondary: #0d0d1a;
+  --bg-tertiary: #1a1a2e;
+  --bg-surface: #16213e;
+  --bg-accent: #0f3460;
+  
+  /* Glass & Transparency - Brand Orange Tints */
+  --glass-light: rgba(255, 255, 255, 0.03);
+  --glass-medium: rgba(255, 255, 255, 0.08);
+  --glass-heavy: rgba(255, 255, 255, 0.15);
+  --glass-neon: rgba(255, 149, 0, 0.1);
+  
+  /* Text Hierarchy */
+  --text-primary: #ffffff;
+  --text-secondary: #c1c7d0;
+  --text-tertiary: #9ca3af;
+  --text-accent: var(--brand-orange);
+  
+  /* Legacy Variables for Compatibility */
+  --dark-void: var(--bg-primary);
+  --dark-space: var(--bg-secondary);
+  --dark-midnight: var(--bg-tertiary);
+  --dark-steel: var(--bg-surface);
+  --dark-matrix: var(--bg-accent);
+  --text-cyber: var(--text-primary);
+  --text-neon: var(--text-accent);
+  --text-dim: var(--text-secondary);
+  --text-faded: var(--text-tertiary);
+  
+  /* Shadows & Effects */
+  --shadow-cyber: 0 0 30px rgba(255, 149, 0, 0.4);
+  --shadow-neon: 0 0 20px rgba(255, 179, 71, 0.3);
+  --shadow-depth: 0 20px 60px rgba(0, 0, 0, 0.7);
+  --shadow-glass: 0 8px 32px rgba(31, 38, 135, 0.37);
   
   /* Dynamic Gradients - Brand Orange Focus */
   --gradient-primary: linear-gradient(135deg, var(--brand-orange) 0%, var(--brand-orange-light) 50%, var(--brand-accent) 100%);
   --gradient-secondary: linear-gradient(135deg, var(--brand-orange-dark) 0%, var(--brand-warm) 100%);
-  --gradient-dark: linear-gradient(135deg, var(--dark-void) 0%, var(--dark-midnight) 50%, var(--dark-matrix) 100%);
-  --gradient-surface: linear-gradient(135deg, var(--dark-space) 0%, var(--dark-steel) 100%);
+  --gradient-dark: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 50%, var(--bg-accent) 100%);
+  --gradient-surface: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-surface) 100%);
   
   /* Sport Status Colors */
   --win-gold: #ffd700;
@@ -90,12 +166,13 @@ html {
 
 body {
   font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--dark-void);
-  color: var(--text-cyber);
+  background: var(--bg-primary);
+  color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
   min-height: 100vh;
   position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Revolutionary Animated Background */
@@ -110,9 +187,10 @@ body::before {
     radial-gradient(circle at 25% 25%, rgba(255, 149, 0, 0.15) 0%, transparent 50%),
     radial-gradient(circle at 75% 75%, rgba(255, 179, 71, 0.12) 0%, transparent 50%),
     radial-gradient(circle at 50% 50%, rgba(255, 193, 7, 0.08) 0%, transparent 70%),
-    linear-gradient(45deg, var(--dark-void) 0%, var(--dark-space) 50%, var(--dark-midnight) 100%);
+    linear-gradient(45deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
   animation: cosmicDrift 15s ease-in-out infinite alternate;
   z-index: -2;
+  transition: background 0.3s ease;
 }
 
 body::after {
@@ -617,6 +695,31 @@ body::after {
   body::after {
     animation: none !important;
   }
+  
+  .theme-btn:hover i {
+    transform: none !important;
+  }
+  
+  .theme-notification {
+    transition: opacity 0.2s ease !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  [data-theme="light"] {
+    --text-primary: #000000;
+    --text-secondary: #333333;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f0f0f0;
+  }
+  
+  [data-theme="dark"] {
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --bg-primary: #000000;
+    --bg-secondary: #1a1a1a;
+  }
 }
 
 /* Enhanced Bootstrap Overrides */
@@ -756,6 +859,173 @@ body::after {
 .stat-card,
 .btn-cyber {
   will-change: transform;
+}
+
+/*
+==========================================================================
+ THEME SELECTOR - ULTRA-MODERN CYBER DESIGN
+==========================================================================
+*/
+
+#theme-selector {
+  position: relative;
+  z-index: 1000;
+}
+
+.theme-btn {
+  background: var(--glass-medium);
+  backdrop-filter: var(--blur-glass);
+  border: 1px solid rgba(255, 149, 0, 0.2);
+  border-radius: var(--radius-pill);
+  color: var(--text-secondary);
+  padding: var(--space-s) var(--space-m);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-s);
+  transition: all var(--speed-normal) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  min-width: 110px;
+  justify-content: center;
+}
+
+.theme-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--glass-neon);
+  opacity: 0;
+  transition: opacity var(--speed-normal) ease;
+  z-index: -1;
+}
+
+.theme-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--brand-orange);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 
+    0 8px 25px rgba(255, 149, 0, 0.2),
+    0 0 20px rgba(255, 149, 0, 0.1);
+}
+
+.theme-btn:hover::before {
+  opacity: 1;
+}
+
+.theme-btn:active {
+  transform: translateY(0) scale(1.02);
+}
+
+.theme-btn i {
+  font-size: 1.1rem;
+  color: var(--brand-orange);
+  transition: all var(--speed-normal) ease;
+}
+
+.theme-btn:hover i {
+  color: var(--brand-orange-light);
+  transform: rotate(180deg);
+}
+
+.theme-label {
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.8rem;
+}
+
+/* Theme change notification */
+.theme-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--gradient-surface);
+  backdrop-filter: var(--blur-glass);
+  border: 1px solid var(--brand-orange);
+  border-radius: var(--radius-m);
+  padding: var(--space-m) var(--space-l);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-family: 'Orbitron', monospace;
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  z-index: 9999;
+  box-shadow: 
+    var(--shadow-depth),
+    0 0 30px rgba(255, 149, 0, 0.3);
+  transform: translateX(400px);
+  opacity: 0;
+  transition: all var(--speed-normal) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.theme-notification.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.theme-notification i {
+  color: var(--brand-orange);
+  font-size: 1.2rem;
+  animation: successPulse 0.6s ease-out;
+}
+
+@keyframes successPulse {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Theme-specific enhancements */
+[data-theme="light"] .theme-notification {
+  background: rgba(248, 250, 252, 0.95);
+  border-color: var(--brand-orange);
+  color: var(--text-primary);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.1),
+    0 0 30px rgba(255, 149, 0, 0.2);
+}
+
+[data-theme="light"] .navbar {
+  background: rgba(248, 250, 252, 0.85);
+  border-bottom-color: rgba(255, 149, 0, 0.3);
+}
+
+[data-theme="light"] .cyber-card {
+  background: rgba(248, 250, 252, 0.8);
+  border-color: rgba(255, 149, 0, 0.15);
+}
+
+[data-theme="light"] .cyber-card:hover {
+  background: rgba(241, 245, 249, 0.9);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.08),
+    0 0 30px rgba(255, 149, 0, 0.2);
+}
+
+/* Responsive theme selector */
+@media (max-width: 768px) {
+  .theme-btn {
+    padding: calc(var(--space-s) * 0.8) var(--space-m);
+    font-size: 0.8rem;
+    min-width: 90px;
+  }
+  
+  .theme-label {
+    font-size: 0.7rem;
+  }
+  
+  .theme-notification {
+    top: 10px;
+    right: 10px;
+    padding: var(--space-s) var(--space-m);
+    font-size: 0.9rem;
+  }
 }
 
 /* Cyber Footer Styles */
