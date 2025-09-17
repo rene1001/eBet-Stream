@@ -1,14 +1,94 @@
 # English translations for eBetStream
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-17 13:22+0000\n"
 "Language: en\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 
+#: core/templates/core/base.html:29 core/templates/core/base.html:88
+msgid "Jeux"
+msgstr "Games"
+
+#: core/templates/core/base.html:32
+msgid "Paris"
+msgstr "Betting"
+
+#: core/templates/core/base.html:47
+msgid "Mon Compte"
+msgstr "My Account"
+
+#: core/templates/core/base.html:50
+msgid "Déconnexion"
+msgstr "Logout"
+
+#: core/templates/core/base.html:54
+msgid "Connexion"
+msgstr "Login"
+
+#: core/templates/core/base.html:57
+msgid "Inscription"
+msgstr "Sign Up"
+
+#: core/templates/core/base.html:83
+msgid "Votre plateforme de paris sportifs en ligne"
+msgstr ""
+
+#: core/templates/core/base.html:86
+msgid "Tous droits réservés."
+msgstr ""
+
+#: core/templates/core/base.html:89
+msgid "Confidentialité"
+msgstr ""
+
+#: core/templates/core/base.html:90
+msgid "Conditions"
+msgstr ""
+
+#: core/templates/core/home.html:128
+msgid "Monetize your passion"
+msgstr "Monetize your passion"
+
+#: core/templates/core/home.html:149
+msgid "Joueurs Actifs"
+msgstr "Active Players"
+
+#: core/templates/core/home.html:153
+msgid "Paris Placés"
+msgstr "Bets Placed"
+
+#: core/templates/core/home.html:157
+msgid "Uptime"
+msgstr "Uptime"
+
+#: core/templates/core/home.html:161
+msgid "Support Live"
+msgstr "Live Support"
+
+#: core/templates/core/home.html:172
+msgid "MATCHS LIVE"
+msgstr "LIVE MATCHES"
+
+#: core/templates/core/home.html:174
+msgid "Les affrontements les plus intenses du moment"
+msgstr "The most intense matchups right now"
+
+#: templates/base.html:473
+msgid "Votre plateforme de paris sportifs et de streaming."
+msgstr ""
+
+#: templates/base.html:476
 msgid "All rights reserved."
 msgstr "All rights reserved."
 
-msgid "Monetize your passion"  
-msgstr "Monetize your passion"
+#: templates/base.html:481
+msgid "Nos Partenaires"
+msgstr ""
 
-msgid "eBetStream"
-msgstr "eBetStream"
+#: templates/base.html:493
+msgid "Aucun partenaire pour le moment"
+msgstr ""
+
+#~ msgid "eBetStream"
+#~ msgstr "eBetStream"

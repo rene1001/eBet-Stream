@@ -1,6 +1,7 @@
 <!-- eBetStream NEXUS - Ultra-Modern Home Page -->
 {% extends 'core/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}eBetStream NEXUS - Plateforme de Paris Sportifs Cyber{% endblock %}
 
@@ -124,7 +125,7 @@
     <section class="hero-section">
         <div class="hero-content">
             <h1 class="hero-title">eBetStream</h1>
-            <p class="hero-subtitle">Monetize your passion</p>
+            <p class="hero-subtitle">{% trans "Monetize your passion" %}</p>
             <div class="hero-actions">
                 <a href="{% url 'betting:p2p_index' %}" class="btn-cyber">
                     <i class="fas fa-gamepad me-2"></i>⚔️ Défis P2P
@@ -145,19 +146,19 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <span class="stat-number">1.2M+</span>
-                    <span class="stat-label">Joueurs Actifs</span>
+                    <span class="stat-label">{% trans "Joueurs Actifs" %}</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-number">€50M+</span>
-                    <span class="stat-label">Paris Placés</span>
+                    <span class="stat-label">{% trans "Paris Placés" %}</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-number">99.8%</span>
-                    <span class="stat-label">Uptime</span>
+                    <span class="stat-label">{% trans "Uptime" %}</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-number">24/7</span>
-                    <span class="stat-label">Support Live</span>
+                    <span class="stat-label">{% trans "Support Live" %}</span>
                 </div>
             </div>
         </div>
@@ -168,9 +169,9 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="text-cyber mb-3">
-                    <i class="fas fa-calendar me-3"></i>MATCHS LIVE
+                    <i class="fas fa-calendar me-3"></i>{% trans "MATCHS LIVE" %}
                 </h2>
-                <p class="text-dim">Les affrontements les plus intenses du moment</p>
+                <p class="text-dim">{% trans "Les affrontements les plus intenses du moment" %}</p>
             </div>
 
             <div class="cards-container">
