@@ -1,5 +1,6 @@
 <!-- betting/templates/betting/bet_detail.html -->
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container">
@@ -7,7 +8,7 @@
         <div class="col-md-8 mx-auto">
             <div class="card mb-4">
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Bet Details</h3>
+                    <h3 class="mb-0">{% trans "Bet Details" %}</h3>
                     <span class="badge 
                         {% if bet.status == 'won' %}bg-success
                         {% elif bet.status == 'lost' %}bg-danger
@@ -18,7 +19,7 @@
                 </div>
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
-                        <a href="{% url 'betting:bet_list' %}" class="btn btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i> Retour à la liste des paris</a>
+                        <a href="{% url 'betting:bet_list' %}" class="btn btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i> {% trans "Retour à la liste des paris" %}</a>
                         <h1 class="mb-0">{{ bet.nom|default:bet.match }}</h1>
                     </div>
                     <div class="row mb-4">
@@ -37,19 +38,19 @@
                     </div>
                     
                     <div class="alert alert-info">
-                        <i class="bi bi-info-circle"></i> "Double" Betting System: Bet on a result and double your bet if you win!
+                        <i class="bi bi-info-circle"></i> {% trans '"Double" Betting System: Bet on a result and double your bet if you win!' %}
                     </div>
                     
                     <div class="row">
                         <div class="col-md-6">
-                            <h5>Bet Information</h5>
+                            <h5>{% trans "Bet Information" %}</h5>
                             <ul class="list-group mb-4">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Bet Type
+                                    {% trans "Bet Type" %}
                                     <span class="badge bg-primary">{{ bet.bet_type.name }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Bet Amount
+                                    {% trans "Bet Amount" %}
                                     <span class="fw-bold">{{ bet.amount|floatformat:"2" }} K</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">

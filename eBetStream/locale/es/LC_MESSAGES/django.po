@@ -2,9 +2,51 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-17 15:42+0000\n"
+"POT-Creation-Date: 2025-09-17 16:17+0000\n"
 "Language: es\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+
+#: betting/templates/betting/bet_detail.html:11
+msgid "Bet Details"
+msgstr "Detalles de la apuesta"
+
+#: betting/templates/betting/bet_detail.html:22
+msgid "Retour à la liste des paris"
+msgstr ""
+
+#: betting/templates/betting/bet_detail.html:41
+msgid ""
+"\"Double\" Betting System: Bet on a result and double your bet if you win!"
+msgstr ""
+
+#: betting/templates/betting/bet_detail.html:46
+msgid "Bet Information"
+msgstr "Información de la apuesta"
+
+#: betting/templates/betting/bet_detail.html:49
+msgid "Bet Type"
+msgstr "Tipo de apuesta"
+
+#: betting/templates/betting/bet_detail.html:53
+msgid "Bet Amount"
+msgstr "Monto de la apuesta"
+
+#: betting/templates/betting/match_list.html:5
+#: betting/templates/betting/match_list.html:9
+msgid "Matches"
+msgstr "Partidos"
+
+#: betting/templates/betting/match_list.html:20
+msgid "Parier"
+msgstr "Apostar"
+
+#: betting/templates/betting/match_list.html:28
+msgid "Watch Live"
+msgstr "Ver en vivo"
+
+#: betting/templates/betting/match_list.html:39
+msgid "Aucun match disponible pour le moment."
+msgstr ""
 
 #: core/templates/core/base.html:29 core/templates/core/base.html:88
 msgid "Jeux"
@@ -56,7 +98,10 @@ msgid ""
 "Chaque victoire dans vos jeux préférés vous rapporte des tokens Ktap ou du "
 "cash. Inscrivez-vous sur ebetstream.com et commencez à gagner dès "
 "aujourd'hui."
-msgstr "¡Transforma tu pasión por los juegos en ganancias reales con eBetStream! Cada victoria en tus juegos favoritos te otorga tokens Ktap o dinero en efectivo. Regístrate en ebetstream.com y comienza a ganar hoy mismo."
+msgstr ""
+"¡Transforma tu pasión por los juegos en ganancias reales con eBetStream! "
+"Cada victoria en tus juegos favoritos te otorga tokens Ktap o dinero en "
+"efectivo. Regístrate en ebetstream.com y comienza a ganar hoy mismo."
 
 #: core/templates/core/home.html:51
 msgid "Commencer à Gagner"
@@ -71,7 +116,10 @@ msgid ""
 "Grimpez les classements et devenez le joueur légendaire d'eBetStream ! "
 "Enchaînez les victoires, gagnez des primes en Ktap, et brillez devant une "
 "audience mondiale."
-msgstr "¡Sube en las clasificaciones y conviértete en el jugador legendario de eBetStream! Encadena victorias, gana bonos en Ktap y brilla ante una audiencia mundial."
+msgstr ""
+"¡Sube en las clasificaciones y conviértete en el jugador legendario de "
+"eBetStream! Encadena victorias, gana bonos en Ktap y brilla ante una "
+"audiencia mundial."
 
 #: core/templates/core/home.html:65
 msgid "Devenir Légende"
@@ -86,7 +134,10 @@ msgid ""
 "Défiez vos amis ou des joueurs du monde entier sur eBetStream ! Créez des "
 "matchs personnalisés (1v1, clans, tournois), fixez vos enjeux, et prouvez "
 "votre talent. Lancez votre défi sur ebetstream.com dès maintenant."
-msgstr "¡Desafía a tus amigos o jugadores de todo el mundo en eBetStream! Crea partidos personalizados (1v1, clanes, torneos), fija tus apuestas y demuestra tu talento. Lanza tu desafío en ebetstream.com ahora mismo."
+msgstr ""
+"¡Desafía a tus amigos o jugadores de todo el mundo en eBetStream! Crea "
+"partidos personalizados (1v1, clanes, torneos), fija tus apuestas y "
+"demuestra tu talento. Lanza tu desafío en ebetstream.com ahora mismo."
 
 #: core/templates/core/home.html:79
 msgid "Lancer un Défi"
@@ -100,7 +151,10 @@ msgstr "Haz Apuestas Ganadoras en eBetStream"
 msgid ""
 "Pariez sur vos tournois préférés avec eBetStream ! Que ce soient des matchs "
 "pros ou amateurs, placez vos mises en Ktap ou cash et gagnez gros."
-msgstr "¡Apuesta en tus torneos favoritos con eBetStream! Ya sean partidos profesionales o amateur, coloca tus apuestas en Ktap o efectivo y gana en grande."
+msgstr ""
+"¡Apuesta en tus torneos favoritos con eBetStream! Ya sean partidos "
+"profesionales o amateur, coloca tus apuestas en Ktap o efectivo y gana en "
+"grande."
 
 #: core/templates/core/home.html:93
 msgid "Parier Maintenant"
@@ -115,7 +169,10 @@ msgid ""
 "Vibrez avec des matchs e-gaming en direct sur le site ! Suivez des duels "
 "palpitants, soutenez vos joueurs préférés, et plongez dans l'action en temps "
 "réel."
-msgstr "¡Vive la emoción con partidos de e-gaming en directo en el sitio! Sigue duelos emocionantes, apoya a tus jugadores favoritos y sumérgete en la acción en tiempo real."
+msgstr ""
+"¡Vive la emoción con partidos de e-gaming en directo en el sitio! Sigue "
+"duelos emocionantes, apoya a tus jugadores favoritos y sumérgete en la "
+"acción en tiempo real."
 
 #: core/templates/core/home.html:107
 msgid "Live Stream"
@@ -161,6 +218,152 @@ msgstr "PARTIDOS EN VIVO"
 msgid "Les affrontements les plus intenses du moment"
 msgstr "Los enfrentamientos más intensos del momento"
 
+#: forum/templates/forum/liste_categories.html:5
+msgid "Catégories du forum"
+msgstr ""
+
+#: forum/templates/forum/liste_categories.html:7
+msgid "Retour à l'accueil"
+msgstr ""
+
+#: forum/templates/forum/liste_categories.html:23
+msgid "sujets"
+msgstr ""
+
+#: forum/templates/forum/liste_categories.html:25
+msgid "Active"
+msgstr ""
+
+#: forum/templates/forum/liste_categories.html:27
+msgid "Inactive"
+msgstr ""
+
+#: forum/templates/forum/liste_categories.html:35
+msgid "Aucune catégorie disponible."
+msgstr ""
+
+#: forum/templates/forum/liste_sujets.html:8
+msgid "Forum"
+msgstr "Foro"
+
+#: forum/templates/forum/liste_sujets.html:17
+msgid "Nouveau Sujet"
+msgstr ""
+
+#: forum/templates/forum/liste_sujets.html:23
+msgid "Retour aux catégories"
+msgstr ""
+
+#: forum/templates/forum/liste_sujets.html:33
+msgid "Épinglé"
+msgstr ""
+
+#: forum/templates/forum/liste_sujets.html:36
+msgid "Verrouillé"
+msgstr ""
+
+#: forum/templates/forum/liste_sujets.html:43
+msgid "vues"
+msgstr ""
+
+#: forum/templates/forum/liste_sujets.html:44
+msgid "réponses"
+msgstr ""
+
+#: forum/templates/forum/liste_sujets.html:48
+#, fuzzy
+#| msgid "Paris"
+msgid "Par"
+msgstr "Apuestas"
+
+#: forum/templates/forum/liste_sujets.html:48
+msgid "le"
+msgstr ""
+
+#: forum/templates/forum/liste_sujets.html:54
+msgid "Aucun sujet n'a été créé dans cette catégorie."
+msgstr ""
+
+#: gameurs/templates/gameurs/detail_gameur.html:7
+msgid "Retour à la liste des gameurs"
+msgstr ""
+
+#: gameurs/templates/gameurs/detail_gameur.html:19
+#: gameurs/templates/gameurs/liste_gameurs.html:18
+msgid "Jeu préféré"
+msgstr ""
+
+#: gameurs/templates/gameurs/detail_gameur.html:20
+#: gameurs/templates/gameurs/liste_gameurs.html:19
+msgid "Victoires"
+msgstr ""
+
+#: gameurs/templates/gameurs/detail_gameur.html:21
+#: gameurs/templates/gameurs/liste_gameurs.html:20
+msgid "Défaites"
+msgstr ""
+
+#: gameurs/templates/gameurs/detail_gameur.html:22
+#: gameurs/templates/gameurs/liste_gameurs.html:21
+msgid "Ratio"
+msgstr ""
+
+#: gameurs/templates/gameurs/detail_gameur.html:25
+#, fuzzy
+#| msgid "Joueurs Actifs"
+msgid "Jouer contre"
+msgstr "Jugadores Activos"
+
+#: gameurs/templates/gameurs/detail_gameur.html:32
+msgid "Historique des matchs"
+msgstr ""
+
+#: gameurs/templates/gameurs/detail_gameur.html:37
+#: users/templates/users/profile.html:122
+msgid "Date"
+msgstr ""
+
+#: gameurs/templates/gameurs/detail_gameur.html:38
+msgid "Adversaire"
+msgstr ""
+
+#: gameurs/templates/gameurs/detail_gameur.html:39
+msgid "Score"
+msgstr ""
+
+#: gameurs/templates/gameurs/detail_gameur.html:40
+msgid "Résultat"
+msgstr ""
+
+#: gameurs/templates/gameurs/liste_gameurs.html:6
+msgid "Meilleurs Gameurs"
+msgstr ""
+
+#: gameurs/templates/gameurs/liste_gameurs.html:23
+msgid "Voir le profil"
+msgstr ""
+
+#: gameurs/templates/gameurs/liste_gameurs.html:29
+msgid "Aucun gameur n'est encore inscrit."
+msgstr ""
+
+#: partenaires/templates/partenaires/liste_partenaires.html:6
+#: templates/base.html:481
+msgid "Nos Partenaires"
+msgstr "Nuestros Socios"
+
+#: partenaires/templates/partenaires/liste_partenaires.html:19
+msgid "En savoir plus"
+msgstr ""
+
+#: partenaires/templates/partenaires/liste_partenaires.html:20
+msgid "Visiter le site"
+msgstr ""
+
+#: partenaires/templates/partenaires/liste_partenaires.html:27
+msgid "Aucun partenaire n'est actuellement disponible."
+msgstr ""
+
 #: templates/base.html:473
 msgid "Votre plateforme de paris sportifs et de streaming."
 msgstr ""
@@ -169,10 +372,86 @@ msgstr ""
 msgid "All rights reserved."
 msgstr "Todos los derechos reservados."
 
-#: templates/base.html:481
-msgid "Nos Partenaires"
-msgstr ""
-
 #: templates/base.html:493
 msgid "Aucun partenaire pour le moment"
+msgstr ""
+
+#: users/templates/users/profile.html:3
+msgid "Profile"
+msgstr ""
+
+#: users/templates/users/profile.html:33
+msgid "Solde Actuel"
+msgstr ""
+
+#: users/templates/users/profile.html:37
+msgid "Utilisez vos Ktap pour parier"
+msgstr ""
+
+#: users/templates/users/profile.html:47
+msgid "Demander un retrait de fonds"
+msgstr ""
+
+#: users/templates/users/profile.html:49
+msgid "Demander un Retrait"
+msgstr ""
+
+#: users/templates/users/profile.html:57
+msgid "Modifier le profil"
+msgstr ""
+
+#: users/templates/users/profile.html:59
+msgid "Modifier"
+msgstr ""
+
+#: users/templates/users/profile.html:66
+msgid "Voir l\\"
+msgstr ""
+
+#: users/templates/users/profile.html:68
+msgid "Historique"
+msgstr ""
+
+#: users/templates/users/profile.html:84
+#, fuzzy
+#| msgid "Paris Placés"
+msgid "Paris Gagnés"
+msgstr "Apuestas Realizadas"
+
+#: users/templates/users/profile.html:91
+msgid "Taux de Réussite"
+msgstr ""
+
+#: users/templates/users/profile.html:98
+#, fuzzy
+#| msgid "Joueurs Actifs"
+msgid "Jours Actifs"
+msgstr "Jugadores Activos"
+
+#: users/templates/users/profile.html:108
+msgid "Historique des Transactions"
+msgstr "Historial de Transacciones"
+
+#: users/templates/users/profile.html:111
+msgid "Tout"
+msgstr ""
+
+#: users/templates/users/profile.html:112
+msgid "Dépôts"
+msgstr ""
+
+#: users/templates/users/profile.html:113
+msgid "Retraits"
+msgstr ""
+
+#: users/templates/users/profile.html:123
+msgid "Type"
+msgstr ""
+
+#: users/templates/users/profile.html:124
+msgid "Montant"
+msgstr ""
+
+#: users/templates/users/profile.html:125
+msgid "Statut"
 msgstr ""

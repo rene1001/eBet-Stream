@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Matches - eBetStream{% endblock %}
+{% block title %}{% trans "Matches" %} - eBetStream{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-    <h2 class="mb-4">Matches</h2>
+    <h2 class="mb-4">{% trans "Matches" %}</h2>
     <div class="row">
         {% for match in matches %}
         <div class="col-md-6 col-lg-4 mb-4">
@@ -16,7 +17,7 @@
                         <small class="text-muted">{{ match.start_time|date:"d/m/Y H:i" }}</small>
                     </p>
                     <a href="{% url 'core:match_detail' match.id %}" class="btn btn-primary">
-                        Parier
+                        {% trans "Parier" %}
                     </a>
                     {% with active_streaming=None %}
                         {% for streaming in match.streamings.all %}
@@ -24,7 +25,7 @@
                                 {% with active_streaming=streaming %}
                                     <a href="{% url 'streaming:watch_stream' streaming.id %}" 
                                        class="btn btn-danger">
-                                        <i class="fas fa-play-circle"></i> Watch Live
+                                        <i class="fas fa-play-circle"></i> {% trans "Watch Live" %}
                                     </a>
                                 {% endwith %}
                             {% endif %}
@@ -35,7 +36,7 @@
         </div>
         {% empty %}
         <div class="col-12">
-            <p class="text-center">Aucun match disponible pour le moment.</p>
+            <p class="text-center">{% trans "Aucun match disponible pour le moment." %}</p>
         </div>
         {% endfor %}
     </div>
