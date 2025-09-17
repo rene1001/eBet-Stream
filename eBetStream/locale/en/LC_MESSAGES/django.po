@@ -19,7 +19,6 @@ msgid ""
 "\"Double\" Betting System: Bet on a result and double your bet if you win!"
 msgstr ""
 "\"Double\" Betting System: Bet on a result and double your bet if you win!"
-"\"Double\" Betting System: Bet on a result and double your bet if you win!"
 
 #: betting/templates/betting/bet_detail.html:46
 msgid "Bet Information"
