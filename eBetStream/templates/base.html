@@ -275,52 +275,53 @@
           <ul class="navbar-nav me-auto">
             <!-- NAVIGATION PRINCIPALE - PRIORITÉ #1 -->
             <li class="nav-item">
-              <a class="nav-link nav-primary" href="{% url 'core:home' %}">
+              <a class="nav-link nav-primary {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'core:home' %}">
                 <i class="fas fa-home me-1"></i>Accueil
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-primary" href="{% url 'betting:bet_list' %}">
+              <a class="nav-link nav-primary {% if request.resolver_match.namespace == 'betting' and 'bet_list' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'betting:bet_list' %}">
                 <i class="fas fa-coins me-1"></i>Paris Live
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-primary" href="{% url 'betting:p2p_challenge_list' %}">
-                <i class="fas fa-sword me-1"></i>Défis P2P
+              <a class="nav-link nav-primary {% if request.resolver_match.namespace == 'betting' and 'p2p' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'betting:p2p_challenge_list' %}">
+                <i class="fas fa-gamepad me-1"></i>Défis P2P
               </a>
             </li>
             
             <!-- GAMING & SOCIAL - PRIORITÉ #2 -->
             <li class="nav-item">
-              <a class="nav-link nav-secondary" href="{% url 'clans_gaming:liste_clans' %}">
+              <a class="nav-link nav-secondary {% if request.resolver_match.namespace == 'clans_gaming' %}active{% endif %}" href="{% url 'clans_gaming:liste_clans' %}">
                 <i class="fas fa-shield-alt me-1"></i>Clans
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-secondary" href="{% url 'gameurs:liste_gameurs' %}">
+              <a class="nav-link nav-secondary {% if request.resolver_match.namespace == 'gameurs' %}active{% endif %}" href="{% url 'gameurs:liste_gameurs' %}">
                 <i class="fas fa-trophy me-1"></i>Top Gameurs
               </a>
             </li>
             
             <!-- ÉVÉNEMENTS & COMMUNAUTÉ - PRIORITÉ #3 -->
             <li class="nav-item">
-              <a class="nav-link nav-tertiary" href="{% url 'evenements:liste_evenements' %}">
+              <a class="nav-link nav-tertiary {% if request.resolver_match.namespace == 'evenements' %}active{% endif %}" href="{% url 'evenements:liste_evenements' %}">
                 <i class="fas fa-calendar-alt me-1"></i>Événements
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-tertiary" href="{% url 'forum:liste_categories' %}">
+              <a class="nav-link nav-tertiary {% if request.resolver_match.namespace == 'forum' %}active{% endif %}" href="{% url 'forum:liste_categories' %}">
                 <i class="fas fa-comments me-1"></i>Forum
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-tertiary" href="{% url 'blog:liste_articles' %}">
+              <a class="nav-link nav-tertiary {% if request.resolver_match.namespace == 'blog' %}active{% endif %}" href="{% url 'blog:liste_articles' %}">
                 <i class="fas fa-newspaper me-1"></i>Blog
               </a>
             </li>
           </ul>
           <form action="/i18n/setlang/" method="post" class="d-flex align-items-center ms-auto">
             {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
             {% get_current_language as LANGUAGE_CODE %}
             <select name="language" class="form-select form-select-sm me-2" onchange="this.form.submit()">
                 <option value="fr" {% if LANGUAGE_CODE == 'fr' %}selected{% endif %}>🇫🇷 Français</option>
