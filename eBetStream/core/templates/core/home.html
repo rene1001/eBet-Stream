@@ -27,6 +27,99 @@
 </div>
 
 <div class="main-content">
+    <!-- Promotional Carousel Section -->
+    <section class="promo-carousel-section py-4">
+        <div class="container">
+            <div id="promoCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="2"></button>
+                    <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="3"></button>
+                    <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="4"></button>
+                </div>
+                <div class="carousel-inner">
+                    <!-- Slide 1: Bonus de Bienvenue -->
+                    <div class="carousel-item active">
+                        <div class="promo-slide">
+                            <img src="{% static 'images/promo/slide-1-bonus-welcome.jpg' %}" class="carousel-img" alt="Bonus de Bienvenue">
+                            <div class="promo-overlay">
+                                <div class="promo-content">
+                                    <h2 class="promo-title">🎁 BONUS DE BIENVENUE</h2>
+                                    <p class="promo-description">Jusqu'à 500€ offerts + 1000 Ktap pour votre inscription ! Profitez de notre offre exclusive pour les nouveaux joueurs.</p>
+                                    <a href="{% url 'users:register' %}" class="btn-cyber">Réclamez votre Bonus</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Paris Sportifs Live -->
+                    <div class="carousel-item">
+                        <div class="promo-slide">
+                            <img src="{% static 'images/promo/slide-2-paris-live.jpg' %}" class="carousel-img" alt="Paris Sportifs Live">
+                            <div class="promo-overlay">
+                                <div class="promo-content">
+                                    <h2 class="promo-title">⚡ PARIS LIVE ESPORT</h2>
+                                    <p class="promo-description">Pariez en temps réel sur vos équipes favorites ! CS2, Valorant, League of Legends et plus encore.</p>
+                                    <a href="{% url 'betting:bet_list' %}" class="btn-cyber">Parier Maintenant</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Défis P2P -->
+                    <div class="carousel-item">
+                        <div class="promo-slide">
+                            <img src="{% static 'images/promo/slide-3-p2p-challenge.jpg' %}" class="carousel-img" alt="Défis P2P">
+                            <div class="promo-overlay">
+                                <div class="promo-content">
+                                    <h2 class="promo-title">🥊 ARÈNE P2P CYBER</h2>
+                                    <p class="promo-description">Affrontez d'autres joueurs dans des duels épiques. Gagnez des Ktap et dominez les classements !</p>
+                                    <a href="{% url 'betting:p2p_index' %}" class="btn-cyber">Rejoindre l'Arène</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Tournois Gaming -->
+                    <div class="carousel-item">
+                        <div class="promo-slide">
+                            <img src="{% static 'images/promo/slide-4-tournaments.jpg' %}" class="carousel-img" alt="Tournois Gaming">
+                            <div class="promo-overlay">
+                                <div class="promo-content">
+                                    <h2 class="promo-title">🏆 TOURNOIS PREMIUM</h2>
+                                    <p class="promo-description">Participez aux plus grands tournois esport avec des prizes pools de 100K€+ ! Rejoignez l'élite du gaming.</p>
+                                    <a href="{% url 'evenements:liste_evenements' %}" class="btn-cyber">Voir les Tournois</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5: Streaming & Casino -->
+                    <div class="carousel-item">
+                        <div class="promo-slide">
+                            <img src="{% static 'images/promo/slide-5-streaming-casino.jpg' %}" class="carousel-img" alt="Streaming & Casino">
+                            <div class="promo-overlay">
+                                <div class="promo-content">
+                                    <h2 class="promo-title">🎰 STREAMING & CASINO</h2>
+                                    <p class="promo-description">Regardez les streams en direct et tentez votre chance au casino ! Double plaisir, double gain.</p>
+                                    <a href="{% url 'core:home' %}" class="btn-cyber">Explorer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="carousel-control-prev" type="button" data-bs-target="#promoCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#promoCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- Revolutionary Hero Section -->
     <section class="hero-section">
         <div class="hero-content">
