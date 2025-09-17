@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-17 16:17+0000\n"
+"POT-Creation-Date: 2025-09-17 16:39+0000\n"
 "Language: en\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
@@ -88,6 +88,38 @@ msgstr ""
 msgid "Conditions"
 msgstr ""
 
+#: core/templates/core/home.html:6
+msgid "Plateforme de Paris Sportifs Cyber"
+msgstr ""
+
+#: core/templates/core/home.html:13 core/templates/core/home.html:20
+msgid "NOUVEAU TOURNOI VALORANT - 50K€ DE PRIZES"
+msgstr ""
+
+#: core/templates/core/home.html:14 core/templates/core/home.html:21
+msgid "CHAMPIONNAT CS2 COMMENCE DEMAIN"
+msgstr ""
+
+#: core/templates/core/home.html:15 core/templates/core/home.html:22
+msgid "RECORD BATTU: +2M€ DE PARIS CETTE SEMAINE"
+msgstr ""
+
+#: core/templates/core/home.html:16 core/templates/core/home.html:23
+msgid "NOUVEAUX DÉFIS P2P DISPONIBLES"
+msgstr ""
+
+#: core/templates/core/home.html:17 core/templates/core/home.html:24
+msgid "LIVE: 15K SPECTATEURS SUR NOS STREAMS"
+msgstr ""
+
+#: core/templates/core/home.html:18 core/templates/core/home.html:25
+msgid "COMMUNAUTÉ: +50K NOUVEAUX MEMBRES"
+msgstr ""
+
+#: core/templates/core/home.html:46
+msgid "Gagnez de l\\"
+msgstr ""
+
 #: core/templates/core/home.html:49
 msgid "Gagnez de l'Argent en Jouant sur eBetStream"
 msgstr "Earn Money Playing on eBetStream"
@@ -107,6 +139,12 @@ msgstr ""
 msgid "Commencer à Gagner"
 msgstr "Start Earning"
 
+#: core/templates/core/home.html:60
+#, fuzzy
+#| msgid "Devenez la Star d'eBetStream"
+msgid "Devenez la Star d\\"
+msgstr "Become the Star of eBetStream"
+
 #: core/templates/core/home.html:63
 msgid "Devenez la Star d'eBetStream"
 msgstr "Become the Star of eBetStream"
@@ -123,6 +161,12 @@ msgstr ""
 #: core/templates/core/home.html:65
 msgid "Devenir Légende"
 msgstr "Become a Legend"
+
+#: core/templates/core/home.html:74
+#, fuzzy
+#| msgid "Relevez des Défis Épiques sur eBetStream"
+msgid "Relevez des Défis Épiques"
+msgstr "Take on Epic Challenges on eBetStream"
 
 #: core/templates/core/home.html:77
 msgid "Relevez des Défis Épiques sur eBetStream"
@@ -142,6 +186,12 @@ msgstr ""
 msgid "Lancer un Défi"
 msgstr "Launch a Challenge"
 
+#: core/templates/core/home.html:88
+#, fuzzy
+#| msgid "Placez des Paris Gagnants sur eBetStream"
+msgid "Placez des Paris Gagnants"
+msgstr "Place Winning Bets on eBetStream"
+
 #: core/templates/core/home.html:91
 msgid "Placez des Paris Gagnants sur eBetStream"
 msgstr "Place Winning Bets on eBetStream"
@@ -154,9 +204,15 @@ msgstr ""
 "Bet on your favorite tournaments with eBetStream! Whether pro or amateur "
 "matches, place your stakes in Ktap or cash and win big."
 
-#: core/templates/core/home.html:93
+#: core/templates/core/home.html:93 core/templates/core/home.html:223
 msgid "Parier Maintenant"
 msgstr "Bet Now"
+
+#: core/templates/core/home.html:102
+#, fuzzy
+#| msgid "Regardez des Matchs en Direct sur eBetStream"
+msgid "Regardez des Matchs en Direct"
+msgstr "Watch Live Matches on eBetStream"
 
 #: core/templates/core/home.html:105
 msgid "Regardez des Matchs en Direct sur eBetStream"
@@ -214,6 +270,270 @@ msgstr "LIVE MATCHES"
 #: core/templates/core/home.html:174
 msgid "Les affrontements les plus intenses du moment"
 msgstr "The most intense matchups right now"
+
+#: core/templates/core/home.html:183
+msgid "LIVE"
+msgstr ""
+
+#: core/templates/core/home.html:200
+msgid "VS"
+msgstr ""
+
+#: core/templates/core/home.html:230
+#, fuzzy
+#| msgid "Support Live"
+msgid "Stream Live"
+msgstr "Live Support"
+
+#: core/templates/core/home.html:243
+msgid "Aucun match en cours"
+msgstr ""
+
+#: core/templates/core/home.html:244
+msgid "Les prochains affrontements arriveront bientôt..."
+msgstr ""
+
+#: core/templates/core/home.html:246
+msgid "Voir Tous les Matchs"
+msgstr ""
+
+#: core/templates/core/home.html:259
+msgid "DÉFIS P2P CYBER"
+msgstr ""
+
+#: core/templates/core/home.html:261
+msgid "Affrontez les meilleurs joueurs dans des duels épiques"
+msgstr ""
+
+#: core/templates/core/home.html:268
+msgid "Arène de Combat P2P"
+msgstr ""
+
+#: core/templates/core/home.html:270
+msgid ""
+"Défiez d'autres joueurs en 1v1 dans notre arène cyber-futuriste. Gagnez des "
+"Ktap et gravissez les classements mondiaux."
+msgstr ""
+
+#: core/templates/core/home.html:274
+msgid "Entrer dans l'Arène"
+msgstr ""
+
+#: core/templates/core/home.html:277
+#, fuzzy
+#| msgid "Lancer un Défi"
+msgid "Créer un Défi"
+msgstr "Launch a Challenge"
+
+#: core/templates/core/home.html:289
+msgid "UNIVERS GAMING"
+msgstr ""
+
+#: core/templates/core/home.html:291
+msgid "Explorez les jeux les plus populaires de l'esport"
+msgstr ""
+
+#: core/templates/core/home.html:318
+msgid "Actif"
+msgstr ""
+
+#: core/templates/core/home.html:319
+msgid "Tournois"
+msgstr ""
+
+#: core/templates/core/home.html:320
+msgid "Populaire"
+msgstr ""
+
+#: core/templates/core/home.html:325
+#, fuzzy
+#| msgid "Rejoindre l'Élite"
+msgid "Rejoindre les Tournois"
+msgstr "Join the Elite"
+
+#: core/templates/core/home.html:334
+msgid "Univers en construction"
+msgstr ""
+
+#: core/templates/core/home.html:335
+msgid "De nouveaux jeux arrivent très bientôt..."
+msgstr ""
+
+#: core/templates/core/home.html:347
+msgid "NOS PARTENAIRES GAMING"
+msgstr ""
+
+#: core/templates/core/home.html:349
+msgid "En partenariat avec les leaders de l'industrie gaming"
+msgstr ""
+
+#: core/templates/core/home.html:460
+msgid "CLANS GAMING"
+msgstr ""
+
+#: core/templates/core/home.html:462
+msgid "Rejoignez une communauté, dominez ensemble"
+msgstr ""
+
+#: core/templates/core/home.html:469
+msgid "Rejoignez les Meilleurs Clans"
+msgstr ""
+
+#: core/templates/core/home.html:471
+msgid ""
+"Formez des alliances stratégiques, participez à des tournois de clan et "
+"gravissez les classements avec vos coéquipiers."
+msgstr ""
+
+#: core/templates/core/home.html:475
+msgid "Explorer les Clans"
+msgstr ""
+
+#: core/templates/core/home.html:478
+msgid "Créer mon Clan"
+msgstr ""
+
+#: core/templates/core/home.html:490
+msgid "TOP GAMEURS"
+msgstr ""
+
+#: core/templates/core/home.html:492
+msgid "Les légendes de l'esport mondial"
+msgstr ""
+
+#: core/templates/core/home.html:499
+msgid "Classement Elite"
+msgstr ""
+
+#: core/templates/core/home.html:501
+msgid ""
+"Découvrez les joueurs les plus talentueux, suivez leurs performances et "
+"inspirez-vous de leurs stratégies gagnantes."
+msgstr ""
+
+#: core/templates/core/home.html:505
+msgid "Voir le Classement"
+msgstr ""
+
+#: core/templates/core/home.html:508
+msgid "Devenir Pro"
+msgstr ""
+
+#: core/templates/core/home.html:520
+msgid "ÉVÉNEMENTS ESPORT"
+msgstr ""
+
+#: core/templates/core/home.html:522
+msgid "Tournois, competitions et évènements à ne pas manquer"
+msgstr ""
+
+#: core/templates/core/home.html:529
+msgid "Calendrier Gaming"
+msgstr ""
+
+#: core/templates/core/home.html:531
+msgid ""
+"Participez aux plus grands événements esport : tournois officiels, "
+"compétitions communautaires et rencontres exclusives."
+msgstr ""
+
+#: core/templates/core/home.html:535
+msgid "Voir les Événements"
+msgstr ""
+
+#: core/templates/core/home.html:538
+msgid "Organiser un Événement"
+msgstr ""
+
+#: core/templates/core/home.html:550
+msgid "FORUM COMMUNAUTÉ"
+msgstr ""
+
+#: core/templates/core/home.html:552
+msgid "Échangez, débattez et partagez vos passions gaming"
+msgstr ""
+
+#: core/templates/core/home.html:559
+msgid "Communauté Active"
+msgstr ""
+
+#: core/templates/core/home.html:561
+msgid ""
+"Rejoignez les discussions, partagez vos stratégies, obtenez des conseils "
+"d'experts et créez des liens avec d'autres passionnés."
+msgstr ""
+
+#: core/templates/core/home.html:565
+msgid "Accéder au Forum"
+msgstr ""
+
+#: core/templates/core/home.html:568
+msgid "Voir les Catégories"
+msgstr ""
+
+#: core/templates/core/home.html:580
+msgid "BLOG & ACTUALITÉS"
+msgstr ""
+
+#: core/templates/core/home.html:582
+msgid "Articles exclusifs, analyses et actualités gaming"
+msgstr ""
+
+#: core/templates/core/home.html:589
+msgid "Contenu Exclusif"
+msgstr ""
+
+#: core/templates/core/home.html:591
+msgid ""
+"Découvrez nos analyses approfondies, guides stratégiques, interviews de pros "
+"et les dernières actualités de l'esport mondial."
+msgstr ""
+
+#: core/templates/core/home.html:595
+msgid "Lire les Articles"
+msgstr ""
+
+#: core/templates/core/home.html:598
+msgid "Écrire un Article"
+msgstr ""
+
+#: core/templates/core/home.html:610
+msgid "FEED ACTUALITÉS EN TEMPS RÉEL"
+msgstr ""
+
+#: core/templates/core/home.html:612
+msgid "Restez informé des dernières nouvelles du monde gaming"
+msgstr ""
+
+#: core/templates/core/home.html:709
+msgid "Prêt pour l'Aventure Cyber ?"
+msgstr ""
+
+#: core/templates/core/home.html:710
+#, fuzzy
+#| msgid "Gagnez de l'Argent en Jouant sur eBetStream"
+msgid "Rejoignez des millions de joueurs dans l'univers eBetStream"
+msgstr "Earn Money Playing on eBetStream"
+
+#: core/templates/core/home.html:714
+#, fuzzy
+#| msgid "Parier Maintenant"
+msgid "S'inscrire Maintenant"
+msgstr "Bet Now"
+
+#: core/templates/core/home.html:717
+msgid "Se Connecter"
+msgstr ""
+
+#: core/templates/core/home.html:721
+msgid "Mon Profil"
+msgstr ""
+
+#: core/templates/core/home.html:724
+#, fuzzy
+#| msgid "Commencer à Gagner"
+msgid "Commencer à Parier"
+msgstr "Start Earning"
 
 #: forum/templates/forum/liste_categories.html:5
 msgid "Catégories du forum"

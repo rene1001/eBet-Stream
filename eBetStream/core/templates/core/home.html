@@ -3,26 +3,26 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}eBetStream NEXUS - Plateforme de Paris Sportifs Cyber{% endblock %}
+{% block title %}eBetStream NEXUS - {% trans "Plateforme de Paris Sportifs Cyber" %}{% endblock %}
 
 {% block content %}
 <!-- Breaking News Ticker -->
 <div class="news-ticker-container">
     <div class="news-ticker">
         <div class="ticker-content">
-            <span class="ticker-item"><i class="fas fa-fire text-brand-orange me-2"></i>🔥 NOUVEAU TOURNOI VALORANT - 50K€ DE PRIZES</span>
-            <span class="ticker-item"><i class="fas fa-trophy text-brand-orange me-2"></i>🏆 CHAMPIONNAT CS2 COMMENCE DEMAIN</span>
-            <span class="ticker-item"><i class="fas fa-rocket text-brand-orange me-2"></i>🚀 RECORD BATTU: +2M€ DE PARIS CETTE SEMAINE</span>
-            <span class="ticker-item"><i class="fas fa-star text-brand-orange me-2"></i>⭐ NOUVEAUX DÉFIS P2P DISPONIBLES</span>
-            <span class="ticker-item"><i class="fas fa-bolt text-brand-orange me-2"></i>⚡ LIVE: 15K SPECTATEURS SUR NOS STREAMS</span>
-            <span class="ticker-item"><i class="fas fa-users text-brand-orange me-2"></i>👥 COMMUNAUTÉ: +50K NOUVEAUX MEMBRES</span>
+            <span class="ticker-item"><i class="fas fa-fire text-brand-orange me-2"></i>🔥 {% trans "NOUVEAU TOURNOI VALORANT - 50K€ DE PRIZES" %}</span>
+            <span class="ticker-item"><i class="fas fa-trophy text-brand-orange me-2"></i>🏆 {% trans "CHAMPIONNAT CS2 COMMENCE DEMAIN" %}</span>
+            <span class="ticker-item"><i class="fas fa-rocket text-brand-orange me-2"></i>🚀 {% trans "RECORD BATTU: +2M€ DE PARIS CETTE SEMAINE" %}</span>
+            <span class="ticker-item"><i class="fas fa-star text-brand-orange me-2"></i>⭐ {% trans "NOUVEAUX DÉFIS P2P DISPONIBLES" %}</span>
+            <span class="ticker-item"><i class="fas fa-bolt text-brand-orange me-2"></i>⚡ {% trans "LIVE: 15K SPECTATEURS SUR NOS STREAMS" %}</span>
+            <span class="ticker-item"><i class="fas fa-users text-brand-orange me-2"></i>👥 {% trans "COMMUNAUTÉ: +50K NOUVEAUX MEMBRES" %}</span>
             <!-- Duplicate for seamless loop -->
-            <span class="ticker-item"><i class="fas fa-fire text-brand-orange me-2"></i>🔥 NOUVEAU TOURNOI VALORANT - 50K€ DE PRIZES</span>
-            <span class="ticker-item"><i class="fas fa-trophy text-brand-orange me-2"></i>🏆 CHAMPIONNAT CS2 COMMENCE DEMAIN</span>
-            <span class="ticker-item"><i class="fas fa-rocket text-brand-orange me-2"></i>🚀 RECORD BATTU: +2M€ DE PARIS CETTE SEMAINE</span>
-            <span class="ticker-item"><i class="fas fa-star text-brand-orange me-2"></i>⭐ NOUVEAUX DÉFIS P2P DISPONIBLES</span>
-            <span class="ticker-item"><i class="fas fa-bolt text-brand-orange me-2"></i>⚡ LIVE: 15K SPECTATEURS SUR NOS STREAMS</span>
-            <span class="ticker-item"><i class="fas fa-users text-brand-orange me-2"></i>👥 COMMUNAUTÉ: +50K NOUVEAUX MEMBRES</span>
+            <span class="ticker-item"><i class="fas fa-fire text-brand-orange me-2"></i>🔥 {% trans "NOUVEAU TOURNOI VALORANT - 50K€ DE PRIZES" %}</span>
+            <span class="ticker-item"><i class="fas fa-trophy text-brand-orange me-2"></i>🏆 {% trans "CHAMPIONNAT CS2 COMMENCE DEMAIN" %}</span>
+            <span class="ticker-item"><i class="fas fa-rocket text-brand-orange me-2"></i>🚀 {% trans "RECORD BATTU: +2M€ DE PARIS CETTE SEMAINE" %}</span>
+            <span class="ticker-item"><i class="fas fa-star text-brand-orange me-2"></i>⭐ {% trans "NOUVEAUX DÉFIS P2P DISPONIBLES" %}</span>
+            <span class="ticker-item"><i class="fas fa-bolt text-brand-orange me-2"></i>⚡ {% trans "LIVE: 15K SPECTATEURS SUR NOS STREAMS" %}</span>
+            <span class="ticker-item"><i class="fas fa-users text-brand-orange me-2"></i>👥 {% trans "COMMUNAUTÉ: +50K NOUVEAUX MEMBRES" %}</span>
         </div>
     </div>
 </div>
@@ -43,7 +43,7 @@
                     <!-- Slide 1: Gagnez de l'Argent en Jouant -->
                     <div class="carousel-item active">
                         <div class="promo-slide">
-                            <img src="{% static 'images/promo/slide-1-gaming-gains.jpg' %}" class="carousel-img" alt="Gagnez de l'Argent en Jouant">
+                            <img src="{% static 'images/promo/slide-1-gaming-gains.jpg' %}" class="carousel-img" alt="{% trans 'Gagnez de l\'Argent en Jouant' %}">
                             <div class="promo-overlay">
                                 <div class="promo-content">
                                     <h2 class="promo-title">💰 {% trans "Gagnez de l'Argent en Jouant sur eBetStream" %}</h2>
@@ -57,7 +57,7 @@
                     <!-- Slide 2: Devenez la Star -->
                     <div class="carousel-item">
                         <div class="promo-slide">
-                            <img src="{% static 'images/promo/slide-2-gaming-star.jpg' %}" class="carousel-img" alt="Devenez la Star d'ebetstream">
+                            <img src="{% static 'images/promo/slide-2-gaming-star.jpg' %}" class="carousel-img" alt="{% trans 'Devenez la Star d\'ebetstream' %}">
                             <div class="promo-overlay">
                                 <div class="promo-content">
                                     <h2 class="promo-title">⭐ {% trans "Devenez la Star d'eBetStream" %}</h2>
@@ -71,7 +71,7 @@
                     <!-- Slide 3: Relevez des Défis Épiques -->
                     <div class="carousel-item">
                         <div class="promo-slide">
-                            <img src="{% static 'images/promo/slide-3-defis-epiques.jpg' %}" class="carousel-img" alt="Relevez des Défis Épiques">
+                            <img src="{% static 'images/promo/slide-3-defis-epiques.jpg' %}" class="carousel-img" alt="{% trans 'Relevez des Défis Épiques' %}">
                             <div class="promo-overlay">
                                 <div class="promo-content">
                                     <h2 class="promo-title">⚔️ {% trans "Relevez des Défis Épiques sur eBetStream" %}</h2>
@@ -85,7 +85,7 @@
                     <!-- Slide 4: Placez des Paris Gagnants -->
                     <div class="carousel-item">
                         <div class="promo-slide">
-                            <img src="{% static 'images/promo/slide-4-paris-gagnants.jpg' %}" class="carousel-img" alt="Placez des Paris Gagnants">
+                            <img src="{% static 'images/promo/slide-4-paris-gagnants.jpg' %}" class="carousel-img" alt="{% trans 'Placez des Paris Gagnants' %}">
                             <div class="promo-overlay">
                                 <div class="promo-content">
                                     <h2 class="promo-title">🏆 {% trans "Placez des Paris Gagnants sur eBetStream" %}</h2>
@@ -99,7 +99,7 @@
                     <!-- Slide 5: Regardez des Matchs en Direct -->
                     <div class="carousel-item">
                         <div class="promo-slide">
-                            <img src="{% static 'images/promo/slide-5-matchs-direct.jpg' %}" class="carousel-img" alt="Regardez des Matchs en Direct">
+                            <img src="{% static 'images/promo/slide-5-matchs-direct.jpg' %}" class="carousel-img" alt="{% trans 'Regardez des Matchs en Direct' %}">
                             <div class="promo-overlay">
                                 <div class="promo-content">
                                     <h2 class="promo-title">📺 {% trans "Regardez des Matchs en Direct sur eBetStream" %}</h2>
@@ -180,7 +180,7 @@
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h5 class="card-title mb-0">{{ match.team1.name }} vs {{ match.team2.name }}</h5>
                         <span class="badge bg-cyber text-dark px-3 py-2 rounded-pill">
-                            <i class="fas fa-clock me-1"></i>LIVE
+                            <i class="fas fa-clock me-1"></i>{% trans "LIVE" %}
                         </span>
                     </div>
                     
@@ -197,7 +197,7 @@
                             </div>
                             <div class="col-2">
                                 <div class="vs-indicator">
-                                    <h4 class="text-cyber mb-0 glow-text">VS</h4>
+                                    <h4 class="text-cyber mb-0 glow-text">{% trans "VS" %}</h4>
                                     <div class="cyber-line"></div>
                                 </div>
                             </div>
@@ -220,14 +220,14 @@
                     
                     <div class="d-flex justify-content-center gap-3 flex-wrap">
                         <a href="{% url 'betting:place_bet' match.id %}" class="btn-cyber">
-                            <i class="fas fa-coins me-2"></i>Parier Maintenant
+                            <i class="fas fa-coins me-2"></i>{% trans "Parier Maintenant" %}
                         </a>
                         {% with active_streaming=None %}
                             {% for streaming in match.streamings.all %}
                                 {% if streaming.actif and not active_streaming %}
                                     {% with active_streaming=streaming %}
                                         <a href="{% url 'streaming:watch_stream' streaming.id %}" class="btn-cyber btn-secondary">
-                                            <i class="fas fa-broadcast-tower me-2"></i>Stream Live
+                                            <i class="fas fa-broadcast-tower me-2"></i>{% trans "Stream Live" %}
                                         </a>
                                     {% endwith %}
                                 {% endif %}
@@ -240,10 +240,10 @@
                     <div class="mb-4">
                         <i class="fas fa-satellite text-dim" style="font-size: 3rem;"></i>
                     </div>
-                    <h5 class="text-dim">Aucun match en cours</h5>
-                    <p class="text-faded">Les prochains affrontements arriveront bientôt...</p>
+                    <h5 class="text-dim">{% trans "Aucun match en cours" %}</h5>
+                    <p class="text-faded">{% trans "Les prochains affrontements arriveront bientôt..." %}</p>
                     <a href="{% url 'betting:bet_list' %}" class="btn-cyber mt-3">
-                        <i class="fas fa-eye me-2"></i>Voir Tous les Matchs
+                        <i class="fas fa-eye me-2"></i>{% trans "Voir Tous les Matchs" %}
                     </a>
                 </div>
                 {% endfor %}
@@ -256,26 +256,25 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="text-cyber mb-3">
-                    <i class="fas fa-users me-3"></i>DÉFIS P2P CYBER
+                    <i class="fas fa-users me-3"></i>{% trans "DÉFIS P2P CYBER" %}
                 </h2>
-                <p class="text-dim">Affrontez les meilleurs joueurs dans des duels épiques</p>
+                <p class="text-dim">{% trans "Affrontez les meilleurs joueurs dans des duels épiques" %}</p>
             </div>
             
             <div class="cyber-card text-center p-5">
                 <div class="mb-4">
                     <i class="fas fa-trophy text-cyber" style="font-size: 4rem;"></i>
                 </div>
-                <h3 class="card-title mb-4">Arène de Combat P2P</h3>
+                <h3 class="card-title mb-4">{% trans "Arène de Combat P2P" %}</h3>
                 <p class="card-text mb-4">
-                    Défiez d'autres joueurs en 1v1 dans notre arène cyber-futuriste. 
-                    Gagnez des Ktap et gravissez les classements mondiaux.
+                    {% trans "Défiez d'autres joueurs en 1v1 dans notre arène cyber-futuriste. Gagnez des Ktap et gravissez les classements mondiaux." %}
                 </p>
                 <div class="d-flex justify-content-center gap-4 flex-wrap">
                     <a href="{% url 'betting:p2p_index' %}" class="btn-cyber">
-                        <i class="fas fa-gamepad me-2"></i>Entrer dans l'Arène
+                        <i class="fas fa-gamepad me-2"></i>{% trans "Entrer dans l'Arène" %}
                     </a>
                     <a href="{% url 'betting:p2p_challenge_create' %}" class="btn-cyber btn-secondary">
-                        <i class="fas fa-plus-circle me-2"></i>Créer un Défi
+                        <i class="fas fa-plus-circle me-2"></i>{% trans "Créer un Défi" %}
                     </a>
                 </div>
             </div>
@@ -287,9 +286,9 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="text-cyber mb-3">
-                    <i class="fas fa-gamepad me-3"></i>UNIVERS GAMING
+                    <i class="fas fa-gamepad me-3"></i>{% trans "UNIVERS GAMING" %}
                 </h2>
-                <p class="text-dim">Explorez les jeux les plus populaires de l'esport</p>
+                <p class="text-dim">{% trans "Explorez les jeux les plus populaires de l'esport" %}</p>
             </div>
 
             <div class="cards-container">
@@ -316,14 +315,14 @@
                         
                         <div class="game-stats mb-4">
                             <div class="d-flex justify-content-between text-dim small">
-                                <span><i class="fas fa-users me-1"></i>Actif</span>
-                                <span><i class="fas fa-trophy me-1"></i>Tournois</span>
-                                <span><i class="fas fa-fire me-1"></i>Populaire</span>
+                                <span><i class="fas fa-users me-1"></i>{% trans "Actif" %}</span>
+                                <span><i class="fas fa-trophy me-1"></i>{% trans "Tournois" %}</span>
+                                <span><i class="fas fa-fire me-1"></i>{% trans "Populaire" %}</span>
                             </div>
                         </div>
                         
                         <a href="{% url 'core:tournament_list' game.id %}" class="btn-cyber w-100">
-                            <i class="fas fa-crown me-2"></i>Rejoindre les Tournois
+                            <i class="fas fa-crown me-2"></i>{% trans "Rejoindre les Tournois" %}
                         </a>
                     </div>
                 </div>
@@ -332,8 +331,8 @@
                     <div class="mb-4">
                         <i class="fas fa-ghost text-dim" style="font-size: 3rem;"></i>
                     </div>
-                    <h5 class="text-dim">Univers en construction</h5>
-                    <p class="text-faded">De nouveaux jeux arrivent très bientôt...</p>
+                    <h5 class="text-dim">{% trans "Univers en construction" %}</h5>
+                    <p class="text-faded">{% trans "De nouveaux jeux arrivent très bientôt..." %}</p>
                 </div>
                 {% endfor %}
             </div>
@@ -345,9 +344,9 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="text-cyber mb-3">
-                    <i class="fas fa-handshake me-3"></i>NOS PARTENAIRES GAMING
+                    <i class="fas fa-handshake me-3"></i>{% trans "NOS PARTENAIRES GAMING" %}
                 </h2>
-                <p class="text-dim">En partenariat avec les leaders de l'industrie gaming</p>
+                <p class="text-dim">{% trans "En partenariat avec les leaders de l'industrie gaming" %}</p>
             </div>
             <div class="sponsors-scroll">
                 <div class="sponsors-track">
@@ -458,26 +457,25 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="text-cyber mb-3">
-                    <i class="fas fa-shield-alt me-3"></i>CLANS GAMING
+                    <i class="fas fa-shield-alt me-3"></i>{% trans "CLANS GAMING" %}
                 </h2>
-                <p class="text-dim">Rejoignez une communauté, dominez ensemble</p>
+                <p class="text-dim">{% trans "Rejoignez une communauté, dominez ensemble" %}</p>
             </div>
             
             <div class="cyber-card text-center p-5">
                 <div class="mb-4">
                     <i class="fas fa-users text-cyber" style="font-size: 4rem;"></i>
                 </div>
-                <h3 class="card-title mb-4">Rejoignez les Meilleurs Clans</h3>
+                <h3 class="card-title mb-4">{% trans "Rejoignez les Meilleurs Clans" %}</h3>
                 <p class="card-text mb-4">
-                    Formez des alliances stratégiques, participez à des tournois de clan et 
-                    gravissez les classements avec vos coéquipiers.
+                    {% trans "Formez des alliances stratégiques, participez à des tournois de clan et gravissez les classements avec vos coéquipiers." %}
                 </p>
                 <div class="d-flex justify-content-center gap-4 flex-wrap">
                     <a href="{% url 'clans_gaming:liste_clans' %}" class="btn-cyber">
-                        <i class="fas fa-shield-alt me-2"></i>Explorer les Clans
+                        <i class="fas fa-shield-alt me-2"></i>{% trans "Explorer les Clans" %}
                     </a>
                     <a href="{% url 'clans_gaming:creer_clan' %}" class="btn-cyber btn-secondary">
-                        <i class="fas fa-plus-circle me-2"></i>Créer mon Clan
+                        <i class="fas fa-plus-circle me-2"></i>{% trans "Créer mon Clan" %}
                     </a>
                 </div>
             </div>
@@ -489,26 +487,25 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="text-cyber mb-3">
-                    <i class="fas fa-trophy me-3"></i>TOP GAMEURS
+                    <i class="fas fa-trophy me-3"></i>{% trans "TOP GAMEURS" %}
                 </h2>
-                <p class="text-dim">Les légendes de l'esport mondial</p>
+                <p class="text-dim">{% trans "Les légendes de l'esport mondial" %}</p>
             </div>
             
             <div class="cyber-card text-center p-5">
                 <div class="mb-4">
                     <i class="fas fa-crown text-cyber" style="font-size: 4rem;"></i>
                 </div>
-                <h3 class="card-title mb-4">Classement Elite</h3>
+                <h3 class="card-title mb-4">{% trans "Classement Elite" %}</h3>
                 <p class="card-text mb-4">
-                    Découvrez les joueurs les plus talentueux, suivez leurs performances 
-                    et inspirez-vous de leurs stratégies gagnantes.
+                    {% trans "Découvrez les joueurs les plus talentueux, suivez leurs performances et inspirez-vous de leurs stratégies gagnantes." %}
                 </p>
                 <div class="d-flex justify-content-center gap-4 flex-wrap">
                     <a href="{% url 'gameurs:liste_gameurs' %}" class="btn-cyber">
-                        <i class="fas fa-trophy me-2"></i>Voir le Classement
+                        <i class="fas fa-trophy me-2"></i>{% trans "Voir le Classement" %}
                     </a>
                     <a href="{% url 'gameurs:creer_gameur' %}" class="btn-cyber btn-secondary">
-                        <i class="fas fa-user-plus me-2"></i>Devenir Pro
+                        <i class="fas fa-user-plus me-2"></i>{% trans "Devenir Pro" %}
                     </a>
                 </div>
             </div>
@@ -520,26 +517,25 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="text-cyber mb-3">
-                    <i class="fas fa-calendar-alt me-3"></i>ÉVÉNEMENTS ESPORT
+                    <i class="fas fa-calendar-alt me-3"></i>{% trans "ÉVÉNEMENTS ESPORT" %}
                 </h2>
-                <p class="text-dim">Tournois, competitions et évènements à ne pas manquer</p>
+                <p class="text-dim">{% trans "Tournois, competitions et évènements à ne pas manquer" %}</p>
             </div>
             
             <div class="cyber-card text-center p-5">
                 <div class="mb-4">
                     <i class="fas fa-calendar-check text-cyber" style="font-size: 4rem;"></i>
                 </div>
-                <h3 class="card-title mb-4">Calendrier Gaming</h3>
+                <h3 class="card-title mb-4">{% trans "Calendrier Gaming" %}</h3>
                 <p class="card-text mb-4">
-                    Participez aux plus grands événements esport : tournois officiels, 
-                    compétitions communautaires et rencontres exclusives.
+                    {% trans "Participez aux plus grands événements esport : tournois officiels, compétitions communautaires et rencontres exclusives." %}
                 </p>
                 <div class="d-flex justify-content-center gap-4 flex-wrap">
                     <a href="{% url 'evenements:liste_evenements' %}" class="btn-cyber">
-                        <i class="fas fa-calendar-alt me-2"></i>Voir les Événements
+                        <i class="fas fa-calendar-alt me-2"></i>{% trans "Voir les Événements" %}
                     </a>
                     <a href="{% url 'evenements:creer_evenement' %}" class="btn-cyber btn-secondary">
-                        <i class="fas fa-plus-circle me-2"></i>Organiser un Événement
+                        <i class="fas fa-plus-circle me-2"></i>{% trans "Organiser un Événement" %}
                     </a>
                 </div>
             </div>
@@ -551,26 +547,25 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="text-cyber mb-3">
-                    <i class="fas fa-comments me-3"></i>FORUM COMMUNAUTÉ
+                    <i class="fas fa-comments me-3"></i>{% trans "FORUM COMMUNAUTÉ" %}
                 </h2>
-                <p class="text-dim">Échangez, débattez et partagez vos passions gaming</p>
+                <p class="text-dim">{% trans "Échangez, débattez et partagez vos passions gaming" %}</p>
             </div>
             
             <div class="cyber-card text-center p-5">
                 <div class="mb-4">
                     <i class="fas fa-users text-cyber" style="font-size: 4rem;"></i>
                 </div>
-                <h3 class="card-title mb-4">Communauté Active</h3>
+                <h3 class="card-title mb-4">{% trans "Communauté Active" %}</h3>
                 <p class="card-text mb-4">
-                    Rejoignez les discussions, partagez vos stratégies, obtenez des conseils 
-                    d'experts et créez des liens avec d'autres passionnés.
+                    {% trans "Rejoignez les discussions, partagez vos stratégies, obtenez des conseils d'experts et créez des liens avec d'autres passionnés." %}
                 </p>
                 <div class="d-flex justify-content-center gap-4 flex-wrap">
                     <a href="{% url 'forum:liste_categories' %}" class="btn-cyber">
-                        <i class="fas fa-comments me-2"></i>Accéder au Forum
+                        <i class="fas fa-comments me-2"></i>{% trans "Accéder au Forum" %}
                     </a>
                     <a href="{% url 'forum:liste_categories' %}" class="btn-cyber btn-secondary">
-                        <i class="fas fa-list me-2"></i>Voir les Catégories
+                        <i class="fas fa-list me-2"></i>{% trans "Voir les Catégories" %}
                     </a>
                 </div>
             </div>
@@ -582,26 +577,25 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="text-cyber mb-3">
-                    <i class="fas fa-newspaper me-3"></i>BLOG & ACTUALITÉS
+                    <i class="fas fa-newspaper me-3"></i>{% trans "BLOG & ACTUALITÉS" %}
                 </h2>
-                <p class="text-dim">Articles exclusifs, analyses et actualités gaming</p>
+                <p class="text-dim">{% trans "Articles exclusifs, analyses et actualités gaming" %}</p>
             </div>
             
             <div class="cyber-card text-center p-5">
                 <div class="mb-4">
                     <i class="fas fa-feather-alt text-cyber" style="font-size: 4rem;"></i>
                 </div>
-                <h3 class="card-title mb-4">Contenu Exclusif</h3>
+                <h3 class="card-title mb-4">{% trans "Contenu Exclusif" %}</h3>
                 <p class="card-text mb-4">
-                    Découvrez nos analyses approfondies, guides stratégiques, 
-                    interviews de pros et les dernières actualités de l'esport mondial.
+                    {% trans "Découvrez nos analyses approfondies, guides stratégiques, interviews de pros et les dernières actualités de l'esport mondial." %}
                 </p>
                 <div class="d-flex justify-content-center gap-4 flex-wrap">
                     <a href="{% url 'blog:liste_articles' %}" class="btn-cyber">
-                        <i class="fas fa-newspaper me-2"></i>Lire les Articles
+                        <i class="fas fa-newspaper me-2"></i>{% trans "Lire les Articles" %}
                     </a>
                     <a href="{% url 'blog:creer_article' %}" class="btn-cyber btn-secondary">
-                        <i class="fas fa-pen me-2"></i>Écrire un Article
+                        <i class="fas fa-pen me-2"></i>{% trans "Écrire un Article" %}
                     </a>
                 </div>
             </div>
@@ -613,9 +607,9 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="text-cyber mb-3">
-                    <i class="fas fa-rss me-3"></i>FEED ACTUALITÉS EN TEMPS RÉEL
+                    <i class="fas fa-rss me-3"></i>{% trans "FEED ACTUALITÉS EN TEMPS RÉEL" %}
                 </h2>
-                <p class="text-dim">Restez informé des dernières nouvelles du monde gaming</p>
+                <p class="text-dim">{% trans "Restez informé des dernières nouvelles du monde gaming" %}</p>
             </div>
             <div class="news-feed-scroll">
                 <div class="news-feed-track">
@@ -712,22 +706,22 @@
                 <div class="mb-4">
                     <i class="fas fa-rocket text-brand-white" style="font-size: 3rem;"></i>
                 </div>
-                <h2 class="text-brand-white mb-4">Prêt pour l'Aventure Cyber ?</h2>
-                <p class="text-brand-white lead mb-5">Rejoignez des millions de joueurs dans l'univers eBetStream</p>
+                <h2 class="text-brand-white mb-4">{% trans "Prêt pour l'Aventure Cyber ?" %}</h2>
+                <p class="text-brand-white lead mb-5">{% trans "Rejoignez des millions de joueurs dans l'univers eBetStream" %}</p>
                 <div class="d-flex justify-content-center gap-4 flex-wrap">
                     {% if not user.is_authenticated %}
                         <a href="{% url 'users:register' %}" class="btn" style="background: var(--brand-white); color: var(--brand-orange); font-weight: 700; padding: 1rem 2rem;">
-                            <i class="fas fa-user-plus me-2"></i>S'inscrire Maintenant
+                            <i class="fas fa-user-plus me-2"></i>{% trans "S'inscrire Maintenant" %}
                         </a>
                         <a href="{% url 'users:login' %}" class="btn" style="background: transparent; color: var(--brand-white); border: 2px solid var(--brand-white); font-weight: 700; padding: 1rem 2rem;">
-                            <i class="fas fa-sign-in me-2"></i>Se Connecter
+                            <i class="fas fa-sign-in me-2"></i>{% trans "Se Connecter" %}
                         </a>
                     {% else %}
                         <a href="{% url 'users:profile' %}" class="btn" style="background: var(--brand-white); color: var(--brand-orange); font-weight: 700; padding: 1rem 2rem;">
-                            <i class="fas fa-user me-2"></i>Mon Profil
+                            <i class="fas fa-user me-2"></i>{% trans "Mon Profil" %}
                         </a>
                         <a href="{% url 'betting:bet_list' %}" class="btn" style="background: transparent; color: var(--brand-white); border: 2px solid var(--brand-white); font-weight: 700; padding: 1rem 2rem;">
-                            <i class="fas fa-rocket me-2"></i>Commencer à Parier
+                            <i class="fas fa-rocket me-2"></i>{% trans "Commencer à Parier" %}
                         </a>
                     {% endif %}
                 </div>
