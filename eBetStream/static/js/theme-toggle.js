@@ -24,22 +24,30 @@ class ThemeManager {
     }
     
     init() {
-        // Écouter les changements de thème (gestion correcte des clics)
-        document.addEventListener('click', (e) => {
-            const themeButton = e.target.closest('[data-theme-toggle]');
-            if (themeButton) {
+        // Binding direct sur les boutons de thème (fix Bootstrap dropdown propagation)
+        document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const newTheme = themeButton.getAttribute('data-theme-toggle');
+                const newTheme = btn.getAttribute('data-theme-toggle');
+                // Theme change triggered
                 this.setTheme(newTheme);
-            }
+            });
         });
         
         // Support prefers-reduced-motion pour l'accessibilité
         this.handleReducedMotion();
+        
+        // Debug: vérifier l'état initial
+        // ThemeManager initialized successfully
     }
     
     setTheme(theme) {
-        if (!this.themes.includes(theme)) return;
+        if (!this.themes.includes(theme)) {
+            // Invalid theme
+            return;
+        }
+        
+        // Setting theme
         
         // Mise à jour immédiate de l'interface
         document.documentElement.setAttribute('data-theme', theme);
@@ -56,6 +64,8 @@ class ThemeManager {
         
         // Notification UX accessible
         this.announceThemeChange(theme);
+        
+        // Theme change completed
     }
     
     updateThemeColor(theme) {
@@ -85,7 +95,7 @@ class ThemeManager {
             };
             
             if (icon) {
-                icon.className = themeIcons[theme];
+                icon.className = `bi ${themeIcons[theme]}`;
             }
             if (text) {
                 text.textContent = themeNames[theme];
@@ -148,10 +158,18 @@ class ThemeManager {
     }
 }
 
-// Initialisation automatique
-document.addEventListener('DOMContentLoaded', () => {
-    window.themeManager = new ThemeManager();
-});
+// Initialisation automatique - Une seule fois
+if (!window.themeManager) {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            // DOM loaded - initializing ThemeManager
+            window.themeManager = new ThemeManager();
+        });
+    } else {
+        // Document ready - initializing ThemeManager
+        window.themeManager = new ThemeManager();
+    }
+}
 
 // Export pour utilisation externe si nécessaire
 if (typeof module !== 'undefined' && module.exports) {

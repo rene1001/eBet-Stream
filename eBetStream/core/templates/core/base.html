@@ -43,7 +43,7 @@
                                 data-bs-toggle="dropdown" 
                                 aria-expanded="false"
                                 title="{% trans 'Changer le thème' %}">
-                            <i class="{{ theme_info.icon|default:'bi-lightning-charge-fill' }}"></i>
+                            <i class="bi {{ theme_info.icon|default:'bi-lightning-charge-fill' }}"></i>
                             <span class="d-none d-md-inline">{{ theme_info.name|default:'Cyber' }}</span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" role="menu">
@@ -54,7 +54,7 @@
                                         type="button"
                                         role="menuitemradio"
                                         aria-checked="{% if theme_key == current_theme %}true{% else %}false{% endif %}">
-                                    <i class="{{ theme_data.icon }} text-{{ theme_key }}"></i>
+                                    <i class="bi {{ theme_data.icon }} text-{{ theme_key }}"></i>
                                     <div>
                                         <div class="fw-semibold">{{ theme_data.name }}</div>
                                         <small class="text-muted">{{ theme_data.description }}</small>
