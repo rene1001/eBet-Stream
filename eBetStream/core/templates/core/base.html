@@ -12,17 +12,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="{% static 'css/sport-style.css' %}?v=mobile-title-reduced-20250917" rel="stylesheet">
+    <meta name="theme-color" content="#000008">
     {% block extra_css %}{% endblock %}
-    <!-- Theme Detection Script (must be in head for no flash) -->
-    <script>
-        // Immediately detect and apply theme to prevent flash
-        (function() {
-            const theme = localStorage.getItem('ebetstream-theme') || 'system';
-            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            const effectiveTheme = theme === 'system' ? systemTheme : theme;
-            document.documentElement.setAttribute('data-theme', effectiveTheme);
-        })();
-    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -43,21 +34,6 @@
                     </li>
                 </ul>
                 <div class="d-flex align-items-center ms-auto gap-3">
-                    <!-- Theme Selector -->
-                    <div id="theme-selector" 
-                         data-current-theme="system"
-                         data-label-light="{% trans 'Clair' %}"
-                         data-label-dark="{% trans 'Sombre' %}"
-                         data-label-system="{% trans 'Système' %}"
-                         data-notification-light="{% trans 'Thème Clair Activé' %}"
-                         data-notification-dark="{% trans 'Thème Sombre Activé' %}"
-                         data-notification-system="{% trans 'Thème Système Activé' %}">
-                        <button type="button" class="theme-btn" title="{% trans 'Changer le thème' %}">
-                            <i class="bi bi-circle-half"></i>
-                            <span class="theme-label">{% trans 'Système' %}</span>
-                        </button>
-                    </div>
-                    
                     <!-- Language Selector -->
                     <form action="/i18n/setlang/" method="post" class="d-flex align-items-center">
                         {% csrf_token %}
@@ -123,7 +99,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{% static 'js/theme-manager.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

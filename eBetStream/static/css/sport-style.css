@@ -19,64 +19,10 @@ Design System v3.0 - Beyond FanDuel & DraftKings
   --brand-warm: #FF6B35;
 }
 
-/* THEME SYSTEM - DARK THEME (DEFAULT) */
-[data-theme="dark"] {
-  /* Dark Cyber Background */
-  --bg-primary: #000008;
-  --bg-secondary: #0d0d1a;
-  --bg-tertiary: #1a1a2e;
-  --bg-surface: #16213e;
-  --bg-accent: #0f3460;
-  
-  /* Glass & Transparency - Brand Orange Tints */
-  --glass-light: rgba(255, 255, 255, 0.03);
-  --glass-medium: rgba(255, 255, 255, 0.08);
-  --glass-heavy: rgba(255, 255, 255, 0.15);
-  --glass-neon: rgba(255, 149, 0, 0.1);
-  
-  /* Text Hierarchy */
-  --text-primary: #ffffff;
-  --text-secondary: #c1c7d0;
-  --text-tertiary: #9ca3af;
-  --text-accent: var(--brand-orange);
-  
-  /* Shadows & Effects */
-  --shadow-cyber: 0 0 30px rgba(255, 149, 0, 0.4);
-  --shadow-neon: 0 0 20px rgba(255, 179, 71, 0.3);
-  --shadow-depth: 0 20px 60px rgba(0, 0, 0, 0.7);
-  --shadow-glass: 0 8px 32px rgba(31, 38, 135, 0.37);
-}
+/* CYBER ORANGE DESIGN SYSTEM - FIXED DARK THEME */
 
-/* THEME SYSTEM - LIGHT THEME */
-[data-theme="light"] {
-  /* Light Cyber Background */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8fafc;
-  --bg-tertiary: #f1f5f9;
-  --bg-surface: #e2e8f0;
-  --bg-accent: #cbd5e1;
-  
-  /* Glass & Transparency - Brand Orange Tints */
-  --glass-light: rgba(0, 0, 0, 0.03);
-  --glass-medium: rgba(0, 0, 0, 0.08);
-  --glass-heavy: rgba(0, 0, 0, 0.15);
-  --glass-neon: rgba(255, 149, 0, 0.1);
-  
-  /* Text Hierarchy */
-  --text-primary: #1e293b;
-  --text-secondary: #475569;
-  --text-tertiary: #64748b;
-  --text-accent: var(--brand-orange);
-  
-  /* Shadows & Effects */
-  --shadow-cyber: 0 0 30px rgba(255, 149, 0, 0.2);
-  --shadow-neon: 0 0 20px rgba(255, 179, 71, 0.15);
-  --shadow-depth: 0 20px 60px rgba(0, 0, 0, 0.1);
-  --shadow-glass: 0 8px 32px rgba(148, 163, 184, 0.2);
-}
-
-/* FALLBACK FOR NO DATA-THEME (DEFAULT TO DARK) */
-:root:not([data-theme]) {
+/* MAIN DESIGN SYSTEM - CYBER ORANGE DARK THEME */
+:root {
   /* Dark Cyber Background - Legacy Support */
   --bg-primary: #000008;
   --bg-secondary: #0d0d1a;
@@ -784,16 +730,9 @@ body::after {
   }
 }
 
-/* High contrast mode support */
+/* High contrast mode support - Fixed for accessibility */
 @media (prefers-contrast: high) {
-  [data-theme="light"] {
-    --text-primary: #000000;
-    --text-secondary: #333333;
-    --bg-primary: #ffffff;
-    --bg-secondary: #f0f0f0;
-  }
-  
-  [data-theme="dark"] {
+  :root {
     --text-primary: #ffffff;
     --text-secondary: #cccccc;
     --bg-primary: #000000;
@@ -1060,32 +999,7 @@ body::after {
   100% { transform: scale(1); opacity: 1; }
 }
 
-/* Theme-specific enhancements */
-[data-theme="light"] .theme-notification {
-  background: rgba(248, 250, 252, 0.95);
-  border-color: var(--brand-orange);
-  color: var(--text-primary);
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.1),
-    0 0 30px rgba(255, 149, 0, 0.2);
-}
-
-[data-theme="light"] .navbar {
-  background: rgba(248, 250, 252, 0.85);
-  border-bottom-color: rgba(255, 149, 0, 0.3);
-}
-
-[data-theme="light"] .cyber-card {
-  background: rgba(248, 250, 252, 0.8);
-  border-color: rgba(255, 149, 0, 0.15);
-}
-
-[data-theme="light"] .cyber-card:hover {
-  background: rgba(241, 245, 249, 0.9);
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.08),
-    0 0 30px rgba(255, 149, 0, 0.2);
-}
+/* Cyber enhancements - Fixed design */
 
 /* Responsive theme selector */
 @media (max-width: 768px) {
