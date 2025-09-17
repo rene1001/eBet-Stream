@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}{{ match }} - Live Streaming{% endblock %}
+{% block title %}{{ match }} - {% trans "Live Streaming" %}{% endblock %}
 
 {% block content %}
 <div class="container mt-4">

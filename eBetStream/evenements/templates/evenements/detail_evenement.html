@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
@@ -10,25 +11,25 @@
                 {% endif %}
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
-                        <a href="{% url 'evenements:liste_evenements' %}" class="btn btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i> Retour aux événements</a>
+                        <a href="{% url 'evenements:liste_evenements' %}" class="btn btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i> {% trans "Retour aux événements" %}</a>
                         <h1 class="mb-0">{{ evenement.nom }}</h1>
                     </div>
                     <p class="card-text">
-                        <strong>Type :</strong> {{ evenement.get_type_evenement_display }}<br>
-                        <strong>Jeu :</strong> {{ evenement.jeu }}<br>
-                        <strong>Date de début :</strong> {{ evenement.date_debut|date:"d/m/Y H:i" }}<br>
-                        <strong>Date de fin :</strong> {{ evenement.date_fin|date:"d/m/Y H:i" }}<br>
-                        <strong>Lieu :</strong> {{ evenement.lieu }}<br>
-                        <strong>Places disponibles :</strong> {{ evenement.places_restantes }}
+                        <strong>{% trans "Type :" %}</strong> {{ evenement.get_type_evenement_display }}<br>
+                        <strong>{% trans "Jeu :" %}</strong> {{ evenement.jeu }}<br>
+                        <strong>{% trans "Date de début :" %}</strong> {{ evenement.date_debut|date:"d/m/Y H:i" }}<br>
+                        <strong>{% trans "Date de fin :" %}</strong> {{ evenement.date_fin|date:"d/m/Y H:i" }}<br>
+                        <strong>{% trans "Lieu :" %}</strong> {{ evenement.lieu }}<br>
+                        <strong>{% trans "Places disponibles :" %}</strong> {{ evenement.places_restantes }}
                     </p>
                     <div class="mt-4">
-                        <h3>Description</h3>
+                        <h3>{% trans "Description" %}</h3>
                         <p>{{ evenement.description }}</p>
                     </div>
                     {% if evenement.lien_inscription %}
                     <div class="mt-4">
                         <a href="{{ evenement.lien_inscription }}" class="btn btn-info" target="_blank">
-                            Lien d'inscription externe
+                            {% trans "Lien d'inscription externe" %}
                         </a>
                     </div>
                     {% endif %}
@@ -39,36 +40,36 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h3>Inscription</h3>
+                    <h3>{% trans "Inscription" %}</h3>
                 </div>
                 <div class="card-body">
                     {% if user.is_authenticated %}
                         {% if user in evenement.inscriptions.all %}
-                            <p class="text-success">Vous êtes inscrit à cet événement !</p>
+                            <p class="text-success">{% trans "Vous êtes inscrit à cet événement !" %}</p>
                             <a href="{% url 'evenements:annuler_inscription' evenement.id %}" 
                                class="btn btn-danger"
-                               onclick="return confirm('Êtes-vous sûr de vouloir annuler votre inscription ?')">
-                                Annuler l'inscription
+                               onclick="return confirm('{% trans "Êtes-vous sûr de vouloir annuler votre inscription ?" %}')">
+                                {% trans "Annuler l'inscription" %}
                             </a>
                         {% else %}
                             {% if evenement.places_restantes != "Illimité" and evenement.places_restantes <= 0 %}
-                                <p class="text-danger">Désolé, il n'y a plus de places disponibles.</p>
+                                <p class="text-danger">{% trans "Désolé, il n'y a plus de places disponibles." %}</p>
                             {% else %}
                                 <a href="{% url 'evenements:s_inscrire' evenement.id %}" class="btn btn-primary">
-                                    S'inscrire
+                                    {% trans "S'inscrire" %}
                                 </a>
                             {% endif %}
                         {% endif %}
                     {% else %}
-                        <p>Veuillez vous connecter pour vous inscrire à cet événement.</p>
-                        <a href="{% url 'users:login' %}" class="btn btn-primary">Se connecter</a>
+                        <p>{% trans "Veuillez vous connecter pour vous inscrire à cet événement." %}</p>
+                        <a href="{% url 'users:login' %}" class="btn btn-primary">{% trans "Se connecter" %}</a>
                     {% endif %}
                 </div>
             </div>
 
             <div class="card mt-4">
                 <div class="card-header">
-                    <h3>Participants ({{ inscriptions.count }})</h3>
+                    <h3>{% trans "Participants" %} ({{ inscriptions.count }})</h3>
                 </div>
                 <div class="card-body">
                     <div class="list-group">
@@ -80,7 +81,7 @@
                             {% endif %}
                         </div>
                         {% empty %}
-                        <p class="text-center">Aucun participant pour le moment.</p>
+                        <p class="text-center">{% trans "Aucun participant pour le moment." %}</p>
                         {% endfor %}
                     </div>
                 </div>

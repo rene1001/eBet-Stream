@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
@@ -6,7 +7,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h2>Créer un nouvel événement</h2>
+                    <h2>{% trans "Créer un nouvel événement" %}</h2>
                 </div>
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data">
@@ -14,8 +15,8 @@
                         <div class="form-group">
                             {{ form.as_p }}
                         </div>
-                        <button type="submit" class="btn btn-primary">Créer l'événement</button>
-                        <a href="{% url 'evenements:liste_evenements' %}" class="btn btn-secondary">Annuler</a>
+                        <button type="submit" class="btn btn-primary">{% trans "Créer l'événement" %}</button>
+                        <a href="{% url 'evenements:liste_evenements' %}" class="btn btn-secondary">{% trans "Annuler" %}</a>
                     </form>
                 </div>
             </div>

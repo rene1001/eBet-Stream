@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
@@ -6,7 +7,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h2>Créer un nouveau clan</h2>
+                    <h2>{% trans "Créer un nouveau clan" %}</h2>
                 </div>
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data">
@@ -14,8 +15,8 @@
                         <div class="form-group">
                             {{ form.as_p }}
                         </div>
-                        <button type="submit" class="btn btn-primary">Créer le clan</button>
-                        <a href="{% url 'clans_gaming:liste_clans' %}" class="btn btn-secondary">Annuler</a>
+                        <button type="submit" class="btn btn-primary">{% trans "Créer le clan" %}</button>
+                        <a href="{% url 'clans_gaming:liste_clans' %}" class="btn btn-secondary">{% trans "Annuler" %}</a>
                     </form>
                 </div>
             </div>

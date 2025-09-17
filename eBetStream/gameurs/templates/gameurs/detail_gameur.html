@@ -60,17 +60,17 @@
                             </td>
                             <td>
                                 {% if match.vainqueur == gameur %}
-                                    <span class="text-success">Victoire</span>
+                                    <span class="text-success">{% trans "Victoire" %}</span>
                                 {% elif match.vainqueur %}
-                                    <span class="text-danger">Défaite</span>
+                                    <span class="text-danger">{% trans "Défaite" %}</span>
                                 {% else %}
-                                    <span class="text-warning">En cours</span>
+                                    <span class="text-warning">{% trans "En cours" %}</span>
                                 {% endif %}
                             </td>
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="4" class="text-center">Aucun match joué</td>
+                            <td colspan="4" class="text-center">{% trans "Aucun match joué" %}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

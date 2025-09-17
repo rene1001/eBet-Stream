@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
     <div class="card">
         <div class="card-header">
-            <h1 class="card-title h3 mb-0">Écrire un article</h1>
+            <h1 class="card-title h3 mb-0">{% trans "Écrire un article" %}</h1>
         </div>
         <div class="card-body">
             <form method="post" enctype="multipart/form-data">
@@ -20,8 +21,8 @@
                     {% endif %}
                 </div>
                 {% endfor %}
-                <button type="submit" class="btn btn-primary">Publier l'article</button>
-                <a href="{% url 'blog:liste_articles' %}" class="btn btn-secondary">Annuler</a>
+                <button type="submit" class="btn btn-primary">{% trans "Publier l'article" %}</button>
+                <a href="{% url 'blog:liste_articles' %}" class="btn btn-secondary">{% trans "Annuler" %}</a>
             </form>
         </div>
     </div>

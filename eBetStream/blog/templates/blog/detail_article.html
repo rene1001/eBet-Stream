@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
     <div class="d-flex align-items-center mb-3">
-        <a href="{% url 'blog:liste_articles' %}" class="btn btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i> Retour au blog</a>
+        <a href="{% url 'blog:liste_articles' %}" class="btn btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i> {% trans "Retour au blog" %}</a>
         <h1 class="mb-0">{{ article.titre }}</h1>
     </div>
     <article class="blog-post">
         <p class="blog-post-meta text-muted">
-            Par {{ article.auteur.username }} le {{ article.date_publication|date:"d/m/Y" }}
-            dans <a href="#" class="text-decoration-none">{{ article.categorie.nom }}</a>
-            <span class="ms-2">{{ article.nombre_vues }} vues</span>
+            {% trans "Par" %} {{ article.auteur.username }} {% trans "le" %} {{ article.date_publication|date:"d/m/Y" }}
+            {% trans "dans" %} <a href="#" class="text-decoration-none">{{ article.categorie.nom }}</a>
+            <span class="ms-2">{{ article.nombre_vues }} {% trans "vues" %}</span>
         </p>
 
         {% if article.image_principale %}
@@ -23,8 +24,8 @@
 
         {% if user == article.auteur %}
         <div class="mt-4">
-            <a href="{% url 'blog:modifier_article' article.slug %}" class="btn btn-outline-primary">Modifier</a>
-            <a href="{% url 'blog:supprimer_article' article.slug %}" class="btn btn-outline-danger">Supprimer</a>
+            <a href="{% url 'blog:modifier_article' article.slug %}" class="btn btn-outline-primary">{% trans "Modifier" %}</a>
+            <a href="{% url 'blog:supprimer_article' article.slug %}" class="btn btn-outline-danger">{% trans "Supprimer" %}</a>
         </div>
         {% endif %}
     </article>
@@ -32,24 +33,24 @@
     <hr class="my-5">
 
     <section class="comments">
-        <h2>Commentaires ({{ commentaires.count }})</h2>
+        <h2>{% trans "Commentaires" %} ({{ commentaires.count }})</h2>
 
         {% if user.is_authenticated %}
         <div class="card mb-4">
             <div class="card-body">
-                <h3 class="card-title h5">Laisser un commentaire</h3>
+                <h3 class="card-title h5">{% trans "Laisser un commentaire" %}</h3>
                 <form method="post">
                     {% csrf_token %}
                     <div class="mb-3">
                         {{ form.contenu }}
                     </div>
-                    <button type="submit" class="btn btn-primary">Publier</button>
+                    <button type="submit" class="btn btn-primary">{% trans "Publier" %}</button>
                 </form>
             </div>
         </div>
         {% else %}
         <div class="alert alert-info">
-            <a href="{% url 'users:login' %}">Connectez-vous</a> pour laisser un commentaire.
+            <a href="{% url 'users:login' %}">{% trans "Connectez-vous" %}</a> {% trans "pour laisser un commentaire." %}
         </div>
         {% endif %}
 
@@ -60,21 +61,21 @@
                     <div class="flex-shrink-0">
                         <div class="text-center">
                             <div class="fw-bold">{{ commentaire.auteur.username }}</div>
-                            <small class="text-muted">Membre</small>
+                            <small class="text-muted">{% trans "Membre" %}</small>
                         </div>
                     </div>
                     <div class="flex-grow-1 ms-3">
                         {{ commentaire.contenu|linebreaks }}
                         <div class="text-muted small mt-2">
-                            Posté le {{ commentaire.date_creation|date:"d/m/Y H:i" }}
+                            {% trans "Posté le" %} {{ commentaire.date_creation|date:"d/m/Y H:i" %}
                             {% if commentaire.est_modere %}
-                            <br>Modifié le {{ commentaire.date_modification|date:"d/m/Y H:i" }}
+                            <br>{% trans "Modifié le" %} {{ commentaire.date_modification|date:"d/m/Y H:i" %}
                             {% endif %}
                         </div>
                         {% if commentaire.auteur == user %}
                         <div class="mt-2">
-                            <a href="{% url 'blog:modifier_commentaire' commentaire.id %}" class="btn btn-sm btn-outline-primary">Modifier</a>
-                            <a href="{% url 'blog:supprimer_commentaire' commentaire.id %}" class="btn btn-sm btn-outline-danger">Supprimer</a>
+                            <a href="{% url 'blog:modifier_commentaire' commentaire.id %}" class="btn btn-sm btn-outline-primary">{% trans "Modifier" %}</a>
+                            <a href="{% url 'blog:supprimer_commentaire' commentaire.id %}" class="btn btn-sm btn-outline-danger">{% trans "Supprimer" %}</a>
                         </div>
                         {% endif %}
 
@@ -85,21 +86,21 @@
                                     <div class="flex-shrink-0">
                                         <div class="text-center">
                                             <div class="fw-bold">{{ reponse.auteur.username }}</div>
-                                            <small class="text-muted">Membre</small>
+                                            <small class="text-muted">{% trans "Membre" %}</small>
                                         </div>
                                     </div>
                                     <div class="flex-grow-1 ms-3">
                                         {{ reponse.contenu|linebreaks }}
                                         <div class="text-muted small mt-2">
-                                            Posté le {{ reponse.date_creation|date:"d/m/Y H:i" }}
+                                            {% trans "Posté le" %} {{ reponse.date_creation|date:"d/m/Y H:i" %}
                                             {% if reponse.est_modere %}
-                                            <br>Modifié le {{ reponse.date_modification|date:"d/m/Y H:i" }}
+                                            <br>{% trans "Modifié le" %} {{ reponse.date_modification|date:"d/m/Y H:i" %}
                                             {% endif %}
                                         </div>
                                         {% if reponse.auteur == user %}
                                         <div class="mt-2">
-                                            <a href="{% url 'blog:modifier_commentaire' reponse.id %}" class="btn btn-sm btn-outline-primary">Modifier</a>
-                                            <a href="{% url 'blog:supprimer_commentaire' reponse.id %}" class="btn btn-sm btn-outline-danger">Supprimer</a>
+                                            <a href="{% url 'blog:modifier_commentaire' reponse.id %}" class="btn btn-sm btn-outline-primary">{% trans "Modifier" %}</a>
+                                            <a href="{% url 'blog:supprimer_commentaire' reponse.id %}" class="btn btn-sm btn-outline-danger">{% trans "Supprimer" %}</a>
                                         </div>
                                         {% endif %}
                                     </div>
@@ -113,7 +114,7 @@
         </div>
         {% empty %}
         <div class="alert alert-info">
-            Aucun commentaire pour le moment. Soyez le premier à commenter !
+            {% trans "Aucun commentaire pour le moment. Soyez le premier à commenter !" %}
         </div>
         {% endfor %}
     </section>

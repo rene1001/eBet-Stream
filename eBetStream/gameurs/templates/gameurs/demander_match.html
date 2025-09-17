@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
@@ -6,7 +7,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h2>Demander un match contre {{ gameur1.pseudo }}</h2>
+                    <h2>{% trans "Demander un match contre" %} {{ gameur1.pseudo }}</h2>
                 </div>
                 <div class="card-body">
                     <form method="post">
@@ -14,8 +15,8 @@
                         <div class="form-group">
                             {{ form.as_p }}
                         </div>
-                        <button type="submit" class="btn btn-primary">Envoyer la demande</button>
-                        <a href="{% url 'gameurs:detail_gameur' gameur1.id %}" class="btn btn-secondary">Annuler</a>
+                        <button type="submit" class="btn btn-primary">{% trans "Envoyer la demande" %}</button>
+                        <a href="{% url 'gameurs:detail_gameur' gameur1.id %}" class="btn btn-secondary">{% trans "Annuler" %}</a>
                     </form>
                 </div>
             </div>
