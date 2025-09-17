@@ -22,10 +22,243 @@
     <link href="{% static 'css/sport-style.css' %}?v=brand-orange-20250916" rel="stylesheet">
 
     {% block extra_css %}{% endblock %}
+    
+    <!-- ENHANCED NAVIGATION STYLES -->
+    <style>
+    /* Cyber Navigation Enhancements */
+    .cyber-navbar {
+        background: var(--gradient-dark) !important;
+        border-bottom: 2px solid var(--brand-orange);
+        box-shadow: 0 4px 20px rgba(255, 149, 0, 0.2);
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    
+    .navbar-brand .logo {
+        max-height: 45px;
+        filter: drop-shadow(0 0 10px rgba(255, 149, 0, 0.5));
+        transition: all var(--speed-normal) ease;
+    }
+    
+    .navbar-brand:hover .logo {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 15px rgba(255, 149, 0, 0.8));
+    }
+    
+    /* Navigation Link Hierarchy */
+    .nav-primary {
+        color: var(--brand-orange) !important;
+        font-weight: 600;
+        position: relative;
+    }
+    
+    .nav-primary::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: var(--brand-orange);
+        transition: all var(--speed-normal) ease;
+        transform: translateX(-50%);
+    }
+    
+    .nav-primary:hover::after,
+    .nav-primary.active::after {
+        width: 80%;
+    }
+    
+    .nav-secondary {
+        color: var(--text-cyber) !important;
+        font-weight: 500;
+    }
+    
+    .nav-tertiary {
+        color: var(--text-dim) !important;
+        font-weight: 400;
+    }
+    
+    .nav-secondary:hover,
+    .nav-tertiary:hover {
+        color: var(--brand-orange) !important;
+        transform: translateY(-1px);
+    }
+    
+    /* VIP Styling */
+    .nav-vip {
+        color: #FFD700 !important;
+        font-weight: 700;
+        position: relative;
+        animation: vipPulse 2s ease-in-out infinite alternate;
+    }
+    
+    .vip-glow {
+        position: absolute;
+        inset: -2px;
+        background: linear-gradient(45deg, #FFD700, #FFA500);
+        border-radius: 6px;
+        z-index: -1;
+        opacity: 0.3;
+        filter: blur(4px);
+    }
+    
+    @keyframes vipPulse {
+        0% { text-shadow: 0 0 5px #FFD700; }
+        100% { text-shadow: 0 0 20px #FFD700, 0 0 30px #FFA500; }
+    }
+    
+    .nav-upgrade {
+        color: #00D4FF !important;
+        font-weight: 600;
+    }
+    
+    .nav-upgrade:hover {
+        color: #FFD700 !important;
+        text-shadow: 0 0 10px #00D4FF;
+    }
+    
+    /* User Dropdown Styling */
+    .user-dropdown {
+        background: rgba(255, 149, 0, 0.1);
+        border: 1px solid rgba(255, 149, 0, 0.3);
+        border-radius: var(--radius-m);
+        padding: 0.5rem 1rem !important;
+        color: var(--brand-white) !important;
+        font-weight: 600;
+    }
+    
+    .balance-badge {
+        background: var(--brand-orange);
+        color: var(--dark-void);
+        padding: 0.25rem 0.5rem;
+        border-radius: var(--radius-s);
+        font-size: 0.85rem;
+        font-weight: 700;
+        margin-left: 0.5rem;
+    }
+    
+    .cyber-dropdown {
+        background: var(--dark-midnight) !important;
+        border: 1px solid var(--brand-orange);
+        border-radius: var(--radius-l);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(15px);
+        padding: 0.5rem 0;
+    }
+    
+    .cyber-dropdown .dropdown-header {
+        background: rgba(255, 149, 0, 0.1);
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid rgba(255, 149, 0, 0.2);
+        text-align: center;
+    }
+    
+    .balance-display {
+        color: var(--brand-orange);
+        font-size: 1.2rem;
+        font-weight: 700;
+        font-family: 'Orbitron', monospace;
+    }
+    
+    .cyber-dropdown .dropdown-item {
+        color: var(--text-cyber);
+        padding: 0.75rem 1rem;
+        border-radius: 0;
+        transition: all var(--speed-normal) ease;
+    }
+    
+    .cyber-dropdown .dropdown-item:hover {
+        background: rgba(255, 149, 0, 0.1);
+        color: var(--brand-orange);
+        transform: translateX(5px);
+    }
+    
+    .cyber-dropdown .dropdown-item.text-danger:hover {
+        background: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+    }
+    
+    /* Auth Links */
+    .nav-auth {
+        color: var(--text-cyber) !important;
+        font-weight: 500;
+        border: 1px solid rgba(255, 149, 0, 0.3);
+        border-radius: var(--radius-m);
+        padding: 0.5rem 1rem !important;
+        margin: 0 0.25rem;
+        transition: all var(--speed-normal) ease;
+    }
+    
+    .nav-register {
+        background: var(--brand-orange);
+        color: var(--dark-void) !important;
+        font-weight: 600;
+    }
+    
+    .nav-auth:hover {
+        background: var(--brand-orange);
+        color: var(--dark-void) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 149, 0, 0.3);
+    }
+    
+    /* Mobile Responsiveness */
+    @media (max-width: 991px) {
+        .cyber-navbar {
+            padding: 0.5rem 0;
+        }
+        
+        .navbar-nav {
+            padding: 1rem 0;
+            background: rgba(26, 26, 46, 0.95);
+            border-radius: var(--radius-l);
+            margin: 0.5rem 0;
+        }
+        
+        .nav-link {
+            padding: 0.75rem 1rem !important;
+            border-radius: var(--radius-m);
+            margin: 0.25rem 0;
+        }
+        
+        .nav-primary::after {
+            display: none;
+        }
+        
+        .balance-badge {
+            display: block;
+            margin-left: 0;
+            margin-top: 0.25rem;
+            width: fit-content;
+        }
+    }
+    
+    /* Active Page Indicator */
+    .nav-link.active {
+        background: rgba(255, 149, 0, 0.1);
+        color: var(--brand-orange) !important;
+    }
+    
+    .navbar-toggler {
+        border: 2px solid var(--brand-orange);
+        border-radius: var(--radius-m);
+    }
+    
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 0.2rem rgba(255, 149, 0, 0.25);
+    }
+    
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23FF9500' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+    </style>
   </head>
   <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+    <!-- Navigation Enhanced -->
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4 cyber-navbar">
       <div class="container">
         <a class="navbar-brand" href="{% url 'core:home' %}">
           <img src="{% static 'images/Logo.png' %}" alt="eBetStream Logo" class="logo" />
@@ -40,26 +273,50 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto">
+            <!-- NAVIGATION PRINCIPALE - PRIORITÉ #1 -->
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'core:home' %}">Accueil</a>
+              <a class="nav-link nav-primary" href="{% url 'core:home' %}">
+                <i class="fas fa-home me-1"></i>Accueil
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'betting:bet_list' %}">Paris</a>
+              <a class="nav-link nav-primary" href="{% url 'betting:bet_list' %}">
+                <i class="fas fa-coins me-1"></i>Paris Live
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'gameurs:liste_gameurs' %}">Top Gameurs</a>
+              <a class="nav-link nav-primary" href="{% url 'betting:p2p_index' %}">
+                <i class="fas fa-sword me-1"></i>Défis P2P
+              </a>
+            </li>
+            
+            <!-- GAMING & SOCIAL - PRIORITÉ #2 -->
+            <li class="nav-item">
+              <a class="nav-link nav-secondary" href="{% url 'clans_gaming:liste_clans' %}">
+                <i class="fas fa-shield-alt me-1"></i>Clans
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'clans_gaming:liste_clans' %}">Clans</a>
+              <a class="nav-link nav-secondary" href="{% url 'gameurs:liste_gameurs' %}">
+                <i class="fas fa-trophy me-1"></i>Top Gameurs
+              </a>
+            </li>
+            
+            <!-- ÉVÉNEMENTS & COMMUNAUTÉ - PRIORITÉ #3 -->
+            <li class="nav-item">
+              <a class="nav-link nav-tertiary" href="{% url 'evenements:liste_evenements' %}">
+                <i class="fas fa-calendar-alt me-1"></i>Événements
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'evenements:liste_evenements' %}">Événements</a>
+              <a class="nav-link nav-tertiary" href="{% url 'forum:liste_categories' %}">
+                <i class="fas fa-comments me-1"></i>Forum
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'forum:liste_categories' %}">Forum</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'blog:liste_articles' %}">Blog</a>
+              <a class="nav-link nav-tertiary" href="{% url 'blog:liste_articles' %}">
+                <i class="fas fa-newspaper me-1"></i>Blog
+              </a>
             </li>
           </ul>
           <form action="/i18n/setlang/" method="post" class="d-flex align-items-center ms-auto">
@@ -73,42 +330,71 @@
           </form>
           <ul class="navbar-nav">
             {% if user.is_authenticated %}
+              <!-- VIP STATUS -->
               {% if user.is_vip %}
                 <li class="nav-item">
-                  <a class="nav-link text-warning fw-bold" href="{% url 'users:vip_dashboard' %}"><i class="bi bi-gem"></i> Espace VIP</a>
+                  <a class="nav-link nav-vip" href="{% url 'users:vip_dashboard' %}">
+                    <i class="fas fa-gem me-1"></i>Espace VIP
+                    <span class="vip-glow"></span>
+                  </a>
                 </li>
               {% else %}
                 <li class="nav-item">
-                  <a class="nav-link text-info" href="{% url 'users:devenir_vip' %}"><i class="bi bi-star"></i> Devenir VIP</a>
+                  <a class="nav-link nav-upgrade" href="{% url 'users:devenir_vip' %}">
+                    <i class="fas fa-star me-1"></i>Devenir VIP
+                  </a>
                 </li>
               {% endif %}
+              
+              <!-- USER DROPDOWN -->
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                  <i class="bi bi-person-circle me-1"></i>
+                <a class="nav-link dropdown-toggle user-dropdown" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                  <i class="fas fa-user-circle me-1"></i>
                   {{ user.username }}
-                  <span class="badge bg-success ms-2">{{ user.kapanga_balance|floatformat:2 }} K</span>
+                  <span class="balance-badge">{{ user.kapanga_balance|floatformat:2 }} K</span>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end">
+                <ul class="dropdown-menu dropdown-menu-end cyber-dropdown">
                   <li>
-                    <div class="dropdown-item-text">
-                      <small class="text-muted">Solde actuel</small>
-                      <div class="fw-bold">{{ user.kapanga_balance|floatformat:2 }} K</div>
+                    <div class="dropdown-header">
+                      <small class="text-muted">Solde Ktap</small>
+                      <div class="balance-display">{{ user.kapanga_balance|floatformat:2 }} K</div>
                     </div>
                   </li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="{% url 'users:profile' %}"><i class="bi bi-person me-2"></i>Mon Profil</a></li>
-                  <li><a class="dropdown-item" href="{% url 'betting:p2p_challenge_list' %}"><i class="bi bi-people-fill me-2"></i>Mes Défis P2P</a></li>
-                  <li><a class="dropdown-item" href="{% url 'betting:p2p_challenge_create' %}"><i class="bi bi-plus-circle me-2"></i>Créer un défi</a></li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'users:profile' %}">
+                      <i class="fas fa-user me-2"></i>Mon Profil
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'betting:p2p_challenge_list' %}">
+                      <i class="fas fa-swords me-2"></i>Mes Défis P2P
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'betting:p2p_challenge_create' %}">
+                      <i class="fas fa-plus-circle me-2"></i>Créer un Défi
+                    </a>
+                  </li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="{% url 'users:logout' %}"><i class="bi bi-box-arrow-right me-2"></i>Déconnexion</a></li>
+                  <li>
+                    <a class="dropdown-item text-danger" href="{% url 'users:logout' %}">
+                      <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+                    </a>
+                  </li>
                 </ul>
               </li>
             {% else %}
+              <!-- GUEST ACTIONS -->
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'users:login' %}"><i class="bi bi-box-arrow-in-right me-1"></i>Connexion</a>
+                <a class="nav-link nav-auth" href="{% url 'users:login' %}">
+                  <i class="fas fa-sign-in-alt me-1"></i>Connexion
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'users:register' %}"><i class="bi bi-person-plus me-1"></i>Inscription</a>
+                <a class="nav-link nav-auth nav-register" href="{% url 'users:register' %}">
+                  <i class="fas fa-user-plus me-1"></i>Inscription
+                </a>
               </li>
             {% endif %}
           </ul>
