@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-17 13:22+0000\n"
+"POT-Creation-Date: 2025-09-17 15:42+0000\n"
 "Language: en\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
@@ -46,9 +46,100 @@ msgstr ""
 msgid "Conditions"
 msgstr ""
 
+#: core/templates/core/home.html:49
+msgid "Gagnez de l'Argent en Jouant sur eBetStream"
+msgstr ""
+
+#: core/templates/core/home.html:50
+msgid ""
+"Transformez votre passion pour le gaming en gains réels avec eBetStream ! "
+"Chaque victoire dans vos jeux préférés vous rapporte des tokens Ktap ou du "
+"cash. Inscrivez-vous sur ebetstream.com et commencez à gagner dès "
+"aujourd'hui."
+msgstr ""
+
+#: core/templates/core/home.html:51
+msgid "Commencer à Gagner"
+msgstr ""
+
+#: core/templates/core/home.html:63
+msgid "Devenez la Star d'eBetStream"
+msgstr ""
+
+#: core/templates/core/home.html:64
+msgid ""
+"Grimpez les classements et devenez le joueur légendaire d'eBetStream ! "
+"Enchaînez les victoires, gagnez des primes en Ktap, et brillez devant une "
+"audience mondiale."
+msgstr ""
+
+#: core/templates/core/home.html:65
+msgid "Devenir Légende"
+msgstr ""
+
+#: core/templates/core/home.html:77
+msgid "Relevez des Défis Épiques sur eBetStream"
+msgstr ""
+
+#: core/templates/core/home.html:78
+msgid ""
+"Défiez vos amis ou des joueurs du monde entier sur eBetStream ! Créez des "
+"matchs personnalisés (1v1, clans, tournois), fixez vos enjeux, et prouvez "
+"votre talent. Lancez votre défi sur ebetstream.com dès maintenant."
+msgstr ""
+
+#: core/templates/core/home.html:79
+msgid "Lancer un Défi"
+msgstr ""
+
+#: core/templates/core/home.html:91
+msgid "Placez des Paris Gagnants sur eBetStream"
+msgstr ""
+
+#: core/templates/core/home.html:92
+msgid ""
+"Pariez sur vos tournois préférés avec eBetStream ! Que ce soient des matchs "
+"pros ou amateurs, placez vos mises en Ktap ou cash et gagnez gros."
+msgstr ""
+
+#: core/templates/core/home.html:93
+msgid "Parier Maintenant"
+msgstr ""
+
+#: core/templates/core/home.html:105
+msgid "Regardez des Matchs en Direct sur eBetStream"
+msgstr ""
+
+#: core/templates/core/home.html:106
+msgid ""
+"Vibrez avec des matchs e-gaming en direct sur le site ! Suivez des duels "
+"palpitants, soutenez vos joueurs préférés, et plongez dans l'action en temps "
+"réel."
+msgstr ""
+
+#: core/templates/core/home.html:107
+#, fuzzy
+#| msgid "eBetStream"
+msgid "Live Stream"
+msgstr "eBetStream"
+
 #: core/templates/core/home.html:128
 msgid "Monetize your passion"
 msgstr "Monetize your passion"
+
+#: core/templates/core/home.html:131
+msgid "Défis P2P"
+msgstr ""
+
+#: core/templates/core/home.html:134
+#, fuzzy
+#| msgid "Paris Placés"
+msgid "Paris Instantanés"
+msgstr "Bets Placed"
+
+#: core/templates/core/home.html:137
+msgid "Rejoindre l'Élite"
+msgstr ""
 
 #: core/templates/core/home.html:149
 msgid "Joueurs Actifs"
@@ -89,6 +180,3 @@ msgstr ""
 #: templates/base.html:493
 msgid "Aucun partenaire pour le moment"
 msgstr ""
-
-#~ msgid "eBetStream"
-#~ msgstr "eBetStream"
