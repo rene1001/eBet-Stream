@@ -19,7 +19,64 @@ Design System v3.0 - Beyond FanDuel & DraftKings
   --brand-warm: #FF6B35;
 }
 
-/* CYBER ORANGE DESIGN SYSTEM - FIXED DARK THEME */
+/* ========================================= */
+/* THEME SYSTEM - UX OPTIMIZED & ERGONOMIC */
+/* ========================================= */
+
+/* CYBER THEME - Default eBetStream Experience */
+html[data-theme="cyber"],
+html:not([data-theme]) {
+  /* Inherit all default tokens from :root */
+}
+
+/* DIM THEME - Reduced Intensity for Long Sessions */
+html[data-theme="dim"] {
+  /* Softer backgrounds for eye comfort */
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #111118;
+  --bg-tertiary: #1a1a28;
+  --bg-surface: #151525;
+  --bg-accent: #1a1a3a;
+  
+  /* Reduced glow and animations */
+  --shadow-intensity: 0.3;
+  --glow-intensity: 0.2;
+  --anim-intensity: 0.6;
+  --bg-animation-opacity: 0.7;
+  
+  /* Slightly muted text for comfort */
+  --text-secondary: #a8aeb7;
+  --text-tertiary: #7a8088;
+  
+  /* Softer orange accent */
+  --glass-neon: rgba(255, 149, 0, 0.06);
+}
+
+/* CONTRAST THEME - High Accessibility WCAG AA */
+html[data-theme="contrast"] {
+  /* Maximum contrast backgrounds */
+  --bg-primary: #000000;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2a2a2a;
+  --bg-surface: #333333;
+  --bg-accent: #404040;
+  
+  /* High contrast text */
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --text-tertiary: #cccccc;
+  
+  /* Reduced animations for accessibility */
+  --shadow-intensity: 0;
+  --glow-intensity: 0.1;
+  --anim-intensity: 0.2;
+  --bg-animation-opacity: 0.3;
+  
+  /* Clear glass effects */
+  --glass-light: rgba(255, 255, 255, 0.05);
+  --glass-medium: rgba(255, 255, 255, 0.1);
+  --glass-heavy: rgba(255, 255, 255, 0.2);
+}
 
 /* MAIN DESIGN SYSTEM - CYBER ORANGE DARK THEME */
 :root {
@@ -96,6 +153,13 @@ Design System v3.0 - Beyond FanDuel & DraftKings
   --speed-fast: 0.2s;
   --speed-normal: 0.4s;
   --speed-slow: 0.8s;
+  
+  /* Animation Intensity Controls - UX Optimized */
+  --anim-intensity: 1;
+  --shadow-intensity: 1;
+  --glow-intensity: 0.4;
+  --bg-animation-opacity: 1;
+  --transition-smoothness: 0.3s;
 }
 
 /* Global Base Styles */
@@ -118,7 +182,8 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   position: relative;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color var(--transition-smoothness) ease, 
+              color var(--transition-smoothness) ease;
 }
 
 /* Revolutionary Animated Background */
@@ -130,13 +195,18 @@ body::before {
   width: 100vw;
   height: 100vh;
   background: 
-    radial-gradient(circle at 25% 25%, rgba(255, 149, 0, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(255, 179, 71, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(255, 193, 7, 0.08) 0%, transparent 70%),
+    radial-gradient(circle at 25% 25%, 
+      rgba(255, 149, 0, calc(0.15 * var(--bg-animation-opacity))) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, 
+      rgba(255, 179, 71, calc(0.12 * var(--bg-animation-opacity))) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, 
+      rgba(255, 193, 7, calc(0.08 * var(--bg-animation-opacity))) 0%, transparent 70%),
     linear-gradient(45deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
-  animation: cosmicDrift 15s ease-in-out infinite alternate;
+  animation: cosmicDrift calc(15s / var(--anim-intensity)) ease-in-out infinite alternate;
+  opacity: var(--bg-animation-opacity);
   z-index: -2;
-  transition: background 0.3s ease;
+  transition: background var(--transition-smoothness) ease, 
+              opacity var(--transition-smoothness) ease;
 }
 
 body::after {
@@ -997,6 +1067,83 @@ body::after {
   0% { transform: scale(0.8); opacity: 0; }
   50% { transform: scale(1.2); opacity: 1; }
   100% { transform: scale(1); opacity: 1; }
+}
+
+/* ================================ */
+/* THEME SELECTOR - UX COMPONENTS  */
+/* ================================ */
+
+/* Theme-specific icon colors */
+.text-cyber { color: var(--brand-orange) !important; }
+.text-dim { color: #6B7280 !important; }
+.text-contrast { color: #FFFFFF !important; }
+
+/* Theme selector dropdown styling */
+.dropdown-menu {
+  background: var(--bg-surface) !important;
+  border: 1px solid rgba(255, 149, 0, 0.2) !important;
+  border-radius: var(--radius-m) !important;
+  backdrop-filter: var(--blur-glass) !important;
+  box-shadow: var(--shadow-depth) !important;
+}
+
+.dropdown-item {
+  color: var(--text-primary) !important;
+  transition: all var(--transition-smoothness) ease !important;
+  border-radius: var(--radius-s) !important;
+  margin: 2px 4px !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background: var(--glass-medium) !important;
+  color: var(--text-primary) !important;
+  transform: translateY(-1px) !important;
+}
+
+.dropdown-item.active {
+  background: var(--glass-neon) !important;
+  color: var(--text-primary) !important;
+  border-left: 3px solid var(--brand-orange) !important;
+}
+
+/* Theme toggle button styling */
+.btn-outline-light {
+  border-color: rgba(255, 149, 0, 0.3) !important;
+  color: var(--text-primary) !important;
+  transition: all var(--transition-smoothness) ease !important;
+}
+
+.btn-outline-light:hover {
+  background: var(--glass-medium) !important;
+  border-color: var(--brand-orange) !important;
+  color: var(--text-primary) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  [data-reduced-motion="true"] body::before,
+  [data-reduced-motion="true"] body::after {
+    animation: none !important;
+  }
+  
+  [data-reduced-motion="true"] * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Responsive theme selector */
+@media (max-width: 768px) {
+  .dropdown-item {
+    padding: 0.75rem 1rem !important;
+  }
+  
+  .dropdown-item small {
+    font-size: 0.75rem !important;
+  }
 }
 
 /* Cyber enhancements - Fixed design */
