@@ -359,12 +359,167 @@
         </div>
     </section>
 
+    <!-- Clans Gaming Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-cyber mb-3">
+                    <i class="fas fa-shield-alt me-3"></i>CLANS GAMING
+                </h2>
+                <p class="text-dim">Rejoignez une communauté, dominez ensemble</p>
+            </div>
+            
+            <div class="cyber-card text-center p-5">
+                <div class="mb-4">
+                    <i class="fas fa-users text-cyber" style="font-size: 4rem;"></i>
+                </div>
+                <h3 class="card-title mb-4">Rejoignez les Meilleurs Clans</h3>
+                <p class="card-text mb-4">
+                    Formez des alliances stratégiques, participez à des tournois de clan et 
+                    gravissez les classements avec vos coéquipiers.
+                </p>
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <a href="{% url 'clans_gaming:liste_clans' %}" class="btn-cyber">
+                        <i class="fas fa-shield-alt me-2"></i>Explorer les Clans
+                    </a>
+                    <a href="{% url 'clans_gaming:creer_clan' %}" class="btn-cyber btn-secondary">
+                        <i class="fas fa-plus-circle me-2"></i>Créer mon Clan
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Gameurs Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-cyber mb-3">
+                    <i class="fas fa-trophy me-3"></i>TOP GAMEURS
+                </h2>
+                <p class="text-dim">Les légendes de l'esport mondial</p>
+            </div>
+            
+            <div class="cyber-card text-center p-5">
+                <div class="mb-4">
+                    <i class="fas fa-crown text-cyber" style="font-size: 4rem;"></i>
+                </div>
+                <h3 class="card-title mb-4">Classement Elite</h3>
+                <p class="card-text mb-4">
+                    Découvrez les joueurs les plus talentueux, suivez leurs performances 
+                    et inspirez-vous de leurs stratégies gagnantes.
+                </p>
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <a href="{% url 'gameurs:liste_gameurs' %}" class="btn-cyber">
+                        <i class="fas fa-trophy me-2"></i>Voir le Classement
+                    </a>
+                    <a href="{% url 'gameurs:profil_gameur' %}" class="btn-cyber btn-secondary">
+                        <i class="fas fa-user-plus me-2"></i>Devenir Pro
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Événements Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-cyber mb-3">
+                    <i class="fas fa-calendar-alt me-3"></i>ÉVÉNEMENTS ESPORT
+                </h2>
+                <p class="text-dim">Tournois, competitions et évènements à ne pas manquer</p>
+            </div>
+            
+            <div class="cyber-card text-center p-5">
+                <div class="mb-4">
+                    <i class="fas fa-calendar-check text-cyber" style="font-size: 4rem;"></i>
+                </div>
+                <h3 class="card-title mb-4">Calendrier Gaming</h3>
+                <p class="card-text mb-4">
+                    Participez aux plus grands événements esport : tournois officiels, 
+                    compétitions communautaires et rencontres exclusives.
+                </p>
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <a href="{% url 'evenements:liste_evenements' %}" class="btn-cyber">
+                        <i class="fas fa-calendar-alt me-2"></i>Voir les Événements
+                    </a>
+                    <a href="{% url 'evenements:creer_evenement' %}" class="btn-cyber btn-secondary">
+                        <i class="fas fa-plus-circle me-2"></i>Organiser un Événement
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Forum Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-cyber mb-3">
+                    <i class="fas fa-comments me-3"></i>FORUM COMMUNAUTÉ
+                </h2>
+                <p class="text-dim">Échangez, débattez et partagez vos passions gaming</p>
+            </div>
+            
+            <div class="cyber-card text-center p-5">
+                <div class="mb-4">
+                    <i class="fas fa-users text-cyber" style="font-size: 4rem;"></i>
+                </div>
+                <h3 class="card-title mb-4">Communauté Active</h3>
+                <p class="card-text mb-4">
+                    Rejoignez les discussions, partagez vos stratégies, obtenez des conseils 
+                    d'experts et créez des liens avec d'autres passionnés.
+                </p>
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <a href="{% url 'forum:liste_categories' %}" class="btn-cyber">
+                        <i class="fas fa-comments me-2"></i>Accéder au Forum
+                    </a>
+                    <a href="{% url 'forum:nouveau_sujet' %}" class="btn-cyber btn-secondary">
+                        <i class="fas fa-plus-circle me-2"></i>Nouveau Sujet
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog/News Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-cyber mb-3">
+                    <i class="fas fa-newspaper me-3"></i>BLOG & ACTUALITÉS
+                </h2>
+                <p class="text-dim">Articles exclusifs, analyses et actualités gaming</p>
+            </div>
+            
+            <div class="cyber-card text-center p-5">
+                <div class="mb-4">
+                    <i class="fas fa-feather-alt text-cyber" style="font-size: 4rem;"></i>
+                </div>
+                <h3 class="card-title mb-4">Contenu Exclusif</h3>
+                <p class="card-text mb-4">
+                    Découvrez nos analyses approfondies, guides stratégiques, 
+                    interviews de pros et les dernières actualités de l'esport mondial.
+                </p>
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <a href="{% url 'blog:liste_articles' %}" class="btn-cyber">
+                        <i class="fas fa-newspaper me-2"></i>Lire les Articles
+                    </a>
+                    <a href="{% url 'blog:creer_article' %}" class="btn-cyber btn-secondary">
+                        <i class="fas fa-pen me-2"></i>Écrire un Article
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Gaming News Feed Scrolling - PRIORITÉ #5 -->
     <section class="gaming-feed-section py-5" style="margin-top: var(--space-xl);">
         <div class="container">
             <div class="section-header">
                 <h2 class="text-cyber mb-3">
-                    <i class="fas fa-newspaper me-3"></i>ACTUALITÉS ESPORT EN DIRECT
+                    <i class="fas fa-rss me-3"></i>FEED ACTUALITÉS EN TEMPS RÉEL
                 </h2>
                 <p class="text-dim">Restez informé des dernières nouvelles du monde gaming</p>
             </div>
