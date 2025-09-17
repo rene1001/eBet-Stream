@@ -48,7 +48,7 @@ msgstr ""
 
 #: core/templates/core/home.html:49
 msgid "Gagnez de l'Argent en Jouant sur eBetStream"
-msgstr ""
+msgstr "Earn Money Playing on eBetStream"
 
 #: core/templates/core/home.html:50
 msgid ""
@@ -56,72 +56,70 @@ msgid ""
 "Chaque victoire dans vos jeux préférés vous rapporte des tokens Ktap ou du "
 "cash. Inscrivez-vous sur ebetstream.com et commencez à gagner dès "
 "aujourd'hui."
-msgstr ""
+msgstr "Transform your passion for gaming into real earnings with eBetStream! Every victory in your favorite games earns you Ktap tokens or cash. Sign up on ebetstream.com and start earning today."
 
 #: core/templates/core/home.html:51
 msgid "Commencer à Gagner"
-msgstr ""
+msgstr "Start Earning"
 
 #: core/templates/core/home.html:63
 msgid "Devenez la Star d'eBetStream"
-msgstr ""
+msgstr "Become the Star of eBetStream"
 
 #: core/templates/core/home.html:64
 msgid ""
 "Grimpez les classements et devenez le joueur légendaire d'eBetStream ! "
 "Enchaînez les victoires, gagnez des primes en Ktap, et brillez devant une "
 "audience mondiale."
-msgstr ""
+msgstr "Climb the rankings and become the legendary player of eBetStream! Chain victories, earn Ktap bonuses, and shine in front of a global audience."
 
 #: core/templates/core/home.html:65
 msgid "Devenir Légende"
-msgstr ""
+msgstr "Become a Legend"
 
 #: core/templates/core/home.html:77
 msgid "Relevez des Défis Épiques sur eBetStream"
-msgstr ""
+msgstr "Take on Epic Challenges on eBetStream"
 
 #: core/templates/core/home.html:78
 msgid ""
 "Défiez vos amis ou des joueurs du monde entier sur eBetStream ! Créez des "
 "matchs personnalisés (1v1, clans, tournois), fixez vos enjeux, et prouvez "
 "votre talent. Lancez votre défi sur ebetstream.com dès maintenant."
-msgstr ""
+msgstr "Challenge your friends or players worldwide on eBetStream! Create custom matches (1v1, clans, tournaments), set your stakes, and prove your talent. Launch your challenge on ebetstream.com right now."
 
 #: core/templates/core/home.html:79
 msgid "Lancer un Défi"
-msgstr ""
+msgstr "Launch a Challenge"
 
 #: core/templates/core/home.html:91
 msgid "Placez des Paris Gagnants sur eBetStream"
-msgstr ""
+msgstr "Place Winning Bets on eBetStream"
 
 #: core/templates/core/home.html:92
 msgid ""
 "Pariez sur vos tournois préférés avec eBetStream ! Que ce soient des matchs "
 "pros ou amateurs, placez vos mises en Ktap ou cash et gagnez gros."
-msgstr ""
+msgstr "Bet on your favorite tournaments with eBetStream! Whether pro or amateur matches, place your stakes in Ktap or cash and win big."
 
 #: core/templates/core/home.html:93
 msgid "Parier Maintenant"
-msgstr ""
+msgstr "Bet Now"
 
 #: core/templates/core/home.html:105
 msgid "Regardez des Matchs en Direct sur eBetStream"
-msgstr ""
+msgstr "Watch Live Matches on eBetStream"
 
 #: core/templates/core/home.html:106
 msgid ""
 "Vibrez avec des matchs e-gaming en direct sur le site ! Suivez des duels "
 "palpitants, soutenez vos joueurs préférés, et plongez dans l'action en temps "
 "réel."
-msgstr ""
+msgstr "Feel the thrill with live e-gaming matches on the site! Follow exciting duels, support your favorite players, and dive into real-time action."
 
 #: core/templates/core/home.html:107
-#, fuzzy
-#| msgid "eBetStream"
 msgid "Live Stream"
-msgstr "eBetStream"
+msgstr "Live Stream"
 
 #: core/templates/core/home.html:128
 msgid "Monetize your passion"
@@ -129,17 +127,15 @@ msgstr "Monetize your passion"
 
 #: core/templates/core/home.html:131
 msgid "Défis P2P"
-msgstr ""
+msgstr "P2P Challenges"
 
 #: core/templates/core/home.html:134
-#, fuzzy
-#| msgid "Paris Placés"
 msgid "Paris Instantanés"
-msgstr "Bets Placed"
+msgstr "Instant Bets"
 
 #: core/templates/core/home.html:137
 msgid "Rejoindre l'Élite"
-msgstr ""
+msgstr "Join the Elite"
 
 #: core/templates/core/home.html:149
 msgid "Joueurs Actifs"
