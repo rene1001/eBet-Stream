@@ -980,21 +980,75 @@ body::after {
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .promo-slide {
-        height: 250px;
+        height: 280px; /* Augmenté pour plus de visibilité */
     }
     
-    .promo-title {
-        font-size: 1.4rem;
-        margin-bottom: var(--space-s);
-    }
-    
-    .promo-description {
-        font-size: 1rem;
-        margin-bottom: var(--space-m);
+    .promo-overlay {
+        /* Amélioration pour Android - background plus opaque */
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 8, 0.85) 0%,
+            rgba(26, 26, 46, 0.9) 50%,
+            rgba(255, 149, 0, 0.15) 100%
+        ) !important;
+        padding: var(--space-m) var(--space-s); /* Plus de padding */
+        /* Force l'affichage sur Android */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        z-index: 3;
     }
     
     .promo-content {
         padding: var(--space-s);
+        /* Assure la visibilité sur Android */
+        position: relative;
+        z-index: 4;
+        width: 100%;
+        max-width: 90%;
+    }
+    
+    .promo-title {
+        font-size: 1.5rem !important; /* Plus grande pour lisibilité */
+        margin-bottom: var(--space-s);
+        /* Amélioration de la lisibilité sur Android */
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9), 
+                     0 0 20px rgba(255, 149, 0, 0.8) !important;
+        color: var(--brand-orange) !important;
+        line-height: 1.2;
+        font-weight: 800;
+    }
+    
+    .promo-description {
+        font-size: 0.95rem;
+        margin-bottom: var(--space-m);
+        /* Meilleure lisibilité sur Android */
+        text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.95) !important;
+        color: #ffffff !important;
+        line-height: 1.4;
+        font-weight: 500;
+        /* Limite le texte sur mobile */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    /* Boutons des slides - meilleure visibilité */
+    .promo-content .btn-cyber {
+        font-size: 0.9rem !important;
+        padding: 12px 20px !important;
+        margin-top: var(--space-s);
+        /* Amélioration pour Android */
+        background: var(--gradient-primary) !important;
+        border: 2px solid var(--brand-orange) !important;
+        color: #ffffff !important;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8) !important;
+        font-weight: 600;
+        min-height: 44px; /* Taille minimum pour touch sur mobile */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .carousel-control-prev-icon,
@@ -1002,5 +1056,30 @@ body::after {
         width: 40px;
         height: 40px;
         padding: 10px;
+    }
+}
+
+/* Spécifique pour très petits écrans (Android compact) */
+@media (max-width: 480px) {
+    .promo-slide {
+        height: 260px;
+    }
+    
+    .promo-overlay {
+        padding: var(--space-s) 8px;
+    }
+    
+    .promo-title {
+        font-size: 1.3rem !important;
+    }
+    
+    .promo-description {
+        font-size: 0.85rem;
+        -webkit-line-clamp: 2; /* Encore moins de lignes sur très petit écran */
+    }
+    
+    .promo-content .btn-cyber {
+        font-size: 0.8rem !important;
+        padding: 10px 16px !important;
     }
 }
