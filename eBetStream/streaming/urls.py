@@ -6,6 +6,5 @@ from . import views
 app_name = 'streaming'
 
 urlpatterns = [
-    path('', views.streaming_index, name='streaming_index'),
     path('watch/<int:streaming_id>/', views.watch_stream, name='watch_stream'),
 ]

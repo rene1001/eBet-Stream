@@ -27,110 +27,22 @@
 </div>
 
 <div class="main-content">
-    <!-- Hero Carousel Section -->
-    <section class="hero-carousel-section">
-        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
-            <!-- Carousel Indicators -->
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
-                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
-                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
-                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3"></button>
-                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="4"></button>
+    <!-- Revolutionary Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">eBetStream</h1>
+            <p class="hero-subtitle">L'avenir des paris sportifs électroniques</p>
+            <div class="hero-actions">
+                <a href="{% url 'betting:p2p_index' %}" class="btn-cyber">
+                    <i class="fas fa-gamepad me-2"></i>Défis P2P
+                </a>
+                <a href="{% url 'betting:bet_list' %}" class="btn-cyber btn-secondary">
+                    <i class="fas fa-bolt me-2"></i>Paris Live
+                </a>
+                <a href="{% url 'users:register' %}" class="btn-cyber">
+                    <i class="fas fa-rocket me-2"></i>Rejoindre
+                </a>
             </div>
-            
-            <!-- Carousel Slides -->
-            <div class="carousel-inner">
-                <!-- Slide 1: Défis P2P -->
-                <div class="carousel-item active">
-                    <div class="hero-slide">
-                        <div class="slide-background slide-bg-1"></div>
-                        <div class="slide-content">
-                            <h1 class="slide-title">Défis P2P Cyber</h1>
-                            <p class="slide-description">Affrontez les meilleurs joueurs dans des duels épiques et remportez des prix en crypto. Votre skill détermine vos gains !</p>
-                            <div class="slide-actions">
-                                <a href="{% url 'betting:p2p_index' %}" class="btn-cyber">
-                                    <i class="fas fa-gamepad me-2"></i>Rejoindre l'Arène
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Slide 2: Paris Live -->
-                <div class="carousel-item">
-                    <div class="hero-slide">
-                        <div class="slide-background slide-bg-2"></div>
-                        <div class="slide-content">
-                            <h1 class="slide-title">Paris Live Temps Réel</h1>
-                            <p class="slide-description">Pariez en direct sur vos équipes favorites avec des cotes qui évoluent en temps réel. L'adrénaline à l'état pur !</p>
-                            <div class="slide-actions">
-                                <a href="{% url 'betting:bet_list' %}" class="btn-cyber">
-                                    <i class="fas fa-bolt me-2"></i>Parier Maintenant
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Slide 3: Streaming -->
-                <div class="carousel-item">
-                    <div class="hero-slide">
-                        <div class="slide-background slide-bg-3"></div>
-                        <div class="slide-content">
-                            <h1 class="slide-title">Streaming HD Premium</h1>
-                            <p class="slide-description">Regardez les plus grands tournois esport en qualité 4K avec nos streams exclusifs. Jamais de lag, toujours du spectacle !</p>
-                            <div class="slide-actions">
-                                <a href="{% url 'streaming:streaming_index' %}" class="btn-cyber">
-                                    <i class="fas fa-play me-2"></i>Voir les Streams
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Slide 4: Tournois -->
-                <div class="carousel-item">
-                    <div class="hero-slide">
-                        <div class="slide-background slide-bg-4"></div>
-                        <div class="slide-content">
-                            <h1 class="slide-title">Tournois Épiques</h1>
-                            <p class="slide-description">Participez aux plus grands tournois esport avec des cashprizes délirants. Montrez votre talent au monde entier !</p>
-                            <div class="slide-actions">
-                                <a href="{% url 'core:game_list' %}" class="btn-cyber">
-                                    <i class="fas fa-trophy me-2"></i>Rejoindre un Tournoi
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Slide 5: Communauté -->
-                <div class="carousel-item">
-                    <div class="hero-slide">
-                        <div class="slide-background slide-bg-5"></div>
-                        <div class="slide-content">
-                            <h1 class="slide-title">Communauté Gaming Elite</h1>
-                            <p class="slide-description">Rejoignez 1.2M+ de gamers passionnés. Créez votre clan, participez aux forums et tissez des liens avec les pros !</p>
-                            <div class="slide-actions">
-                                <a href="{% url 'users:register' %}" class="btn-cyber">
-                                    <i class="fas fa-users me-2"></i>Rejoindre la Communauté
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Carousel Controls -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-                <span class="visually-hidden">Précédent</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-                <span class="visually-hidden">Suivant</span>
-            </button>
         </div>
     </section>
 
