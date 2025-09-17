@@ -1009,7 +1009,7 @@ body::after {
     }
     
     .promo-title {
-        font-size: 1.5rem !important; /* Plus grande pour lisibilité */
+        font-size: 1.2rem !important; /* Taille réduite pour mobile */
         margin-bottom: var(--space-s);
         /* Amélioration de la lisibilité sur Android */
         text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9), 
@@ -1070,7 +1070,7 @@ body::after {
     }
     
     .promo-title {
-        font-size: 1.3rem !important;
+        font-size: 1.1rem !important;
     }
     
     .promo-description {
