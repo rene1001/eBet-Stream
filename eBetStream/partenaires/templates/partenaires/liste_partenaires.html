@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
-    <h1 class="mb-4">Nos Partenaires</h1>
+    <h1 class="mb-4">{% trans "Nos Partenaires" %}</h1>
     
     <div class="row">
         {% for partenaire in partenaires %}
@@ -15,15 +16,15 @@
                         <span class="badge bg-primary">{{ partenaire.get_type_partenaire_display }}</span>
                     </p>
                     <p class="card-text">{{ partenaire.description|truncatewords:30 }}</p>
-                    <a href="{% url 'partenaires:detail_partenaire' partenaire.id %}" class="btn btn-primary">En savoir plus</a>
-                    <a href="{{ partenaire.site_web }}" class="btn btn-outline-primary" target="_blank">Visiter le site</a>
+                    <a href="{% url 'partenaires:detail_partenaire' partenaire.id %}" class="btn btn-primary">{% trans "En savoir plus" %}</a>
+                    <a href="{{ partenaire.site_web }}" class="btn btn-outline-primary" target="_blank">{% trans "Visiter le site" %}</a>
                 </div>
             </div>
         </div>
         {% empty %}
         <div class="col-12">
             <div class="alert alert-info">
-                Aucun partenaire n'est actuellement disponible.
+                {% trans "Aucun partenaire n'est actuellement disponible." %}
             </div>
         </div>
         {% endfor %}

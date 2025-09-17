@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
-    <h1 class="mb-4">Meilleurs Gameurs</h1>
+    <h1 class="mb-4">{% trans "Meilleurs Gameurs" %}</h1>
     
     <div class="row">
         {% for gameur in gameurs %}
@@ -14,18 +15,18 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ gameur.pseudo }}</h5>
                     <p class="card-text">
-                        Jeu préféré : {{ gameur.jeu_prefere }}<br>
-                        Victoires : {{ gameur.nombre_victoires }}<br>
-                        Défaites : {{ gameur.nombre_defaites }}<br>
-                        Ratio : {{ gameur.ratio }}%
+                        {% trans "Jeu préféré" %} : {{ gameur.jeu_prefere }}<br>
+                        {% trans "Victoires" %} : {{ gameur.nombre_victoires }}<br>
+                        {% trans "Défaites" %} : {{ gameur.nombre_defaites }}<br>
+                        {% trans "Ratio" %} : {{ gameur.ratio }}%
                     </p>
-                    <a href="{% url 'gameurs:detail_gameur' gameur.id %}" class="btn btn-primary">Voir le profil</a>
+                    <a href="{% url 'gameurs:detail_gameur' gameur.id %}" class="btn btn-primary">{% trans "Voir le profil" %}</a>
                 </div>
             </div>
         </div>
         {% empty %}
         <div class="col-12">
-            <p class="text-center">Aucun gameur n'est encore inscrit.</p>
+            <p class="text-center">{% trans "Aucun gameur n'est encore inscrit." %}</p>
         </div>
         {% endfor %}
     </div>
