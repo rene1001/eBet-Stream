@@ -1,7 +1,8 @@
 {% extends 'users/base.html' %}
 {% load widget_tweaks %}
+{% load i18n %}
 
-{% block title %}Deposit Request - eBetStream{% endblock %}
+{% block title %}{% trans "Deposit Request - eBetStream" %}{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -9,13 +10,13 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Deposit Request</h4>
+                    <h4 class="mb-0">{% trans "Deposit Request" %}</h4>
                 </div>
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="alert alert-info">
-                            <p>Your deposit request will be reviewed by our team. Once approved, the amount will be added to your balance.</p>
+                            <p>{% trans "Your deposit request will be reviewed by our team. Once approved, the amount will be added to your balance." %}</p>
                         </div>
                         
                         {% if form.non_field_errors %}
@@ -32,7 +33,7 @@
                                 {{ form.amount.errors }}
                             </div>
                             {% endif %}
-                            <small class="text-muted">Minimum amount: {{ min_amount }} K / Maximum: {{ max_amount }} K</small>
+                            <small class="text-muted">{% trans "Minimum amount:" %} {{ min_amount }} K / {% trans "Maximum:" %} {{ max_amount }} K</small>
                         </div>
                         
                         <div class="mb-3">
@@ -72,12 +73,12 @@
                                 {{ form.proof_of_payment.errors }}
                             </div>
                             {% endif %}
-                            <small class="text-muted">Accepted formats: JPG, PNG, PDF (max 5MB)</small>
+                            <small class="text-muted">{% trans "Accepted formats: JPG, PNG, PDF (max 5MB)" %}</small>
                         </div>
                         
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Submit Request</button>
-                            <a href="{% url 'users:profile' %}" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">{% trans "Submit Request" %}</button>
+                            <a href="{% url 'users:profile' %}" class="btn btn-outline-secondary">{% trans "Cancel" %}</a>
                         </div>
                     </form>
                 </div>

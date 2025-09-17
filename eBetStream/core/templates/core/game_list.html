@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Liste des Jeux{% endblock %}
+{% block title %}{% trans "Liste des Jeux" %}{% endblock %}
 
 {% block content %}
 <div class="container py-5">
-    <h1 class="mb-4">Liste des Jeux</h1>
+    <h1 class="mb-4">{% trans "Liste des Jeux" %}</h1>
     
     <div class="row">
         {% for game in games %}
@@ -22,13 +23,13 @@
                     <h5 class="card-title">{{ game.name }}</h5>
                     <p class="card-text">{{ game.description|truncatewords:30 }}</p>
                     <div class="d-flex justify-content-between align-items-center">
-                        <span class="badge bg-primary">{{ game.tournaments.count }} Tournois</span>
-                        <span class="badge bg-success">{{ game.matches_count }} Matches</span>
+                        <span class="badge bg-primary">{{ game.tournaments.count }} {% trans "Tournois" %}</span>
+                        <span class="badge bg-success">{{ game.matches_count }} {% trans "Matches" %}</span>
                     </div>
                 </div>
                 <div class="card-footer bg-transparent">
                     <a href="{% url 'core:tournament_list' game.id %}" class="btn btn-primary w-100">
-                        <i class="fas fa-trophy me-2"></i>Voir les Tournois
+                        <i class="fas fa-trophy me-2"></i>{% trans "Voir les Tournois" %}
                     </a>
                 </div>
             </div>
@@ -36,7 +37,7 @@
         {% empty %}
         <div class="col-12">
             <div class="alert alert-info">
-                Aucun jeu disponible pour le moment.
+                {% trans "Aucun jeu disponible pour le moment." %}
             </div>
         </div>
         {% endfor %}

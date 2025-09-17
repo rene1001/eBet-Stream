@@ -1,6 +1,7 @@
 <!-- betting/templates/betting/bet_list.html -->
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}{{ title }}{% endblock %}
 
@@ -15,7 +16,7 @@
                 <div class="col-md-3">
                     <div class="card bg-primary text-white">
                         <div class="card-body">
-                            <h5 class="card-title">Total Bets</h5>
+                            <h5 class="card-title">{% trans "Total Bets" %}</h5>
                             <p class="card-text h3">{{ total_bets }}</p>
                         </div>
                     </div>
@@ -23,7 +24,7 @@
                 <div class="col-md-3">
                     <div class="card bg-success text-white">
                         <div class="card-body">
-                            <h5 class="card-title">Won Bets</h5>
+                            <h5 class="card-title">{% trans "Won Bets" %}</h5>
                             <p class="card-text h3">{{ total_won }}</p>
                         </div>
                     </div>
@@ -31,7 +32,7 @@
                 <div class="col-md-3">
                     <div class="card bg-danger text-white">
                         <div class="card-body">
-                            <h5 class="card-title">Lost Bets</h5>
+                            <h5 class="card-title">{% trans "Lost Bets" %}</h5>
                             <p class="card-text h3">{{ total_lost }}</p>
                         </div>
                     </div>
@@ -39,7 +40,7 @@
                 <div class="col-md-3">
                     <div class="card bg-warning text-dark">
                         <div class="card-body">
-                            <h5 class="card-title">Pending Bets</h5>
+                            <h5 class="card-title">{% trans "Pending Bets" %}</h5>
                             <p class="card-text h3">{{ total_pending }}</p>
                         </div>
                     </div>
@@ -51,7 +52,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Total Bet Amount</h5>
+                            <h5 class="card-title">{% trans "Total Bet Amount" %}</h5>
                             <p class="card-text h3">{{ total_bet_amount|floatformat:"2" }} K</p>
                         </div>
                     </div>
@@ -59,7 +60,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Total Winnings</h5>
+                            <h5 class="card-title">{% trans "Total Winnings" %}</h5>
                             <p class="card-text h3">{{ total_winnings|floatformat:"2" }} K</p>
                         </div>
                     </div>
@@ -67,7 +68,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Net Profit</h5>
+                            <h5 class="card-title">{% trans "Net Profit" %}</h5>
                             <p class="card-text h3 {% if net_profit >= 0 %}text-success{% else %}text-danger{% endif %}">
                                 {{ net_profit|floatformat:"2" }} K
                             </p>
@@ -83,13 +84,13 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Date</th>
-                                    <th>Match</th>
-                                    <th>Bet Type</th>
-                                    <th>Choice</th>
-                                    <th>Amount</th>
-                                    <th>Potential Win</th>
-                                    <th>Status</th>
+                                    <th>{% trans "Date" %}</th>
+                                    <th>{% trans "Match" %}</th>
+                                    <th>{% trans "Bet Type" %}</th>
+                                    <th>{% trans "Choice" %}</th>
+                                    <th>{% trans "Amount" %}</th>
+                                    <th>{% trans "Potential Win" %}</th>
+                                    <th>{% trans "Status" %}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -117,7 +118,7 @@
                                 </tr>
                                 {% empty %}
                                 <tr>
-                                    <td colspan="7" class="text-center">You haven't placed any bets yet.</td>
+                                    <td colspan="7" class="text-center">{% trans "You haven't placed any bets yet." %}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -128,11 +129,11 @@
 
             <!-- Pagination -->
             {% if is_paginated %}
-            <nav aria-label="Page navigation" class="mt-4">
+            <nav aria-label="{% trans 'Page navigation' %}" class="mt-4">
                 <ul class="pagination justify-content-center">
                     {% if page_obj.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>
                     </li>
                     {% endif %}
 
@@ -144,7 +145,7 @@
 
                     {% if page_obj.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
                     </li>
                     {% endif %}
                 </ul>

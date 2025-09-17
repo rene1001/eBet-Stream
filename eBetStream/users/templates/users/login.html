@@ -2,8 +2,9 @@
 {% extends 'users/base.html' %}
 {% load static %}
 {% load widget_tweaks %}
+{% load i18n %}
 
-{% block title %}Connexion Cyber - eBetStream NEXUS{% endblock %}
+{% block title %}{% trans "Connexion Cyber - eBetStream NEXUS" %}{% endblock %}
 
 {% block content %}
 <div class="auth-container">
@@ -12,8 +13,8 @@
             <div class="auth-logo mb-4">
                 <i class="fas fa-user-astronaut text-cyber" style="font-size: 3rem;"></i>
             </div>
-            <h1 class="auth-title">CONNEXION NEXUS</h1>
-            <p class="auth-subtitle">Accédez à votre compte cyber-sportif</p>
+            <h1 class="auth-title">{% trans "CONNEXION NEXUS" %}</h1>
+            <p class="auth-subtitle">{% trans "Accédez à votre compte cyber-sportif" %}</p>
         </div>
 
         <form method="post" novalidate class="auth-form">
@@ -31,9 +32,9 @@
                     {{ field|add_class:"form-control cyber-input" }}
                     
                     {% if field.name == 'username' %}
-                        <label for="{{ field.id_for_label }}" class="cyber-label">Nom d'utilisateur</label>
+                        <label for="{{ field.id_for_label }}" class="cyber-label">{% trans "Nom d'utilisateur" %}</label>
                     {% elif field.name == 'password' %}
-                        <label for="{{ field.id_for_label }}" class="cyber-label">Mot de passe</label>
+                        <label for="{{ field.id_for_label }}" class="cyber-label">{% trans "Mot de passe" %}</label>
                     {% endif %}
                 </div>
                 
@@ -51,28 +52,28 @@
             {% endfor %}
 
             <button type="submit" class="btn-cyber w-100 mb-4">
-                <i class="fas fa-rocket me-2"></i>CONNEXION NEXUS
+                <i class="fas fa-rocket me-2"></i>{% trans "CONNEXION NEXUS" %}
             </button>
         </form>
 
         <div class="auth-links">
             <a href="{% url 'users:password_reset' %}" class="cyber-link">
-                <i class="fas fa-key me-2"></i>Récupération cyber
+                <i class="fas fa-key me-2"></i>{% trans "Récupération cyber" %}
             </a>
             
             <div class="cyber-divider">
-                <span class="divider-text">OU</span>
+                <span class="divider-text">{% trans "OU" %}</span>
             </div>
             
             <p class="signup-prompt">
-                Nouveau dans l'univers cyber ?
+                {% trans "Nouveau dans l'univers cyber ?" %}
                 <a href="{% url 'users:register' %}" class="cyber-link-primary">
-                    <i class="fas fa-user-plus me-2"></i>Rejoindre la communauté
+                    <i class="fas fa-user-plus me-2"></i>{% trans "Rejoindre la communauté" %}
                 </a>
             </p>
             
             <a href="{% url 'users:admin_register' %}" class="admin-link">
-                <i class="fas fa-shield-alt me-2"></i>Accès Administrateur
+                <i class="fas fa-shield-alt me-2"></i>{% trans "Accès Administrateur" %}
             </a>
         </div>
     </div>

@@ -1,24 +1,26 @@
-{% extends 'core/base.html' %} {% block title %}{{ match.team1.name }} vs {{
-match.team2.name }} - eBetStream{% endblock %} {% block content %}
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block title %}{{ match.team1.name }} vs {{ match.team2.name }} - eBetStream{% endblock %}
+{% block content %}
 <div class="container">
   <!-- Breadcrumbs -->
   <div class="container mt-3">
-    <nav aria-label="breadcrumb">
+    <nav aria-label="{% trans 'breadcrumb' %}">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="{% url 'core:home' %}">Accueil</a>
+          <a href="{% url 'core:home' %}">{% trans "Accueil" %}</a>
         </li>
         <li class="breadcrumb-item">
-          <a href="{% url 'core:game_list' %}">Jeux</a>
+          <a href="{% url 'core:game_list' %}">{% trans "Jeux" %}</a>
         </li>
         <li class="breadcrumb-item">
           <a href="{% url 'core:tournament_list' match.tournament.game.id %}"
-            >{{ match.tournament.game.name }} Tournois</a
+            >{{ match.tournament.game.name }} {% trans "Tournois" %}</a
           >
         </li>
         <li class="breadcrumb-item">
           <a href="{% url 'core:match_list' match.tournament.id %}"
-            >{{ match.tournament.name }} Matches</a
+            >{{ match.tournament.name }} {% trans "Matches" %}</a
           >
         </li>
         <li class="breadcrumb-item active" aria-current="page">{{ match }}</li>
@@ -28,22 +30,22 @@ match.team2.name }} - eBetStream{% endblock %} {% block content %}
 
   <!-- Informations du tournoi -->
   <div class="mb-4">
-    <nav aria-label="breadcrumb">
+    <nav aria-label="{% trans 'breadcrumb' %}">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="{% url 'core:home' %}">Accueil</a>
+          <a href="{% url 'core:home' %}">{% trans "Accueil" %}</a>
         </li>
         <li class="breadcrumb-item">
-          <a href="{% url 'core:game_list' %}">Jeux</a>
+          <a href="{% url 'core:game_list' %}">{% trans "Jeux" %}</a>
         </li>
         <li class="breadcrumb-item">
           <a href="{% url 'core:tournament_list' match.tournament.game.id %}"
-            >{{ match.tournament.game.name }} Tournois</a
+            >{{ match.tournament.game.name }} {% trans "Tournois" %}</a
           >
         </li>
         <li class="breadcrumb-item">
           <a href="{% url 'core:match_list' match.tournament.id %}"
-            >{{ match.tournament.name }} Matches</a
+            >{{ match.tournament.name }} {% trans "Matches" %}</a
           >
         </li>
         <li class="breadcrumb-item active">{{ match }}</li>
@@ -57,13 +59,13 @@ match.team2.name }} - eBetStream{% endblock %} {% block content %}
   >
     <strong>
       {% if match.status == 'live' %}
-      <i class="bi bi-broadcast"></i> EN DIRECT {% elif match.status ==
-      'upcoming' %} <i class="bi bi-calendar-event"></i> À VENIR {% elif
-      match.status == 'completed' %} <i class="bi bi-check-circle"></i> TERMINÉ
+      <i class="bi bi-broadcast"></i> {% trans "EN DIRECT" %} {% elif match.status ==
+      'upcoming' %} <i class="bi bi-calendar-event"></i> {% trans "À VENIR" %} {% elif
+      match.status == 'completed' %} <i class="bi bi-check-circle"></i> {% trans "TERMINÉ" %}
       {% elif match.status == 'canceled' %}
-      <i class="bi bi-x-circle"></i> ANNULÉ {% endif %}
+      <i class="bi bi-x-circle"></i> {% trans "ANNULÉ" %} {% endif %}
     </strong>
-    {% if match.status == 'upcoming' %} - Début le {{
+    {% if match.status == 'upcoming' %} - {% trans "Début le" %} {{
     match.start_time|date:"d/m/Y à H:i" }} {% endif %}
   </div>
 
@@ -117,7 +119,7 @@ match.team2.name }} - eBetStream{% endblock %} {% block content %}
 
       {% if match.status == 'completed' and match.winner %}
       <div class="alert alert-success text-center mt-4">
-        <h5 class="mb-0">Vainqueur: {{ match.winner.name }}</h5>
+        <h5 class="mb-0">{% trans "Vainqueur:" %} {{ match.winner.name }}</h5>
       </div>
       {% endif %}
     </div>
@@ -129,14 +131,14 @@ match.team2.name }} - eBetStream{% endblock %} {% block content %}
     <div class="col-md-8">
       <div class="card">
         <div class="card-header bg-primary text-white">
-          <h5 class="mb-0">Placer un pari</h5>
+          <h5 class="mb-0">{% trans "Placer un pari" %}</h5>
         </div>
         <div class="card-body">
           {% if match.status == 'upcoming' %} {% if user.is_authenticated %}
           <form method="post" action="{% url 'betting:place_bet' match.id %}">
             {% csrf_token %}
             <div class="mb-3">
-              <label for="bet_type" class="form-label">Type de pari</label>
+              <label for="bet_type" class="form-label">{% trans "Type de pari" %}</label>
               <select
                 class="form-select"
                 id="bet_type"
@@ -144,30 +146,30 @@ match.team2.name }} - eBetStream{% endblock %} {% block content %}
                 required
               >
                 <option value="" selected disabled>
-                  Sélectionnez un type de pari
+                  {% trans "Sélectionnez un type de pari" %}
                 </option>
                 {% for bet_type in match.tournament.game.bet_types.all %}
                 <option value="{{ bet_type.id }}">
-                  {{ bet_type.name }} - Cote: {{ bet_type.odds }}
+                  {{ bet_type.name }} - {% trans "Cote:" %} {{ bet_type.odds }}
                 </option>
                 {% endfor %}
               </select>
             </div>
 
             <div class="mb-3">
-              <label for="choice" class="form-label">Votre pronostic</label>
+              <label for="choice" class="form-label">{% trans "Votre pronostic" %}</label>
               <select class="form-select" id="choice" name="choice" required>
                 <option value="" selected disabled>
-                  Sélectionnez votre pronostic
+                  {% trans "Sélectionnez votre pronostic" %}
                 </option>
                 <option value="team1">{{ match.team1.name }}</option>
                 <option value="team2">{{ match.team2.name }}</option>
-                <option value="draw">Match nul</option>
+                <option value="draw">{% trans "Match nul" %}</option>
               </select>
             </div>
 
             <div class="mb-3">
-              <label for="amount" class="form-label">Montant du pari (K)</label>
+              <label for="amount" class="form-label">{% trans "Montant du pari (K)" %}</label>
               <input
                 type="number"
                 class="form-control"
@@ -178,13 +180,13 @@ match.team2.name }} - eBetStream{% endblock %} {% block content %}
                 required
               />
               <div class="form-text">
-                Votre solde actuel: {{ user.kapanga_balance|floatformat:"2" }} K
+                {% trans "Votre solde actuel:" %} {{ user.kapanga_balance|floatformat:"2" }} K
               </div>
             </div>
 
             <div class="mb-3">
               <label for="potential_winnings" class="form-label"
-                >Gains potentiels</label
+                >{% trans "Gains potentiels" %}</label
               >
               <div class="input-group">
                 <input
@@ -198,7 +200,7 @@ match.team2.name }} - eBetStream{% endblock %} {% block content %}
             </div>
 
             <button type="submit" class="btn btn-primary">
-              <i class="fas fa-ticket-alt me-2"></i>Placer le pari
+              <i class="fas fa-ticket-alt me-2"></i>{% trans "Placer le pari" %}
             </button>
           </form>
 
@@ -214,8 +216,9 @@ match.team2.name }} - eBetStream{% endblock %} {% block content %}
                 const selectedOption =
                   betTypeSelect.options[betTypeSelect.selectedIndex];
                 if (selectedOption && selectedOption.value) {
-                  const oddsText = selectedOption.text.split("Cote: ")[1];
-                  const odds = parseFloat(oddsText);
+                  // Extract odds from the option text (format: "Name - Cote: X.XX")
+                  const oddsMatch = selectedOption.text.match(/[\d.]+$/);
+                  const odds = oddsMatch ? parseFloat(oddsMatch[0]) : 0;
                   const amount = parseFloat(amountInput.value) || 0;
 
                   if (!isNaN(odds) && !isNaN(amount)) {
@@ -234,23 +237,23 @@ match.team2.name }} - eBetStream{% endblock %} {% block content %}
           </script>
           {% else %}
           <div class="alert alert-info">
-            <i class="fas fa-info-circle me-2"></i>Vous devez être connecté pour placer un pari.
-            <a href="{% url 'users:login' %}" class="alert-link">Se connecter</a>
+            <i class="fas fa-info-circle me-2"></i>{% trans "Vous devez être connecté pour placer un pari." %}
+            <a href="{% url 'users:login' %}" class="alert-link">{% trans "Se connecter" %}</a>
           </div>
           {% endif %} {% elif match.status == 'live' %}
           <div class="alert alert-danger">
-            <i class="fas fa-bolt me-2"></i>Le match est en cours. Les paris en direct sont disponibles.
+            <i class="fas fa-bolt me-2"></i>{% trans "Le match est en cours. Les paris en direct sont disponibles." %}
             <a href="{% url 'betting:live_events' match.id %}" class="btn btn-danger mt-2">
-              <i class="fas fa-bolt me-2"></i>Parier en Direct
+              <i class="fas fa-bolt me-2"></i>{% trans "Parier en Direct" %}
             </a>
           </div>
           {% elif match.status == 'completed' %}
           <div class="alert alert-info">
-            <p>Les paris sont fermés pour ce match car il est terminé.</p>
+            <p>{% trans "Les paris sont fermés pour ce match car il est terminé." %}</p>
           </div>
           {% elif match.status == 'canceled' %}
           <div class="alert alert-danger">
-            <p>Ce match a été annulé. Tous les paris ont été remboursés.</p>
+            <p>{% trans "Ce match a été annulé. Tous les paris ont été remboursés." %}</p>
           </div>
           {% endif %}
         </div>
@@ -261,32 +264,32 @@ match.team2.name }} - eBetStream{% endblock %} {% block content %}
     <div class="col-md-4">
       <div class="card mb-4">
         <div class="card-header bg-dark text-white">
-          <h5 class="mb-0">Informations</h5>
+          <h5 class="mb-0">{% trans "Informations" %}</h5>
         </div>
         <div class="card-body">
           <ul class="list-group list-group-flush">
             <li
               class="list-group-item d-flex justify-content-between align-items-center"
             >
-              Tournoi
+              {% trans "Tournoi" %}
               <span>{{ match.tournament.name }}</span>
             </li>
             <li
               class="list-group-item d-flex justify-content-between align-items-center"
             >
-              Jeu
+              {% trans "Jeu" %}
               <span>{{ match.tournament.game.name }}</span>
             </li>
             <li
               class="list-group-item d-flex justify-content-between align-items-center"
             >
-              Date
+              {% trans "Date" %}
               <span>{{ match.start_time|date:"d/m/Y" }}</span>
             </li>
             <li
               class="list-group-item d-flex justify-content-between align-items-center"
             >
-              Heure
+              {% trans "Heure" %}
               <span>{{ match.start_time|date:"H:i" }}</span>
             </li>
           </ul>
@@ -296,7 +299,7 @@ match.team2.name }} - eBetStream{% endblock %} {% block content %}
       <!-- Actions du match -->
       <div class="card">
         <div class="card-header bg-dark text-white">
-          <h5 class="mb-0">Actions</h5>
+          <h5 class="mb-0">{% trans "Actions" %}</h5>
         </div>
         <div class="card-body">
           <div class="d-grid gap-2">
@@ -305,14 +308,14 @@ match.team2.name }} - eBetStream{% endblock %} {% block content %}
                     {% if streaming.actif and not active_streaming %}
                         {% with active_streaming=streaming %}
                             <a href="{% url 'streaming:watch_stream' streaming.id %}" class="btn btn-danger">
-                                <i class="fas fa-video me-2"></i>Watch Live
+                                <i class="fas fa-video me-2"></i>{% trans "Regarder en Direct" %}
                             </a>
                         {% endwith %}
                     {% endif %}
                 {% endfor %}
             {% endwith %}
             <a href="{% url 'core:tournament_detail' match.tournament.id %}" class="btn btn-outline-primary">
-                <i class="fas fa-trophy me-2"></i>Voir le Tournoi
+                <i class="fas fa-trophy me-2"></i>{% trans "Voir le Tournoi" %}
             </a>
           </div>
         </div>

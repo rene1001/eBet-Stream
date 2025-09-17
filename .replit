@@ -54,6 +54,10 @@ externalPort = 3003
 localPort = 46075
 externalPort = 3002
 
+[[ports]]
+localPort = 46417
+externalPort = 5173
+
 [deployment]
 deploymentTarget = "autoscale"
 run = ["cd", "eBetStream", "&&", "gunicorn", "--bind=0.0.0.0:5000", "--reuse-port", "eBetStream.wsgi:application"]

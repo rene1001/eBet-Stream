@@ -54,36 +54,36 @@
                                     <span class="fw-bold">{{ bet.amount|floatformat:"2" }} K</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Odds
+                                    {% trans "Odds" %}
                                     <span class="fw-bold">x{{ bet.bet_type.odds }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Potential Winnings
+                                    {% trans "Potential Winnings" %}
                                     <span class="fw-bold text-success">{{ bet.potential_win|floatformat:"2" }} K</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Your Choice
+                                    {% trans "Your Choice" %}
                                     <span class="badge bg-info">{{ bet.get_choice_display }}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-md-6">
-                            <h5>Match Information</h5>
+                            <h5>{% trans "Match Information" %}</h5>
                             <ul class="list-group mb-4">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Tournament
+                                    {% trans "Tournament" %}
                                     <span>{{ bet.match.tournament }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Game
+                                    {% trans "Game" %}
                                     <span>{{ bet.match.tournament.game }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Match Date
+                                    {% trans "Match Date" %}
                                     <span>{{ bet.match.start_time|date:"d/m/Y H:i" }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Match Status
+                                    {% trans "Match Status" %}
                                     <span class="badge 
                                         {% if bet.match.status == 'upcoming' %}bg-warning
                                         {% elif bet.match.status == 'live' %}bg-danger
@@ -94,7 +94,7 @@
                                 </li>
                                 {% if bet.match.status == 'completed' %}
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Final Score
+                                    {% trans "Final Score" %}
                                     <span class="fw-bold">{{ bet.match.score_team1 }} - {{ bet.match.score_team2 }}</span>
                                 </li>
                                 {% endif %}
@@ -104,27 +104,27 @@
                     
                     {% if bet.status == 'won' %}
                     <div class="alert alert-success">
-                        <i class="bi bi-trophy"></i> Congratulations! You won <strong>{{ bet.potential_win|floatformat:"2" }} K</strong> with this bet.
+                        <i class="bi bi-trophy"></i> {% trans "Congratulations! You won" %} <strong>{{ bet.potential_win|floatformat:"2" }} K</strong> {% trans "with this bet." %}
                     </div>
                     {% elif bet.status == 'lost' %}
                     <div class="alert alert-danger">
-                        <i class="bi bi-exclamation-triangle"></i> Too bad! You lost your bet of <strong>{{ bet.amount|floatformat:"2" }} K</strong>.
+                        <i class="bi bi-exclamation-triangle"></i> {% trans "Too bad! You lost your bet of" %} <strong>{{ bet.amount|floatformat:"2" }} K</strong>.
                     </div>
                     {% elif bet.status == 'pending' %}
                     <div class="alert alert-warning">
-                        <i class="bi bi-hourglass-split"></i> Your bet is pending the match result.
+                        <i class="bi bi-hourglass-split"></i> {% trans "Your bet is pending the match result." %}
                     </div>
                     {% endif %}
                     
                     {% if hasattr(bet, 'liveBet') %}
                     <div class="card mt-3">
                         <div class="card-header bg-info text-white">
-                            <h5 class="mb-0">Live Bet Information</h5>
+                            <h5 class="mb-0">{% trans "Live Bet Information" %}</h5>
                         </div>
                         <div class="card-body">
-                            <p><strong>Timestamp:</strong> {{ bet.liveBet.timestamp|date:"d/m/Y H:i:s" }}</p>
-                            <p><strong>Game Time:</strong> {{ bet.liveBet.match_time|default:"Not available" }}</p>
-                            <p><strong>Score at bet time:</strong> {{ bet.liveBet.current_score|default:"0-0" }}</p>
+                            <p><strong>{% trans "Timestamp:" %}</strong> {{ bet.liveBet.timestamp|date:"d/m/Y H:i:s" }}</p>
+                            <p><strong>{% trans "Game Time:" %}</strong> {{ bet.liveBet.match_time|default:"{% trans 'Not available' %}" }}</p>
+                            <p><strong>{% trans "Score at bet time:" %}</strong> {{ bet.liveBet.current_score|default:"0-0" }}</p>
                         </div>
                     </div>
                     {% endif %}
@@ -132,11 +132,11 @@
                 <div class="card-footer">
                     <div class="d-flex justify-content-between">
                         <a href="{% url 'betting:bet_list' %}" class="btn btn-secondary">
-                            <i class="bi bi-arrow-left"></i> Back to my bets
+                            <i class="bi bi-arrow-left"></i> {% trans "Back to my bets" %}
                         </a>
                         {% if bet.match.status == 'live' %}
                         <a href="{% url 'betting:live_bet' bet.match.id bet.bet_type.id %}" class="btn btn-success">
-                            <i class="bi bi-lightning"></i> Place another live bet
+                            <i class="bi bi-lightning"></i> {% trans "Place another live bet" %}
                         </a>
                         {% endif %}
                     </div>

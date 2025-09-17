@@ -1,5 +1,5 @@
 <!-- betting/templates/betting/place_bet.html -->
-{% extends 'base.html' %} {% load static %} {% block title %}Place Bet - {{
+{% extends 'base.html' %} {% load static %} {% load i18n %} {% block title %}{% trans "Place Bet" %} - {{
 match.team1.name }} vs {{ match.team2.name }}{% endblock %} {% block content %}
 <div class="container py-5">
   <!-- Header with navigation -->
@@ -11,7 +11,7 @@ match.team1.name }} vs {{ match.team2.name }}{% endblock %} {% block content %}
       <div class="card mb-4">
         <div class="card-header bg-primary text-white">
           <div class="d-flex justify-content-between align-items-center">
-            <h4 class="mb-0">Current Match</h4>
+            <h4 class="mb-0">{% trans "Current Match" %}</h4>
             <span
               class="badge {% if match.status == 'live' %}bg-danger{% elif match.status == 'upcoming' %}bg-warning{% else %}bg-secondary{% endif %}"
             >
@@ -52,14 +52,14 @@ match.team1.name }} vs {{ match.team2.name }}{% endblock %} {% block content %}
             <div class="col-md-6">
               <div class="p-3 bg-light rounded">
                 <i class="fas fa-calendar-alt text-primary mb-2"></i>
-                <h6 class="mb-0">Date and Time</h6>
+                <h6 class="mb-0">{% trans "Date and Time" %}</h6>
                 <p class="mb-0">{{ match.start_time|date:"d/m/Y H:i" }}</p>
               </div>
             </div>
             <div class="col-md-6">
               <div class="p-3 bg-light rounded">
                 <i class="fas fa-trophy text-warning mb-2"></i>
-                <h6 class="mb-0">Tournament</h6>
+                <h6 class="mb-0">{% trans "Tournament" %}</h6>
                 <p class="mb-0">{{ match.tournament.name }}</p>
               </div>
             </div>
@@ -70,11 +70,11 @@ match.team1.name }} vs {{ match.team2.name }}{% endblock %} {% block content %}
             {% csrf_token %}
             <div class="card mb-4">
               <div class="card-header bg-success text-white">
-                <h5 class="mb-0">Place Your Bet</h5>
+                <h5 class="mb-0">{% trans "Place Your Bet" %}</h5>
               </div>
               <div class="card-body">
                 <div class="mb-4">
-                  <label class="form-label fw-bold">Your Choice</label>
+                  <label class="form-label fw-bold">{% trans "Your Choice" %}</label>
                   {% for radio in form.choice %}
                   <div class="form-check">
                     {{ radio.tag }}
@@ -95,7 +95,7 @@ match.team1.name }} vs {{ match.team2.name }}{% endblock %} {% block content %}
                   <label
                     for="{{ form.amount.id_for_label }}"
                     class="form-label fw-bold"
-                    >Bet Amount (K)</label
+                    >{% trans "Bet Amount (K)" %}</label
                   >
                   {{ form.amount }} {% if form.amount.errors %}
                   <div class="invalid-feedback d-block">
@@ -104,11 +104,11 @@ match.team1.name }} vs {{ match.team2.name }}{% endblock %} {% block content %}
                   {% endif %}
                 </div>
                 <div class="alert alert-info">
-                  <i class="fas fa-wallet me-2"></i>Available Balance:
+                  <i class="fas fa-wallet me-2"></i>{% trans "Available Balance:" %}
                   <strong>{{ user.kapanga_balance|floatformat:"2" }} K</strong>
                 </div>
                 <button type="submit" class="btn btn-success btn-lg w-100">
-                  <i class="fas fa-ticket-alt me-2"></i>Place Bet
+                  <i class="fas fa-ticket-alt me-2"></i>{% trans "Place Bet" %}
                 </button>
               </div>
             </div>
@@ -122,31 +122,31 @@ match.team1.name }} vs {{ match.team2.name }}{% endblock %} {% block content %}
       <!-- Betting rules -->
       <div class="card mb-4">
         <div class="card-header bg-info text-white">
-          <h5 class="mb-0">Betting Rules</h5>
+          <h5 class="mb-0">{% trans "Betting Rules" %}</h5>
         </div>
         <div class="card-body">
           <ul class="list-group list-group-flush">
             <li class="list-group-item d-flex align-items-center">
               <i class="bi bi-wallet text-success me-3"></i>
               <div>
-                <strong>Minimum Amount</strong>
-                <p class="mb-0 text-muted">1 K per bet</p>
+                <strong>{% trans "Minimum Amount" %}</strong>
+                <p class="mb-0 text-muted">{% trans "1 K per bet" %}</p>
               </div>
             </li>
             <li class="list-group-item d-flex align-items-center">
               <i class="fas fa-wallet text-primary me-3"></i>
               <div>
-                <strong>Maximum Amount</strong>
+                <strong>{% trans "Maximum Amount" %}</strong>
                 <p class="mb-0 text-muted">
-                  {{ user.kapanga_balance|floatformat:"2" }} K (available balance)
+                  {{ user.kapanga_balance|floatformat:"2" }} K ({% trans "available balance" %})
                 </p>
               </div>
             </li>
             <li class="list-group-item d-flex align-items-center">
               <i class="fas fa-clock text-warning me-3"></i>
               <div>
-                <strong>Betting Deadline</strong>
-                <p class="mb-0 text-muted">Until match start</p>
+                <strong>{% trans "Betting Deadline" %}</strong>
+                <p class="mb-0 text-muted">{% trans "Until match start" %}</p>
               </div>
             </li>
           </ul>
@@ -156,16 +156,16 @@ match.team1.name }} vs {{ match.team2.name }}{% endblock %} {% block content %}
       <!-- Potential winnings -->
       <div class="card">
         <div class="card-header bg-success text-white">
-          <h5 class="mb-0">Potential Winnings</h5>
+          <h5 class="mb-0">{% trans "Potential Winnings" %}</h5>
         </div>
         <div class="card-body">
           <div id="potential-winnings" class="alert alert-success">
-            <i class="fas fa-coins me-2"></i>Calculated based on amount
+            <i class="fas fa-coins me-2"></i>{% trans "Calculated based on amount" %}
           </div>
           <div class="text-center mt-3">
             <small class="text-muted">
               <i class="fas fa-info-circle me-1"></i>
-              Winnings are calculated based on bet amount and current odds
+              {% trans "Winnings are calculated based on bet amount and current odds" %}
             </small>
           </div>
         </div>
@@ -206,13 +206,13 @@ match.team1.name }} vs {{ match.team2.name }}{% endblock %} {% block content %}
         potentialWinnings.innerHTML = `
                 <div class="text-center">
                     <h4 class="mb-2">${winnings} K</h4>
-                    <p class="mb-0 text-muted">Potential Winnings</p>
+                    <p class="mb-0 text-muted">{% trans "Potential Winnings" %}</p>
                 </div>`;
       } else {
         potentialWinnings.innerHTML = `
                 <div class="text-center">
                     <i class="fas fa-coins me-2"></i>
-                    <span>Calculated based on amount</span>
+                    <span>{% trans "Calculated based on amount" %}</span>
                 </div>`;
       }
     }

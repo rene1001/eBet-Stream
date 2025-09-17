@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Créer un Défi P2P{% endblock %}
+{% block title %}{% trans "Créer un Défi P2P" %}{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -43,7 +44,7 @@
                 <div class="card-header bg-primary text-white">
                     <div class="d-flex align-items-center">
                         <i class="bi bi-trophy me-2"></i>
-                        <h4 class="mb-0">Créer un Nouveau Défi P2P</h4>
+                        <h4 class="mb-0">{% trans "Créer un Nouveau Défi P2P" %}</h4>
                     </div>
                 </div>
                 
@@ -61,13 +62,13 @@
                         
                         <!-- Section 1: Détails du défi -->
                         <div class="form-section mb-4">
-                            <h5><i class="bi bi-info-circle me-2"></i>Détails du défi</h5>
+                            <h5><i class="bi bi-info-circle me-2"></i>{% trans "Détails du défi" %}</h5>
                             
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="{{ form.title.id_for_label }}" class="form-label">
-                                            Titre du défi *
+                                            {% trans "Titre du défi" %} *
                                         </label>
                                         {{ form.title }}
                                         {% if form.title.errors %}
@@ -84,7 +85,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="{{ form.description.id_for_label }}" class="form-label">
-                                            Description du défi
+                                            {% trans "Description du défi" %}
                                         </label>
                                         {{ form.description }}
                                         {% if form.description.errors %}
@@ -101,7 +102,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="{{ form.game_type.id_for_label }}" class="form-label">
-                                            Type de jeu *
+                                            {% trans "Type de jeu" %} *
                                         </label>
                                         {{ form.game_type }}
                                         {% if form.game_type.errors %}
@@ -118,7 +119,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="{{ form.game_name.id_for_label }}" class="form-label">
-                                            Nom du jeu *
+                                            {% trans "Nom du jeu" %} *
                                         </label>
                                         {{ form.game_name }}
                                         {% if form.game_name.errors %}
@@ -135,7 +136,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="{{ form.opponent.id_for_label }}" class="form-label">
-                                            Adversaire *
+                                            {% trans "Adversaire" %} *
                                         </label>
                                         {{ form.opponent }}
                                         {% if form.opponent.errors %}
@@ -153,13 +154,13 @@
                         
                         <!-- Section 2: Mises et règles -->
                         <div class="form-section mb-4">
-                            <h5><i class="bi bi-coin me-2"></i>Mises et règles</h5>
+                            <h5><i class="bi bi-coin me-2"></i>{% trans "Mises et règles" %}</h5>
                             
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-group bet-amount-input">
                                         <label for="{{ form.creator_bet_amount.id_for_label }}" class="form-label">
-                                            Votre mise (Ktap) *
+                                            {% trans "Votre mise (Ktap)" %} *
                                         </label>
                                         {{ form.creator_bet_amount }}
                                         <span class="ktap-symbol">KTAP</span>
@@ -169,7 +170,7 @@
                                             </div>
                                         {% endif %}
                                         <small class="form-text text-muted">
-                                            {{ form.creator_bet_amount.help_text }} | Solde disponible: <strong>{{ request.user.kapanga_balance|default:0 }} KTAP</strong>
+                                            {{ form.creator_bet_amount.help_text }} | {% trans "Solde disponible:" %} <strong>{{ request.user.kapanga_balance|default:0 }} KTAP</strong>
                                         </small>
                                     </div>
                                 </div>
@@ -177,7 +178,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group bet-amount-input">
                                         <label for="{{ form.opponent_bet_amount.id_for_label }}" class="form-label">
-                                            Mise de l'adversaire (Ktap) *
+                                            {% trans "Mise de l'adversaire (Ktap)" %} *
                                         </label>
                                         {{ form.opponent_bet_amount }}
                                         <span class="ktap-symbol">KTAP</span>
@@ -197,10 +198,10 @@
                                         <div class="d-flex align-items-center">
                                             <i class="bi bi-info-circle-fill me-2"></i>
                                             <div>
-                                                <strong>Pot total du défi :</strong> 
+                                                <strong>{% trans "Pot total du défi :" %}</strong> 
                                                 <span id="total-pot">0.00</span> KTAP
                                                 <small class="d-block mt-1">
-                                                    Ce montant sera bloqué sur votre compte jusqu'à la fin du défi.
+                                                    {% trans "Ce montant sera bloqué sur votre compte jusqu'à la fin du défi." %}
                                                 </small>
                                             </div>
                                         </div>
@@ -210,7 +211,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="{{ form.rules.id_for_label }}" class="form-label">
-                                            Règles spécifiques (optionnel)
+                                            {% trans "Règles spécifiques (optionnel)" %}
                                         </label>
                                         {{ form.rules }}
                                         {% if form.rules.errors %}
@@ -227,7 +228,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="{{ form.match_format.id_for_label }}" class="form-label">
-                                            Format du match *
+                                            {% trans "Format du match" %} *
                                         </label>
                                         {{ form.match_format }}
                                         {% if form.match_format.errors %}
@@ -244,7 +245,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="{{ form.expires_at.id_for_label }}" class="form-label">
-                                            Date limite d'acceptation *
+                                            {% trans "Date limite d'acceptation" %} *
                                         </label>
                                         {{ form.expires_at }}
                                         {% if form.expires_at.errors %}
@@ -265,7 +266,7 @@
                             <div class="d-flex">
                                 <i class="bi bi-exclamation-triangle-fill me-2"></i>
                                 <div>
-                                    <strong>Important :</strong> En créant ce défi, vous acceptez que le montant de votre mise soit bloqué sur votre compte jusqu'à la fin du défi. En cas de non-respect des règles, l'équipe de modération se réserve le droit d'annuler le défi.
+                                    <strong>{% trans "Important :" %}</strong> {% trans "En créant ce défi, vous acceptez que le montant de votre mise soit bloqué sur votre compte jusqu'à la fin du défi. En cas de non-respect des règles, l'équipe de modération se réserve le droit d'annuler le défi." %}
                                 </div>
                             </div>
                         </div>
@@ -273,10 +274,10 @@
                         <!-- Boutons d'action -->
                         <div class="d-flex justify-content-between mt-4">
                             <a href="{% url 'betting:p2p_challenge_list' %}" class="btn btn-outline-secondary">
-                                <i class="bi bi-arrow-left me-1"></i> Annuler
+                                <i class="bi bi-arrow-left me-1"></i> {% trans "Annuler" %}
                             </a>
                             <button type="submit" class="btn btn-primary px-4">
-                                <i class="bi bi-send-check me-1"></i> Créer le défi
+                                <i class="bi bi-send-check me-1"></i> {% trans "Créer le défi" %}
                             </button>
                         </div>
                     </form>
@@ -346,7 +347,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (selectedDate <= now) {
                     e.preventDefault();
-                    alert('La date d\'expiration doit être dans le futur.');
+                    alert('{% trans "La date d\'expiration doit être dans le futur." %}');
                     expiresAtInput.focus();
                     return false;
                 }
@@ -355,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Vérifier que le montant est valide
             if (creatorBetInput && parseFloat(creatorBetInput.value) <= 0) {
                 e.preventDefault();
-                alert('Le montant du pari doit être supérieur à 0.');
+                alert('{% trans "Le montant du pari doit être supérieur à 0." %}');
                 creatorBetInput.focus();
                 return false;
             }
