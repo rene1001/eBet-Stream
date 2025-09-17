@@ -4,6 +4,15 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Streaming
 
+def stream_index(request):
+    """Page d'accueil du streaming - liste des streams disponibles"""
+    active_streams = Streaming.objects.filter(actif=True).select_related('match', 'match__game')
+    context = {
+        'active_streams': active_streams,
+        'page_title': 'Streaming Live eBetStream'
+    }
+    return render(request, 'streaming/stream_index.html', context)
+
 @login_required
 def watch_stream(request, streaming_id):
     streaming = get_object_or_404(Streaming, id=streaming_id, actif=True)

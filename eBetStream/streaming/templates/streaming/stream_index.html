@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }} - eBetStream{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container">
+        <!-- Header Section -->
+        <div class="hero-section text-center py-5">
+            <h1 class="display-4 text-brand-orange mb-4">
+                <i class="fas fa-play-circle me-3"></i>Streaming Live eBetStream
+            </h1>
+            <p class="lead text-cyber mb-5">
+                Regardez les matchs en direct et ne manquez aucune action !
+            </p>
+        </div>
+
+        <!-- Active Streams Section -->
+        <div class="row">
+            {% if active_streams %}
+                {% for streaming in active_streams %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="cyber-card h-100">
+                        <div class="card-header bg-dark-space text-brand-orange">
+                            <h5 class="mb-0">
+                                <i class="fas fa-gamepad me-2"></i>{{ streaming.match.game.nom }}
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="text-cyber mb-3">{{ streaming.match.titre }}</h6>
+                            <p class="text-dim mb-3">
+                                <i class="fas fa-calendar me-2"></i>
+                                {{ streaming.match.date_debut|date:"d/m/Y H:i" }}
+                            </p>
+                            <div class="d-grid">
+                                <a href="{% url 'streaming:watch_stream' streaming.id %}" 
+                                   class="btn-cyber">
+                                    <i class="fas fa-play me-2"></i>Regarder en Live
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-dark text-center">
+                            <small class="text-dim">
+                                <i class="fas fa-eye me-1"></i>Stream actif
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <!-- No Active Streams -->
+                <div class="col-12">
+                    <div class="cyber-card text-center py-5">
+                        <i class="fas fa-video-slash fa-3x text-dim mb-4"></i>
+                        <h3 class="text-cyber mb-3">Aucun stream actif pour le moment</h3>
+                        <p class="text-dim mb-4">
+                            Les streams seront disponibles pendant les matchs en cours.
+                            Revenez bientôt pour regarder les compétitions en direct !
+                        </p>
+                        <div class="d-flex gap-3 justify-content-center">
+                            <a href="{% url 'core:home' %}" class="btn-cyber">
+                                <i class="fas fa-home me-2"></i>Retour à l'accueil
+                            </a>
+                            <a href="{% url 'core:game_list' %}" class="btn-cyber">
+                                <i class="fas fa-gamepad me-2"></i>Voir les jeux
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Information Section -->
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="cyber-card text-center h-100">
+                    <i class="fas fa-broadcast-tower fa-2x text-brand-orange mb-3"></i>
+                    <h5 class="text-cyber">Qualité HD</h5>
+                    <p class="text-dim">Streaming haute définition pour une expérience optimale</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cyber-card text-center h-100">
+                    <i class="fas fa-comments fa-2x text-brand-orange mb-3"></i>
+                    <h5 class="text-cyber">Chat en Direct</h5>
+                    <p class="text-dim">Interagissez avec la communauté pendant les matchs</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cyber-card text-center h-100">
+                    <i class="fas fa-mobile-alt fa-2x text-brand-orange mb-3"></i>
+                    <h5 class="text-cyber">Multi-plateforme</h5>
+                    <p class="text-dim">Regardez sur tous vos appareils, partout où vous êtes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
