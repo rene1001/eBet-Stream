@@ -70,12 +70,191 @@
         </div>
     </section>
 
-    <!-- Sponsors/Partners Scrolling Section -->
-    <section class="sponsors-section py-4">
+    <!-- Revolutionary Match Grid - PRIORITÉ #1 -->
+    <section class="py-5">
         <div class="container">
-            <h3 class="text-center text-brand-orange mb-4">
-                <i class="fas fa-handshake me-2"></i>NOS PARTENAIRES GAMING
-            </h3>
+            <div class="text-center mb-5">
+                <h2 class="text-cyber mb-3">
+                    <i class="fas fa-calendar me-3"></i>MATCHS LIVE
+                </h2>
+                <p class="text-dim lead">Les affrontements les plus intenses du moment</p>
+            </div>
+
+            <div class="cards-container">
+                {% for match in upcoming_matches %}
+                <div class="cyber-card">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="card-title mb-0">{{ match.team1.name }} vs {{ match.team2.name }}</h5>
+                        <span class="badge bg-cyber text-dark px-3 py-2 rounded-pill">
+                            <i class="fas fa-clock me-1"></i>LIVE
+                        </span>
+                    </div>
+                    
+                    <div class="text-center mb-4">
+                        <div class="row align-items-center">
+                            <div class="col-5 text-end">
+                                <div class="team-container">
+                                    <img src="{{ match.team1.logo.url }}" 
+                                         alt="{{ match.team1.name }}" 
+                                         class="team-logo mb-2" 
+                                         style="max-height: 60px; filter: drop-shadow(0 0 10px rgba(255, 149, 0, 0.3));">
+                                    <h6 class="text-cyber">{{ match.team1.name }}</h6>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="vs-indicator">
+                                    <h4 class="text-cyber mb-0 glow-text">VS</h4>
+                                    <div class="cyber-line"></div>
+                                </div>
+                            </div>
+                            <div class="col-5 text-start">
+                                <div class="team-container">
+                                    <img src="{{ match.team2.logo.url }}" 
+                                         alt="{{ match.team2.name }}" 
+                                         class="team-logo mb-2" 
+                                         style="max-height: 60px; filter: drop-shadow(0 0 10px rgba(255, 149, 0, 0.3));">
+                                    <h6 class="text-cyber">{{ match.team2.name }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match-info mb-4 p-3 rounded" style="background: rgba(255, 149, 0, 0.05);">
+                        <i class="fas fa-clock text-brand-orange me-2"></i>
+                        <span class="text-dim">{{ match.start_time|date:"d/m/Y H:i" }}</span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <a href="{% url 'betting:place_bet' match.id %}" class="btn-cyber">
+                            <i class="fas fa-coins me-2"></i>Parier Maintenant
+                        </a>
+                        {% with active_streaming=None %}
+                            {% for streaming in match.streamings.all %}
+                                {% if streaming.actif and not active_streaming %}
+                                    {% with active_streaming=streaming %}
+                                        <a href="{% url 'streaming:watch_stream' streaming.id %}" class="btn-cyber btn-secondary">
+                                            <i class="fas fa-broadcast-tower me-2"></i>Stream Live
+                                        </a>
+                                    {% endwith %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                    </div>
+                </div>
+                {% empty %}
+                <div class="cyber-card text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-satellite text-dim" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="text-dim">Aucun match en cours</h5>
+                    <p class="text-faded">Les prochains affrontements arriveront bientôt...</p>
+                    <a href="{% url 'betting:bet_list' %}" class="btn-cyber mt-3">
+                        <i class="fas fa-eye me-2"></i>Voir Tous les Matchs
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Cyber P2P Challenge Section - PRIORITÉ #2 -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="text-cyber mb-3">
+                    <i class="fas fa-users me-3"></i>DÉFIS P2P CYBER
+                </h2>
+                <p class="text-dim lead">Affrontez les meilleurs joueurs dans des duels épiques</p>
+            </div>
+            
+            <div class="cyber-card text-center p-5">
+                <div class="mb-4">
+                    <i class="fas fa-trophy text-cyber" style="font-size: 4rem;"></i>
+                </div>
+                <h3 class="card-title mb-4">Arène de Combat P2P</h3>
+                <p class="card-text mb-4">
+                    Défiez d'autres joueurs en 1v1 dans notre arène cyber-futuriste. 
+                    Gagnez des Ktap et gravissez les classements mondiaux.
+                </p>
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <a href="{% url 'betting:p2p_index' %}" class="btn-cyber">
+                        <i class="fas fa-gamepad me-2"></i>Entrer dans l'Arène
+                    </a>
+                    <a href="{% url 'betting:p2p_challenge_create' %}" class="btn-cyber btn-secondary">
+                        <i class="fas fa-plus-circle me-2"></i>Créer un Défi
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ultra-Modern Games Grid - PRIORITÉ #3 -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="text-cyber mb-3">
+                    <i class="fas fa-gamepad me-3"></i>UNIVERS GAMING
+                </h2>
+                <p class="text-dim lead">Explorez les jeux les plus populaires de l'esport</p>
+            </div>
+
+            <div class="cards-container">
+                {% for game in popular_games %}
+                <div class="cyber-card">
+                    <div class="game-image-container mb-4" style="position: relative; overflow: hidden; border-radius: var(--radius-m);">
+                        {% if game.image %}
+                            <img src="{{ game.image.url }}" 
+                                 class="w-100" 
+                                 alt="{{ game.name }}" 
+                                 style="height: 200px; object-fit: cover; transition: transform 0.3s ease;">
+                        {% else %}
+                            <div class="game-placeholder d-flex align-items-center justify-content-center" 
+                                 style="height: 200px; background: var(--gradient-surface);">
+                                <i class="fas fa-gamepad text-cyber" style="font-size: 4rem; opacity: 0.3;"></i>
+                            </div>
+                        {% endif %}
+                        <div class="game-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); opacity: 0; transition: opacity 0.3s ease;"></div>
+                    </div>
+                    
+                    <div class="game-content">
+                        <h5 class="card-title mb-3">{{ game.name }}</h5>
+                        <p class="card-text mb-4">{{ game.description|truncatewords:25 }}</p>
+                        
+                        <div class="game-stats mb-4">
+                            <div class="d-flex justify-content-between text-dim small">
+                                <span><i class="fas fa-users me-1"></i>Actif</span>
+                                <span><i class="fas fa-trophy me-1"></i>Tournois</span>
+                                <span><i class="fas fa-fire me-1"></i>Populaire</span>
+                            </div>
+                        </div>
+                        
+                        <a href="{% url 'core:tournament_list' game.id %}" class="btn-cyber w-100">
+                            <i class="fas fa-crown me-2"></i>Rejoindre les Tournois
+                        </a>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="cyber-card text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-ghost text-dim" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="text-dim">Univers en construction</h5>
+                    <p class="text-faded">De nouveaux jeux arrivent très bientôt...</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsors/Partners Scrolling Section - PRIORITÉ #4 -->
+    <section class="sponsors-section py-5" style="margin-top: var(--space-xl);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="text-cyber mb-3">
+                    <i class="fas fa-handshake me-3"></i>NOS PARTENAIRES GAMING
+                </h2>
+                <p class="text-dim lead">En partenariat avec les leaders de l'industrie gaming</p>
+            </div>
             <div class="sponsors-scroll">
                 <div class="sponsors-track">
                     <div class="sponsor-item">
@@ -180,185 +359,15 @@
         </div>
     </section>
 
-    <!-- Cyber P2P Challenge Section -->
-    <section class="py-5">
+    <!-- Gaming News Feed Scrolling - PRIORITÉ #5 -->
+    <section class="gaming-feed-section py-5" style="margin-top: var(--space-xl);">
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="text-cyber mb-3">
-                    <i class="fas fa-users me-3"></i>DÉFIS P2P CYBER
+                    <i class="fas fa-newspaper me-3"></i>ACTUALITÉS ESPORT EN DIRECT
                 </h2>
-                <p class="text-dim lead">Affrontez les meilleurs joueurs dans des duels épiques</p>
+                <p class="text-dim lead">Restez informé des dernières nouvelles du monde gaming</p>
             </div>
-            
-            <div class="cyber-card text-center p-5">
-                <div class="mb-4">
-                    <i class="fas fa-trophy text-cyber" style="font-size: 4rem;"></i>
-                </div>
-                <h3 class="card-title mb-4">Arène de Combat P2P</h3>
-                <p class="card-text mb-4">
-                    Défiez d'autres joueurs en 1v1 dans notre arène cyber-futuriste. 
-                    Gagnez des Ktap et gravissez les classements mondiaux.
-                </p>
-                <div class="d-flex justify-content-center gap-4 flex-wrap">
-                    <a href="{% url 'betting:p2p_index' %}" class="btn-cyber">
-                        <i class="fas fa-gamepad me-2"></i>Entrer dans l'Arène
-                    </a>
-                    <a href="{% url 'betting:p2p_challenge_create' %}" class="btn-cyber btn-secondary">
-                        <i class="fas fa-plus-circle me-2"></i>Créer un Défi
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Revolutionary Match Grid -->
-    <section class="py-5">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="text-cyber mb-3">
-                    <i class="fas fa-calendar me-3"></i>MATCHS LIVE
-                </h2>
-                <p class="text-dim lead">Les affrontements les plus intenses du moment</p>
-            </div>
-
-            <div class="cards-container">
-                {% for match in upcoming_matches %}
-                <div class="cyber-card">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="card-title mb-0">{{ match.team1.name }} vs {{ match.team2.name }}</h5>
-                        <span class="badge bg-cyber text-dark px-3 py-2 rounded-pill">
-                            <i class="fas fa-clock me-1"></i>LIVE
-                        </span>
-                    </div>
-                    
-                    <div class="text-center mb-4">
-                        <div class="row align-items-center">
-                            <div class="col-5 text-end">
-                                <div class="team-container">
-                                    <img src="{{ match.team1.logo.url }}" 
-                                         alt="{{ match.team1.name }}" 
-                                         class="team-logo mb-2" 
-                                         style="max-height: 60px; filter: drop-shadow(0 0 10px rgba(0,255,255,0.3));">
-                                    <h6 class="text-cyber">{{ match.team1.name }}</h6>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="vs-indicator">
-                                    <h4 class="text-cyber mb-0 glow-text">VS</h4>
-                                    <div class="cyber-line"></div>
-                                </div>
-                            </div>
-                            <div class="col-5 text-start">
-                                <div class="team-container">
-                                    <img src="{{ match.team2.logo.url }}" 
-                                         alt="{{ match.team2.name }}" 
-                                         class="team-logo mb-2" 
-                                         style="max-height: 60px; filter: drop-shadow(0 0 10px rgba(255,0,170,0.3));">
-                                    <h6 class="text-cyber">{{ match.team2.name }}</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="match-info mb-4 p-3 rounded" style="background: rgba(0,255,255,0.05);">
-                        <i class="fas fa-clock text-cyber me-2"></i>
-                        <span class="text-dim">{{ match.start_time|date:"d/m/Y H:i" }}</span>
-                    </div>
-                    
-                    <div class="d-flex justify-content-center gap-3 flex-wrap">
-                        <a href="{% url 'betting:place_bet' match.id %}" class="btn-cyber">
-                            <i class="fas fa-coins me-2"></i>Parier
-                        </a>
-                        {% with active_streaming=None %}
-                            {% for streaming in match.streamings.all %}
-                                {% if streaming.actif and not active_streaming %}
-                                    {% with active_streaming=streaming %}
-                                        <a href="{% url 'streaming:watch_stream' streaming.id %}" class="btn-cyber btn-secondary">
-                                            <i class="fas fa-broadcast-tower me-2"></i>Stream Live
-                                        </a>
-                                    {% endwith %}
-                                {% endif %}
-                            {% endfor %}
-                        {% endwith %}
-                    </div>
-                </div>
-                {% empty %}
-                <div class="cyber-card text-center">
-                    <div class="mb-4">
-                        <i class="fas fa-satellite text-dim" style="font-size: 3rem;"></i>
-                    </div>
-                    <h5 class="text-dim">Aucun match en cours</h5>
-                    <p class="text-faded">Les prochains affrontements arriveront bientôt...</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-
-    <!-- Ultra-Modern Games Grid -->
-    <section class="py-5">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="text-cyber mb-3">
-                    <i class="fas fa-gamepad me-3"></i>UNIVERS GAMING
-                </h2>
-                <p class="text-dim lead">Explorez les jeux les plus populaires de l'esport</p>
-            </div>
-
-            <div class="cards-container">
-                {% for game in popular_games %}
-                <div class="cyber-card">
-                    <div class="game-image-container mb-4" style="position: relative; overflow: hidden; border-radius: var(--radius-m);">
-                        {% if game.image %}
-                            <img src="{{ game.image.url }}" 
-                                 class="w-100" 
-                                 alt="{{ game.name }}" 
-                                 style="height: 200px; object-fit: cover; transition: transform 0.3s ease;">
-                        {% else %}
-                            <div class="game-placeholder d-flex align-items-center justify-content-center" 
-                                 style="height: 200px; background: var(--gradient-surface);">
-                                <i class="fas fa-gamepad text-cyber" style="font-size: 4rem; opacity: 0.3;"></i>
-                            </div>
-                        {% endif %}
-                        <div class="game-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); opacity: 0; transition: opacity 0.3s ease;"></div>
-                    </div>
-                    
-                    <div class="game-content">
-                        <h5 class="card-title mb-3">{{ game.name }}</h5>
-                        <p class="card-text mb-4">{{ game.description|truncatewords:25 }}</p>
-                        
-                        <div class="game-stats mb-4">
-                            <div class="d-flex justify-content-between text-dim small">
-                                <span><i class="fas fa-users me-1"></i>Actif</span>
-                                <span><i class="fas fa-trophy me-1"></i>Tournois</span>
-                                <span><i class="fas fa-fire me-1"></i>Populaire</span>
-                            </div>
-                        </div>
-                        
-                        <a href="{% url 'core:tournament_list' game.id %}" class="btn-cyber w-100">
-                            <i class="fas fa-crown me-2"></i>Rejoindre les Tournois
-                        </a>
-                    </div>
-                </div>
-                {% empty %}
-                <div class="cyber-card text-center">
-                    <div class="mb-4">
-                        <i class="fas fa-ghost text-dim" style="font-size: 3rem;"></i>
-                    </div>
-                    <h5 class="text-dim">Univers en construction</h5>
-                    <p class="text-faded">De nouveaux jeux arrivent très bientôt...</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-
-    <!-- Gaming News Feed Scrolling -->
-    <section class="gaming-feed-section py-5">
-        <div class="container">
-            <h3 class="text-center text-brand-orange mb-5">
-                <i class="fas fa-newspaper me-2"></i>ACTUALITÉS ESPORT EN DIRECT
-            </h3>
             <div class="news-feed-scroll">
                 <div class="news-feed-track">
                     <div class="news-card">
@@ -447,25 +456,28 @@
         </div>
     </section>
 
-    <!-- Call to Action Final -->
-    <section class="py-5">
+    <!-- Call to Action Final - Amélioré -->
+    <section class="py-5" style="margin-top: calc(var(--space-xl) * 2);">
         <div class="container">
-            <div class="cyber-card text-center p-5" style="background: var(--gradient-dark);">
-                <h3 class="text-cyber mb-4">Prêt pour l'Aventure Cyber ?</h3>
-                <p class="text-dim lead mb-5">Rejoignez des millions de joueurs dans l'univers eBetStream</p>
+            <div class="cyber-card text-center p-5" style="background: var(--gradient-primary); border: 2px solid var(--brand-orange);">
+                <div class="mb-4">
+                    <i class="fas fa-rocket text-brand-white" style="font-size: 3rem;"></i>
+                </div>
+                <h2 class="text-brand-white mb-4">Prêt pour l'Aventure Cyber ?</h2>
+                <p class="text-brand-white lead mb-5">Rejoignez des millions de joueurs dans l'univers eBetStream</p>
                 <div class="d-flex justify-content-center gap-4 flex-wrap">
                     {% if not user.is_authenticated %}
-                        <a href="{% url 'users:register' %}" class="btn-cyber">
+                        <a href="{% url 'users:register' %}" class="btn" style="background: var(--brand-white); color: var(--brand-orange); font-weight: 700; padding: 1rem 2rem;">
                             <i class="fas fa-user-plus me-2"></i>S'inscrire Maintenant
                         </a>
-                        <a href="{% url 'users:login' %}" class="btn-cyber btn-secondary">
+                        <a href="{% url 'users:login' %}" class="btn" style="background: transparent; color: var(--brand-white); border: 2px solid var(--brand-white); font-weight: 700; padding: 1rem 2rem;">
                             <i class="fas fa-sign-in me-2"></i>Se Connecter
                         </a>
                     {% else %}
-                        <a href="{% url 'users:profile' %}" class="btn-cyber">
+                        <a href="{% url 'users:profile' %}" class="btn" style="background: var(--brand-white); color: var(--brand-orange); font-weight: 700; padding: 1rem 2rem;">
                             <i class="fas fa-user me-2"></i>Mon Profil
                         </a>
-                        <a href="{% url 'betting:bet_list' %}" class="btn-cyber btn-secondary">
+                        <a href="{% url 'betting:bet_list' %}" class="btn" style="background: transparent; color: var(--brand-white); border: 2px solid var(--brand-white); font-weight: 700; padding: 1rem 2rem;">
                             <i class="fas fa-rocket me-2"></i>Commencer à Parier
                         </a>
                     {% endif %}
@@ -745,6 +757,184 @@
     
     .sponsor-logo i {
         font-size: 1.5rem;
+    }
+}
+
+/* === IMPROVED SPACING AND LAYOUT === */
+
+/* Section spacing consistency */
+section {
+    margin-bottom: var(--space-xl);
+}
+
+/* Improved container max-width for better readability */
+.container {
+    max-width: 1400px;
+}
+
+/* Better card grid layout */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
+}
+
+/* Enhanced stats grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-l);
+    margin: var(--space-xl) 0;
+}
+
+.stat-card {
+    background: var(--gradient-surface);
+    border: 1px solid rgba(255, 149, 0, 0.2);
+    border-radius: var(--radius-l);
+    padding: var(--space-l);
+    text-align: center;
+    transition: all var(--speed-normal) ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--brand-orange);
+    box-shadow: 0 10px 30px rgba(255, 149, 0, 0.2);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--brand-orange);
+    margin-bottom: 0.5rem;
+    font-family: 'Orbitron', monospace;
+}
+
+.stat-label {
+    display: block;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Enhanced hero section */
+.hero-section {
+    padding: calc(var(--space-xl) * 3) 0;
+    background: var(--gradient-dark);
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255, 149, 0, 0.1) 0%, transparent 70%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    color: var(--brand-orange);
+    font-family: 'Orbitron', monospace;
+    text-shadow: 0 0 30px rgba(255, 149, 0, 0.5);
+    margin-bottom: var(--space-l);
+    letter-spacing: 2px;
+}
+
+.hero-subtitle {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--brand-white);
+    font-weight: 300;
+    margin-bottom: var(--space-xl);
+    opacity: 0.9;
+}
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-l);
+    flex-wrap: wrap;
+    margin-top: var(--space-xl);
+}
+
+/* Improved section headers */
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-l);
+    border-bottom: 2px solid rgba(255, 149, 0, 0.1);
+}
+
+.section-header h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: var(--space-s);
+}
+
+.section-header p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Enhanced responsive design */
+@media (max-width: 1200px) {
+    .cards-container {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: var(--space-l);
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 var(--space-m);
+    }
+    
+    .cards-container {
+        grid-template-columns: 1fr;
+        gap: var(--space-l);
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-m);
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-m);
+    }
+    
+    .hero-actions .btn-cyber {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    section {
+        margin-bottom: var(--space-l);
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
     }
 }
 
