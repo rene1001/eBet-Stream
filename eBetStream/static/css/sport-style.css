@@ -302,7 +302,7 @@ body::after {
   background: transparent;
   border: 2px solid var(--brand-orange);
   color: var(--brand-orange);
-  padding: var(--space-m) var(--space-xl);
+  padding: var(--space-s) var(--space-l);
   border-radius: var(--radius-pill);
   font-weight: 700;
   text-transform: uppercase;
@@ -600,8 +600,8 @@ body::after {
   }
   
   .btn-cyber {
-    padding: var(--space-s) var(--space-l);
-    font-size: 0.9rem;
+    padding: calc(var(--space-s) * 0.7) var(--space-m);
+    font-size: 0.8rem;
   }
 }
 
@@ -879,7 +879,7 @@ body::after {
 
 .promo-title {
     font-family: 'Orbitron', monospace;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     color: var(--brand-orange);
     text-shadow: 0 0 20px rgba(255, 149, 0, 0.5);
@@ -984,7 +984,7 @@ body::after {
     }
     
     .promo-title {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
         margin-bottom: var(--space-s);
     }
     
