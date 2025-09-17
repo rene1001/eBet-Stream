@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-17 16:39+0000\n"
+"POT-Creation-Date: 2025-09-17 17:17+0000\n"
 "Language: en\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
@@ -24,6 +24,7 @@ msgid "Bet Information"
 msgstr "Bet Information"
 
 #: betting/templates/betting/bet_detail.html:49
+#: betting/templates/betting/bet_list.html:89
 msgid "Bet Type"
 msgstr "Bet Type"
 
@@ -31,8 +32,170 @@ msgstr "Bet Type"
 msgid "Bet Amount"
 msgstr "Bet Amount"
 
+#: betting/templates/betting/bet_detail.html:57
+msgid "Odds"
+msgstr "Odds"
+
+#: betting/templates/betting/bet_detail.html:61
+#: betting/templates/betting/place_bet.html:159
+#: betting/templates/betting/place_bet.html:209
+msgid "Potential Winnings"
+msgstr "Potential Winnings"
+
+#: betting/templates/betting/bet_detail.html:65
+#: betting/templates/betting/place_bet.html:77
+msgid "Your Choice"
+msgstr "Your Choice"
+
+#: betting/templates/betting/bet_detail.html:71
+#| msgid "Bet Information"
+msgid "Match Information"
+msgstr "Bet Information"
+
+#: betting/templates/betting/bet_detail.html:74
+#: betting/templates/betting/place_bet.html:62
+msgid "Tournament"
+msgstr "Tournament"
+
+#: betting/templates/betting/bet_detail.html:78
+msgid "Game"
+msgstr "Game"
+
+#: betting/templates/betting/bet_detail.html:82
+#| msgid "Matches"
+msgid "Match Date"
+msgstr "Matches"
+
+#: betting/templates/betting/bet_detail.html:86
+#| msgid "Matches"
+msgid "Match Status"
+msgstr "Matches"
+
+#: betting/templates/betting/bet_detail.html:97
+msgid "Final Score"
+msgstr "Final Score"
+
+#: betting/templates/betting/bet_detail.html:107
+msgid "Congratulations! You won"
+msgstr "Congratulations! You won"
+
+#: betting/templates/betting/bet_detail.html:107
+msgid "with this bet."
+msgstr "with this bet."
+
+#: betting/templates/betting/bet_detail.html:111
+msgid "Too bad! You lost your bet of"
+msgstr "Too bad! You lost your bet of"
+
+#: betting/templates/betting/bet_detail.html:115
+msgid "Your bet is pending the match result."
+msgstr "Your bet is pending the match result."
+
+#: betting/templates/betting/bet_detail.html:122
+#| msgid "Bet Information"
+msgid "Live Bet Information"
+msgstr "Bet Information"
+
+#: betting/templates/betting/bet_detail.html:125
+msgid "Timestamp:"
+msgstr "Timestamp:"
+
+#: betting/templates/betting/bet_detail.html:126
+msgid "Game Time:"
+msgstr "Game Time:"
+
+#: betting/templates/betting/bet_detail.html:127
+msgid "Score at bet time:"
+msgstr "Score at bet time:"
+
+#: betting/templates/betting/bet_detail.html:135
+msgid "Back to my bets"
+msgstr "Back to my bets"
+
+#: betting/templates/betting/bet_detail.html:139
+msgid "Place another live bet"
+msgstr "Place another live bet"
+
+#: betting/templates/betting/bet_list.html:19
+msgid "Total Bets"
+msgstr "Total Bets"
+
+#: betting/templates/betting/bet_list.html:27
+msgid "Won Bets"
+msgstr "Won Bets"
+
+#: betting/templates/betting/bet_list.html:35
+msgid "Lost Bets"
+msgstr "Lost Bets"
+
+#: betting/templates/betting/bet_list.html:43
+msgid "Pending Bets"
+msgstr "Pending Bets"
+
+#: betting/templates/betting/bet_list.html:55
+#| msgid "Bet Amount"
+msgid "Total Bet Amount"
+msgstr "Bet Amount"
+
+#: betting/templates/betting/bet_list.html:63
+msgid "Total Winnings"
+msgstr "Total Winnings"
+
+#: betting/templates/betting/bet_list.html:71
+msgid "Net Profit"
+msgstr "Net Profit"
+
+#: betting/templates/betting/bet_list.html:87
+#: clans_gaming/templates/clans_gaming/detail_clan.html:73
+#: core/templates/core/match_detail.html:286
+#: gameurs/templates/gameurs/detail_gameur.html:37
+#: users/templates/users/profile.html:122
+msgid "Date"
+msgstr "Date"
+
+#: betting/templates/betting/bet_list.html:88
+#| msgid "Matches"
+msgid "Match"
+msgstr "Matches"
+
+#: betting/templates/betting/bet_list.html:90
+msgid "Choice"
+msgstr "Choice"
+
+#: betting/templates/betting/bet_list.html:91
+#| msgid "Bet Amount"
+msgid "Amount"
+msgstr "Bet Amount"
+
+#: betting/templates/betting/bet_list.html:92
+msgid "Potential Win"
+msgstr "Potential Win"
+
+#: betting/templates/betting/bet_list.html:93
+msgid "Status"
+msgstr "Status"
+
+#: betting/templates/betting/bet_list.html:121
+msgid "You haven't placed any bets yet."
+msgstr "You haven't placed any bets yet."
+
+#: betting/templates/betting/bet_list.html:132
+msgid "Page navigation"
+msgstr "Page navigation"
+
+#: betting/templates/betting/bet_list.html:136
+msgid "Previous"
+msgstr "Previous"
+
+#: betting/templates/betting/bet_list.html:148
+msgid "Next"
+msgstr "Next"
+
 #: betting/templates/betting/match_list.html:5
 #: betting/templates/betting/match_list.html:9
+#: core/templates/core/game_list.html:27
+#: core/templates/core/match_detail.html:23
+#: core/templates/core/match_detail.html:48
 msgid "Matches"
 msgstr "Matches"
 
@@ -48,7 +211,397 @@ msgstr "Watch Live"
 msgid "Aucun match disponible pour le moment."
 msgstr "No matches available at the moment."
 
+#: betting/templates/betting/p2p/challenge_create.html:5
+#| msgid "Lancer un Défi"
+msgid "Créer un Défi P2P"
+msgstr "Launch a Challenge"
+
+#: betting/templates/betting/p2p/challenge_create.html:47
+#| msgid "Lancer un Défi"
+msgid "Créer un Nouveau Défi P2P"
+msgstr "Launch a Challenge"
+
+#: betting/templates/betting/p2p/challenge_create.html:65
+msgid "Détails du défi"
+msgstr "Challenge Details"
+
+#: betting/templates/betting/p2p/challenge_create.html:71
+msgid "Titre du défi"
+msgstr "Challenge Title"
+
+#: betting/templates/betting/p2p/challenge_create.html:88
+msgid "Description du défi"
+msgstr "Challenge Description"
+
+#: betting/templates/betting/p2p/challenge_create.html:105
+msgid "Type de jeu"
+msgstr "Game Type"
+
+#: betting/templates/betting/p2p/challenge_create.html:122
+msgid "Nom du jeu"
+msgstr "Game Name"
+
+#: betting/templates/betting/p2p/challenge_create.html:139
+#: clans_gaming/templates/clans_gaming/detail_clan.html:74
+#: gameurs/templates/gameurs/detail_gameur.html:38
+msgid "Adversaire"
+msgstr "Opponent"
+
+#: betting/templates/betting/p2p/challenge_create.html:157
+msgid "Mises et règles"
+msgstr "Stakes and Rules"
+
+#: betting/templates/betting/p2p/challenge_create.html:163
+msgid "Votre mise (Ktap)"
+msgstr "Your Stake (Ktap)"
+
+#: betting/templates/betting/p2p/challenge_create.html:173
+msgid "Solde disponible:"
+msgstr "Available Balance:"
+
+#: betting/templates/betting/p2p/challenge_create.html:181
+msgid "Mise de l'adversaire (Ktap)"
+msgstr "Opponent Stake (Ktap)"
+
+#: betting/templates/betting/p2p/challenge_create.html:201
+msgid "Pot total du défi :"
+msgstr "Total Challenge Pot:"
+
+#: betting/templates/betting/p2p/challenge_create.html:204
+msgid "Ce montant sera bloqué sur votre compte jusqu'à la fin du défi."
+msgstr "This amount will be locked on your account until the end of the challenge."
+
+#: betting/templates/betting/p2p/challenge_create.html:214
+msgid "Règles spécifiques (optionnel)"
+msgstr "Specific Rules (optional)"
+
+#: betting/templates/betting/p2p/challenge_create.html:231
+msgid "Format du match"
+msgstr "Match Format"
+
+#: betting/templates/betting/p2p/challenge_create.html:248
+msgid "Date limite d'acceptation"
+msgstr "Acceptance Deadline"
+
+#: betting/templates/betting/p2p/challenge_create.html:269
+msgid "Important :"
+msgstr "Important:"
+
+#: betting/templates/betting/p2p/challenge_create.html:269
+msgid ""
+"En créant ce défi, vous acceptez que le montant de votre mise soit bloqué "
+"sur votre compte jusqu'à la fin du défi. En cas de non-respect des règles, "
+"l'équipe de modération se réserve le droit d'annuler le défi."
+msgstr ""
+
+#: betting/templates/betting/p2p/challenge_create.html:277
+#: blog/templates/blog/creer_article.html:25
+#: clans_gaming/templates/clans_gaming/creer_clan.html:19
+#: evenements/templates/evenements/creer_evenement.html:19
+#: gameurs/templates/gameurs/demander_match.html:19
+msgid "Annuler"
+msgstr "Cancel"
+
+#: betting/templates/betting/p2p/challenge_create.html:280
+#| msgid "Lancer un Défi"
+msgid "Créer le défi"
+msgstr "Launch a Challenge"
+
+#: betting/templates/betting/p2p/challenge_create.html:350
+msgid "La date d\\'expiration doit être dans le futur."
+msgstr ""
+
+#: betting/templates/betting/p2p/challenge_create.html:359
+msgid "Le montant du pari doit être supérieur à 0."
+msgstr "The bet amount must be greater than 0."
+
+#: betting/templates/betting/place_bet.html:2
+#: betting/templates/betting/place_bet.html:111
+msgid "Place Bet"
+msgstr "Place Bet"
+
+#: betting/templates/betting/place_bet.html:14
+msgid "Current Match"
+msgstr "Current Match"
+
+#: betting/templates/betting/place_bet.html:55
+msgid "Date and Time"
+msgstr "Date and Time"
+
+#: betting/templates/betting/place_bet.html:73
+msgid "Place Your Bet"
+msgstr "Place Your Bet"
+
+#: betting/templates/betting/place_bet.html:98
+#| msgid "Bet Amount"
+msgid "Bet Amount (K)"
+msgstr "Bet Amount"
+
+#: betting/templates/betting/place_bet.html:107
+msgid "Available Balance:"
+msgstr "Available Balance:"
+
+#: betting/templates/betting/place_bet.html:125
+msgid "Betting Rules"
+msgstr "Betting Rules"
+
+#: betting/templates/betting/place_bet.html:132
+msgid "Minimum Amount"
+msgstr "Minimum Amount"
+
+#: betting/templates/betting/place_bet.html:133
+msgid "1 K per bet"
+msgstr "1 K per bet"
+
+#: betting/templates/betting/place_bet.html:139
+msgid "Maximum Amount"
+msgstr "Maximum Amount"
+
+#: betting/templates/betting/place_bet.html:141
+msgid "available balance"
+msgstr "available balance"
+
+#: betting/templates/betting/place_bet.html:148
+msgid "Betting Deadline"
+msgstr "Betting Deadline"
+
+#: betting/templates/betting/place_bet.html:149
+msgid "Until match start"
+msgstr "Until match start"
+
+#: betting/templates/betting/place_bet.html:163
+#: betting/templates/betting/place_bet.html:215
+msgid "Calculated based on amount"
+msgstr "Calculated based on amount"
+
+#: betting/templates/betting/place_bet.html:168
+msgid "Winnings are calculated based on bet amount and current odds"
+msgstr "Winnings are calculated based on bet amount and current odds"
+
+#: blog/templates/blog/creer_article.html:8
+msgid "Écrire un article"
+msgstr "Write an Article"
+
+#: blog/templates/blog/creer_article.html:24
+msgid "Publier l'article"
+msgstr "Publish Article"
+
+#: blog/templates/blog/detail_article.html:7
+#| msgid "Retour à l'accueil"
+msgid "Retour au blog"
+msgstr "Back to Home"
+
+#: blog/templates/blog/detail_article.html:12
+#: forum/templates/forum/liste_sujets.html:48
+#| msgid "Paris"
+msgid "Par"
+msgstr "Betting"
+
+#: blog/templates/blog/detail_article.html:12
+#: forum/templates/forum/liste_sujets.html:48
+msgid "le"
+msgstr "on"
+
+#: blog/templates/blog/detail_article.html:13
+msgid "dans"
+msgstr "in"
+
+#: blog/templates/blog/detail_article.html:14
+#: forum/templates/forum/liste_sujets.html:43
+msgid "vues"
+msgstr "views"
+
+#: blog/templates/blog/detail_article.html:27
+#: blog/templates/blog/detail_article.html:77
+#: blog/templates/blog/detail_article.html:102
+#: forum/templates/forum/detail_sujet.html:73
+#: users/templates/users/profile.html:59
+msgid "Modifier"
+msgstr "Edit"
+
+#: blog/templates/blog/detail_article.html:28
+#: blog/templates/blog/detail_article.html:78
+#: blog/templates/blog/detail_article.html:103
+#: forum/templates/forum/detail_sujet.html:74
+#| msgid "Support Live"
+msgid "Supprimer"
+msgstr "Live Support"
+
+#: blog/templates/blog/detail_article.html:36
+msgid "Commentaires"
+msgstr "Comments"
+
+#: blog/templates/blog/detail_article.html:41
+msgid "Laisser un commentaire"
+msgstr "Leave a Comment"
+
+#: blog/templates/blog/detail_article.html:47
+#: forum/templates/forum/creer_sujet.html:19
+#: forum/templates/forum/detail_sujet.html:94
+msgid "Publier"
+msgstr "Publish"
+
+#: blog/templates/blog/detail_article.html:53
+#: forum/templates/forum/detail_sujet.html:104
+msgid "Connectez-vous"
+msgstr "Log in"
+
+#: blog/templates/blog/detail_article.html:53
+msgid "pour laisser un commentaire."
+msgstr "to leave a comment."
+
+#: blog/templates/blog/detail_article.html:64
+#: blog/templates/blog/detail_article.html:89
+#: forum/templates/forum/detail_sujet.html:37
+#: forum/templates/forum/detail_sujet.html:60
+msgid "Membre"
+msgstr "Member"
+
+#: blog/templates/blog/detail_article.html:70
+#: blog/templates/blog/detail_article.html:95
+#: forum/templates/forum/detail_sujet.html:43
+#: forum/templates/forum/detail_sujet.html:66
+msgid "Posté le"
+msgstr "Posted on"
+
+#: blog/templates/blog/detail_article.html:72
+#: blog/templates/blog/detail_article.html:97
+#: forum/templates/forum/detail_sujet.html:45
+#: forum/templates/forum/detail_sujet.html:68
+msgid "Modifié le"
+msgstr "Modified on"
+
+#: blog/templates/blog/detail_article.html:117
+msgid "Aucun commentaire pour le moment. Soyez le premier à commenter !"
+msgstr "No comments yet. Be the first to comment!"
+
+#: clans_gaming/templates/clans_gaming/creer_clan.html:10
+msgid "Créer un nouveau clan"
+msgstr "Create New Clan"
+
+#: clans_gaming/templates/clans_gaming/creer_clan.html:18
+msgid "Créer le clan"
+msgstr "Create Clan"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:15
+#: clans_gaming/templates/clans_gaming/liste_clans.html:23
+#: core/templates/core/match_detail.html:280
+#| msgid "Jeux"
+msgid "Jeu"
+msgstr "Games"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:16
+#: clans_gaming/templates/clans_gaming/liste_clans.html:24
+#: gameurs/templates/gameurs/detail_gameur.html:20
+#: gameurs/templates/gameurs/liste_gameurs.html:19
+msgid "Victoires"
+msgstr "Wins"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:17
+#: clans_gaming/templates/clans_gaming/liste_clans.html:25
+#: gameurs/templates/gameurs/detail_gameur.html:21
+#: gameurs/templates/gameurs/liste_gameurs.html:20
+msgid "Défaites"
+msgstr "Defeats"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:18
+#: clans_gaming/templates/clans_gaming/liste_clans.html:26
+#: gameurs/templates/gameurs/detail_gameur.html:22
+#: gameurs/templates/gameurs/liste_gameurs.html:21
+msgid "Ratio"
+msgstr "Ratio"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:21
+#: evenements/templates/evenements/detail_evenement.html:26
+#| msgid "Inscription"
+msgid "Description"
+msgstr "Sign Up"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:25
+msgid "Défier le clan"
+msgstr "Challenge the Clan"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:34
+msgid "Membres du clan"
+msgstr "Clan Members"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:41
+msgid "Pseudo"
+msgstr "Username"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:42
+msgid "Rôle"
+msgstr "Role"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:43
+msgid "Date d'entrée"
+msgstr "Join Date"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:55
+msgid "Aucun membre"
+msgstr "No members"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:66
+#: gameurs/templates/gameurs/detail_gameur.html:32
+msgid "Historique des matchs"
+msgstr "Match History"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:75
+#: gameurs/templates/gameurs/detail_gameur.html:39
+msgid "Score"
+msgstr "Score"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:76
+#: gameurs/templates/gameurs/detail_gameur.html:40
+msgid "Résultat"
+msgstr "Result"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:99
+#: gameurs/templates/gameurs/detail_gameur.html:63
+msgid "Victoire"
+msgstr "Victory"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:101
+#: gameurs/templates/gameurs/detail_gameur.html:65
+msgid "Défaite"
+msgstr "Defeat"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:103
+#: gameurs/templates/gameurs/detail_gameur.html:67
+msgid "En cours"
+msgstr "In Progress"
+
+#: clans_gaming/templates/clans_gaming/detail_clan.html:109
+#: gameurs/templates/gameurs/detail_gameur.html:73
+msgid "Aucun match joué"
+msgstr "No matches played"
+
+#: clans_gaming/templates/clans_gaming/liste_clans.html:7
+#| msgid "Meilleurs Gameurs"
+msgid "Meilleurs Clans"
+msgstr "Top Gamers"
+
+#: clans_gaming/templates/clans_gaming/liste_clans.html:9
+#| msgid "Lancer un Défi"
+msgid "Créer un clan"
+msgstr "Launch a Challenge"
+
+#: clans_gaming/templates/clans_gaming/liste_clans.html:28
+msgid "Voir le clan"
+msgstr "View Clan"
+
+#: clans_gaming/templates/clans_gaming/liste_clans.html:34
+msgid "Aucun clan n'est encore créé."
+msgstr "No clan has been created yet."
+
+#: core/templates/core/base.html:21 core/templates/core/base.html:82
+#| msgid "Support Live"
+msgid "eBetStream Logo"
+msgstr "Live Support"
+
 #: core/templates/core/base.html:29 core/templates/core/base.html:88
+#: core/templates/core/match_detail.html:14
+#: core/templates/core/match_detail.html:39
 msgid "Jeux"
 msgstr "Games"
 
@@ -69,52 +622,77 @@ msgid "Connexion"
 msgstr "Login"
 
 #: core/templates/core/base.html:57
+#: evenements/templates/evenements/detail_evenement.html:43
 msgid "Inscription"
 msgstr "Sign Up"
 
+#: core/templates/core/base.html:70
+msgid "Close"
+msgstr "Close"
+
 #: core/templates/core/base.html:83
 msgid "Votre plateforme de paris sportifs en ligne"
-msgstr ""
+msgstr "Your online esports betting platform"
 
 #: core/templates/core/base.html:86
 msgid "Tous droits réservés."
-msgstr ""
+msgstr "All rights reserved."
 
 #: core/templates/core/base.html:89
 msgid "Confidentialité"
-msgstr ""
+msgstr "Privacy"
 
 #: core/templates/core/base.html:90
 msgid "Conditions"
-msgstr ""
+msgstr "Terms"
+
+#: core/templates/core/game_list.html:5 core/templates/core/game_list.html:9
+msgid "Liste des Jeux"
+msgstr "Game List"
+
+#: core/templates/core/game_list.html:26 core/templates/core/home.html:319
+#: core/templates/core/match_detail.html:18
+#: core/templates/core/match_detail.html:43
+msgid "Tournois"
+msgstr "Tournaments"
+
+#: core/templates/core/game_list.html:32
+#| msgid "Rejoindre l'Élite"
+msgid "Voir les Tournois"
+msgstr "Join the Elite"
+
+#: core/templates/core/game_list.html:40
+#| msgid "Aucun match disponible pour le moment."
+msgid "Aucun jeu disponible pour le moment."
+msgstr "No matches available at the moment."
 
 #: core/templates/core/home.html:6
 msgid "Plateforme de Paris Sportifs Cyber"
-msgstr ""
+msgstr "Cyber Sports Betting Platform"
 
 #: core/templates/core/home.html:13 core/templates/core/home.html:20
 msgid "NOUVEAU TOURNOI VALORANT - 50K€ DE PRIZES"
-msgstr ""
+msgstr "NEW VALORANT TOURNAMENT - 50K€ PRIZES"
 
 #: core/templates/core/home.html:14 core/templates/core/home.html:21
 msgid "CHAMPIONNAT CS2 COMMENCE DEMAIN"
-msgstr ""
+msgstr "CS2 CHAMPIONSHIP STARTS TOMORROW"
 
 #: core/templates/core/home.html:15 core/templates/core/home.html:22
 msgid "RECORD BATTU: +2M€ DE PARIS CETTE SEMAINE"
-msgstr ""
+msgstr "RECORD BROKEN: +2M€ BETS THIS WEEK"
 
 #: core/templates/core/home.html:16 core/templates/core/home.html:23
 msgid "NOUVEAUX DÉFIS P2P DISPONIBLES"
-msgstr ""
+msgstr "NEW P2P CHALLENGES AVAILABLE"
 
 #: core/templates/core/home.html:17 core/templates/core/home.html:24
 msgid "LIVE: 15K SPECTATEURS SUR NOS STREAMS"
-msgstr ""
+msgstr "LIVE: 15K VIEWERS ON OUR STREAMS"
 
 #: core/templates/core/home.html:18 core/templates/core/home.html:25
 msgid "COMMUNAUTÉ: +50K NOUVEAUX MEMBRES"
-msgstr ""
+msgstr "COMMUNITY: +50K NEW MEMBERS"
 
 #: core/templates/core/home.html:46
 msgid "Gagnez de l\\"
@@ -140,7 +718,6 @@ msgid "Commencer à Gagner"
 msgstr "Start Earning"
 
 #: core/templates/core/home.html:60
-#, fuzzy
 #| msgid "Devenez la Star d'eBetStream"
 msgid "Devenez la Star d\\"
 msgstr "Become the Star of eBetStream"
@@ -163,7 +740,6 @@ msgid "Devenir Légende"
 msgstr "Become a Legend"
 
 #: core/templates/core/home.html:74
-#, fuzzy
 #| msgid "Relevez des Défis Épiques sur eBetStream"
 msgid "Relevez des Défis Épiques"
 msgstr "Take on Epic Challenges on eBetStream"
@@ -187,7 +763,6 @@ msgid "Lancer un Défi"
 msgstr "Launch a Challenge"
 
 #: core/templates/core/home.html:88
-#, fuzzy
 #| msgid "Placez des Paris Gagnants sur eBetStream"
 msgid "Placez des Paris Gagnants"
 msgstr "Place Winning Bets on eBetStream"
@@ -209,7 +784,6 @@ msgid "Parier Maintenant"
 msgstr "Bet Now"
 
 #: core/templates/core/home.html:102
-#, fuzzy
 #| msgid "Regardez des Matchs en Direct sur eBetStream"
 msgid "Regardez des Matchs en Direct"
 msgstr "Watch Live Matches on eBetStream"
@@ -280,7 +854,6 @@ msgid "VS"
 msgstr ""
 
 #: core/templates/core/home.html:230
-#, fuzzy
 #| msgid "Support Live"
 msgid "Stream Live"
 msgstr "Live Support"
@@ -320,7 +893,6 @@ msgid "Entrer dans l'Arène"
 msgstr ""
 
 #: core/templates/core/home.html:277
-#, fuzzy
 #| msgid "Lancer un Défi"
 msgid "Créer un Défi"
 msgstr "Launch a Challenge"
@@ -337,16 +909,11 @@ msgstr ""
 msgid "Actif"
 msgstr ""
 
-#: core/templates/core/home.html:319
-msgid "Tournois"
-msgstr ""
-
 #: core/templates/core/home.html:320
 msgid "Populaire"
 msgstr ""
 
 #: core/templates/core/home.html:325
-#, fuzzy
 #| msgid "Rejoindre l'Élite"
 msgid "Rejoindre les Tournois"
 msgstr "Join the Elite"
@@ -510,13 +1077,11 @@ msgid "Prêt pour l'Aventure Cyber ?"
 msgstr ""
 
 #: core/templates/core/home.html:710
-#, fuzzy
 #| msgid "Gagnez de l'Argent en Jouant sur eBetStream"
 msgid "Rejoignez des millions de joueurs dans l'univers eBetStream"
 msgstr "Earn Money Playing on eBetStream"
 
 #: core/templates/core/home.html:714
-#, fuzzy
 #| msgid "Parier Maintenant"
 msgid "S'inscrire Maintenant"
 msgstr "Bet Now"
@@ -530,16 +1095,269 @@ msgid "Mon Profil"
 msgstr ""
 
 #: core/templates/core/home.html:724
-#, fuzzy
 #| msgid "Commencer à Gagner"
 msgid "Commencer à Parier"
 msgstr "Start Earning"
+
+#: core/templates/core/match_detail.html:8
+#: core/templates/core/match_detail.html:33
+msgid "breadcrumb"
+msgstr ""
+
+#: core/templates/core/match_detail.html:11
+#: core/templates/core/match_detail.html:36
+msgid "Accueil"
+msgstr ""
+
+#: core/templates/core/match_detail.html:62
+msgid "EN DIRECT"
+msgstr ""
+
+#: core/templates/core/match_detail.html:63
+msgid "À VENIR"
+msgstr ""
+
+#: core/templates/core/match_detail.html:64
+msgid "TERMINÉ"
+msgstr ""
+
+#: core/templates/core/match_detail.html:66
+msgid "ANNULÉ"
+msgstr ""
+
+#: core/templates/core/match_detail.html:68
+msgid "Début le"
+msgstr ""
+
+#: core/templates/core/match_detail.html:122
+msgid "Vainqueur:"
+msgstr ""
+
+#: core/templates/core/match_detail.html:134
+#| msgid "Lancer un Défi"
+msgid "Placer un pari"
+msgstr "Launch a Challenge"
+
+#: core/templates/core/match_detail.html:141
+msgid "Type de pari"
+msgstr ""
+
+#: core/templates/core/match_detail.html:149
+msgid "Sélectionnez un type de pari"
+msgstr ""
+
+#: core/templates/core/match_detail.html:153
+msgid "Cote:"
+msgstr ""
+
+#: core/templates/core/match_detail.html:160
+msgid "Votre pronostic"
+msgstr ""
+
+#: core/templates/core/match_detail.html:163
+msgid "Sélectionnez votre pronostic"
+msgstr ""
+
+#: core/templates/core/match_detail.html:167
+#| msgid "Matches"
+msgid "Match nul"
+msgstr "Matches"
+
+#: core/templates/core/match_detail.html:172
+msgid "Montant du pari (K)"
+msgstr ""
+
+#: core/templates/core/match_detail.html:183
+#| msgid "Solde Actuel"
+msgid "Votre solde actuel:"
+msgstr "Current Balance"
+
+#: core/templates/core/match_detail.html:189
+msgid "Gains potentiels"
+msgstr ""
+
+#: core/templates/core/match_detail.html:203
+msgid "Placer le pari"
+msgstr ""
+
+#: core/templates/core/match_detail.html:240
+msgid "Vous devez être connecté pour placer un pari."
+msgstr ""
+
+#: core/templates/core/match_detail.html:241
+#: evenements/templates/evenements/detail_evenement.html:65
+msgid "Se connecter"
+msgstr ""
+
+#: core/templates/core/match_detail.html:245
+msgid "Le match est en cours. Les paris en direct sont disponibles."
+msgstr ""
+
+#: core/templates/core/match_detail.html:247
+#| msgid "Parier Maintenant"
+msgid "Parier en Direct"
+msgstr "Bet Now"
+
+#: core/templates/core/match_detail.html:252
+msgid "Les paris sont fermés pour ce match car il est terminé."
+msgstr ""
+
+#: core/templates/core/match_detail.html:256
+msgid "Ce match a été annulé. Tous les paris ont été remboursés."
+msgstr ""
+
+#: core/templates/core/match_detail.html:267
+#| msgid "Bet Information"
+msgid "Informations"
+msgstr "Bet Information"
+
+#: core/templates/core/match_detail.html:274
+msgid "Tournoi"
+msgstr ""
+
+#: core/templates/core/match_detail.html:292
+msgid "Heure"
+msgstr ""
+
+#: core/templates/core/match_detail.html:302
+msgid "Actions"
+msgstr ""
+
+#: core/templates/core/match_detail.html:311
+#| msgid "Regardez des Matchs en Direct sur eBetStream"
+msgid "Regarder en Direct"
+msgstr "Watch Live Matches on eBetStream"
+
+#: core/templates/core/match_detail.html:318
+#| msgid "Rejoindre l'Élite"
+msgid "Voir le Tournoi"
+msgstr "Join the Elite"
+
+#: evenements/templates/evenements/creer_evenement.html:10
+msgid "Créer un nouvel événement"
+msgstr ""
+
+#: evenements/templates/evenements/creer_evenement.html:18
+msgid "Créer l'événement"
+msgstr ""
+
+#: evenements/templates/evenements/detail_evenement.html:14
+msgid "Retour aux événements"
+msgstr ""
+
+#: evenements/templates/evenements/detail_evenement.html:18
+msgid "Type :"
+msgstr ""
+
+#: evenements/templates/evenements/detail_evenement.html:19
+msgid "Jeu :"
+msgstr ""
+
+#: evenements/templates/evenements/detail_evenement.html:20
+msgid "Date de début :"
+msgstr ""
+
+#: evenements/templates/evenements/detail_evenement.html:21
+msgid "Date de fin :"
+msgstr ""
+
+#: evenements/templates/evenements/detail_evenement.html:22
+msgid "Lieu :"
+msgstr ""
+
+#: evenements/templates/evenements/detail_evenement.html:23
+msgid "Places disponibles :"
+msgstr ""
+
+#: evenements/templates/evenements/detail_evenement.html:32
+msgid "Lien d'inscription externe"
+msgstr ""
+
+#: evenements/templates/evenements/detail_evenement.html:48
+msgid "Vous êtes inscrit à cet événement !"
+msgstr ""
+
+#: evenements/templates/evenements/detail_evenement.html:51
+msgid "Êtes-vous sûr de vouloir annuler votre inscription ?"
+msgstr ""
+
+#: evenements/templates/evenements/detail_evenement.html:52
+#| msgid "Inscription"
+msgid "Annuler l'inscription"
+msgstr "Sign Up"
+
+#: evenements/templates/evenements/detail_evenement.html:56
+msgid "Désolé, il n'y a plus de places disponibles."
+msgstr ""
+
+#: evenements/templates/evenements/detail_evenement.html:59
+#| msgid "Parier Maintenant"
+msgid "S'inscrire"
+msgstr "Bet Now"
+
+#: evenements/templates/evenements/detail_evenement.html:64
+msgid "Veuillez vous connecter pour vous inscrire à cet événement."
+msgstr ""
+
+#: evenements/templates/evenements/detail_evenement.html:72
+msgid "Participants"
+msgstr ""
+
+#: evenements/templates/evenements/detail_evenement.html:84
+#| msgid "Aucun match disponible pour le moment."
+msgid "Aucun participant pour le moment."
+msgstr "No matches available at the moment."
+
+#: forum/templates/forum/creer_sujet.html:7
+#: forum/templates/forum/detail_sujet.html:8
+#: forum/templates/forum/liste_sujets.html:8
+msgid "Forum"
+msgstr "Forum"
+
+#: forum/templates/forum/creer_sujet.html:9
+#| msgid "Nouveau Sujet"
+msgid "Nouveau sujet"
+msgstr "New Topic"
+
+#: forum/templates/forum/creer_sujet.html:12
+#| msgid "Nouveau Sujet"
+msgid "Créer un nouveau sujet"
+msgstr "New Topic"
+
+#: forum/templates/forum/creer_sujet.html:14
+#: forum/templates/forum/detail_sujet.html:15
+#| msgid "Nouveau Sujet"
+msgid "Retour aux sujets"
+msgstr "New Topic"
+
+#: forum/templates/forum/detail_sujet.html:24
+#: forum/templates/forum/liste_sujets.html:33
+msgid "Épinglé"
+msgstr ""
+
+#: forum/templates/forum/detail_sujet.html:27
+#: forum/templates/forum/liste_sujets.html:36
+msgid "Verrouillé"
+msgstr ""
+
+#: forum/templates/forum/detail_sujet.html:86
+msgid "Répondre"
+msgstr ""
+
+#: forum/templates/forum/detail_sujet.html:100
+msgid "Ce sujet est verrouillé. Vous ne pouvez plus y répondre."
+msgstr ""
+
+#: forum/templates/forum/detail_sujet.html:104
+msgid "pour répondre à ce sujet."
+msgstr ""
 
 #: forum/templates/forum/liste_categories.html:5
 msgid "Catégories du forum"
 msgstr "Forum Categories"
 
 #: forum/templates/forum/liste_categories.html:7
+#: streaming/templates/streaming/stream_index.html:64
 msgid "Retour à l'accueil"
 msgstr "Back to Home"
 
@@ -559,10 +1377,6 @@ msgstr ""
 msgid "Aucune catégorie disponible."
 msgstr ""
 
-#: forum/templates/forum/liste_sujets.html:8
-msgid "Forum"
-msgstr "Forum"
-
 #: forum/templates/forum/liste_sujets.html:17
 msgid "Nouveau Sujet"
 msgstr "New Topic"
@@ -571,34 +1385,20 @@ msgstr "New Topic"
 msgid "Retour aux catégories"
 msgstr ""
 
-#: forum/templates/forum/liste_sujets.html:33
-msgid "Épinglé"
-msgstr ""
-
-#: forum/templates/forum/liste_sujets.html:36
-msgid "Verrouillé"
-msgstr ""
-
-#: forum/templates/forum/liste_sujets.html:43
-msgid "vues"
-msgstr ""
-
 #: forum/templates/forum/liste_sujets.html:44
 msgid "réponses"
 msgstr ""
 
-#: forum/templates/forum/liste_sujets.html:48
-#, fuzzy
-#| msgid "Paris"
-msgid "Par"
-msgstr "Betting"
-
-#: forum/templates/forum/liste_sujets.html:48
-msgid "le"
-msgstr ""
-
 #: forum/templates/forum/liste_sujets.html:54
 msgid "Aucun sujet n'a été créé dans cette catégorie."
+msgstr ""
+
+#: gameurs/templates/gameurs/demander_match.html:10
+msgid "Demander un match contre"
+msgstr ""
+
+#: gameurs/templates/gameurs/demander_match.html:18
+msgid "Envoyer la demande"
 msgstr ""
 
 #: gameurs/templates/gameurs/detail_gameur.html:7
@@ -610,47 +1410,10 @@ msgstr ""
 msgid "Jeu préféré"
 msgstr ""
 
-#: gameurs/templates/gameurs/detail_gameur.html:20
-#: gameurs/templates/gameurs/liste_gameurs.html:19
-msgid "Victoires"
-msgstr ""
-
-#: gameurs/templates/gameurs/detail_gameur.html:21
-#: gameurs/templates/gameurs/liste_gameurs.html:20
-msgid "Défaites"
-msgstr ""
-
-#: gameurs/templates/gameurs/detail_gameur.html:22
-#: gameurs/templates/gameurs/liste_gameurs.html:21
-msgid "Ratio"
-msgstr ""
-
 #: gameurs/templates/gameurs/detail_gameur.html:25
-#, fuzzy
 #| msgid "Joueurs Actifs"
 msgid "Jouer contre"
 msgstr "Active Players"
-
-#: gameurs/templates/gameurs/detail_gameur.html:32
-msgid "Historique des matchs"
-msgstr ""
-
-#: gameurs/templates/gameurs/detail_gameur.html:37
-#: users/templates/users/profile.html:122
-msgid "Date"
-msgstr ""
-
-#: gameurs/templates/gameurs/detail_gameur.html:38
-msgid "Adversaire"
-msgstr ""
-
-#: gameurs/templates/gameurs/detail_gameur.html:39
-msgid "Score"
-msgstr ""
-
-#: gameurs/templates/gameurs/detail_gameur.html:40
-msgid "Résultat"
-msgstr ""
 
 #: gameurs/templates/gameurs/liste_gameurs.html:6
 msgid "Meilleurs Gameurs"
@@ -664,6 +1427,21 @@ msgstr ""
 msgid "Aucun gameur n'est encore inscrit."
 msgstr ""
 
+#: partenaires/templates/partenaires/detail_partenaire.html:7
+#| msgid "Nos Partenaires"
+msgid "Retour aux partenaires"
+msgstr "Our Partners"
+
+#: partenaires/templates/partenaires/detail_partenaire.html:15
+#: partenaires/templates/partenaires/liste_partenaires.html:20
+msgid "Visiter le site"
+msgstr ""
+
+#: partenaires/templates/partenaires/detail_partenaire.html:32
+#| msgid "Nos Partenaires"
+msgid "Partenaire depuis le"
+msgstr "Our Partners"
+
 #: partenaires/templates/partenaires/liste_partenaires.html:6
 #: templates/base.html:481
 msgid "Nos Partenaires"
@@ -673,13 +1451,74 @@ msgstr "Our Partners"
 msgid "En savoir plus"
 msgstr ""
 
-#: partenaires/templates/partenaires/liste_partenaires.html:20
-msgid "Visiter le site"
-msgstr ""
-
 #: partenaires/templates/partenaires/liste_partenaires.html:27
 msgid "Aucun partenaire n'est actuellement disponible."
 msgstr ""
+
+#: streaming/templates/streaming/stream_index.html:13
+#| msgid "Live Stream"
+msgid "Streaming Live eBetStream"
+msgstr "Live Stream"
+
+#: streaming/templates/streaming/stream_index.html:16
+#| msgid "Regardez des Matchs en Direct sur eBetStream"
+msgid "Regardez les matchs en direct et ne manquez aucune action !"
+msgstr "Watch Live Matches on eBetStream"
+
+#: streaming/templates/streaming/stream_index.html:40
+msgid "Regarder en Live"
+msgstr ""
+
+#: streaming/templates/streaming/stream_index.html:46
+#| msgid "Support Live"
+msgid "Stream actif"
+msgstr "Live Support"
+
+#: streaming/templates/streaming/stream_index.html:57
+#| msgid "Aucun match disponible pour le moment."
+msgid "Aucun stream actif pour le moment"
+msgstr "No matches available at the moment."
+
+#: streaming/templates/streaming/stream_index.html:59
+msgid "Les streams seront disponibles pendant les matchs en cours."
+msgstr ""
+
+#: streaming/templates/streaming/stream_index.html:60
+msgid "Revenez bientôt pour regarder les compétitions en direct !"
+msgstr ""
+
+#: streaming/templates/streaming/stream_index.html:67
+msgid "Voir les jeux"
+msgstr ""
+
+#: streaming/templates/streaming/stream_index.html:80
+msgid "Qualité HD"
+msgstr ""
+
+#: streaming/templates/streaming/stream_index.html:81
+msgid "Streaming haute définition pour une expérience optimale"
+msgstr ""
+
+#: streaming/templates/streaming/stream_index.html:87
+msgid "Chat en Direct"
+msgstr ""
+
+#: streaming/templates/streaming/stream_index.html:88
+msgid "Interagissez avec la communauté pendant les matchs"
+msgstr ""
+
+#: streaming/templates/streaming/stream_index.html:94
+msgid "Multi-plateforme"
+msgstr ""
+
+#: streaming/templates/streaming/stream_index.html:95
+msgid "Regardez sur tous vos appareils, partout où vous êtes"
+msgstr ""
+
+#: streaming/templates/streaming/watch_stream.html:4
+#| msgid "Live Stream"
+msgid "Live Streaming"
+msgstr "Live Stream"
 
 #: templates/base.html:473
 msgid "Votre plateforme de paris sportifs et de streaming."
@@ -691,6 +1530,81 @@ msgstr "All rights reserved."
 
 #: templates/base.html:493
 msgid "Aucun partenaire pour le moment"
+msgstr ""
+
+#: users/templates/users/deposit_request.html:5
+msgid "Deposit Request - eBetStream"
+msgstr ""
+
+#: users/templates/users/deposit_request.html:13
+msgid "Deposit Request"
+msgstr ""
+
+#: users/templates/users/deposit_request.html:19
+msgid ""
+"Your deposit request will be reviewed by our team. Once approved, the amount "
+"will be added to your balance."
+msgstr ""
+
+#: users/templates/users/deposit_request.html:36
+msgid "Minimum amount:"
+msgstr ""
+
+#: users/templates/users/deposit_request.html:36
+msgid "Maximum:"
+msgstr ""
+
+#: users/templates/users/deposit_request.html:76
+msgid "Accepted formats: JPG, PNG, PDF (max 5MB)"
+msgstr ""
+
+#: users/templates/users/deposit_request.html:80
+msgid "Submit Request"
+msgstr ""
+
+#: users/templates/users/deposit_request.html:81
+msgid "Cancel"
+msgstr ""
+
+#: users/templates/users/login.html:7
+msgid "Connexion Cyber - eBetStream NEXUS"
+msgstr ""
+
+#: users/templates/users/login.html:16 users/templates/users/login.html:55
+msgid "CONNEXION NEXUS"
+msgstr ""
+
+#: users/templates/users/login.html:17
+msgid "Accédez à votre compte cyber-sportif"
+msgstr ""
+
+#: users/templates/users/login.html:35 users/templates/users/register.html:41
+msgid "Nom d'utilisateur"
+msgstr ""
+
+#: users/templates/users/login.html:37 users/templates/users/register.html:45
+msgid "Mot de passe"
+msgstr ""
+
+#: users/templates/users/login.html:61
+msgid "Récupération cyber"
+msgstr ""
+
+#: users/templates/users/login.html:65 users/templates/users/register.html:73
+msgid "OU"
+msgstr ""
+
+#: users/templates/users/login.html:69
+msgid "Nouveau dans l'univers cyber ?"
+msgstr ""
+
+#: users/templates/users/login.html:71
+#| msgid "Rejoindre l'Élite"
+msgid "Rejoindre la communauté"
+msgstr "Join the Elite"
+
+#: users/templates/users/login.html:76
+msgid "Accès Administrateur"
 msgstr ""
 
 #: users/templates/users/profile.html:3
@@ -717,10 +1631,6 @@ msgstr ""
 msgid "Modifier le profil"
 msgstr ""
 
-#: users/templates/users/profile.html:59
-msgid "Modifier"
-msgstr ""
-
 #: users/templates/users/profile.html:66
 msgid "Voir l\\"
 msgstr ""
@@ -730,7 +1640,6 @@ msgid "Historique"
 msgstr ""
 
 #: users/templates/users/profile.html:84
-#, fuzzy
 #| msgid "Paris Placés"
 msgid "Paris Gagnés"
 msgstr "Bets Placed"
@@ -740,7 +1649,6 @@ msgid "Taux de Réussite"
 msgstr ""
 
 #: users/templates/users/profile.html:98
-#, fuzzy
 #| msgid "Joueurs Actifs"
 msgid "Jours Actifs"
 msgstr "Active Players"
@@ -772,3 +1680,36 @@ msgstr ""
 #: users/templates/users/profile.html:125
 msgid "Statut"
 msgstr ""
+
+#: users/templates/users/register.html:7
+msgid "Inscription Cyber - eBetStream NEXUS"
+msgstr ""
+
+#: users/templates/users/register.html:16
+msgid "REJOINDRE NEXUS"
+msgstr ""
+
+#: users/templates/users/register.html:17
+msgid "Créez votre profil cyber-sportif dès maintenant"
+msgstr ""
+
+#: users/templates/users/register.html:43
+msgid "Email"
+msgstr ""
+
+#: users/templates/users/register.html:47
+msgid "Confirmer mot de passe"
+msgstr ""
+
+#: users/templates/users/register.html:67
+msgid "CRÉER MON COMPTE NEXUS"
+msgstr ""
+
+#: users/templates/users/register.html:77
+msgid "Déjà membre de la communauté ?"
+msgstr ""
+
+#: users/templates/users/register.html:79
+#| msgid "Connexion"
+msgid "Connexion rapide"
+msgstr "Login"
