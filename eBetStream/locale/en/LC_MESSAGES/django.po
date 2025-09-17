@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-17 17:17+0000\n"
+"POT-Creation-Date: 2025-09-17 17:39+0000\n"
 "Language: en\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
@@ -18,6 +18,8 @@ msgstr "Back to Bet List"
 msgid ""
 "\"Double\" Betting System: Bet on a result and double your bet if you win!"
 msgstr ""
+"\"Double\" Betting System: Bet on a result and double your bet if you win!"
+"\"Double\" Betting System: Bet on a result and double your bet if you win!"
 
 #: betting/templates/betting/bet_detail.html:46
 msgid "Bet Information"
@@ -48,9 +50,8 @@ msgid "Your Choice"
 msgstr "Your Choice"
 
 #: betting/templates/betting/bet_detail.html:71
-#| msgid "Bet Information"
 msgid "Match Information"
-msgstr "Bet Information"
+msgstr "Match Information"
 
 #: betting/templates/betting/bet_detail.html:74
 #: betting/templates/betting/place_bet.html:62
@@ -62,14 +63,12 @@ msgid "Game"
 msgstr "Game"
 
 #: betting/templates/betting/bet_detail.html:82
-#| msgid "Matches"
 msgid "Match Date"
-msgstr "Matches"
+msgstr "Match Date"
 
 #: betting/templates/betting/bet_detail.html:86
-#| msgid "Matches"
 msgid "Match Status"
-msgstr "Matches"
+msgstr "Match Status"
 
 #: betting/templates/betting/bet_detail.html:97
 msgid "Final Score"
@@ -92,9 +91,8 @@ msgid "Your bet is pending the match result."
 msgstr "Your bet is pending the match result."
 
 #: betting/templates/betting/bet_detail.html:122
-#| msgid "Bet Information"
 msgid "Live Bet Information"
-msgstr "Bet Information"
+msgstr "Live Bet Information"
 
 #: betting/templates/betting/bet_detail.html:125
 msgid "Timestamp:"
@@ -133,9 +131,8 @@ msgid "Pending Bets"
 msgstr "Pending Bets"
 
 #: betting/templates/betting/bet_list.html:55
-#| msgid "Bet Amount"
 msgid "Total Bet Amount"
-msgstr "Bet Amount"
+msgstr "Total Bet Amount"
 
 #: betting/templates/betting/bet_list.html:63
 msgid "Total Winnings"
@@ -154,18 +151,16 @@ msgid "Date"
 msgstr "Date"
 
 #: betting/templates/betting/bet_list.html:88
-#| msgid "Matches"
 msgid "Match"
-msgstr "Matches"
+msgstr "Match"
 
 #: betting/templates/betting/bet_list.html:90
 msgid "Choice"
 msgstr "Choice"
 
 #: betting/templates/betting/bet_list.html:91
-#| msgid "Bet Amount"
 msgid "Amount"
-msgstr "Bet Amount"
+msgstr "Amount"
 
 #: betting/templates/betting/bet_list.html:92
 msgid "Potential Win"
@@ -212,14 +207,12 @@ msgid "Aucun match disponible pour le moment."
 msgstr "No matches available at the moment."
 
 #: betting/templates/betting/p2p/challenge_create.html:5
-#| msgid "Lancer un Défi"
 msgid "Créer un Défi P2P"
-msgstr "Launch a Challenge"
+msgstr "Create P2P Challenge"
 
 #: betting/templates/betting/p2p/challenge_create.html:47
-#| msgid "Lancer un Défi"
 msgid "Créer un Nouveau Défi P2P"
-msgstr "Launch a Challenge"
+msgstr "Create a New P2P Challenge"
 
 #: betting/templates/betting/p2p/challenge_create.html:65
 msgid "Détails du défi"
@@ -269,7 +262,8 @@ msgstr "Total Challenge Pot:"
 
 #: betting/templates/betting/p2p/challenge_create.html:204
 msgid "Ce montant sera bloqué sur votre compte jusqu'à la fin du défi."
-msgstr "This amount will be locked on your account until the end of the challenge."
+msgstr ""
+"This amount will be locked on your account until the end of the challenge."
 
 #: betting/templates/betting/p2p/challenge_create.html:214
 msgid "Règles spécifiques (optionnel)"
@@ -293,6 +287,12 @@ msgid ""
 "sur votre compte jusqu'à la fin du défi. En cas de non-respect des règles, "
 "l'équipe de modération se réserve le droit d'annuler le défi."
 msgstr ""
+"By creating this challenge, you accept that your stake amount will be locked "
+"on your account until the end of the challenge. In case of rule violations, "
+"the moderation team reserves the right to cancel the challenge.By creating "
+"this challenge, you accept that your stake amount will be locked on your "
+"account until the end of the challenge. In case of rule violations, the "
+"moderation team reserves the right to cancel the challenge."
 
 #: betting/templates/betting/p2p/challenge_create.html:277
 #: blog/templates/blog/creer_article.html:25
@@ -303,13 +303,12 @@ msgid "Annuler"
 msgstr "Cancel"
 
 #: betting/templates/betting/p2p/challenge_create.html:280
-#| msgid "Lancer un Défi"
 msgid "Créer le défi"
-msgstr "Launch a Challenge"
+msgstr "Create Challenge"
 
 #: betting/templates/betting/p2p/challenge_create.html:350
 msgid "La date d\\'expiration doit être dans le futur."
-msgstr ""
+msgstr "The expiration date must be in the future."
 
 #: betting/templates/betting/p2p/challenge_create.html:359
 msgid "Le montant du pari doit être supérieur à 0."
@@ -333,9 +332,8 @@ msgid "Place Your Bet"
 msgstr "Place Your Bet"
 
 #: betting/templates/betting/place_bet.html:98
-#| msgid "Bet Amount"
 msgid "Bet Amount (K)"
-msgstr "Bet Amount"
+msgstr "Bet Amount (K)"
 
 #: betting/templates/betting/place_bet.html:107
 msgid "Available Balance:"
@@ -387,15 +385,13 @@ msgid "Publier l'article"
 msgstr "Publish Article"
 
 #: blog/templates/blog/detail_article.html:7
-#| msgid "Retour à l'accueil"
 msgid "Retour au blog"
-msgstr "Back to Home"
+msgstr "Back to Blog"
 
 #: blog/templates/blog/detail_article.html:12
 #: forum/templates/forum/liste_sujets.html:48
-#| msgid "Paris"
 msgid "Par"
-msgstr "Betting"
+msgstr "By"
 
 #: blog/templates/blog/detail_article.html:12
 #: forum/templates/forum/liste_sujets.html:48
@@ -423,9 +419,8 @@ msgstr "Edit"
 #: blog/templates/blog/detail_article.html:78
 #: blog/templates/blog/detail_article.html:103
 #: forum/templates/forum/detail_sujet.html:74
-#| msgid "Support Live"
 msgid "Supprimer"
-msgstr "Live Support"
+msgstr "Delete"
 
 #: blog/templates/blog/detail_article.html:36
 msgid "Commentaires"
@@ -486,9 +481,8 @@ msgstr "Create Clan"
 #: clans_gaming/templates/clans_gaming/detail_clan.html:15
 #: clans_gaming/templates/clans_gaming/liste_clans.html:23
 #: core/templates/core/match_detail.html:280
-#| msgid "Jeux"
 msgid "Jeu"
-msgstr "Games"
+msgstr "Game"
 
 #: clans_gaming/templates/clans_gaming/detail_clan.html:16
 #: clans_gaming/templates/clans_gaming/liste_clans.html:24
@@ -513,9 +507,8 @@ msgstr "Ratio"
 
 #: clans_gaming/templates/clans_gaming/detail_clan.html:21
 #: evenements/templates/evenements/detail_evenement.html:26
-#| msgid "Inscription"
 msgid "Description"
-msgstr "Sign Up"
+msgstr "Description"
 
 #: clans_gaming/templates/clans_gaming/detail_clan.html:25
 msgid "Défier le clan"
@@ -577,14 +570,12 @@ msgid "Aucun match joué"
 msgstr "No matches played"
 
 #: clans_gaming/templates/clans_gaming/liste_clans.html:7
-#| msgid "Meilleurs Gameurs"
 msgid "Meilleurs Clans"
-msgstr "Top Gamers"
+msgstr "Top Clans"
 
 #: clans_gaming/templates/clans_gaming/liste_clans.html:9
-#| msgid "Lancer un Défi"
 msgid "Créer un clan"
-msgstr "Launch a Challenge"
+msgstr "Create a Clan"
 
 #: clans_gaming/templates/clans_gaming/liste_clans.html:28
 msgid "Voir le clan"
@@ -594,10 +585,13 @@ msgstr "View Clan"
 msgid "Aucun clan n'est encore créé."
 msgstr "No clan has been created yet."
 
+#: core/templates/core/base.html:9
+msgid "Paris sur esports"
+msgstr ""
+
 #: core/templates/core/base.html:21 core/templates/core/base.html:82
-#| msgid "Support Live"
 msgid "eBetStream Logo"
-msgstr "Live Support"
+msgstr "eBetStream Logo"
 
 #: core/templates/core/base.html:29 core/templates/core/base.html:88
 #: core/templates/core/match_detail.html:14
@@ -657,14 +651,12 @@ msgid "Tournois"
 msgstr "Tournaments"
 
 #: core/templates/core/game_list.html:32
-#| msgid "Rejoindre l'Élite"
 msgid "Voir les Tournois"
-msgstr "Join the Elite"
+msgstr "View Tournaments"
 
 #: core/templates/core/game_list.html:40
-#| msgid "Aucun match disponible pour le moment."
 msgid "Aucun jeu disponible pour le moment."
-msgstr "No matches available at the moment."
+msgstr "No games available at the moment."
 
 #: core/templates/core/home.html:6
 msgid "Plateforme de Paris Sportifs Cyber"
@@ -696,7 +688,7 @@ msgstr "COMMUNITY: +50K NEW MEMBERS"
 
 #: core/templates/core/home.html:46
 msgid "Gagnez de l\\"
-msgstr ""
+msgstr "Earn"
 
 #: core/templates/core/home.html:49
 msgid "Gagnez de l'Argent en Jouant sur eBetStream"
@@ -709,16 +701,15 @@ msgid ""
 "cash. Inscrivez-vous sur ebetstream.com et commencez à gagner dès "
 "aujourd'hui."
 msgstr ""
-"Transform your passion for gaming into real earnings with eBetStream! Every "
-"victory in your favorite games earns you Ktap tokens or cash. Sign up on "
-"ebetstream.com and start earning today."
+"Transform your passion for gaming into real earnings with eBetStream! "
+"Every victory in your favorite games earns you Ktap tokens or cash. "
+"Sign up on ebetstream.com and start earning today."
 
 #: core/templates/core/home.html:51
 msgid "Commencer à Gagner"
 msgstr "Start Earning"
 
 #: core/templates/core/home.html:60
-#| msgid "Devenez la Star d'eBetStream"
 msgid "Devenez la Star d\\"
 msgstr "Become the Star of eBetStream"
 
@@ -732,15 +723,14 @@ msgid ""
 "Enchaînez les victoires, gagnez des primes en Ktap, et brillez devant une "
 "audience mondiale."
 msgstr ""
-"Climb the rankings and become the legendary player of eBetStream! Chain "
-"victories, earn Ktap bonuses, and shine in front of a global audience."
+"Climb the rankings and become the legendary player of eBetStream! "
+"Chain victories, earn Ktap bonuses, and shine in front of a global audience."
 
 #: core/templates/core/home.html:65
 msgid "Devenir Légende"
 msgstr "Become a Legend"
 
 #: core/templates/core/home.html:74
-#| msgid "Relevez des Défis Épiques sur eBetStream"
 msgid "Relevez des Défis Épiques"
 msgstr "Take on Epic Challenges on eBetStream"
 
@@ -763,7 +753,6 @@ msgid "Lancer un Défi"
 msgstr "Launch a Challenge"
 
 #: core/templates/core/home.html:88
-#| msgid "Placez des Paris Gagnants sur eBetStream"
 msgid "Placez des Paris Gagnants"
 msgstr "Place Winning Bets on eBetStream"
 
@@ -784,7 +773,6 @@ msgid "Parier Maintenant"
 msgstr "Bet Now"
 
 #: core/templates/core/home.html:102
-#| msgid "Regardez des Matchs en Direct sur eBetStream"
 msgid "Regardez des Matchs en Direct"
 msgstr "Watch Live Matches on eBetStream"
 
@@ -799,7 +787,9 @@ msgid ""
 "réel."
 msgstr ""
 "Feel the thrill with live e-gaming matches on the site! Follow exciting "
-"duels, support your favorite players, and dive into real-time action."
+"duels, support your favorite players, and dive into real-time action.Feel "
+"the thrill with live e-gaming matches on the site! Follow exciting duels, "
+"support your favorite players, and dive into real-time action."
 
 #: core/templates/core/home.html:107
 msgid "Live Stream"
@@ -847,104 +837,103 @@ msgstr "The most intense matchups right now"
 
 #: core/templates/core/home.html:183
 msgid "LIVE"
-msgstr ""
+msgstr "LIVE"
 
 #: core/templates/core/home.html:200
 msgid "VS"
-msgstr ""
+msgstr "VS"
 
 #: core/templates/core/home.html:230
-#| msgid "Support Live"
 msgid "Stream Live"
 msgstr "Live Support"
 
 #: core/templates/core/home.html:243
 msgid "Aucun match en cours"
-msgstr ""
+msgstr "No matches in progress"
 
 #: core/templates/core/home.html:244
 msgid "Les prochains affrontements arriveront bientôt..."
-msgstr ""
+msgstr "Upcoming matches coming soon..."
 
 #: core/templates/core/home.html:246
 msgid "Voir Tous les Matchs"
-msgstr ""
+msgstr "View All Matches"
 
 #: core/templates/core/home.html:259
 msgid "DÉFIS P2P CYBER"
-msgstr ""
+msgstr "CYBER P2P CHALLENGES"
 
 #: core/templates/core/home.html:261
 msgid "Affrontez les meilleurs joueurs dans des duels épiques"
-msgstr ""
+msgstr "Face the best players in epic duels"
 
 #: core/templates/core/home.html:268
 msgid "Arène de Combat P2P"
-msgstr ""
+msgstr "P2P Combat Arena"
 
 #: core/templates/core/home.html:270
 msgid ""
 "Défiez d'autres joueurs en 1v1 dans notre arène cyber-futuriste. Gagnez des "
 "Ktap et gravissez les classements mondiaux."
 msgstr ""
+"Challenge other players in 1v1 battles in our cyber-futuristic arena. Earn "
+"Ktap and climb the global rankings."
 
 #: core/templates/core/home.html:274
 msgid "Entrer dans l'Arène"
-msgstr ""
+msgstr "Enter the Arena"
 
 #: core/templates/core/home.html:277
-#| msgid "Lancer un Défi"
 msgid "Créer un Défi"
 msgstr "Launch a Challenge"
 
 #: core/templates/core/home.html:289
 msgid "UNIVERS GAMING"
-msgstr ""
+msgstr "GAMING UNIVERSE"
 
 #: core/templates/core/home.html:291
 msgid "Explorez les jeux les plus populaires de l'esport"
-msgstr ""
+msgstr "Explore the most popular esports games"
 
 #: core/templates/core/home.html:318
 msgid "Actif"
-msgstr ""
+msgstr "Active"
 
 #: core/templates/core/home.html:320
 msgid "Populaire"
-msgstr ""
+msgstr "Popular"
 
 #: core/templates/core/home.html:325
-#| msgid "Rejoindre l'Élite"
 msgid "Rejoindre les Tournois"
 msgstr "Join the Elite"
 
 #: core/templates/core/home.html:334
 msgid "Univers en construction"
-msgstr ""
+msgstr "Universe under construction"
 
 #: core/templates/core/home.html:335
 msgid "De nouveaux jeux arrivent très bientôt..."
-msgstr ""
+msgstr "New games coming very soon..."
 
 #: core/templates/core/home.html:347
 msgid "NOS PARTENAIRES GAMING"
-msgstr ""
+msgstr "OUR GAMING PARTNERS"
 
 #: core/templates/core/home.html:349
 msgid "En partenariat avec les leaders de l'industrie gaming"
-msgstr ""
+msgstr "In partnership with gaming industry leaders"
 
 #: core/templates/core/home.html:460
 msgid "CLANS GAMING"
-msgstr ""
+msgstr "GAMING CLANS"
 
 #: core/templates/core/home.html:462
 msgid "Rejoignez une communauté, dominez ensemble"
-msgstr ""
+msgstr "Join a community, dominate together"
 
 #: core/templates/core/home.html:469
 msgid "Rejoignez les Meilleurs Clans"
-msgstr ""
+msgstr "Join the Best Clans"
 
 #: core/templates/core/home.html:471
 msgid ""
@@ -954,49 +943,51 @@ msgstr ""
 
 #: core/templates/core/home.html:475
 msgid "Explorer les Clans"
-msgstr ""
+msgstr "Explore Clans"
 
 #: core/templates/core/home.html:478
 msgid "Créer mon Clan"
-msgstr ""
+msgstr "Create My Clan"
 
 #: core/templates/core/home.html:490
 msgid "TOP GAMEURS"
-msgstr ""
+msgstr "TOP GAMERS"
 
 #: core/templates/core/home.html:492
 msgid "Les légendes de l'esport mondial"
-msgstr ""
+msgstr "The legends of global esports"
 
 #: core/templates/core/home.html:499
 msgid "Classement Elite"
-msgstr ""
+msgstr "Elite Rankings"
 
 #: core/templates/core/home.html:501
 msgid ""
 "Découvrez les joueurs les plus talentueux, suivez leurs performances et "
 "inspirez-vous de leurs stratégies gagnantes."
 msgstr ""
+"Discover the most talented players, follow their performances and be "
+"inspired by their winning strategies."
 
 #: core/templates/core/home.html:505
 msgid "Voir le Classement"
-msgstr ""
+msgstr "View Rankings"
 
 #: core/templates/core/home.html:508
 msgid "Devenir Pro"
-msgstr ""
+msgstr "Become Pro"
 
 #: core/templates/core/home.html:520
 msgid "ÉVÉNEMENTS ESPORT"
-msgstr ""
+msgstr "ESPORTS EVENTS"
 
 #: core/templates/core/home.html:522
 msgid "Tournois, competitions et évènements à ne pas manquer"
-msgstr ""
+msgstr "Tournaments, competitions and events not to be missed"
 
 #: core/templates/core/home.html:529
 msgid "Calendrier Gaming"
-msgstr ""
+msgstr "Gaming Calendar"
 
 #: core/templates/core/home.html:531
 msgid ""
@@ -1006,23 +997,23 @@ msgstr ""
 
 #: core/templates/core/home.html:535
 msgid "Voir les Événements"
-msgstr ""
+msgstr "View Events"
 
 #: core/templates/core/home.html:538
 msgid "Organiser un Événement"
-msgstr ""
+msgstr "Organize an Event"
 
 #: core/templates/core/home.html:550
 msgid "FORUM COMMUNAUTÉ"
-msgstr ""
+msgstr "COMMUNITY FORUM"
 
 #: core/templates/core/home.html:552
 msgid "Échangez, débattez et partagez vos passions gaming"
-msgstr ""
+msgstr "Exchange, debate and share your gaming passions"
 
 #: core/templates/core/home.html:559
 msgid "Communauté Active"
-msgstr ""
+msgstr "Active Community"
 
 #: core/templates/core/home.html:561
 msgid ""
@@ -1032,23 +1023,23 @@ msgstr ""
 
 #: core/templates/core/home.html:565
 msgid "Accéder au Forum"
-msgstr ""
+msgstr "Access the Forum"
 
 #: core/templates/core/home.html:568
 msgid "Voir les Catégories"
-msgstr ""
+msgstr "View Categories"
 
 #: core/templates/core/home.html:580
 msgid "BLOG & ACTUALITÉS"
-msgstr ""
+msgstr "BLOG & NEWS"
 
 #: core/templates/core/home.html:582
 msgid "Articles exclusifs, analyses et actualités gaming"
-msgstr ""
+msgstr "Exclusive articles, analysis and gaming news"
 
 #: core/templates/core/home.html:589
 msgid "Contenu Exclusif"
-msgstr ""
+msgstr "Exclusive Content"
 
 #: core/templates/core/home.html:591
 msgid ""
@@ -1058,117 +1049,111 @@ msgstr ""
 
 #: core/templates/core/home.html:595
 msgid "Lire les Articles"
-msgstr ""
+msgstr "Read Articles"
 
 #: core/templates/core/home.html:598
 msgid "Écrire un Article"
-msgstr ""
+msgstr "Write an Article"
 
 #: core/templates/core/home.html:610
 msgid "FEED ACTUALITÉS EN TEMPS RÉEL"
-msgstr ""
+msgstr "REAL-TIME NEWS FEED"
 
 #: core/templates/core/home.html:612
 msgid "Restez informé des dernières nouvelles du monde gaming"
-msgstr ""
+msgstr "Stay informed of the latest news from the gaming world"
 
 #: core/templates/core/home.html:709
 msgid "Prêt pour l'Aventure Cyber ?"
-msgstr ""
+msgstr "Ready for the Cyber Adventure?"
 
 #: core/templates/core/home.html:710
-#| msgid "Gagnez de l'Argent en Jouant sur eBetStream"
 msgid "Rejoignez des millions de joueurs dans l'univers eBetStream"
-msgstr "Earn Money Playing on eBetStream"
+msgstr "Join millions of players in the eBetStream universe"
 
 #: core/templates/core/home.html:714
-#| msgid "Parier Maintenant"
 msgid "S'inscrire Maintenant"
-msgstr "Bet Now"
+msgstr "Sign Up Now"
 
 #: core/templates/core/home.html:717
 msgid "Se Connecter"
-msgstr ""
+msgstr "Log In"
 
 #: core/templates/core/home.html:721
 msgid "Mon Profil"
-msgstr ""
+msgstr "My Profile"
 
 #: core/templates/core/home.html:724
-#| msgid "Commencer à Gagner"
 msgid "Commencer à Parier"
-msgstr "Start Earning"
+msgstr "Start Betting"
 
 #: core/templates/core/match_detail.html:8
 #: core/templates/core/match_detail.html:33
 msgid "breadcrumb"
-msgstr ""
+msgstr "breadcrumb"
 
 #: core/templates/core/match_detail.html:11
 #: core/templates/core/match_detail.html:36
 msgid "Accueil"
-msgstr ""
+msgstr "Home"
 
 #: core/templates/core/match_detail.html:62
 msgid "EN DIRECT"
-msgstr ""
+msgstr "LIVE"
 
 #: core/templates/core/match_detail.html:63
 msgid "À VENIR"
-msgstr ""
+msgstr "UPCOMING"
 
 #: core/templates/core/match_detail.html:64
 msgid "TERMINÉ"
-msgstr ""
+msgstr "FINISHED"
 
 #: core/templates/core/match_detail.html:66
 msgid "ANNULÉ"
-msgstr ""
+msgstr "CANCELLED"
 
 #: core/templates/core/match_detail.html:68
 msgid "Début le"
-msgstr ""
+msgstr "Starts on"
 
 #: core/templates/core/match_detail.html:122
 msgid "Vainqueur:"
-msgstr ""
+msgstr "Winner:"
 
 #: core/templates/core/match_detail.html:134
-#| msgid "Lancer un Défi"
 msgid "Placer un pari"
 msgstr "Launch a Challenge"
 
 #: core/templates/core/match_detail.html:141
 msgid "Type de pari"
-msgstr ""
+msgstr "Bet Type"
 
 #: core/templates/core/match_detail.html:149
 msgid "Sélectionnez un type de pari"
-msgstr ""
+msgstr "Select a bet type"
 
 #: core/templates/core/match_detail.html:153
 msgid "Cote:"
-msgstr ""
+msgstr "Odds:"
 
 #: core/templates/core/match_detail.html:160
 msgid "Votre pronostic"
-msgstr ""
+msgstr "Your Prediction"
 
 #: core/templates/core/match_detail.html:163
 msgid "Sélectionnez votre pronostic"
-msgstr ""
+msgstr "Select your prediction"
 
 #: core/templates/core/match_detail.html:167
-#| msgid "Matches"
 msgid "Match nul"
-msgstr "Matches"
+msgstr "Draw"
 
 #: core/templates/core/match_detail.html:172
 msgid "Montant du pari (K)"
-msgstr ""
+msgstr "Bet Amount (K)"
 
 #: core/templates/core/match_detail.html:183
-#| msgid "Solde Actuel"
 msgid "Votre solde actuel:"
 msgstr "Current Balance"
 
@@ -1194,7 +1179,6 @@ msgid "Le match est en cours. Les paris en direct sont disponibles."
 msgstr ""
 
 #: core/templates/core/match_detail.html:247
-#| msgid "Parier Maintenant"
 msgid "Parier en Direct"
 msgstr "Bet Now"
 
@@ -1207,7 +1191,6 @@ msgid "Ce match a été annulé. Tous les paris ont été remboursés."
 msgstr ""
 
 #: core/templates/core/match_detail.html:267
-#| msgid "Bet Information"
 msgid "Informations"
 msgstr "Bet Information"
 
@@ -1224,12 +1207,10 @@ msgid "Actions"
 msgstr ""
 
 #: core/templates/core/match_detail.html:311
-#| msgid "Regardez des Matchs en Direct sur eBetStream"
 msgid "Regarder en Direct"
 msgstr "Watch Live Matches on eBetStream"
 
 #: core/templates/core/match_detail.html:318
-#| msgid "Rejoindre l'Élite"
 msgid "Voir le Tournoi"
 msgstr "Join the Elite"
 
@@ -1282,16 +1263,14 @@ msgid "Êtes-vous sûr de vouloir annuler votre inscription ?"
 msgstr ""
 
 #: evenements/templates/evenements/detail_evenement.html:52
-#| msgid "Inscription"
 msgid "Annuler l'inscription"
-msgstr "Sign Up"
+msgstr "Cancel Registration"
 
 #: evenements/templates/evenements/detail_evenement.html:56
 msgid "Désolé, il n'y a plus de places disponibles."
 msgstr ""
 
 #: evenements/templates/evenements/detail_evenement.html:59
-#| msgid "Parier Maintenant"
 msgid "S'inscrire"
 msgstr "Bet Now"
 
@@ -1304,7 +1283,6 @@ msgid "Participants"
 msgstr ""
 
 #: evenements/templates/evenements/detail_evenement.html:84
-#| msgid "Aucun match disponible pour le moment."
 msgid "Aucun participant pour le moment."
 msgstr "No matches available at the moment."
 
@@ -1315,18 +1293,15 @@ msgid "Forum"
 msgstr "Forum"
 
 #: forum/templates/forum/creer_sujet.html:9
-#| msgid "Nouveau Sujet"
 msgid "Nouveau sujet"
 msgstr "New Topic"
 
 #: forum/templates/forum/creer_sujet.html:12
-#| msgid "Nouveau Sujet"
 msgid "Créer un nouveau sujet"
 msgstr "New Topic"
 
 #: forum/templates/forum/creer_sujet.html:14
 #: forum/templates/forum/detail_sujet.html:15
-#| msgid "Nouveau Sujet"
 msgid "Retour aux sujets"
 msgstr "New Topic"
 
@@ -1411,7 +1386,6 @@ msgid "Jeu préféré"
 msgstr ""
 
 #: gameurs/templates/gameurs/detail_gameur.html:25
-#| msgid "Joueurs Actifs"
 msgid "Jouer contre"
 msgstr "Active Players"
 
@@ -1428,7 +1402,6 @@ msgid "Aucun gameur n'est encore inscrit."
 msgstr ""
 
 #: partenaires/templates/partenaires/detail_partenaire.html:7
-#| msgid "Nos Partenaires"
 msgid "Retour aux partenaires"
 msgstr "Our Partners"
 
@@ -1438,7 +1411,6 @@ msgid "Visiter le site"
 msgstr ""
 
 #: partenaires/templates/partenaires/detail_partenaire.html:32
-#| msgid "Nos Partenaires"
 msgid "Partenaire depuis le"
 msgstr "Our Partners"
 
@@ -1456,12 +1428,10 @@ msgid "Aucun partenaire n'est actuellement disponible."
 msgstr ""
 
 #: streaming/templates/streaming/stream_index.html:13
-#| msgid "Live Stream"
 msgid "Streaming Live eBetStream"
 msgstr "Live Stream"
 
 #: streaming/templates/streaming/stream_index.html:16
-#| msgid "Regardez des Matchs en Direct sur eBetStream"
 msgid "Regardez les matchs en direct et ne manquez aucune action !"
 msgstr "Watch Live Matches on eBetStream"
 
@@ -1470,12 +1440,10 @@ msgid "Regarder en Live"
 msgstr ""
 
 #: streaming/templates/streaming/stream_index.html:46
-#| msgid "Support Live"
 msgid "Stream actif"
 msgstr "Live Support"
 
 #: streaming/templates/streaming/stream_index.html:57
-#| msgid "Aucun match disponible pour le moment."
 msgid "Aucun stream actif pour le moment"
 msgstr "No matches available at the moment."
 
@@ -1516,7 +1484,6 @@ msgid "Regardez sur tous vos appareils, partout où vous êtes"
 msgstr ""
 
 #: streaming/templates/streaming/watch_stream.html:4
-#| msgid "Live Stream"
 msgid "Live Streaming"
 msgstr "Live Stream"
 
@@ -1599,7 +1566,6 @@ msgid "Nouveau dans l'univers cyber ?"
 msgstr ""
 
 #: users/templates/users/login.html:71
-#| msgid "Rejoindre l'Élite"
 msgid "Rejoindre la communauté"
 msgstr "Join the Elite"
 
@@ -1640,7 +1606,6 @@ msgid "Historique"
 msgstr ""
 
 #: users/templates/users/profile.html:84
-#| msgid "Paris Placés"
 msgid "Paris Gagnés"
 msgstr "Bets Placed"
 
@@ -1649,7 +1614,6 @@ msgid "Taux de Réussite"
 msgstr ""
 
 #: users/templates/users/profile.html:98
-#| msgid "Joueurs Actifs"
 msgid "Jours Actifs"
 msgstr "Active Players"
 
@@ -1710,6 +1674,5 @@ msgid "Déjà membre de la communauté ?"
 msgstr ""
 
 #: users/templates/users/register.html:79
-#| msgid "Connexion"
 msgid "Connexion rapide"
 msgstr "Login"
