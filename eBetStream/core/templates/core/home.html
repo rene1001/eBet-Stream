@@ -39,15 +39,15 @@
                     <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="4"></button>
                 </div>
                 <div class="carousel-inner">
-                    <!-- Slide 1: En attente des données utilisateur -->
+                    <!-- Slide 1: Gagnez de l'Argent en Jouant -->
                     <div class="carousel-item active">
                         <div class="promo-slide">
-                            <div class="placeholder-slide">
-                                <div class="promo-overlay">
-                                    <div class="promo-content">
-                                        <h2 class="promo-title">SLIDE 1 - EN ATTENTE</h2>
-                                        <p class="promo-description">Veuillez fournir l'image, le titre et la description pour ce slide</p>
-                                    </div>
+                            <img src="{% static 'images/promo/slide-1-gaming-gains.jpg' %}" class="carousel-img" alt="Gagnez de l'Argent en Jouant">
+                            <div class="promo-overlay">
+                                <div class="promo-content">
+                                    <h2 class="promo-title">💰 Gagnez de l'Argent en Jouant sur eBetStream</h2>
+                                    <p class="promo-description">Transformez votre passion pour le gaming en gains réels avec eBetStream ! Chaque victoire dans vos jeux préférés vous rapporte des tokens Ktap ou du cash. Inscrivez-vous sur ebetstream.com et commencez à gagner dès aujourd'hui.</p>
+                                    <a href="{% url 'users:register' %}" class="btn-cyber">Commencer à Gagner</a>
                                 </div>
                             </div>
                         </div>
