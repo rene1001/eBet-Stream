@@ -34,8 +34,8 @@ Design System v3.0 - Beyond FanDuel & DraftKings
   /* Text Hierarchy */
   --text-cyber: #ffffff;
   --text-neon: var(--brand-orange);
-  --text-dim: #a0a6b8;
-  --text-faded: #6b7280;
+  --text-dim: #c1c7d0;
+  --text-faded: #9ca3af;
   
   /* Dynamic Gradients - Brand Orange Focus */
   --gradient-primary: linear-gradient(135deg, var(--brand-orange) 0%, var(--brand-orange-light) 50%, var(--brand-accent) 100%);
@@ -236,7 +236,7 @@ body::after {
 
 /* Revolutionary Hero Section */
 .hero-section {
-  min-height: 85vh;
+  min-height: 65vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -244,6 +244,7 @@ body::after {
   position: relative;
   background: var(--gradient-dark);
   overflow: hidden;
+  padding: var(--space-l) 0;
 }
 
 .hero-section::before {
@@ -805,7 +806,7 @@ body::after {
     border-bottom: 2px solid rgba(255, 149, 0, 0.2);
     position: relative;
     overflow: visible;
-    padding: var(--space-xl) 0;
+    padding: var(--space-l) 0;
     min-height: 400px;
 }
 

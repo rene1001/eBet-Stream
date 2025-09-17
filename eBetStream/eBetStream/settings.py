@@ -136,6 +136,18 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+# Langues disponibles
+LANGUAGES = [
+    ('fr', 'Français'),
+    ('en', 'English'),
+    ('es', 'Español'),
+]
+
+# Chemin vers les fichiers de traduction
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
+
 # Configurations de production
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
