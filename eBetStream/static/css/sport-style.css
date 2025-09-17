@@ -1078,13 +1078,20 @@ body::after {
 .text-dim { color: #6B7280 !important; }
 .text-contrast { color: #FFFFFF !important; }
 
-/* Theme selector dropdown styling */
+/* Theme selector dropdown styling - Fixed z-index pour animations fond */
+#theme-selector-dropdown {
+  position: relative;
+  z-index: 1050; /* Au-dessus des animations de fond */
+}
+
 .dropdown-menu {
   background: var(--bg-surface) !important;
   border: 1px solid rgba(255, 149, 0, 0.2) !important;
   border-radius: var(--radius-m) !important;
   backdrop-filter: var(--blur-glass) !important;
   box-shadow: var(--shadow-depth) !important;
+  z-index: 1051 !important; /* Priorité absolue pour éviter conflit avec animations */
+  position: absolute !important;
 }
 
 .dropdown-item {
@@ -1092,6 +1099,8 @@ body::after {
   transition: all var(--transition-smoothness) ease !important;
   border-radius: var(--radius-s) !important;
   margin: 2px 4px !important;
+  position: relative !important;
+  z-index: 1052 !important;
 }
 
 .dropdown-item:hover,
@@ -1119,6 +1128,16 @@ body::after {
   border-color: var(--brand-orange) !important;
   color: var(--text-primary) !important;
   transform: translateY(-1px) !important;
+}
+
+/* Interactions sécurisées avec animations de fond */
+.dropdown.show #theme-trigger {
+  z-index: 1053 !important; /* Bouton trigger au premier plan quand ouvert */
+}
+
+.dropdown.show .dropdown-menu {
+  z-index: 1054 !important; /* Menu au premier plan absolu */
+  transform: translateZ(0) !important; /* Force hardware acceleration */
 }
 
 /* Reduced motion support */
