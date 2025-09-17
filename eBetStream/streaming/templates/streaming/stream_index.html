@@ -24,14 +24,14 @@
                     <div class="cyber-card h-100">
                         <div class="card-header bg-dark-space text-brand-orange">
                             <h5 class="mb-0">
-                                <i class="fas fa-gamepad me-2"></i>{{ streaming.match.game.nom }}
+                                <i class="fas fa-gamepad me-2"></i>{{ streaming.match.tournament.game.name }}
                             </h5>
                         </div>
                         <div class="card-body">
-                            <h6 class="text-cyber mb-3">{{ streaming.match.titre }}</h6>
+                            <h6 class="text-cyber mb-3">{{ streaming.match.team1 }} vs {{ streaming.match.team2 }}</h6>
                             <p class="text-dim mb-3">
                                 <i class="fas fa-calendar me-2"></i>
-                                {{ streaming.match.date_debut|date:"d/m/Y H:i" }}
+                                {{ streaming.match.start_time|date:"d/m/Y H:i" }}
                             </p>
                             <div class="d-grid">
                                 <a href="{% url 'streaming:watch_stream' streaming.id %}" 

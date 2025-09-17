@@ -6,7 +6,7 @@ from .models import Streaming
 
 def stream_index(request):
     """Page d'accueil du streaming - liste des streams disponibles"""
-    active_streams = Streaming.objects.filter(actif=True).select_related('match', 'match__game')
+    active_streams = Streaming.objects.filter(actif=True).select_related('match__tournament__game', 'match__tournament', 'match__team1', 'match__team2')
     context = {
         'active_streams': active_streams,
         'page_title': 'Streaming Live eBetStream'
