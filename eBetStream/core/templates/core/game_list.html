@@ -4,6 +4,23 @@
 
 {% block title %}{% trans "Liste des Jeux" %}{% endblock %}
 
+{% block breadcrumbs %}
+<div class="breadcrumb-container">
+    <div class="container">
+        <nav aria-label="{% trans 'Fil d\'Ariane' %}">
+            <ol class="breadcrumb breadcrumb-cyber">
+                <li class="breadcrumb-item home">
+                    <a href="{% url 'core:home' %}">{% trans "Accueil" %}</a>
+                </li>
+                <li class="breadcrumb-item active games" aria-current="page">
+                    {% trans "Jeux" %}
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+{% endblock %}
+
 {% block content %}
 <div class="container py-5">
     <h1 class="mb-4">{% trans "Liste des Jeux" %}</h1>

@@ -117,14 +117,29 @@ class ThemeManager {
     }
     
     announceThemeChange(theme) {
-        // Annonce accessible pour les lecteurs d'écran
+        // Notification toast + ARIA pour lecteurs d'écran
         const themeNames = {
             cyber: 'Cyber Gaming',
             dim: 'Mode Confort',
             contrast: 'Contraste Élevé'
         };
         
-        // Créer un annonce ARIA live
+        const themeIcons = {
+            cyber: '⚡',
+            dim: '🌙',
+            contrast: '🔍'
+        };
+        
+        // Afficher toast notification
+        this.showToast({
+            icon: themeIcons[theme],
+            title: 'Thème modifié',
+            message: `${themeNames[theme]} activé`,
+            type: 'info',
+            duration: 3000
+        });
+        
+        // Créer un annonce ARIA live pour accessibilité
         let announcer = document.getElementById('theme-announcer');
         if (!announcer) {
             announcer = document.createElement('div');
@@ -148,6 +163,66 @@ class ThemeManager {
         }
     }
     
+    // Système de notifications toast
+    showToast({ icon = 'ℹ️', title, message, type = 'info', duration = 4000 }) {
+        // Créer le container s'il n'existe pas
+        let container = document.getElementById('toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'toast-container';
+            container.className = 'toast-container';
+            document.body.appendChild(container);
+        }
+        
+        // Créer le toast
+        const toastId = 'toast-' + Date.now();
+        const toast = document.createElement('div');
+        toast.id = toastId;
+        toast.className = `toast toast-ebetstream toast-${type}`;
+        toast.setAttribute('role', 'alert');
+        toast.setAttribute('aria-live', 'assertive');
+        toast.setAttribute('aria-atomic', 'true');
+        
+        toast.innerHTML = `
+            <div class="toast-header">
+                <span class="me-2">${icon}</span>
+                <strong class="me-auto">${title}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fermer"></button>
+            </div>
+            <div class="toast-body">
+                ${message}
+            </div>
+        `;
+        
+        // Ajouter au container
+        container.appendChild(toast);
+        
+        // Afficher avec animation
+        requestAnimationFrame(() => {
+            toast.classList.add('show');
+        });
+        
+        // Auto-dismiss après duration
+        setTimeout(() => {
+            this.hideToast(toastId);
+        }, duration);
+        
+        // Event listener pour fermeture manuelle
+        toast.querySelector('.btn-close').addEventListener('click', () => {
+            this.hideToast(toastId);
+        });
+    }
+    
+    hideToast(toastId) {
+        const toast = document.getElementById(toastId);
+        if (toast) {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }
+    }
+    
     // API publique
     getCurrentTheme() {
         return this.currentTheme;
@@ -156,18 +231,154 @@ class ThemeManager {
     getAvailableThemes() {
         return this.themes;
     }
+    
+    // API publique pour toasts
+    toast(options) {
+        this.showToast(options);
+    }
+}
+
+// Gestionnaire de raccourcis clavier gaming
+class KeyboardManager {
+    constructor() {
+        this.shortcuts = {
+            'KeyH': () => window.location.href = '/',
+            'KeyG': () => window.location.href = '/games/',
+            'KeyB': () => window.location.href = '/betting/',
+            'KeyT': () => this.toggleThemeSelector(),
+            'KeyL': () => this.toggleLanguageSelector(),
+            'Escape': () => this.hideShortcuts(),
+            'F1': (e) => { e.preventDefault(); this.showShortcuts(); }
+        };
+        
+        this.shortcutsVisible = false;
+        this.init();
+    }
+    
+    init() {
+        document.addEventListener('keydown', (e) => {
+            // Ignorer si l'utilisateur tape dans un input
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            
+            const shortcut = this.shortcuts[e.code];
+            if (shortcut) {
+                shortcut(e);
+                this.animateKeyPress(e.code);
+            }
+        });
+        
+        // Afficher les raccourcis au premier chargement (3 secondes)
+        setTimeout(() => {
+            this.showShortcuts();
+            setTimeout(() => this.hideShortcuts(), 4000);
+        }, 2000);
+    }
+    
+    toggleThemeSelector() {
+        const themeButton = document.getElementById('theme-trigger');
+        if (themeButton) {
+            themeButton.click();
+        }
+    }
+    
+    toggleLanguageSelector() {
+        const langSelect = document.querySelector('select[name="language"]');
+        if (langSelect) {
+            langSelect.focus();
+        }
+    }
+    
+    showShortcuts() {
+        let shortcutsDiv = document.getElementById('keyboard-shortcuts');
+        if (!shortcutsDiv) {
+            shortcutsDiv = document.createElement('div');
+            shortcutsDiv.id = 'keyboard-shortcuts';
+            shortcutsDiv.className = 'keyboard-shortcuts';
+            shortcutsDiv.innerHTML = `
+                <div class="shortcut-title">⚡ Raccourcis Gaming</div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Accueil</span>
+                    <kbd class="shortcut-key">H</kbd>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Jeux</span>
+                    <kbd class="shortcut-key">G</kbd>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Paris</span>
+                    <kbd class="shortcut-key">B</kbd>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Thème</span>
+                    <kbd class="shortcut-key">T</kbd>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Aide</span>
+                    <kbd class="shortcut-key">F1</kbd>
+                </div>
+            `;
+            document.body.appendChild(shortcutsDiv);
+        }
+        
+        shortcutsDiv.classList.add('show');
+        this.shortcutsVisible = true;
+    }
+    
+    hideShortcuts() {
+        const shortcutsDiv = document.getElementById('keyboard-shortcuts');
+        if (shortcutsDiv) {
+            shortcutsDiv.classList.remove('show');
+            this.shortcutsVisible = false;
+        }
+    }
+    
+    animateKeyPress(keyCode) {
+        const body = document.body;
+        body.classList.add('key-pressed');
+        setTimeout(() => body.classList.remove('key-pressed'), 200);
+    }
+}
+
+// Gestionnaire de chargement
+class LoadingManager {
+    static show() {
+        let overlay = document.getElementById('loading-overlay');
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.id = 'loading-overlay';
+            overlay.className = 'loading-overlay';
+            overlay.innerHTML = `
+                <div class="loading-spinner">
+                    <div class="spinner-cyber"></div>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+        }
+        overlay.classList.add('show');
+    }
+    
+    static hide() {
+        const overlay = document.getElementById('loading-overlay');
+        if (overlay) {
+            overlay.classList.remove('show');
+        }
+    }
 }
 
 // Initialisation automatique - Une seule fois
 if (!window.themeManager) {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
-            // DOM loaded - initializing ThemeManager
+            // DOM loaded - initializing managers
             window.themeManager = new ThemeManager();
+            window.keyboardManager = new KeyboardManager();
+            window.LoadingManager = LoadingManager;
         });
     } else {
-        // Document ready - initializing ThemeManager
+        // Document ready - initializing managers
         window.themeManager = new ThemeManager();
+        window.keyboardManager = new KeyboardManager();
+        window.LoadingManager = LoadingManager;
     }
 }
 
