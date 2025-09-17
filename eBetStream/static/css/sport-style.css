@@ -230,7 +230,7 @@ body::after {
 
 /* Main Content Spacing */
 .main-content {
-  margin-top: 140px;
+  margin-top: var(--space-l);
   padding: 0 var(--space-m);
 }
 
@@ -565,7 +565,7 @@ body::after {
   }
   
   .main-content {
-    margin-top: 120px;
+    margin-top: var(--space-l);
     padding: 0 var(--space-s);
   }
   
