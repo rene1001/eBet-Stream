@@ -1405,7 +1405,7 @@ body::after {
 /* Theme selector dropdown styling - Fixed z-index pour animations fond */
 #theme-selector-dropdown {
   position: relative;
-  z-index: 1050; /* Au-dessus des animations de fond */
+  z-index: 1080; /* Au-dessus de tous les éléments y compris carousel Bootstrap */
 }
 
 .dropdown-menu {
@@ -1414,7 +1414,7 @@ body::after {
   border-radius: var(--radius-m) !important;
   backdrop-filter: var(--blur-glass) !important;
   box-shadow: var(--shadow-depth) !important;
-  z-index: 1051 !important; /* Priorité absolue pour éviter conflit avec animations */
+  z-index: 1081 !important; /* Priorité absolue au-dessus du carousel */
   position: absolute !important;
 }
 
@@ -1456,11 +1456,11 @@ body::after {
 
 /* Interactions sécurisées avec animations de fond */
 .dropdown.show #theme-trigger {
-  z-index: 1053 !important; /* Bouton trigger au premier plan quand ouvert */
+  z-index: 1083 !important; /* Bouton trigger au premier plan quand ouvert */
 }
 
 .dropdown.show .dropdown-menu {
-  z-index: 1054 !important; /* Menu au premier plan absolu */
+  z-index: 1084 !important; /* Menu au premier plan absolu - au-dessus de tout */
   transform: translateZ(0) !important; /* Force hardware acceleration */
 }
 
