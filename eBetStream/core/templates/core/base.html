@@ -37,36 +37,15 @@
                     </li>
                 </ul>
                 <div class="d-flex align-items-center ms-auto gap-3">
-                    <!-- Theme Selector - UX Optimized -->
-                    <div class="dropdown" id="theme-selector-dropdown">
-                        <button class="btn btn-outline-light btn-sm dropdown-toggle d-flex align-items-center gap-2" 
-                                type="button" 
-                                id="theme-trigger"
-                                data-bs-toggle="dropdown" 
-                                aria-expanded="false"
-                                title="{% trans 'Changer le thème' %}">
-                            <i class="bi {{ theme_info.icon|default:'bi-lightning-charge-fill' }}"></i>
-                            <span class="d-none d-md-inline">{{ theme_info.name|default:'Cyber' }}</span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end" role="menu">
+                    <!-- Theme Selector - Window Style -->
+                    <div class="d-flex align-items-center">
+                        <select name="theme" class="form-select form-select-sm" onchange="changeTheme(this.value)" id="theme-selector">
                             {% for theme_key, theme_data in available_themes.items %}
-                            <li role="none">
-                                <button class="dropdown-item d-flex align-items-center gap-3 {% if theme_key == current_theme %}active{% endif %}"
-                                        data-theme-toggle="{{ theme_key }}"
-                                        type="button"
-                                        role="menuitemradio"
-                                        aria-checked="{% if theme_key == current_theme %}true{% else %}false{% endif %}">
-                                    <i class="bi {{ theme_data.icon }} text-{{ theme_key }}"></i>
-                                    <div>
-                                        <div class="fw-semibold">{{ theme_data.name }}</div>
-                                        <small class="text-muted">{{ theme_data.description }}</small>
-                                    </div>
-                                    <i class="bi-check-lg ms-auto text-success theme-checkmark" 
-                                       style="display: {% if theme_key == current_theme %}inline{% else %}none{% endif %};"></i>
-                                </button>
-                            </li>
+                            <option value="{{ theme_key }}" {% if theme_key == current_theme %}selected{% endif %}>
+                                {{ theme_data.icon }} {{ theme_data.name }}
+                            </option>
                             {% endfor %}
-                        </ul>
+                        </select>
                     </div>
                     
                     <!-- Language Selector -->

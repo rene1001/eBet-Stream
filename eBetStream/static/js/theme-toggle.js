@@ -365,6 +365,13 @@ class LoadingManager {
     }
 }
 
+// Fonction globale pour le select HTML des thèmes
+function changeTheme(themeKey) {
+    if (window.themeManager) {
+        window.themeManager.setTheme(themeKey);
+    }
+}
+
 // Initialisation automatique - Une seule fois
 if (!window.themeManager) {
     if (document.readyState === 'loading') {
@@ -373,12 +380,16 @@ if (!window.themeManager) {
             window.themeManager = new ThemeManager();
             window.keyboardManager = new KeyboardManager();
             window.LoadingManager = LoadingManager;
+            // Rendre changeTheme globalement accessible
+            window.changeTheme = changeTheme;
         });
     } else {
         // Document ready - initializing managers
         window.themeManager = new ThemeManager();
         window.keyboardManager = new KeyboardManager();
         window.LoadingManager = LoadingManager;
+        // Rendre changeTheme globalement accessible
+        window.changeTheme = changeTheme;
     }
 }
 
