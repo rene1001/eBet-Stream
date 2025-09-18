@@ -34,7 +34,7 @@ Design System v3.0 - Beyond FanDuel & DraftKings
 
 /* Style des toasts eBetStream */
 .toast-ebetstream {
-  background: rgba(13, 13, 26, 0.95);
+  background: var(--bg-secondary);
   backdrop-filter: blur(20px);
   border: 1px solid var(--brand-orange);
   border-radius: var(--radius-m);
