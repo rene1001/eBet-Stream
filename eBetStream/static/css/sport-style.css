@@ -351,51 +351,57 @@ html:not([data-theme]) {
 
 /* DIM THEME - Reduced Intensity for Long Sessions */
 html[data-theme="dim"] {
-  /* Softer backgrounds for eye comfort */
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #111118;
-  --bg-tertiary: #1a1a28;
-  --bg-surface: #151525;
-  --bg-accent: #1a1a3a;
+  /* Much darker backgrounds for eye comfort */
+  --bg-primary: #050505;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #101010;
+  --bg-surface: #0c0c0c;
+  --bg-accent: #151515;
   
-  /* Reduced glow and animations */
-  --shadow-intensity: 0.3;
-  --glow-intensity: 0.2;
-  --anim-intensity: 0.6;
-  --bg-animation-opacity: 0.7;
+  /* Dramatically reduced glow and animations */
+  --shadow-intensity: 0.1;
+  --glow-intensity: 0.05;
+  --anim-intensity: 0.3;
+  --bg-animation-opacity: 0.2;
   
-  /* Slightly muted text for comfort */
-  --text-secondary: #a8aeb7;
-  --text-tertiary: #7a8088;
+  /* Muted text for comfort */
+  --text-primary: #cccccc;
+  --text-secondary: #999999;
+  --text-tertiary: #666666;
   
-  /* Softer orange accent */
-  --glass-neon: rgba(255, 149, 0, 0.06);
+  /* Very subtle orange accent */
+  --glass-neon: rgba(255, 149, 0, 0.02);
+  --brand-orange: #cc7700;
 }
 
 /* CONTRAST THEME - High Accessibility WCAG AA */
 html[data-theme="contrast"] {
   /* Maximum contrast backgrounds */
   --bg-primary: #000000;
-  --bg-secondary: #1a1a1a;
-  --bg-tertiary: #2a2a2a;
-  --bg-surface: #333333;
-  --bg-accent: #404040;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f0f0f0;
+  --bg-surface: #e8e8e8;
+  --bg-accent: #d0d0d0;
   
   /* High contrast text */
-  --text-primary: #ffffff;
-  --text-secondary: #e0e0e0;
-  --text-tertiary: #cccccc;
+  --text-primary: #000000;
+  --text-secondary: #333333;
+  --text-tertiary: #666666;
   
-  /* Reduced animations for accessibility */
+  /* No animations for accessibility */
   --shadow-intensity: 0;
-  --glow-intensity: 0.1;
-  --anim-intensity: 0.2;
-  --bg-animation-opacity: 0.3;
+  --glow-intensity: 0;
+  --anim-intensity: 0;
+  --bg-animation-opacity: 0;
   
-  /* Clear glass effects */
-  --glass-light: rgba(255, 255, 255, 0.05);
-  --glass-medium: rgba(255, 255, 255, 0.1);
-  --glass-heavy: rgba(255, 255, 255, 0.2);
+  /* High contrast effects */
+  --glass-light: rgba(0, 0, 0, 0.1);
+  --glass-medium: rgba(0, 0, 0, 0.2);
+  --glass-heavy: rgba(0, 0, 0, 0.3);
+  --glass-neon: rgba(0, 0, 0, 0.1);
+  
+  /* High contrast orange */
+  --brand-orange: #ff6600;
 }
 
 /* MAIN DESIGN SYSTEM - CYBER ORANGE DARK THEME */
