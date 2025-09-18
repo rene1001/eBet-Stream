@@ -20,20 +20,20 @@ def theme_context(request):
     theme_data = {
         'cyber': {
             'name': 'Cyber',
-            'description': 'Expérience gaming complète',
-            'icon': 'bi-lightning-charge-fill',
+            'description': 'Gaming complet',
+            'icon': '⚡',
             'color': '#FF9500'
         },
         'dim': {
             'name': 'Dim',
-            'description': 'Confort visuel pour sessions longues',
-            'icon': 'bi-moon-stars-fill',
+            'description': 'Confort visuel',
+            'icon': '🌙',
             'color': '#6B7280'
         },
         'contrast': {
             'name': 'Contraste',
-            'description': 'Accessibilité maximale',
-            'icon': 'bi-circle-half',
+            'description': 'Accessibilité',
+            'icon': '🔍',
             'color': '#FFFFFF'
         }
     }
