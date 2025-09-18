@@ -1,32 +1,31 @@
 {% extends 'core/base.html' %}
 {% load i18n %}
+
 {% block title %}{{ match.team1.name }} vs {{ match.team2.name }} - eBetStream{% endblock %}
+
+{% block secondary_nav %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-2">
+    <div class="container">
+        <div class="navbar-nav">
+            <a class="nav-link" href="{% url 'core:game_list' %}">
+                <i class="fas fa-gamepad me-2"></i> {{ match.tournament.game.name|upper }}
+            </a>
+            <a class="nav-link" href="{% url 'core:tournament_list' match.tournament.game.id %}">
+                <i class="fas fa-trophy me-2"></i> {{ match.tournament.name|upper }}
+            </a>
+            <a class="nav-link" href="{% url 'core:match_list' match.tournament.id %}">
+                <i class="fas fa-arrow-left me-2"></i> {% trans "RETOUR AUX MATCHS" %}
+            </a>
+            <a class="nav-link active ms-3" href="{% url 'core:match_detail' match.id %}">
+                <i class="fas fa-video me-1"></i> {{ match.team1.name|upper }} VS {{ match.team2.name|upper }}
+            </a>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
 {% block content %}
-<div class="container">
-  <!-- Breadcrumbs -->
-  <div class="container mt-3">
-    <nav aria-label="{% trans 'breadcrumb' %}">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="{% url 'core:home' %}">{% trans "Accueil" %}</a>
-        </li>
-        <li class="breadcrumb-item">
-          <a href="{% url 'core:game_list' %}">{% trans "Jeux" %}</a>
-        </li>
-        <li class="breadcrumb-item">
-          <a href="{% url 'core:tournament_list' match.tournament.game.id %}"
-            >{{ match.tournament.game.name }} {% trans "Tournois" %}</a
-          >
-        </li>
-        <li class="breadcrumb-item">
-          <a href="{% url 'core:match_list' match.tournament.id %}"
-            >{{ match.tournament.name }} {% trans "Matches" %}</a
-          >
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">{{ match }}</li>
-      </ol>
-    </nav>
-  </div>
+<div class="container py-4">
 
   <!-- Informations du tournoi -->
   <div class="mb-4">
@@ -323,13 +322,17 @@
     </div>
   </div>
 </div>
-{% endblock %} {% block extra_js %}
+{% endblock %}
+
+{% if match.status == 'live' %}
+{% block extra_js %}
 <script>
   // Rafraîchir la page toutes les 30 secondes si le match est en direct
-  {% if match.status == 'live' %}
-  setTimeout(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
       location.reload();
-  }, 30000);
-  {% endif %}
+    }, 30000);
+  });
 </script>
 {% endblock %}
+{% endif %}

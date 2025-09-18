@@ -642,8 +642,8 @@ msgid "Close"
 msgstr "Close"
 
 #: core/templates/core/base.html:111
-msgid "Votre plateforme de paris sportifs en ligne"
-msgstr "Your online esports betting platform"
+msgid "Earn While Playing, Live Your Passion!"
+msgstr "Earn While Playing, Live Your Passion!"
 
 #: core/templates/core/base.html:114
 msgid "Tous droits réservés."
@@ -1504,12 +1504,16 @@ msgid "Cancel"
 msgstr ""
 
 #: users/templates/users/login.html:7
-msgid "Connexion Cyber - eBetStream NEXUS"
-msgstr ""
+msgid "Connexion - eBetStream"
+msgstr "Login - eBetStream"
 
-#: users/templates/users/login.html:16 users/templates/users/login.html:55
-msgid "CONNEXION NEXUS"
-msgstr ""
+#: users/templates/users/login.html:16
+msgid "CONNEXION"
+msgstr "LOGIN"
+
+#: users/templates/users/login.html:55
+msgid "SE CONNECTER"
+msgstr "SIGN IN"
 
 #: users/templates/users/login.html:17
 msgid "Accédez à votre compte cyber-sportif"
@@ -1616,12 +1620,12 @@ msgid "Statut"
 msgstr ""
 
 #: users/templates/users/register.html:7
-msgid "Inscription Cyber - eBetStream NEXUS"
-msgstr ""
+msgid "Inscription - eBetStream"
+msgstr "Registration - eBetStream"
 
 #: users/templates/users/register.html:16
-msgid "REJOINDRE NEXUS"
-msgstr ""
+msgid "CRÉER UN COMPTE"
+msgstr "CREATE ACCOUNT"
 
 #: users/templates/users/register.html:17
 msgid "Créez votre profil cyber-sportif dès maintenant"
@@ -1636,8 +1640,8 @@ msgid "Confirmer mot de passe"
 msgstr ""
 
 #: users/templates/users/register.html:67
-msgid "CRÉER MON COMPTE NEXUS"
-msgstr ""
+msgid "S'INSCRIRE MAINTENANT"
+msgstr "SIGN UP NOW"
 
 #: users/templates/users/register.html:77
 msgid "Déjà membre de la communauté ?"

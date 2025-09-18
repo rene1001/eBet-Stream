@@ -1,7 +1,7 @@
 /*
 ==========================================================================
-eBetStream NEXUS - Ultra-Modern Revolutionary Sports Betting Platform
-Design System v3.0 - Beyond FanDuel & DraftKings
+:eBetStream - Plateforme de Paris Sportifs eSport
+Design System v3.0 - Expérience Utilisateur Premium
 ==========================================================================
 */
 
@@ -1840,5 +1840,118 @@ body::after {
     .promo-content .btn-cyber {
         font-size: 0.8rem !important;
         padding: 10px 16px !important;
+    }
+}
+
+/* Styles pour la barre de navigation principale */
+.navbar {
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--brand-orange);
+    padding: 0.5rem 1rem;
+}
+
+.navbar-brand img.logo {
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover img.logo {
+    transform: scale(1.05);
+}
+
+.navbar-nav .nav-link {
+    color: var(--text-primary) !important;
+    font-weight: 600;
+    padding: 0.75rem 1.25rem;
+    margin: 0 0.25rem;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: var(--brand-orange) !important;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: var(--brand-orange);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: 70%;
+}
+
+/* Style pour le sélecteur de thème et de langue */
+.navbar .form-select {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--brand-orange);
+    border-radius: 4px;
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+.navbar .form-select:focus {
+    border-color: var(--brand-orange);
+    box-shadow: 0 0 0 0.25rem rgba(255, 149, 0, 0.25);
+}
+
+/* Style pour les boutons de connexion/inscription */
+.navbar .btn-outline-light {
+    color: var(--brand-orange);
+    border-color: var(--brand-orange);
+}
+
+.navbar .btn-outline-light:hover {
+    background-color: var(--brand-orange);
+    color: #000;
+}
+
+/* Style pour le menu mobile */
+.navbar-toggler {
+    border: 1px solid var(--brand-orange);
+    padding: 0.5rem;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 149, 0, 0.25);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 149, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+/* Ajustements pour les petits écrans */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background-color: var(--bg-secondary);
+        padding: 1rem;
+        border-radius: 4px;
+        margin-top: 0.5rem;
+        border: 1px solid var(--brand-orange);
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.5rem 0;
+        margin: 0.25rem 0;
+    }
+    
+    .navbar-nav .nav-link::after {
+        display: none;
+    }
+    
+    .d-flex.gap-3 {
+        gap: 0.5rem !important;
     }
 }

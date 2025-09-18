@@ -5,6 +5,8 @@ from django.views import generic
 from .models import Game, Tournament, Team, Match
 from django.views.generic import View, TemplateView
 from partenaires.models import Partenaire
+from betting.models import Bet
+from django.db.models import Sum, Count, Q
 
 class HomeView(TemplateView):
     """Vue pour la page d'accueil"""
@@ -15,6 +17,23 @@ class HomeView(TemplateView):
         context['upcoming_matches'] = Match.objects.filter(status='upcoming').order_by('start_time')[:5]
         context['popular_games'] = Game.objects.filter(active=True)[:6]
         context['partenaires'] = Partenaire.objects.filter(est_actif=True).order_by('ordre_affichage')
+        
+        # Ajout des statistiques de paris
+        if self.request.user.is_authenticated:
+            user_bets = Bet.objects.filter(user=self.request.user)
+            context['total_bets'] = user_bets.count()
+            context['total_won'] = user_bets.filter(status='won').count()
+            context['total_lost'] = user_bets.filter(status='lost').count()
+            context['total_pending'] = user_bets.filter(status='pending').count()
+            
+            # Calcul des gains et mises totales
+            won_bets = user_bets.filter(status='won')
+            context['total_winnings'] = sum(bet.potential_win for bet in won_bets if bet.potential_win is not None)
+            context['total_bet_amount'] = sum(bet.amount for bet in user_bets if bet.amount is not None)
+            
+            # Derniers paris
+            context['recent_bets'] = user_bets.select_related('match', 'bet_type').order_by('-created_at')[:5]
+        
         return context
 
 

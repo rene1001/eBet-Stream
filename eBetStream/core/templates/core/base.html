@@ -12,6 +12,38 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="{% static 'css/sport-style.css' %}?v=mobile-title-reduced-20250917" rel="stylesheet">
+    <style>
+        .nav-item select.form-select {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid #495057;
+            margin: 0 0.25rem;
+            width: auto;
+            max-width: 120px;
+            display: inline-block;
+            height: 31px;
+            line-height: 1.2;
+            padding: 0.25rem 1.5rem 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 12px 12px;
+        }
+        .nav-item select.form-select option {
+            color: #000;
+        }
+        .nav-item select.form-select:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        .text-danger {
+            color: #dc3545 !important;
+        }
+    </style>
     <meta name="theme-color" content="{{ theme_info.color|default:'#000008' }}">
     <meta name="color-scheme" content="dark">
     <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
@@ -30,16 +62,32 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'core:game_list' %}">{% trans "Jeux" %}</a>
+                        <a class="nav-link" href="{% url 'core:home' %}">{% trans "ACCUEIL" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'betting:bet_list' %}">{% trans "Paris" %}</a>
+                        <a class="nav-link" href="{% url 'betting:bet_list' %}">{% trans "PARIS SPORTIFS" %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'core:game_list' %}">{% trans "JEUX" %}</a>
+                    </li>
+                    <!-- Menu COMMUNITY en select -->
+                    <li class="nav-item d-flex align-items-center">
+                        <select class="form-select form-select-sm" onchange="if(this.value) window.location.href=this.value" style="width: 130px;">
+                            <option value="" style="font-weight: bold;">{% trans "COMMUNAUTÉ" %}</option>
+                            <option value="{% url 'betting:p2p_index' %}">{% trans "DÉFIS P2P" %}</option>
+                            <option disabled>──────────</option>
+                            <option value="{% url 'clans_gaming:liste_clans' %}">{% trans "CLAN" %}</option>
+                            <option value="{% url 'gameurs:liste_gameurs' %}">{% trans "TOP GAMER" %}</option>
+                            <option value="{% url 'evenements:liste_evenements' %}">{% trans "ÉVÉNEMENTS" %}</option>
+                            <option value="{% url 'forum:liste_categories' %}">{% trans "FORUM" %}</option>
+                            <option value="{% url 'blog:liste_articles' %}">{% trans "BLOG" %}</option>
+                        </select>
                     </li>
                 </ul>
                 <div class="d-flex align-items-center ms-auto gap-3">
-                    <!-- Theme Selector - Window Style -->
-                    <div class="d-flex align-items-center">
-                        <select name="theme" class="form-select form-select-sm" onchange="changeTheme(this.value)" id="theme-selector">
+                    <!-- Sélecteur de thème -->
+                    <div class="d-flex align-items-center me-2">
+                        <select name="theme" class="form-select form-select-sm" onchange="changeTheme(this.value)" id="theme-selector" style="width: 100px;">
                             {% for theme_key, theme_data in available_themes.items %}
                             <option value="{{ theme_key }}" {% if theme_key == current_theme %}selected{% endif %}>
                                 {{ theme_data.icon }} {{ theme_data.name }}
@@ -47,38 +95,35 @@
                             {% endfor %}
                         </select>
                     </div>
-                    
-                    <!-- Language Selector -->
-                    <form action="/i18n/setlang/" method="post" class="d-flex align-items-center">
-                        {% csrf_token %}
-                        {% get_current_language as LANGUAGE_CODE %}
-                        <select name="language" class="form-select form-select-sm" onchange="this.form.submit()">
-                            <option value="fr" {% if LANGUAGE_CODE == 'fr' %}selected{% endif %}>🇫🇷 Français</option>
-                            <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>🇬🇧 English</option>
-                            <option value="es" {% if LANGUAGE_CODE == 'es' %}selected{% endif %}>🇪🇸 Español</option>
-                        </select>
-                    </form>
-                </div>
-                <ul class="navbar-nav">
+
+                    <!-- Bouton VIP -->
+                    <a href="{% url 'users:devenir_vip' %}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-crown me-1"></i> {% trans "DEVENIR VIP" %}
+                    </a>
+
+                    <!-- Bouton Connexion -->
                     {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:profile' %}">{% trans "Mon Compte" %}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:logout' %}">{% trans "Déconnexion" %}</a>
-                        </li>
+                        <select class="form-select form-select-sm ms-2" onchange="if(this.value) window.location.href=this.value" style="width: auto; max-width: 110px;">
+                            <option value="">{{ user.username|truncatechars:10 }}</option>
+                            <option value="{% url 'users:profile' %}">{% trans "Profil" %}</option>
+                            <option disabled>───</option>
+                            <option value="{% url 'users:logout' %}" class="text-danger">{% trans "Déco" %}</option>
+                        </select>
                     {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:login' %}">{% trans "Connexion" %}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:register' %}">{% trans "Inscription" %}</a>
-                        </li>
+                        <a href="{% url 'users:login' %}" class="btn btn-outline-light btn-sm">
+                            <i class="fas fa-sign-in-alt me-1"></i> {% trans "Connexion" %}
+                        </a>
+                        <a href="{% url 'users:register' %}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-user-plus me-1"></i> {% trans "Inscription" %}
+                        </a>
                     {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
+
+    <!-- Bloc de navigation secondaire personnalisé -->
+    {% block secondary_nav %}{% endblock %}
 
     {% if messages %}
         <div class="container mt-4">
@@ -100,7 +145,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h5 class="text-cyber mb-3"><img src="{% static 'images/Logo.png' %}" alt="{% trans 'eBetStream Logo' %}" class="logo" style="max-height: 40px;" /> eBetStream</h5>
-                    <p class="text-dim">{% trans "Votre plateforme de paris sportifs en ligne" %}</p>
+                    <p class="text-dim">{% trans "Earn While Playing, Live Your Passion!" %}</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p class="text-dim">&copy; {% now "Y" %} eBetStream. {% trans "Tous droits réservés." %}</p>

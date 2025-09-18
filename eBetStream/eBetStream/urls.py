@@ -28,8 +28,8 @@ urlpatterns = [
     path("betting/", include("betting.urls")),  # Routes pour les paris
     path("streaming/", include("streaming.urls")),  # Routes pour le streaming
     path("users/", include("users.urls")),  # Routes pour les utilisateurs
-    path("gameurs/", include("gameurs.urls")),  # Routes pour les gameurs
     path("clans/", include("clans_gaming.urls")),  # Routes pour les clans
+    path("gameurs/", include("gameurs.urls")),  # Routes pour les joueurs
     path("evenements/", include("evenements.urls")),  # Routes pour les événements
     path("partenaires/", include("partenaires.urls")),  # Routes pour les partenaires
     path("forum/", include("forum.urls")),  # Routes pour le forum

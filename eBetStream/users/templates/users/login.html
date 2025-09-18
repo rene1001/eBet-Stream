@@ -4,17 +4,16 @@
 {% load widget_tweaks %}
 {% load i18n %}
 
-{% block title %}{% trans "Connexion Cyber - eBetStream NEXUS" %}{% endblock %}
+{% block title %}{% trans "Connexion - eBetStream" %}{% endblock %}
 
 {% block content %}
 <div class="auth-container">
     <div class="auth-cyber-form">
         <div class="auth-header">
             <div class="auth-logo mb-4">
-                <i class="fas fa-user-astronaut text-cyber" style="font-size: 3rem;"></i>
+                <img src="{% static 'images/Logo.png' %}" alt="eBetStream" class="logo" style="height: 80px; width: auto;">
             </div>
-            <h1 class="auth-title">{% trans "CONNEXION NEXUS" %}</h1>
-            <p class="auth-subtitle">{% trans "Accédez à votre compte cyber-sportif" %}</p>
+            <h1 class="auth-title">{% trans "CONNEXION" %}</h1>
         </div>
 
         <form method="post" novalidate class="auth-form">
@@ -52,7 +51,7 @@
             {% endfor %}
 
             <button type="submit" class="btn-cyber w-100 mb-4">
-                <i class="fas fa-rocket me-2"></i>{% trans "CONNEXION NEXUS" %}
+                <i class="fas fa-rocket me-2"></i>{% trans "SE CONNECTER" %}
             </button>
         </form>
 
