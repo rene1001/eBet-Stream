@@ -376,32 +376,32 @@ html[data-theme="dim"] {
 
 /* CONTRAST THEME - High Accessibility WCAG AA */
 html[data-theme="contrast"] {
-  /* Maximum contrast backgrounds */
-  --bg-primary: #000000;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #f0f0f0;
-  --bg-surface: #e8e8e8;
-  --bg-accent: #d0d0d0;
+  /* High contrast light mode */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-tertiary: #e0e0e0;
+  --bg-surface: #f8f8f8;
+  --bg-accent: #e8e8e8;
   
   /* High contrast text */
   --text-primary: #000000;
   --text-secondary: #333333;
   --text-tertiary: #666666;
   
-  /* No animations for accessibility */
+  /* Minimal animations for accessibility */
   --shadow-intensity: 0;
   --glow-intensity: 0;
-  --anim-intensity: 0;
+  --anim-intensity: 0.1;
   --bg-animation-opacity: 0;
   
   /* High contrast effects */
-  --glass-light: rgba(0, 0, 0, 0.1);
-  --glass-medium: rgba(0, 0, 0, 0.2);
-  --glass-heavy: rgba(0, 0, 0, 0.3);
+  --glass-light: rgba(0, 0, 0, 0.05);
+  --glass-medium: rgba(0, 0, 0, 0.1);
+  --glass-heavy: rgba(0, 0, 0, 0.15);
   --glass-neon: rgba(0, 0, 0, 0.1);
   
   /* High contrast orange */
-  --brand-orange: #ff6600;
+  --brand-orange: #e65100;
 }
 
 /* MAIN DESIGN SYSTEM - CYBER ORANGE DARK THEME */
