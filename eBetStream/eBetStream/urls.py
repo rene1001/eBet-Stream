@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
@@ -33,4 +34,6 @@ urlpatterns = [
     path("partenaires/", include("partenaires.urls")),  # Routes pour les partenaires
     path("forum/", include("forum.urls")),  # Routes pour le forum
     path("blog/", include("blog.urls")),  # Routes pour le blog
+    # Favicon redirect pour compatibilité navigateurs
+    path('favicon.ico', RedirectView.as_view(url=settings.STATIC_URL + 'images/favicon.png', permanent=True)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
