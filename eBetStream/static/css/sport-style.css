@@ -88,7 +88,70 @@ Design System v3.0 - Expérience Utilisateur Premium
   border-bottom-color: rgba(255, 193, 7, 0.2);
 }
 
-/* Responsive pour mobile */
+/* ========================================= */
+/* RESPONSIVE DESIGN - MOBILE FIRST APPROACH */
+/* ========================================= */
+
+/* Base mobile styles */
+body {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Navigation mobile */
+.navbar-toggler {
+  padding: 0.5rem;
+  border: 1px solid var(--brand-orange);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 149, 0, 0.25);
+}
+
+/* Conteneur principal */
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* En-têtes responsifs */
+h1 { font-size: 2rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+
+/* Boutons et éléments interactifs */
+.btn, .form-control, .form-select {
+  min-height: 44px; /* Taille de touche minimale pour le tactile */
+}
+
+/* Images responsives */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Cartes et grilles */
+.card {
+  margin-bottom: 1rem;
+}
+
+/* Formulaire mobile */
+.form-control, .form-select {
+  font-size: 1rem; /* Taille de police minimale pour éviter le zoom automatique */
+}
+
+/* Tableaux responsifs */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Toast notifications */
 @media (max-width: 768px) {
   .toast-container {
     top: 10px;
@@ -647,14 +710,15 @@ body::after {
   text-shadow: 0 0 10px rgba(255, 149, 0, 0.5);
 }
 
-.navbar-nav .nav-link:hover::before {
+.cyber-navbar-nav .nav-link:hover::before {
   opacity: 1;
 }
 
-/* Main Content Spacing */
+/* Main Content */
 .main-content {
-  margin-top: var(--space-l);
-  padding: 0 var(--space-m);
+    margin-top: 80px; /* Espace pour la navbar fixe */
+    position: relative;
+    z-index: 1;
 }
 
 /* Revolutionary Hero Section */
@@ -668,7 +732,7 @@ body::after {
   position: relative;
   background: var(--gradient-dark);
   overflow: hidden;
-  padding: var(--space-l) 0;
+  padding: var(--space-s) var(--space-m);
 }
 
 .hero-section::before {
@@ -1163,6 +1227,67 @@ label {
 /* Responsive Design */
 
 /* Ultra-Wide Screens (1920px+) - Plein écran optimisé */
+/* Breakpoints spécifiques */
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.3rem; }
+  
+  .btn, .form-control, .form-select {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+  
+  /* Ajustements spécifiques pour la navigation */
+  .cyber-navbar-brand .logo {
+    max-height: 35px;
+  }
+  
+  .cyber-navbar-nav {
+    padding: 1rem 0;
+  }
+  
+  .nav-link {
+    padding: 0.5rem 0;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1919.98px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+/* Extra extra large devices (extra large desktops, 1920px and up) */
 @media (min-width: 1920px) {
   .container {
     max-width: 1800px;
@@ -1190,7 +1315,7 @@ label {
     margin: var(--space-2xl) auto;
   }
   
-  .navbar {
+  .cyber-navbar {
     padding: var(--space-m) var(--space-2xl);
   }
 }
@@ -1231,7 +1356,7 @@ label {
 }
 
 @media (max-width: 1024px) {
-  .navbar {
+  .cyber-navbar {
     padding: var(--space-s);
   }
   
@@ -1730,53 +1855,41 @@ label {
 */
 
 .promo-carousel-section {
-    background: var(--dark-space);
-    border-bottom: 2px solid rgba(255, 149, 0, 0.2);
+    margin: 2rem auto 3rem;
+    max-width: 1400px;
+    width: 100%;
+    padding: 0 15px;
     position: relative;
-    overflow: visible;
-    padding: var(--space-l) 0;
-    min-height: 400px;
+    z-index: 1;
 }
 
-.promo-carousel-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at center, rgba(255, 149, 0, 0.05) 0%, transparent 70%);
-    pointer-events: none;
-}
-
-/* Carousel Styling */
-#promoCarousel {
-    position: relative;
-    border-radius: var(--radius-l);
+.carousel {
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: var(--shadow-depth);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-inner {
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .promo-slide {
+    height: 500px;
     position: relative;
-    height: 350px;
-    border-radius: var(--radius-l);
     overflow: hidden;
-    background: var(--gradient-dark);
-    margin: 0 auto;
-    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .carousel-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: var(--radius-l);
-    transition: transform var(--speed-slow) ease;
-}
-
-.promo-slide:hover .carousel-img {
-    transform: scale(1.05);
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .promo-overlay {
@@ -1785,56 +1898,160 @@ label {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(0, 0, 8, 0.7) 0%,
-        rgba(26, 26, 46, 0.8) 50%,
-        rgba(255, 149, 0, 0.1) 100%
-    );
+    background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-l);
-    border-radius: var(--radius-l);
+    padding: 2rem;
+    text-align: center;
 }
 
 .promo-content {
-    text-align: center;
-    max-width: 600px;
+    max-width: 800px;
+    color: white;
     z-index: 2;
-    position: relative;
+    padding: 0 1rem;
 }
 
 .promo-title {
-    font-family: 'Orbitron', monospace;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--brand-orange);
-    text-shadow: 0 0 20px rgba(255, 149, 0, 0.5);
-    margin-bottom: var(--space-m);
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    line-height: 1.2;
 }
 
 .promo-description {
-    font-family: 'Space Grotesk', sans-serif;
     font-size: 1.2rem;
-    color: var(--text-cyber);
+    margin-bottom: 2rem;
     line-height: 1.6;
-    margin-bottom: var(--space-l);
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
-/* Carousel Indicators - Cyber Style */
+/* Carousel Controls */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    opacity: 1;
+}
+
+/* Carousel Indicators */
 .carousel-indicators {
-    margin-bottom: 1rem;
+    bottom: 20px;
+    margin: 0;
+    padding: 0 1rem;
+    justify-content: flex-end;
 }
 
-.carousel-indicators button {
-    width: 15px;
-    height: 15px;
+.carousel-indicators [data-bs-target] {
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    margin: 0 8px;
+    margin: 0 5px;
+    background-color: rgba(255,255,255,0.5);
+    border: none;
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.carousel-indicators .active {
+    background-color: var(--brand-orange);
+    transform: scale(1.2);
+}
+
+/* Styles responsifs pour le carrousel */
+@media (max-width: 1200px) {
+    .promo-title {
+        font-size: 2.2rem;
+    }
+    
+    .promo-description {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .promo-slide {
+        height: 450px;
+    }
+    
+    .promo-title {
+        font-size: 2rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .promo-description {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .promo-slide {
+        height: 400px;
+    }
+    
+    .promo-title {
+        font-size: 1.8rem;
+    }
+    
+    .promo-description {
+        font-size: 0.95rem;
+    }
+    
+    .promo-overlay {
+        padding: 1.5rem;
+    }
+    
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 8%;
+    }
+}
+
+@media (max-width: 576px) {
+    .promo-slide {
+        height: 350px;
+    }
+    
+    .promo-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .promo-description {
+        font-size: 0.9rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .promo-overlay {
+        padding: 1rem;
+    }
+    
+    .btn-cyber {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    .carousel-indicators {
+        bottom: 10px;
+    }
+    
+    .carousel-indicators [data-bs-target] {
+        width: 8px;
+        height: 8px;
+        margin: 0 3px;
+    }
+}
+
+/* Carousel Controls */
+.carousel-indicators button {
     background-color: rgba(255, 149, 0, 0.3);
     border: 2px solid transparent;
     transition: all var(--speed-normal) ease;
@@ -2108,6 +2325,76 @@ label {
 
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 149, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+/* Styles responsifs pour le carrousel */
+@media (max-width: 1200px) {
+    .promo-title {
+        font-size: 2.2rem;
+    }
+    
+    .promo-description {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .promo-slide {
+        height: 450px;
+    }
+    
+    .promo-title {
+        font-size: 2rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .promo-description {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .promo-slide {
+        height: 400px;
+    }
+    
+    .promo-title {
+        font-size: 1.8rem;
+    }
+    
+    .promo-description {
+        font-size: 0.95rem;
+    }
+    
+    .promo-overlay {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .promo-slide {
+        height: 350px;
+    }
+    
+    .promo-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .promo-description {
+        font-size: 0.9rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .promo-overlay {
+        padding: 1rem;
+    }
+    
+    .btn-cyber {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+    }
 }
 
 /* Ajustements pour les petits écrans */

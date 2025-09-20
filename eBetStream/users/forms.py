@@ -3,16 +3,34 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
 from django.core.validators import MinLengthValidator
-from .models import User, Transaction, PaymentMethod, DepositRequest, WithdrawalRequest, GameOrganizationRequest
+from .models import User, Transaction, PaymentMethod, DepositRequest, WithdrawalRequest, GameOrganizationRequest, PromoCode
 from django.utils import timezone
 
 class UserRegisterForm(UserCreationForm):
     """Custom registration form"""
     email = forms.EmailField(required=True)
+    promo_code = forms.CharField(
+        max_length=20,
+        required=False,
+        label='Code promo (optionnel)',
+        help_text='Si vous avez un code promo, entrez-le ici pour bénéficier d\'un bonus de bienvenue.'
+    )
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'promo_code']
+        
+    def clean_promo_code(self):
+        promo_code = self.cleaned_data.get('promo_code')
+        if promo_code:
+            try:
+                promo = PromoCode.objects.get(code=promo_code, is_active=True)
+                if not promo.can_be_used():
+                    raise forms.ValidationError("Ce code promo n'est plus valide ou a atteint son nombre maximum d'utilisations.")
+                return promo
+            except PromoCode.DoesNotExist:
+                raise forms.ValidationError("Code promo invalide.")
+        return None
 
 
 class AdminRegisterForm(UserCreationForm):
@@ -222,6 +240,20 @@ class WithdrawalRequestForm(forms.ModelForm):
         amount = self.cleaned_data['amount']
         if amount <= 0:
             raise forms.ValidationError("Amount must be greater than 0.")
+
+class GeneratePromoCodeForm(forms.Form):
+    """Form to generate a promo code"""
+    max_uses = forms.IntegerField(
+        min_value=1,
+        max_value=1000,
+        initial=10,
+        label="Nombre maximum d'utilisations",
+        help_text="Définissez combien de fois ce code pourra être utilisé (1-1000)"
+    )
+    
+    class Meta:
+        fields = ['max_uses']
+
 
 class GameOrganizationRequestForm(forms.ModelForm):
     """Game organization request form"""

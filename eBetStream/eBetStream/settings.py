@@ -14,10 +14,20 @@ SECRET_KEY = 'jango-insecure-8^b_4!q3r4$5t6y7u8i9o0p1a2s3d4f5g6h7j8k9l0z1x2c3v4b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# En production, définir DEBUG = False et spécifier les hôtes autorisés
+# ALLOWED_HOSTS = ['votredomaine.com', 'www.votredomaine.com']
 ALLOWED_HOSTS = ['*']
 
-# Configuration CSRF pour le développement
+# Configuration de sécurité pour le développement
+# IMPORTANT: En production, définir ces valeurs sur True
 CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = False
+SECURE_HSTS_SECONDS = 0  # Désactivé en développement
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+SECURE_HSTS_PRELOAD = False
+
+# Configuration CSRF pour le développement
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000', 
     'http://127.0.0.1:8000',
@@ -59,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'eBetStream.middleware.CorsMiddleware',
     'core.middleware.PartenairesMiddleware',
 ]
 
@@ -186,6 +197,12 @@ if not DEBUG:
     # Configuration des fichiers statiques
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    
+    # Configuration des types MIME personnalisés
+    import mimetypes
+    mimetypes.add_type('application/javascript', '.js')
+    mimetypes.add_type('text/javascript', '.js')
+    mimetypes.add_type('application/wasm', '.wasm')
 
 # Configuration Crispy Forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

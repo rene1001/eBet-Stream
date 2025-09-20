@@ -34,9 +34,39 @@ class RegisterView(generic.CreateView):
     def form_valid(self, form):
         # Generate verification token
         verification_token = get_random_string(50)
-        user = form.save(commit=False)
-        user.verification_token = verification_token
-        user.save()
+        promo_code = form.cleaned_data.pop('promo_code', None)
+        
+        with db_transaction.atomic():
+            # Create user
+            user = form.save(commit=False)
+            user.verification_token = verification_token
+            user.save()
+            
+            # If promo code was provided and valid, create a PromoCodeUsage
+            if promo_code:
+                # Create a deposit transaction (will be updated with actual amount later)
+                deposit = Transaction.objects.create(
+                    user=user,
+                    amount=0,  # Will be updated after first deposit
+                    transaction_type='deposit',
+                    status='completed',
+                    description=f"Inscription avec code promo {promo_code.code}"
+                )
+                
+                # Create promo code usage
+                promo_usage = PromoCodeUsage.objects.create(
+                    promo_code=promo_code,
+                    user=user,
+                    deposit=deposit,
+                    bonus_amount=0  # Will be calculated on first deposit
+                )
+                
+                # Record activity
+                UserActivity.objects.create(
+                    user=user,
+                    activity_type='promo_code_used',
+                    details=f"Code promo {promo_code.code} utilisé à l'inscription"
+                )
 
         # Send verification email
         subject = 'Verify your eBetStream account'
@@ -44,16 +74,24 @@ class RegisterView(generic.CreateView):
         Thank you for registering on eBetStream!
         Please click on the following link to verify your email:
         {self.request.build_absolute_uri('/')}users/verify-email/?token={verification_token}
+        
         """
+        
+        if promo_code:
+            message += f"\nVous avez utilisé le code promo {promo_code.code}. Vous recevrez un bonus de 100% sur votre premier dépôt !"
+        
         send_mail(
             subject,
-            message,
+            message.strip(),
             settings.DEFAULT_FROM_EMAIL,
             [user.email],
             fail_silently=False,
         )
 
-        messages.success(self.request, 'Account created successfully! A verification email has been sent.')
+        messages.success(self.request, 'Compte créé avec succès ! Un email de vérification a été envoyé.')
+        if promo_code:
+            messages.info(self.request, f'Code promo {promo_code.code} appliqué avec succès ! Vous bénéficierez d\'un bonus de 100% sur votre premier dépôt.')
+            
         return super().form_valid(form)
 
 
@@ -244,27 +282,61 @@ class DepositView(generic.FormView):
         payment_method = form.cleaned_data['payment_method']
 
         with db_transaction.atomic():
-            # Create transaction with 'pending' status
+            # Vérifier s'il s'agit du premier dépôt avec un code promo
+            promo_usage = PromoCodeUsage.objects.filter(
+                user=self.request.user,
+                deposit__amount=0  # On cherche l'entrée créée à l'inscription
+            ).select_related('promo_code').first()
+
+            # Créer la transaction de dépôt
             transaction = Transaction.objects.create(
                 user=self.request.user,
                 amount=amount,
                 transaction_type='deposit',
                 status='pending',
-                description=f"Deposit via {payment_method}",
-                payment_method=payment_method  # Add payment_method
+                description=f"Dépôt via {payment_method}",
+                payment_method=payment_method
             )
 
-            # Process transaction to update balance
-            transaction.process_transaction()
+            # Mettre à jour l'entrée PromoCodeUsage avec le montant réel du dépôt
+            if promo_usage:
+                promo_usage.deposit = transaction
+                promo_usage.bonus_amount = amount  # Bonus de 100%
+                promo_usage.save()
+                
+                # Appliquer le bonus
+                promo_usage.apply_bonus()
+                
+                # Mettre à jour la description de la transaction
+                transaction.description = f"Dépôt via {payment_method} avec code promo {promo_usage.promo_code.code}"
+                transaction.save()
+                
+                # Mettre à jour le solde bonus
+                self.request.user.balance += amount
+                self.request.user.save()
+                
+                # Créer une transaction pour le bonus
+                Transaction.objects.create(
+                    user=self.request.user,
+                    amount=amount,
+                    transaction_type='bonus',
+                    status='completed',
+                    description=f"Bonus de bienvenue de 100% sur votre premier dépôt avec le code {promo_usage.promo_code.code}"
+                )
+                
+                # Envoyer une notification à l'utilisateur
+                messages.success(self.request, f'Dépôt de {amount} Ktap effectué avec succès ! Vous avez reçu un bonus de 100% grâce à votre code promo !')
+            else:
+                transaction.process_transaction()
+                messages.success(self.request, f'Dépôt de {amount} Ktap effectué avec succès !')
 
-            # Record activity
+            # Enregistrer l'activité
             UserActivity.objects.create(
                 user=self.request.user,
                 activity_type='deposit',
-                details=f"Deposit of {amount} Ktap via {payment_method}"
+                details=f"Dépôt de {amount} Ktap via {payment_method}"
             )
 
-        messages.success(self.request, f'Deposit of {amount} Ktap completed successfully!')
         return super().form_valid(form)
 
 

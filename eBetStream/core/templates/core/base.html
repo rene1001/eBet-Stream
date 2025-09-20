@@ -7,11 +7,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}eBetStream - {% trans "Paris sur esports" %}{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="{% static 'css/sport-style.css' %}?v=mobile-title-reduced-20250917" rel="stylesheet">
+    <!-- Bootstrap CSS local -->
+    <link href="{% static 'bootstrap-5.3.5-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Bootstrap Icons local -->
+    <link href="{% static 'bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <!-- Font Awesome local -->
+    <link href="{% static 'fontawesome/css/all.min.css' %}" rel="stylesheet">
+    <!-- Google Fonts Inter -->
+    <link href="{% static 'fonts/Inter/stylesheet.css' %}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'css/sport-style.css' %}?v=202509201700" rel="stylesheet">
     <style>
         .nav-item select.form-select {
             background-color: transparent;
@@ -28,6 +33,7 @@
             cursor: pointer;
             -webkit-appearance: none;
             -moz-appearance: none;
+            appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 0.5rem center;
@@ -159,7 +165,7 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/theme-toggle.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>

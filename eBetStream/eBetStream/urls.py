@@ -20,6 +20,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
@@ -37,3 +38,14 @@ urlpatterns = [
     # Favicon redirect pour compatibilité navigateurs
     path('favicon.ico', RedirectView.as_view(url=settings.STATIC_URL + 'images/favicon.png', permanent=True)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Ajout des URLs pour les fichiers statiques en développement
+if settings.DEBUG:
+    from django.contrib.staticfiles.views import serve
+    from django.views.decorators.cache import never_cache
+    
+    # Servir les fichiers statiques avec le bon en-tête de cache
+    urlpatterns += static(settings.STATIC_URL, view=never_cache(serve), document_root=settings.STATIC_ROOT)
+    
+    # Servir les fichiers média
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
