@@ -291,32 +291,39 @@
 {% block extra_js %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Récupérer les éléments du DOM
-    const form = document.getElementById('challenge-form');
-    const creatorBetInput = document.getElementById('{{ form.creator_bet_amount.id_for_label }}');
-    const opponentBetInput = document.getElementById('{{ form.opponent_bet_amount.id_for_label }}');
-    const totalPotElement = document.getElementById('total-pot');
-    const gameTypeSelect = document.getElementById('{{ form.game_type.id_for_label }}');
-    const gameNameInput = document.getElementById('{{ form.game_name.id_for_label }}');
-    
-    // Mettre à jour le pot total
-    function updateTotalPot() {
-        const creatorBet = parseFloat(creatorBetInput.value) || 0;
-        const opponentBet = parseFloat(opponentBetInput.value) || 0;
-        const totalPot = creatorBet + opponentBet;
-        totalPotElement.textContent = totalPot.toFixed(2);
+    // Récupérer les champs de formulaire
+    const creatorInput = document.querySelector('input[name="creator_bet_amount"]');
+    const opponentInput = document.querySelector('input[name="opponent_bet_amount"]');
+    const totalPot = document.getElementById('total-pot');
+    const gameTypeSelect = document.querySelector('select[name="game_type"]');
+    const gameNameInput = document.querySelector('input[name="game_name"]');
+
+    // Vérifier si les champs existent
+    if (!creatorInput || !opponentInput) {
+        console.error('Champs de mise non trouvés');
+        return;
     }
-    
-    // Synchroniser la mise de l'adversaire avec celle du créateur
-    if (creatorBetInput && opponentBetInput) {
-        creatorBetInput.addEventListener('input', function() {
-            opponentBetInput.value = this.value;
-            updateTotalPot();
-        });
+
+    // Mettre à jour le montant de l'adversaire et le pot total
+    function updateValues() {
+        const value = parseFloat(creatorInput.value) || 0;
+        opponentInput.value = value.toFixed(2);
         
-        // Initialiser le pot total au chargement
-        updateTotalPot();
+        if (totalPot) {
+            totalPot.textContent = (value * 2).toFixed(2);
+        }
     }
+
+    // Écouter les changements sur le champ créateur
+    creatorInput.addEventListener('input', updateValues);
+    
+    // Désactiver la saisie manuelle dans le champ adversaire
+    opponentInput.addEventListener('input', function() {
+        this.value = creatorInput.value || '0';
+    });
+
+    // Mettre à jour les valeurs au chargement
+    updateValues();
     
     // Mettre à jour le nom du jeu en fonction du type de jeu sélectionné
     if (gameTypeSelect && gameNameInput) {
@@ -347,17 +354,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (selectedDate <= now) {
                     e.preventDefault();
-                    alert('{% trans "La date d\'expiration doit être dans le futur." %}');
+                    alert("La date d'expiration doit être dans le futur.");
                     expiresAtInput.focus();
                     return false;
                 }
             }
             
             // Vérifier que le montant est valide
-            if (creatorBetInput && parseFloat(creatorBetInput.value) <= 0) {
+            if (creatorInput && (isNaN(parseFloat(creatorInput.value)) || parseFloat(creatorInput.value) <= 0)) {
                 e.preventDefault();
-                alert('{% trans "Le montant du pari doit être supérieur à 0." %}');
-                creatorBetInput.focus();
+                alert("Le montant du pari doit être supérieur à 0.");
+                creatorInput.focus();
                 return false;
             }
             
